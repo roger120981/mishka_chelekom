@@ -1,4 +1,16 @@
 defmodule MishkaChelekom.Overlay do
+  @moduledoc """
+  The `MishkaChelekom.Overlay` module provides a versatile overlay component for
+  Phoenix LiveView applications, allowing developers to create layered content effects.
+  It supports various customization options, including color themes, opacity levels,
+  and blur effects, which enable the creation of visually engaging overlays.
+
+  This component is designed to be highly adaptable, offering predefined color themes,
+  opacity variations, and blur sizes to match the needs of different interface designs.
+  The `MishkaChelekom.Overlay` is perfect for creating modal backgrounds, loading screens,
+  and other interactive elements that require content layering.
+  """
+
   use Phoenix.Component
 
   @sizes ["extra_small", "small", "medium", "large", "extra_large"]
@@ -28,15 +40,39 @@ defmodule MishkaChelekom.Overlay do
     "almost_solid"
   ]
 
+  @doc """
+  Renders an overlay element with customizable color, opacity, and blur options.
+
+  The overlay can be used to create various visual effects such as loading screens or background dimming.
+
+  ## Examples
+
+  ```elixir
+  <.overlay color="misc" opacity="semi_opaque" />
+
+  <.overlay color="dawn" opacity="semi_opaque">
+    <div class="flex justify-center items-center gap-2 h-full">
+      <.spinner color="white" size="large" />
+      <div class="text-white">Loading...</div>
+    </div>
+  </.overlay>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
   attr :opacity, :string, values: @opacities ++ [nil], default: nil, doc: ""
   attr :blur, :string, values: @sizes ++ ["none", nil], default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
-  slot :inner_block, required: false, doc: ""
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   @spec overlay(map()) :: Phoenix.LiveView.Rendered.t()
   def overlay(assigns) do

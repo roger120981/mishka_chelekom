@@ -1,30 +1,90 @@
 defmodule MishkaChelekom.RadioField do
+  @moduledoc """
+  The `MishkaChelekom.RadioField` module provides a highly customizable radio button
+  component for Phoenix LiveView applications. This module supports various styling options,
+  including different colors, sizes, and border styles, allowing developers to
+  integrate radio buttons seamlessly into their design system.
+
+  The component offers attributes and slots to control layout, appearance, and behavior,
+  making it versatile for use cases ranging from simple forms to complex UI elements.
+  With features such as error handling and custom labels, it enhances the usability and
+  accessibility of forms, ensuring a cohesive user experience across the application.
+
+  In addition, the module includes support for grouped radio buttons with the `group_radio`
+  component, enabling the creation of sets of related radio inputs. This facilitates the
+  development of dynamic and interactive form elements in a clean and organized manner.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  Renders a radio field component. This component allows users to select a single option from
+  a list of options, and provides various customization options for appearance and behavior.
+
+  ## Examples
+
+  ```elixir
+  <.radio_field name="option" value="Option 1" space="small" label="Option 1 Label"/>
+
+  <.radio_field
+    name="option"
+    value="Option 2"
+    space="medium"
+    color="secondary"
+    label="Option 2 Label"
+    checked
+  />
+
+  <.radio_field name="option" value="Option 3" color="dawn" label="Option 3 Label" reverse/>
+
+  <.radio_field
+    name="option"
+    value="Option 4"
+    space="medium"
+    color="danger"
+    label="Option 4 Label"
+    errors={["Error message for Option 4"]}
+  />
+
+  <.radio_field name="option" value="Option 5" space="small" color="info" label="Option 5 Label"/>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :label_class, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
-  attr :reverse, :boolean, default: false, doc: ""
-  attr :checked, :boolean, default: false, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :label_class, :string, default: nil, doc: "Custom CSS class for the label styling"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :space, :string, default: "medium", doc: "Space between items"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
+  attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
+  attr :checked, :boolean, default: false, doc: "Specifies if the element is checked by default"
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
+
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
-    include: ~w(autocomplete disabled form checked multiple readonly required title autofocus)
+    include: ~w(autocomplete disabled form checked multiple readonly required title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec radio_field(map()) :: Phoenix.LiveView.Rendered.t()
   def radio_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -67,30 +127,64 @@ defmodule MishkaChelekom.RadioField do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :variation, :string, default: "vetrical", doc: ""
-  attr :label_class, :string, default: nil, doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
-  attr :reverse, :boolean, default: false, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  @doc """
+  Renders a group of radio fields, allowing users to select a single option from a list of
+  grouped options. This component provides flexibility in layout, appearance, and behavior.
+
+  ## Examples
+
+  ```elixir
+  <.group_radio name="items_group_1" space="small">
+    <:radio value="option1">Option 1</:radio>
+    <:radio value="option2">Option 2</:radio>
+    <:radio value="option3">Option 3</:radio>
+    <:radio value="option4" checked>Option 4</:radio>
+  </.group_radio>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :variation, :string,
+    default: "vetrical",
+    doc: "Defines the layout orientation of the component"
+
+  attr :label_class, :string, default: nil, doc: "Custom CSS class for the label styling"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
+  attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
   attr :rest, :global,
     include:
-      ~w(autocomplete disabled form indeterminate multiple readonly required title autofocus)
+      ~w(autocomplete disabled form indeterminate multiple readonly required title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   slot :radio, required: true do
     attr :value, :string, required: true
     attr :checked, :boolean, required: false
-    attr :space, :any, required: false
+    attr :space, :any, required: false, doc: "Space between items"
   end
 
   slot :inner_block
@@ -136,11 +230,12 @@ defmodule MishkaChelekom.RadioField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :any, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :any, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -148,10 +243,11 @@ defmodule MishkaChelekom.RadioField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

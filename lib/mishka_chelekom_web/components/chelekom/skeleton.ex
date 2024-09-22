@@ -1,17 +1,71 @@
 defmodule MishkaChelekom.Skeleton do
+  @moduledoc """
+  The `MishkaChelekom.Skeleton` module provides a reusable component for displaying skeleton
+  loaders in a Phoenix LiveView application. Skeleton loaders serve as placeholders to indicate
+  that content is currently loading or being processed, improving the user experience by offering
+  a visual cue in place of the final content.
+
+  ## Features
+
+  - **Size Options:** Multiple size options for both height and width, including
+  `extra_small`, `small`, `medium`, `large`, and `extra_large`. The width can also be set to
+  `full` to occupy the entire container.
+  - **Rounded Corners:** Configurable border radius with options for different sizes, as
+  well as `full` and `none` for complete circular shapes or no rounding at all.
+  - **Color Themes:** Various color options to match the design of the application, such as `white`,
+  `silver`, `primary`, `secondary`, `success`, `warning`, `danger`, `info`, `misc`, `dawn`, `light`, and `dark`.
+  - **Visibility Control:** The component's visibility can be toggled with the `visible` attribute,
+  allowing for dynamic control over when the skeleton is displayed.
+  - **Custom Animation:** The `animated` global attribute can be used to enable or disable a
+  pulsating animation effect, giving the skeleton loader a dynamic appearance.
+
+  This component is ideal for providing visual feedback during data fetching or other asynchronous
+  operations, making the UI more responsive and engaging for users.
+  """
+
   use Phoenix.Component
 
   @sizes ["extra_small", "small", "medium", "large", "extra_large"]
 
+  @doc """
+  Renders a skeleton loader component to indicate loading state in your application.
+  The skeleton component provides customizable options such as size, color, and rounded corners.
+
+  You can also add animations to create a more engaging user experience.
+
+  ## Examples
+
+  ```elixir
+  <div class="p-5 space-y-5">
+    <.skeleton animated />
+    <.skeleton height="h-[20px]" width="w-[150px]" />
+    <.skeleton animated height="h-[40px]" width="large" color="bg-rose-400" />
+    <.skeleton width="large" height="small" color="bg-rose-400" />
+    <.skeleton width="w-10" height="h-10" color="bg-green-400" rounded="full"/>
+  </div>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "silver", doc: ""
-  attr :height, :string, default: "extra_small", doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "small", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "silver", doc: "Determines color theme"
+  attr :height, :string, default: "extra_small", doc: "Determines the element width"
+  attr :width, :string, default: "full", doc: "Determines the element width"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "small",
+    doc: "Determines the border radius"
+
   attr :visible, :boolean, default: true, doc: ""
-  attr :rest, :global, include: ~w(animated), doc: ""
+
+  attr :rest, :global,
+    include: ~w(animated),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def skeleton(assigns) do
     ~H"""

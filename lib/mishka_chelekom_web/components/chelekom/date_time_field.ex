@@ -1,46 +1,136 @@
 defmodule MishkaChelekom.DateTimeField do
+  @moduledoc """
+  The `MishkaChelekom.DateTimeField` module provides a reusable component for rendering
+  various types of date and time inputs in Phoenix applications.
+
+  It includes options for customization, validation, and styling, supporting different
+  use cases in forms and interactive interfaces.
+
+  ## Features:
+  - Supports multiple input types: `date`, `datetime-local`, `time`, `week`, and `month`.
+  - Configurable appearance with various styles, border options, and rounded corners.
+  - Flexible error handling with the ability to display custom error messages and icons.
+  - Optional floating label support, allowing labels to animate based on user interaction.
+  - Integration with Phoenix form fields for seamless form data management.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  The `date_time_field` component is used to create a customizable date, time, or datetime input field with various options such as `type`, `color`, and `size`. It supports floating labels, descriptions, and error messages, making it suitable for form validation and enhanced UX.
+
+  ## Examples
+
+  ```elixir
+  <.date_time_field name="name" type="date" space="small" color="dark" floating="outer"/>
+  <.date_time_field name="name" type="time" space="small" color="danger" floating="outer"/>
+  <.date_time_field name="name1" type="week" space="small" color="success" floating="outer"/>
+
+  <.date_time_field
+    name="name"
+    type="month"
+    space="small"
+    color="warning"
+    description="This is description"
+    label="This is label month"
+    floating="outer"
+  />
+
+  <.date_time_field
+    name="name"
+    type="datetime-local"
+    space="small"
+    color="primary"
+    description="This is description"
+    label="This is label datetime-local"
+    floating="outer"
+  />
+
+  <.date_time_field
+    name="name"
+    type="week"
+    space="large"
+    color="secondary"
+    description="This is description"
+    label="This is label week"
+    size="medium"
+  />
+
+  <.date_time_field
+    name="name"
+    type="date"
+    space="large"
+    color="misc"
+    description="This is description"
+    label="This is label date"
+    size="small"
+  />
+
+  <.date_time_field
+    name="name"
+    type="month"
+    space="large"
+    color="dawn"
+    description="This is description"
+    label="This is label month"
+    size="large"
+  />
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
 
   attr :type, :string,
     values: ["date", "datetime-local", "time", "week", "month"],
     default: "date",
-    doc: "date, datetime-local, time, week, month"
+    doc: "Determines type of input"
 
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :variant, :string, default: "outline", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :variant, :string, default: "outline", doc: "Determines the style"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
   attr :floating, :string, default: "none", doc: "none, inner, outer"
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: "Specifies text for the label"
 
-  slot :start_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :start_section, required: false, doc: "Renders heex content in start of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  slot :end_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :end_section, required: false, doc: "Renders heex content in end of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
-  attr :rest, :global, include: ~w(disabled form min max readonly required step autofocus)
+  attr :rest, :global,
+    include: ~w(disabled form min max readonly required step autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec date_time_field(map()) :: Phoenix.LiveView.Rendered.t()
   def date_time_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -175,11 +265,12 @@ defmodule MishkaChelekom.DateTimeField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -187,10 +278,11 @@ defmodule MishkaChelekom.DateTimeField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

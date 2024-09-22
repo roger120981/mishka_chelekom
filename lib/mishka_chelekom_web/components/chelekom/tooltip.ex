@@ -1,4 +1,20 @@
 defmodule MishkaChelekom.Tooltip do
+  @moduledoc """
+  A Tooltip component for use in Phoenix applications.
+
+  This component allows you to display informative text when the user hovers over or focuses on an element.
+  It supports various customization options, including position, color themes, and sizes, allowing for
+  flexible integration within your UI.
+
+  ## Features
+
+  - Customizable tooltip position (top, bottom, left, right).
+  - Multiple color variants and styles for different contexts.
+  - Adjustable size and padding to fit design requirements.
+  - Support for additional CSS classes to further customize appearance.
+
+  Use this component to enhance user experience by providing contextual information without cluttering the interface.
+  """
   use Phoenix.Component
 
   @colors [
@@ -20,22 +36,68 @@ defmodule MishkaChelekom.Tooltip do
     "shadow"
   ]
 
+  @doc """
+  The `Tooltip` component is used to display additional information when users hover over an element.
+
+  It provides a small box with text or content and is positioned around the target
+  element based on the specified `position`.
+
+  ## Examples
+
+  ```elixir
+  <.tooltip text="This is text" position="bottom">
+    <button class="p-2 bg-orange-700">
+      This is Tooltip a long text for bottom tooltip
+    </button>
+  </.tooltip>
+
+  <.tooltip text="This is text" color="warning" position="left">
+    <button class="p-2 bg-orange-700">This is Tooltip left</button>
+  </.tooltip>
+
+  <.tooltip text="Delete" color="light" position="left">
+    <button class="p-2 bg-red-500 text-white">
+      <.icon name="hero-trash" />
+    </button>
+  </.tooltip>
+
+  <.tooltip text="This is text" color="dark" position="right">
+    <button class="p-2 bg-orange-700">This is Tooltip right</button>
+  </.tooltip>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :position, :string, default: "top", doc: ""
-  attr :variant, :string, values: @variants, default: "shadow", doc: ""
-  attr :color, :string, values: @colors, default: "dark", doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :size, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :width, :string, default: "fit", doc: ""
-  attr :padding, :string, default: "small", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :text_position, :string, default: "center", doc: ""
-  attr :text, :string, default: "", doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :position, :string, default: "top", doc: "Determines the element position"
+  attr :variant, :string, values: @variants, default: "shadow", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "dark", doc: "Determines color theme"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+
+  attr :size, :string,
+    default: nil,
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :space, :string, default: nil, doc: "Space between items"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :width, :string, default: "fit", doc: "Determines the element width"
+  attr :padding, :string, default: "small", doc: "Determines padding for items"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :text_position, :string, default: "center", doc: "Determines the element' text position"
+  attr :text, :string, default: "", doc: "Determines element's text"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def tooltip(assigns) do
     ~H"""

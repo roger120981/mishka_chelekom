@@ -1,37 +1,106 @@
 defmodule MishkaChelekom.Table do
+  @moduledoc """
+  `MishkaChelekom.Table` is a versatile component for creating customizable tables in a
+  Phoenix LiveView application. This module offers a wide range of configurations to tailor table
+  presentations, including options for styling, borders, text alignment, padding, and various visual variants.
+
+  It provides components for table structure (`table/1`), headers (`th/1`), rows (`tr/1`), and cells
+  (`td/1`). These elements can be easily customized to fit different design requirements,
+  such as fixed layouts, border styles, and hover effects.
+
+  By utilizing slots, the module allows for the inclusion of dynamic content in the table's header and
+  footer sections, with the ability to embed icons and custom classes for a polished and interactive interface.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
-  @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :variant, :string, default: nil, doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :padding, :string, default: "small", doc: ""
-  attr :text_size, :string, default: "small", doc: ""
-  attr :color, :string, default: nil, doc: ""
-  attr :border, :string, default: nil, doc: ""
-  attr :header_border, :string, default: nil, doc: ""
-  attr :rows_border, :string, default: nil, doc: ""
-  attr :cols_border, :string, default: nil, doc: ""
-  attr :thead_class, :string, default: nil, doc: ""
-  attr :footer_class, :string, default: nil, doc: ""
-  attr :table_fixed, :boolean, default: false, doc: ""
-  attr :text_position, :string, default: "left", doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  Renders a customizable table component that supports custom styling for rows, columns,
+  and table headers. This component allows for specifying borders, padding, rounded corners,
+  and text alignment.
 
-  slot :inner_block, required: false, doc: ""
+  It also supports fixed layout and various configurations for headers, footers, and cells.
+
+  ## Examples
+
+  ```elixir
+  <.table>
+    <:header>Name</:header>
+    <:header>Age</:header>
+    <:header>Address</:header>
+    <:header>Email</:header>
+    <:header>Job</:header>
+    <:header>Action</:header>
+
+    <.tr>
+      <.td>Jim Emerald</.td>
+      <.td>27</.td>
+      <.td>London No. 1 Lake Park</.td>
+      <.td>test@mail.com</.td>
+      <.td>Frontend Developer</.td>
+      <.td><MishkaChelekom.Rating.rating select={3} count={5} /></.td>
+    </.tr>
+
+    <.tr>
+      <.td>Alex Brown</.td>
+      <.td>32</.td>
+      <.td>New York No. 2 River Park</.td>
+      <.td>alex@mail.com</.td>
+      <.td>Backend Developer</.td>
+      <.td><MishkaChelekom.Rating.rating select={4} count={5} /></.td>
+    </.tr>
+
+    <.tr>
+      <.td>John Doe</.td>
+      <.td>28</.td>
+      <.td>Los Angeles No. 3 Sunset Boulevard</.td>
+      <.td>john@mail.com</.td>
+      <.td>UI/UX Designer</.td>
+      <.td><MishkaChelekom.Rating.rating select={5} count={5} /></.td>
+    </.tr>
+
+    <:footer>Total</:footer>
+    <:footer>3 Employees</:footer>
+  </.table>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :variant, :string, default: nil, doc: "Determines the style"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :padding, :string, default: "small", doc: "Determines padding for items"
+  attr :text_size, :string, default: "small", doc: "Determines text size"
+  attr :color, :string, default: nil, doc: "Determines color theme"
+  attr :border, :string, default: nil, doc: "Determines border style"
+  attr :header_border, :string, default: nil, doc: "Sets the border style for the table header"
+  attr :rows_border, :string, default: nil, doc: "Sets the border style for rows in the table"
+  attr :cols_border, :string, default: nil, doc: "Sets the border style for columns in the table"
+  attr :thead_class, :string, default: nil, doc: "Adds custom CSS classes to the table header"
+  attr :footer_class, :string, default: nil, doc: "Adds custom CSS classes to the table footer"
+  attr :table_fixed, :boolean, default: false, doc: "Enables or disables the table's fixed layout"
+  attr :text_position, :string, default: "left", doc: "Determines the element' text position"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   slot :header do
-    attr :class, :any
-    attr :icon, :any
-    attr :icon_class, :any
+    attr :class, :any, doc: "Custom CSS class for additional styling"
+    attr :icon, :any, doc: "Icon displayed alongside of an item"
+    attr :icon_class, :any, doc: "Determines custom class for the icon"
   end
 
   slot :footer do
-    attr :class, :any
-    attr :icon, :any
-    attr :icon_class, :any
+    attr :class, :any, doc: "Custom CSS class for additional styling"
+    attr :icon, :any, doc: "Icon displayed alongside of an item"
+    attr :icon_class, :any, doc: "Determines custom class for the icon"
   end
 
   def table(assigns) do
@@ -105,11 +174,29 @@ defmodule MishkaChelekom.Table do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :scope, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  Renders a table header cell (`<th>`) component with customizable class and scope attributes.
+  This component allows for additional styling and accepts global attributes.
+
+  ## Examples
+
+  ```elixir
+  <.th>Column Title</.th>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :scope, :string, default: nil, doc: "Specifies the scope of the table header cell"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def th(assigns) do
     ~H"""
@@ -119,10 +206,31 @@ defmodule MishkaChelekom.Table do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  Renders a table row (<tr>) component with customizable class attributes.
+  This component allows for additional styling and accepts global attributes.
+
+  ## Examples
+
+  ```elixir
+  <.tr>
+    <.td>Data 1</.td>
+    <.td>Data 2</.td>
+  </.tr>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def tr(assigns) do
     ~H"""
@@ -132,10 +240,27 @@ defmodule MishkaChelekom.Table do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  Renders a table data cell (`<td>`) component with customizable class attributes.
+  This component allows for additional styling and accepts global attributes.
+
+  ## Examples
+  ```elixir
+  <.td>Data</.td>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def td(assigns) do
     ~H"""

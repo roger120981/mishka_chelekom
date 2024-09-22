@@ -1,4 +1,23 @@
 defmodule MishkaChelekom.MegaMenu do
+  @moduledoc """
+  The `MishkaChelekom.MegaMenu` module provides a customizable and interactive mega menu component
+  for building sophisticated navigation systems in Phoenix LiveView applications.
+
+  This component can be used to create multi-level navigation menus with various styling and
+  layout options, making it ideal for sites with complex information architectures.
+
+  ### Features
+
+  - **Multiple Styling Options:** Choose from several variants, including `default` and `shadow`,
+  to match your design needs.
+  - **Color Customization:** Supports a wide range of color themes to integrate seamlessly with
+  your application's style.
+  - **Interactive Elements:** Allows for click or hover-based activation of the menu, giving users
+  flexibility in interaction.
+  - **Customizable Slots:** Utilize the `trigger` and `inner_block` slots to define custom content
+  and layout within the mega menu.
+  """
+
   use Phoenix.Component
   alias Phoenix.LiveView.JS
   import MishkaChelekomComponents
@@ -22,29 +41,138 @@ defmodule MishkaChelekom.MegaMenu do
     "shadow"
   ]
 
+  @doc """
+  Renders a customizable mega menu component that can display various sections of content.
+  It includes slots for defining a trigger element, such as a button, and inner content blocks.
+
+  ## Examples
+
+  ```elixir
+  <.mega_menu id="mega" space="small" rounded="large" padding="extra_small" top_gap="large" clickable>
+    <:trigger>
+      <button class="text-start w-full block">MegaMenu</button>
+    </:trigger>
+
+    <div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3">
+        <ul class="space-y-4 sm:mb-4 md:mb-0" aria-labelledby="mega-menu-full-cta-button">
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              Online Stores
+            </a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              Segmentation
+            </a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              Marketing CRM
+            </a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              Online Stores
+            </a>
+          </li>
+        </ul>
+        <ul class="hidden mb-4 space-y-4 md:mb-0 sm:block">
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              Our Blog
+            </a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              Terms & Conditions
+            </a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              License
+            </a>
+          </li>
+          <li>
+            <a href="#" class="hover:underline hover:text-blue-600">
+              Resources
+            </a>
+          </li>
+        </ul>
+        <div class="mt-4 md:mt-0">
+          <h2 class="mb-2 font-semibold text-gray-900">Our brands</h2>
+          <p class="mb-2 text-gray-500">
+            At Flowbite, we have a portfolio of brands that cater to a variety of preferences.
+          </p>
+          <a
+            href="#"
+            class="inline-flex items-center text-sm font-medium text-blue-600 hover:underline hover:text-blue-600"
+          >
+            Explore our brands <span class="sr-only">Explore our brands </span>
+            <svg
+              class="w-3 h-3 ms-2 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M1 5h12m0 0L9 1m4 4L9 9"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </.mega_menu>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :clickable, :boolean, default: false, doc: ""
-  attr :variant, :string, values: @variants, default: "shadow", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :size, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, default: "none", doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :icon_class, :string, default: nil, doc: ""
-  attr :title, :string, default: nil, doc: ""
-  attr :title_class, :string, default: nil, doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :top_gap, :string, default: "extra_small", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :clickable, :boolean,
+    default: false,
+    doc: "Determines if the element can be activated on click"
+
+  attr :variant, :string, values: @variants, default: "shadow", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+
+  attr :size, :string,
+    default: nil,
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :space, :string, default: nil, doc: "Space between items"
+  attr :width, :string, default: "full", doc: "Determines the element width"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  attr :icon_class, :string, default: nil, doc: "Determines custom class for the icon"
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :title_class, :string, default: nil, doc: "Determines custom class for the title"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :top_gap, :string, default: "extra_small", doc: "Determines top gap of the element"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   slot :trigger, required: false do
-    attr :class, :string
+    attr :class, :string, doc: "Custom CSS class for additional styling"
   end
 
   def mega_menu(assigns) do

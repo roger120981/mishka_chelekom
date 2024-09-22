@@ -1,44 +1,109 @@
 defmodule MishkaChelekom.TextareaField do
+  @moduledoc """
+  The `MishkaChelekom.TextareaField` module provides a versatile and customizable textarea field component
+  for Phoenix LiveView applications. It supports a range of styles, themes, and functional attributes
+  to enhance the user experience when working with large text inputs.
+
+  ### Features:
+  - **Color Themes**: Offers a variety of color options to style the textarea field and error states.
+  - **Border and Padding**: Customizable border styles and padding for a consistent look and feel.
+  - **Size Options**: Allows adjustments to the height and size of the textarea field to suit different
+  requirements.
+  - **Floating Labels**: Supports floating labels that adapt to different styles, including inner and
+  outer placements.
+  - **Error Handling**: Displays error messages with optional icons, integrated seamlessly into the
+  field's design.
+  - **Resize Control**: Includes an option to disable textarea resizing.
+  - **Accessibility**: Supports ARIA attributes for accessibility and user-friendly error handling.
+  - **Slots for Customization**: Provides slots for adding content before and after the textarea field,
+  enabling a high degree of customization.
+
+  This component integrates smoothly into Phoenix LiveView forms, providing a user-friendly interface
+  for text input with extensive customization options.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  The `TextareaField` component provides a customizable text area input with various styling options,
+  including floating labels, error messages, and resizing control.
+
+  ## Examples
+
+  ```elixir
+  <.textarea_field
+    name="name"
+    space="small"
+    color="danger"
+    description="This is description"
+    label="This is outline label"
+    placeholder="This is placeholder"
+    floating="outer"
+    disable_resize
+  />
+
+  <.textarea_field
+    name="name"
+    variant="unbordered"
+    space="small"
+    color="success"
+    label="This is Unbordered Success"
+    placeholder="This is placeholder"
+  />
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :variant, :string, default: "outline", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :variant, :string, default: "outline", doc: "Determines the style"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
   attr :disable_resize, :boolean, default: false, doc: ""
-  attr :rows, :string, default: nil, doc: ""
-  attr :ring, :boolean, default: true, doc: ""
+  attr :rows, :string, default: nil, doc: "Determines count of textarea rows"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
   attr :floating, :string, default: "none", doc: "none, inner, outer"
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
 
-  slot :start_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :start_section, required: false, doc: "Renders heex content in start of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  slot :end_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :end_section, required: false, doc: "Renders heex content in end of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
     include:
-      ~w(disabled form maxlength minlength placeholder readonly required spellcheck inputmode title autofocus wrap dirname)
+      ~w(disabled form maxlength minlength placeholder readonly required spellcheck inputmode title autofocus wrap dirname),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec textarea_field(map()) :: Phoenix.LiveView.Rendered.t()
   def textarea_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -142,11 +207,12 @@ defmodule MishkaChelekom.TextareaField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -154,10 +220,11 @@ defmodule MishkaChelekom.TextareaField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

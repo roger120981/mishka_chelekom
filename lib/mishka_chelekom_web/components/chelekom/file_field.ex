@@ -1,42 +1,80 @@
 defmodule MishkaChelekom.FileField do
+  @moduledoc """
+  The `MishkaChelekom.FileField` module provides a versatile and customizable component
+  for handling file uploads in Phoenix LiveView applications.
+
+  This module supports various configurations, allowing users to upload files or
+  images through traditional file inputs or interactive dropzones.
+
+  ### Key Features:
+  - **Custom Styling Options:** Allows for customized styles, including colors, borders, and rounded corners.
+  - **Flexible Input Types:** Supports both live uploads and standard file inputs.
+  - **Dropzone Functionality:** Provides an interactive drag-and-drop area for file
+  uploads with customizable icons and descriptions.
+  - **Error Handling:** Displays error messages for issues like file size, file type,
+  and maximum number of files.
+  - **Upload Progress:** Shows real-time upload progress for each file.
+
+  This component is designed to simplify file handling in forms and offers a visually
+  appealing and user-friendly experience for uploading files in LiveView applications.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  Renders a file input field with customizable styles, labels, and live upload capabilities.
+
+  It can be used as a simple file input or as a dropzone with drag-and-drop support for files and images.
+
+  ## Examples
+
+  ```elixir
+  <MishkaChelekom.FileField.file_field color="danger" />
+  <MishkaChelekom.FileField.file_field target={:avatar} uploads={@uploads} dropzone/>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :label_class, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :variant, :string, default: "default", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :live, :boolean, default: false, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_small", doc: ""
-  attr :label, :string, default: nil
-  attr :dashed, :boolean, default: true, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :errors, :list, default: []
-  attr :upload, :any, doc: ""
-  attr :name, :any
-  attr :value, :any
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :label_class, :string, default: nil, doc: "Custom CSS class for the label styling"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :variant, :string, default: "default", doc: "Determines the style"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :live, :boolean, default: false, doc: "Specifies whether this upload is live or input file"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+  attr :dashed, :boolean, default: true, doc: "Determines dashed border"
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :uploads, :any, doc: "LiveView upload map"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
   attr :dropzone, :boolean, default: false, doc: ""
   attr :dropzone_type, :string, default: "file", doc: "file, image"
-  attr :entries, :any, doc: ""
-  attr :target, :any, doc: ""
-  attr :upload_error, :list, default: []
-  attr :cancel, :any, doc: ""
+  attr :target, :atom, doc: "Name of upload input when is used as Live Upload"
   attr :dropzone_icon, :string, default: "hero-cloud-arrow-up", doc: ""
   attr :dropzone_title, :string, default: "Click to upload, or drag and drop a file", doc: ""
-  attr :dropzone_description, :string, default: nil, doc: ""
+  attr :dropzone_description, :string, default: nil, doc: "Specifies description for dropzone"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
     include:
-      ~w(autocomplete disabled form checked multiple readonly min max step required title autofocus)
+      ~w(autocomplete disabled form checked multiple readonly min max step required title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec file_field(map()) :: Phoenix.LiveView.Rendered.t()
   def file_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -50,6 +88,14 @@ defmodule MishkaChelekom.FileField do
   end
 
   def file_field(%{dropzone: true, dropzone_type: "file"} = assigns) do
+    targeted_upload = assigns.uploads[assigns.target]
+
+    assigns =
+      assigns
+      |> assign_new(:entries, fn -> targeted_upload.entries end)
+      |> assign_new(:upload_error, fn -> targeted_upload end)
+      |> assign_new(:upload, fn -> targeted_upload end)
+
     ~H"""
     <div class={[
       dropzone_color(@variant, @color),
@@ -63,7 +109,7 @@ defmodule MishkaChelekom.FileField do
         class={[
           "dropzone-wrapper group flex flex-col items-center justify-center w-full cursor-pointer"
         ]}
-        phx-drop-target={@target}
+        phx-drop-target={@upload.ref}
       >
         <div class="flex flex-col gap-3 items-center justify-center pt-5 pb-6">
           <.icon name={@dropzone_icon} class="size-14" />
@@ -103,7 +149,7 @@ defmodule MishkaChelekom.FileField do
             </div>
 
             <button
-              phx-click={@cancel}
+              phx-click="cancel-upload"
               phx-value-ref={entry.ref}
               aria-label="cancel"
               class="absolute top-2 right-2 text-custome-black-100/60 hover:text-custome-black-100"
@@ -126,6 +172,14 @@ defmodule MishkaChelekom.FileField do
   end
 
   def file_field(%{dropzone: true, dropzone_type: "image"} = assigns) do
+    targeted_upload = assigns.uploads[assigns.target]
+
+    assigns =
+      assigns
+      |> assign_new(:entries, fn -> targeted_upload.entries end)
+      |> assign_new(:upload_error, fn -> targeted_upload end)
+      |> assign_new(:upload, fn -> targeted_upload end)
+
     ~H"""
     <div class={[
       dropzone_color(@variant, @color),
@@ -139,7 +193,7 @@ defmodule MishkaChelekom.FileField do
         class={[
           "dropzone-wrapper group flex flex-col items-center justify-center w-full cursor-pointer"
         ]}
-        phx-drop-target={@target}
+        phx-drop-target={@upload.ref}
       >
         <div class="flex flex-col gap-3 items-center justify-center pt-5 pb-6">
           <.icon name={@dropzone_icon} class="size-14" />
@@ -168,7 +222,7 @@ defmodule MishkaChelekom.FileField do
             <button class="bg-black/30 rounded p-px text-white flex justify-center items-center absolute top-2 right-2 z-10">
               <.icon name="hero-x-mark" class="size-4" />
             </button>
-            <%!-- tODO: Remove when upload compeleted --%>
+            <%!-- TODO: Remove when upload compeleted --%>
             <div
               role="status"
               class="absolute top-1 left-1 bottom-1 right-1 bg-black/25 flex justify-center items-center"
@@ -200,7 +254,7 @@ defmodule MishkaChelekom.FileField do
         <.live_file_input
           upload={@upload}
           class={[
-            "file-filed block w-full cursor-pointer focus:outline-none file:border-0 file:cursor-pointer",
+            "file-field block w-full cursor-pointer focus:outline-none file:border-0 file:cursor-pointer",
             "file:py-3 file:px-8 file:font-bold file:-ms-4 file:me-4"
           ]}
           {@rest}
@@ -208,7 +262,7 @@ defmodule MishkaChelekom.FileField do
       <% else %>
         <input
           class={[
-            "file-filed block w-full cursor-pointer focus:outline-none file:border-0 file:cursor-pointer",
+            "file-field block w-full cursor-pointer focus:outline-none file:border-0 file:cursor-pointer",
             "file:py-3 file:px-8 file:font-bold file:-ms-4 file:me-4"
           ]}
           type="file"
@@ -221,11 +275,12 @@ defmodule MishkaChelekom.FileField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -233,10 +288,11 @@ defmodule MishkaChelekom.FileField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" /> <%= render_slot(@inner_block) %>
@@ -270,14 +326,14 @@ defmodule MishkaChelekom.FileField do
   defp size_class(_), do: size_class("extra_small")
 
   defp rounded_size("extra_small"),
-    do: "[&_.file-filed]:rounded-sm [&_.dropzone-wrapper]:rounded-sm"
+    do: "[&_.file-field]:rounded-sm [&_.dropzone-wrapper]:rounded-sm"
 
-  defp rounded_size("small"), do: "[&_.file-filed]:rounded [&_.dropzone-wrapper]:rounded"
-  defp rounded_size("medium"), do: "[&_.file-filed]:rounded-md [&_.dropzone-wrapper]:rounded-md"
-  defp rounded_size("large"), do: "[&_.file-filed]:rounded-lg [&_.dropzone-wrapper]:rounded-lg"
+  defp rounded_size("small"), do: "[&_.file-field]:rounded [&_.dropzone-wrapper]:rounded"
+  defp rounded_size("medium"), do: "[&_.file-field]:rounded-md [&_.dropzone-wrapper]:rounded-md"
+  defp rounded_size("large"), do: "[&_.file-field]:rounded-lg [&_.dropzone-wrapper]:rounded-lg"
 
   defp rounded_size("extra_large"),
-    do: "[&_.file-filed]:rounded-xl [&_.dropzone-wrapper]:rounded-xl"
+    do: "[&_.file-field]:rounded-xl [&_.dropzone-wrapper]:rounded-xl"
 
   defp rounded_size(params) when is_binary(params), do: params
   defp rounded_size(_), do: rounded_size("small")
@@ -292,67 +348,67 @@ defmodule MishkaChelekom.FileField do
 
   defp color_class("white") do
     [
-      "[&_.file-input]:bg-white file:[&_.file-input]:text-[#DADADA] file:[&_.file-input]:bg-[#DADADA]"
+      "[&_.file-field]:bg-white file:[&_.file-field]:text-[#DADADA] file:[&_.file-field]:bg-[#DADADA]"
     ]
   end
 
   defp color_class("primary") do
     [
-      "[&_.file-input]:bg-[#4363EC] file:[&_.file-input]:text-white [&_.file-input]:text-white file:[&_.file-input]:bg-[#2441de]"
+      "[&_.file-field]:bg-[#4363EC] file:[&_.file-field]:text-white [&_.file-field]:text-white file:[&_.file-field]:bg-[#2441de]"
     ]
   end
 
   defp color_class("secondary") do
     [
-      "[&_.file-input]:bg-[#877C7C] file:[&_.file-input]:text-white [&_.file-input]:text-white file:[&_.file-input]:bg-[#6B6E7C]"
+      "[&_.file-field]:bg-[#877C7C] file:[&_.file-field]:text-white [&_.file-field]:text-white file:[&_.file-field]:bg-[#6B6E7C]"
     ]
   end
 
   defp color_class("success") do
     [
-      "[&_.file-input]:bg-[#ECFEF3] file:[&_.file-input]:text-white [&_.file-input]:text-[#047857] file:[&_.file-input]:bg-[#047857]"
+      "[&_.file-field]:bg-[#ECFEF3] file:[&_.file-field]:text-white [&_.file-field]:text-[#047857] file:[&_.file-field]:bg-[#047857]"
     ]
   end
 
   defp color_class("warning") do
     [
-      "[&_.file-input]:bg-[#FFF8E6] file:[&_.file-input]:text-white [&_.file-input]:text-[#FF8B08] file:[&_.file-input]:bg-[#FF8B08]"
+      "[&_.file-field]:bg-[#FFF8E6] file:[&_.file-field]:text-white [&_.file-field]:text-[#FF8B08] file:[&_.file-field]:bg-[#FF8B08]"
     ]
   end
 
   defp color_class("danger") do
     [
-      "[&_.file-input]:bg-[#FFE6E6] [&_.file-input]:text-[#E73B3B] file:[&_.file-input]:text-white file:[&_.file-input]:bg-[#E73B3B]"
+      "[&_.file-field]:bg-[#FFE6E6] [&_.file-field]:text-[#E73B3B] file:[&_.file-field]:text-white file:[&_.file-field]:bg-[#E73B3B]"
     ]
   end
 
   defp color_class("info") do
     [
-      "[&_.file-input]:bg-[#E5F0FF] file:[&_.file-input]:text-white [&_.file-input]:text-[#004FC4] file:[&_.file-input]:bg-[#004FC4]"
+      "[&_.file-field]:bg-[#E5F0FF] file:[&_.file-field]:text-white [&_.file-field]:text-[#004FC4] file:[&_.file-field]:bg-[#004FC4]"
     ]
   end
 
   defp color_class("misc") do
     [
-      "[&_.file-input]:bg-[#FFE6FF] file:[&_.file-input]:text-white [&_.file-input]:text-[#52059C] file:[&_.file-input]:bg-[#52059C]"
+      "[&_.file-field]:bg-[#FFE6FF] file:[&_.file-field]:text-white [&_.file-field]:text-[#52059C] file:[&_.file-field]:bg-[#52059C]"
     ]
   end
 
   defp color_class("dawn") do
     [
-      "[&_.file-input]:bg-[#FFECDA] file:[&_.file-input]:text-white [&_.file-input]:text-[#4D4137] file:[&_.file-input]:bg-[#4D4137]"
+      "[&_.file-field]:bg-[#FFECDA] file:[&_.file-field]:text-white [&_.file-field]:text-[#4D4137] file:[&_.file-field]:bg-[#4D4137]"
     ]
   end
 
   defp color_class("light") do
     [
-      "[&_.file-input]:bg-[#E3E7F1] file:[&_.file-input]:text-white [&_.file-input]:text-[#707483] file:[&_.file-input]:bg-[#707483]"
+      "[&_.file-field]:bg-[#E3E7F1] file:[&_.file-field]:text-white [&_.file-field]:text-[#707483] file:[&_.file-field]:bg-[#707483]"
     ]
   end
 
   defp color_class("dark") do
     [
-      "[&_.file-input]:bg-[#383838] file:[&_.file-input]:text-white [&_.file-input]:text-white file:[&_.file-input]:bg-[#1E1E1E]"
+      "[&_.file-field]:bg-[#383838] file:[&_.file-field]:text-white [&_.file-field]:text-white file:[&_.file-field]:bg-[#1E1E1E]"
     ]
   end
 

@@ -1,4 +1,12 @@
 defmodule MishkaChelekom.Chat do
+  @moduledoc """
+  `MishkaChelekom.Chat` is a Phoenix LiveView component module for creating customizable chat interfaces.
+
+  This module provides components to display chat messages with various styles, colors,
+  sizes, and configurations. The main component, `chat/1`, acts as a container for chat
+  messages, and `chat_section/1` is used to render individual chat messages with optional
+  metadata and status information.
+  """
   use Phoenix.Component
 
   @colors [
@@ -24,19 +32,83 @@ defmodule MishkaChelekom.Chat do
     "unbordered"
   ]
 
+  @doc """
+  The `chat` component is used to create a chat message container with customizable attributes such
+  as `variant`, `color`, and `position`.
+
+  It supports different layouts for normal and flipped chat bubbles and allows for nested content
+  using an inner block for flexible message design.
+
+  ## Examples
+
+  ```elixir
+  <.chat>
+    <.avatar
+      src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
+      size="extra_large"
+      rounded="full"
+      border="small"
+    />
+
+    <.chat_section>
+      <div class="flex items-center space-x-2 rtl:space-x-reverse">
+        <div class="">Bonnie Green</div>
+      </div>
+      <p class="">
+        That's awesome. I think our users will really appreciate the improvements.
+      </p>
+      <:status time="22:10" deliver="Delivered" />
+      <:meta><div class="">Bonnie Green</div></:meta>
+    </.chat_section>
+    <div><.icon name="hero-ellipsis-vertical" class="size-4" /></div>
+  </.chat>
+
+  <.chat position="flipped">
+    <.avatar src="https://example.com/picture.jpg" size="extra_large" rounded="full" border="small"/>
+
+    <.chat_section>
+      <div class="flex items-center space-x-2 rtl:space-x-reverse">
+        <div class="">Bonnie Green</div>
+      </div>
+      <p class="">
+        That's awesome. I think our users will really appreciate the improvements.
+      </p>
+      <:status time="22:10" deliver="Delivered" />
+    </.chat_section>
+    <div><.icon name="hero-ellipsis-vertical" class="size-4" /></div>
+  </.chat>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "extra_large", doc: ""
-  attr :size, :string, default: "medium", doc: ""
-  attr :space, :string, default: "extra_small", doc: ""
-  attr :position, :string, values: ["normal", "flipped"], default: "normal", doc: ""
-  attr :padding, :string, default: "small", doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "extra_large", doc: "Determines the border radius"
+
+  attr :size, :string,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :space, :string, default: "extra_small", doc: "Space between items"
+
+  attr :position, :string,
+    values: ["normal", "flipped"],
+    default: "normal",
+    doc: "Determines the element position"
+
+  attr :padding, :string, default: "small", doc: "Determines padding for items"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def chat(assigns) do
     ~H"""
@@ -60,18 +132,53 @@ defmodule MishkaChelekom.Chat do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  The `chat_section` component is used to display individual chat messages or sections with customizable
+  attributes such as `font_weight` and `class`.
 
-  slot :status, required: false do
-    attr :time, :string
-    attr :deliver, :string
+  It supports slots for adding status information and metadata, making it easy to create detailed
+  chat message layouts.
+
+  ## Examples
+
+  ```elixir
+  <.chat_section>
+    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+      <div class="">Bonnie Green</div>
+    </div>
+    <p class="">
+      That's awesome. I think our users will really appreciate the improvements.
+    </p>
+    <:status time="22:10" deliver="Delivered" />
+    <:meta><div class="">Bonnie Green</div></:meta>
+  </.chat_section>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :status, required: false, doc: "Defines a slot for displaying status information" do
+    attr :time, :string, doc: "Displays the time"
+    attr :deliver, :string, doc: "Indicates the delivery status"
   end
 
-  slot :meta, required: false
-  slot :inner_block, required: false, doc: ""
+  slot :meta,
+    required: false,
+    doc: "Defines a slot for adding custom metadata or additional information"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def chat_section(assigns) do
     ~H"""

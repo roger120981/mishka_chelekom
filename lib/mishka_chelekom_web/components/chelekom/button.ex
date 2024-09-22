@@ -1,4 +1,27 @@
 defmodule MishkaChelekom.Button do
+  @moduledoc """
+  Provides a comprehensive set of button components for the `MishkaChelekom.Button` project.
+  These components are highly customizable, allowing various styles, sizes, colors,
+  and configurations, including buttons with icons, gradients, and different indicator positions.
+
+  ## Components
+
+    - `button/1`: Renders a standard button with extensive customization options.
+    - `button_group/1`: Renders a group of buttons with configurable layout and styling.
+    - `input_button/1`: Renders a button with input attributes, useful for form submissions.
+    - `button_link/1`: Renders a button as a link, supporting different navigation types.
+    - `button_indicator/1`: A utility component to render indicators on buttons based on configuration.
+
+  ## Configuration Options
+
+  The module supports various predefined options for attributes like size, color,
+  variant, and border style. These can be customized through the attributes of each
+  component function to match specific design requirements.
+
+  > This module makes it easy to render buttons with consistent styling and behavior
+  > across your application while offering the flexibility needed for various use cases.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -48,24 +71,69 @@ defmodule MishkaChelekom.Button do
   ]
 
   @doc """
-  Renders a button.
+  The `button_group` component is used to group multiple buttons together with customizable
+  attributes like `variant`, `color`, and `variation`.
+
+  It supports different layout orientations, allowing buttons to be displayed horizontally or vertically.
 
   ## Examples
 
-      <.button>Send!</.button>
-      <.button phx-click="go" class="ml-2">Send!</.button>
+  ```elixir
+  <.button_group>
+    <.button icon="hero-adjustments-vertical">Button 1</.button>
+    <.button icon="hero-adjustments-vertical" />
+    <.button icon="hero-adjustments-vertical" />
+    <.button>Button 3</.button>
+  </.button_group>
+
+  <.button_group>
+    <.button>Button 1</.button>
+    <.button>Button 2</.button>
+    <.button>Button 3</.button>
+    <.button>Button 4</.button>
+    <.button>Button 5</.button>
+  </.button_group>
+
+  <.button_group color="success">
+    <.button icon="hero-adjustments-vertical">Button 1</.button>
+    <.button icon="hero-adjustments-vertical" color="success" />
+    <.button icon="hero-adjustments-vertical" />
+    <.button color="success">Button 3</.button>
+  </.button_group>
+  ```
   """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :variation, :string, values: ["horizontal", "vertical"], default: "horizontal", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :border, :string, values: @colors, default: "white", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "small", doc: ""
-  attr :size, :string, default: "large", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+
+  attr :variation, :string,
+    values: ["horizontal", "vertical"],
+    default: "horizontal",
+    doc: "Defines the layout orientation of the component"
+
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :border, :string, values: @colors, default: "white", doc: "Determines border style"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "small",
+    doc: "Determines the border radius"
+
+  attr :size, :string,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def button_group(assigns) do
     ~H"""
@@ -87,29 +155,70 @@ defmodule MishkaChelekom.Button do
     """
   end
 
+  @doc """
+  The `button` component is used to create customizable buttons with various styles, icons, and indicators.
+
+  It supports different types such as `button`, `submit`, and `reset`, and provides
+  options for configuring size, color, and border radius.
+
+  ## Examples
+
+  ```elixir
+  <.button variant="inverted_gradient" color="danger">Button 4</.button>
+  <.button variant="inverted_gradient" color="info">Button 2</.button>
+  <.button icon="hero-adjustments-vertical" variant="inverted_gradient" color="success"/>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :type, :string, values: ["button", "submit", "reset", nil], default: nil, doc: ""
-  attr :color, :string, default: "white", doc: ""
-  attr :rounded, :string, default: "large", doc: ""
-  attr :border, :string, default: "white", doc: ""
-  attr :size, :string, default: "large", doc: ""
-  attr :content_position, :string, default: "center", doc: ""
-  attr :display, :string, default: "inline-flex", doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :icon_class, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :indicator_class, :string, default: nil, doc: ""
-  attr :indicator_size, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+
+  attr :type, :string,
+    values: ["button", "submit", "reset", nil],
+    default: nil,
+    doc: "Specifies the type of the element"
+
+  attr :color, :string, default: "white", doc: "Determines color theme"
+  attr :rounded, :string, default: "large", doc: "Determines the border radius"
+  attr :border, :string, default: "white", doc: "Determines border style"
+
+  attr :size, :string,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :content_position, :string,
+    default: "center",
+    doc: "Determines the alignment of the element's content"
+
+  attr :display, :string,
+    default: "inline-flex",
+    doc: "Specifies the CSS display property for the element"
+
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  attr :icon_class, :string, default: nil, doc: "Determines custom class for the icon"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :indicator_class, :string,
+    default: nil,
+    doc: "Custom CSS class for styling the indicator element"
+
+  attr :indicator_size, :string, default: nil, doc: "Defines the size of the indicator element"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
   attr :rest, :global,
     include:
       ~w(disabled form name value right_icon left_icon pinging circle) ++ @indicator_positions,
-    doc: ""
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
-  slot :inner_block, required: false, doc: ""
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def button(assigns) do
     ~H"""
@@ -140,19 +249,56 @@ defmodule MishkaChelekom.Button do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, default: "white", doc: ""
-  attr :rounded, :string, default: "large", doc: ""
-  attr :value, :string, default: "", doc: ""
-  attr :border, :string, default: "white", doc: ""
-  attr :size, :string, default: "large", doc: ""
-  attr :type, :string, default: "button", doc: "button, submit, reset"
-  attr :content_position, :string, default: "center", doc: ""
-  attr :display, :string, default: "inline-block", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  The `input_button` component is used to create input elements with button-like styles and various
+  customization options such as `color`, `size`, and `border`.
+
+  It supports different input types like `button`, `submit`, and `reset`, allowing for
+  flexible usage in forms and interactive elements.
+
+  ## Examples
+
+  ```elixir
+  <.input_button value="input button" color="warning" />
+  <.input_button value="input submit" type="submit" color="dark" />
+  <.input_button value="input reset" type="reset" color="light" />
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, default: "white", doc: "Determines color theme"
+  attr :rounded, :string, default: "large", doc: "Determines the border radius"
+  attr :value, :string, default: "", doc: "Value of input"
+  attr :border, :string, default: "white", doc: "Determines border style"
+
+  attr :size, :string,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :type, :string, default: "button", doc: "Determines type of input"
+
+  attr :content_position, :string,
+    default: "center",
+    doc: "Determines the alignment of the element's content"
+
+  attr :display, :string,
+    default: "inline-block",
+    doc: "Specifies the CSS display property for the element"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def input_button(assigns) do
     ~H"""
@@ -178,31 +324,71 @@ defmodule MishkaChelekom.Button do
     """
   end
 
+  @doc """
+  The `button_link` component is used to create stylized link elements that resemble buttons.
+
+  It supports different navigation methods like `navigate`, `patch`, and `href` along with
+  customizable attributes for appearance and behavior.
+
+  ## Examples
+
+  ```elixir
+  <.button_link navigate="/admin" icon="hero-adjustments-vertical" />
+  <.button_link navigate="/admin">Button 3</.button_link>
+
+  <.button_link navigate="/admin" variant="unbordered" icon="hero-adjustments-vertical">
+    Button 1
+  </.button_link>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :title, :string, default: nil, doc: ""
-  attr :navigate, :string, doc: ""
-  attr :patch, :string, doc: ""
-  attr :href, :string, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+
+  attr :navigate, :string,
+    doc: "Defines the path for navigation within the application using a `navigate` attribute."
+
+  attr :patch, :string, doc: "Specifies the path for navigation using a LiveView patch"
+  attr :href, :string, doc: "Sets the URL for an external link"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
   attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "large", doc: ""
-  attr :size, :string, default: "large", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :display, :string, default: "inline-flex", doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :icon_class, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :indicator_class, :string, default: nil, doc: ""
-  attr :indicator_size, :string, default: nil, doc: ""
+
+  attr :size, :string,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :display, :string,
+    default: "inline-flex",
+    doc: "Specifies the CSS display property for the element"
+
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  attr :icon_class, :string, default: nil, doc: "Determines custom class for the icon"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :indicator_class, :string,
+    default: nil,
+    doc: "Custom CSS class for styling the indicator element"
+
+  attr :indicator_size, :string, default: nil, doc: "Defines the size of the indicator element"
 
   attr :rest, :global,
     include:
       ~w(right_icon left_icon pinging circle download hreflang referrerpolicy rel target type csrf_token method replace) ++
         @indicator_positions,
-    doc: ""
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
-  slot :inner_block, required: false, doc: ""
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def button_link(%{navigate: _navigate} = assigns) do
     ~H"""
@@ -283,10 +469,17 @@ defmodule MishkaChelekom.Button do
     """
   end
 
-  attr :position, :string, default: "none"
-  attr :class, :string, default: nil
-  attr :size, :string
-  attr :rest, :global
+  @doc type: :component
+  attr :position, :string, default: "none", doc: "Determines the element position"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :size, :string,
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   defp button_indicator(%{position: "left", rest: %{left_indicator: true}} = assigns) do
     ~H"""

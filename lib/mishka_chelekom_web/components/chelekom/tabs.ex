@@ -1,4 +1,29 @@
 defmodule MishkaChelekom.Tabs do
+  @moduledoc """
+  `MishkaChelekom.Tabs` is a Phoenix component module that provides a highly customizable tab
+  interface for organizing and displaying content.
+
+  It allows the creation of both horizontal and vertical tabs with different styles, colors, and sizes.
+
+  The component supports various features such as icon placement, active state management,
+  and different border and padding options.
+
+  ## Features
+
+  - **Vertical and Horizontal Layouts:** Choose between a vertical or horizontal arrangement for the tabs.
+  - **Customizable Styles:** Supports multiple `variant` styles such as `default`, `outline`, and `pills`.
+  - **Flexible Size Options:** Adjust the overall size of elements, including padding and font size.
+  - **Color Themes:** Offers a range of color themes such as `primary`, `secondary`, `success`, and more.
+  - **Active State Management:** Automatically manages active states and interactions with tabs.
+  - **Dynamic Content Slots:** Define tab and panel content using dynamic slots for easy customization.
+
+  ### Functionality:
+
+  The component uses Phoenix.LiveView.JS to manage the visibility and active state of the tabs dynamically.
+  It provides utility functions like show_tab/3 and hide_tab/3 for controlling the visibility of specific
+  tabs and panels programmatically.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
   alias Phoenix.LiveView.JS
@@ -23,36 +48,84 @@ defmodule MishkaChelekom.Tabs do
     "pills"
   ]
 
-  @doc type: :component
-  attr :id, :string, required: true, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "primary", doc: ""
-  attr :border, :string, default: "none", doc: ""
-  attr :tab_border, :string, default: "small", doc: ""
-  attr :size, :string, default: "small", doc: ""
-  attr :gap, :string, default: nil, doc: ""
-  attr :rounded, :string, default: "none", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, default: "extra_small", doc: ""
-  attr :triggers_position, :string, default: "extra_small", doc: ""
-  attr :vertical, :boolean, default: false, doc: ""
-  attr :placement, :string, default: "start", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  The `Tabs` component provides a set of clickable tabs for organizing content.
 
-  slot :inner_block, required: false, doc: ""
+  Each tab can have an icon and supports various styles and configurations like vertical
+  or horizontal alignment.
+
+  ## Examples
+
+  ```elixir
+  <.tabs id="tab-1" color="warning" padding="large" gap="small" variant="pills" vertical>
+      <:tab icon="hero-home">1</:tab>
+      <:tab icon="hero-home">2</:tab>
+      <:tab icon="hero-home" active>3</:tab>
+
+      <:panel>
+        <p>
+          Tab1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quis sapiente id?
+        </p>
+      </:panel>
+      <:panel>
+        <p>
+          Tab2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quis sapiente id?
+        </p>
+      </:panel>
+      <:panel>
+        <p>
+          Tab3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum quis sapiente id?
+        </p>
+      </:panel>
+  </.tabs>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "primary", doc: "Determines color theme"
+  attr :border, :string, default: "none", doc: "Determines border style"
+  attr :tab_border, :string, default: "small", doc: "Determines border style for tab"
+
+  attr :size, :string,
+    default: "small",
+    doc: "",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :gap, :string, default: nil, doc: "Determines gap for tabs"
+  attr :rounded, :string, default: "none", doc: "Determines the border radius"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string, default: "extra_small", doc: "Determines padding for items"
+  attr :triggers_position, :string, default: "extra_small", doc: ""
+  attr :vertical, :boolean, default: false, doc: "Determines whether element is vertical"
+  attr :placement, :string, default: "start", doc: ""
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   slot :tab, required: true do
-    attr :icon, :string
-    attr :class, :string
-    attr :padding, :string
-    attr :icon_class, :string
-    attr :icon_position, :string, doc: "end, start"
-    attr :active, :boolean, doc: ""
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :padding, :string, doc: "Determines padding for items"
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :icon_position, :string, doc: "Determines icon position"
+    attr :active, :boolean, doc: "Indicates whether the element is currently active and visible"
   end
 
   slot :panel, required: true do
-    attr :class, :string
+    attr :class, :string, doc: "Custom CSS class for additional styling"
   end
 
   def tabs(%{vertical: true} = assigns) do
@@ -508,11 +581,50 @@ defmodule MishkaChelekom.Tabs do
     ]
   end
 
+  @doc """
+  Sets a specific tab as active by adding `active-tab` and `active-tab-panel` CSS classes to the
+  selected tab and its corresponding panel.
+
+  ## Parameters
+
+    - `js` (optional): A `%Phoenix.LiveView.JS{}` struct that allows chaining multiple JS commands.
+    Defaults to an empty `%JS{}`.
+    - `id`: A `string` representing the unique identifier for the tab group.
+    - `count`: An `integer` indicating the tab number to be activated.
+
+  ## Usage
+
+  ```elixir
+  show_tab(%JS{}, "example-tabs", 2)
+  ```
+  This will activate the second tab and its corresponding panel in the tab group with the ID `example-tabs`.
+  """
+
   def show_tab(js \\ %JS{}, id, count) when is_binary(id) do
     JS.add_class(js, "active-tab", to: "##{id}-tab-header-#{count}")
     |> JS.add_class("active-tab-panel", to: "##{id}-tab-panel-#{count}")
   end
 
+  @doc """
+  Hides all tabs in a given tab group by removing the `active-tab` and `active-tab-panel` CSS
+  classes from each tab and its corresponding panel.
+
+  ## Parameters
+
+    - `js` (optional): A `%Phoenix.LiveView.JS{}` struct used to chain multiple JS commands.
+    Defaults to an empty `%JS{}`.
+    - `id`: A `string` representing the unique identifier for the tab group.
+    - `count`: An `integer` indicating the total number of tabs in the group.
+
+  ## Usage
+
+  ```elixir
+  hide_tab(%JS{}, "example-tabs", 3)
+  ```
+
+  This will deactivate all three tabs and their corresponding panels in the tab group
+  with the ID `example-tabs`.
+  """
   def hide_tab(js \\ %JS{}, id, count) do
     Enum.reduce(1..count, js, fn item, acc ->
       acc

@@ -1,4 +1,19 @@
 defmodule MishkaChelekom.Spinner do
+  @moduledoc """
+  The `MishkaChelekom.Spinner` module provides a dynamic and customizable loading spinner
+  component for Phoenix LiveView applications. It supports various animation styles and
+  configurations to visually indicate ongoing processes or loading states within an application.
+
+  This module includes several types of spinners, offering a range of visual effects, such as
+  traditional spinning animations, bouncing dots, bars, and more intricate radial patterns.
+  It also allows extensive customization, including color themes and size variations,
+  making it adaptable to different UI designs and user interfaces.
+
+  With its flexible design, the `MishkaChelekom.Spinner` module enables developers to provide
+  visual feedback for asynchronous operations, enhancing user experience and maintaining engagement
+  during content loading or background processes.
+  """
+
   use Phoenix.Component
 
   @sizes [
@@ -32,13 +47,38 @@ defmodule MishkaChelekom.Spinner do
     "pinging"
   ]
 
+  @doc """
+  Renders a customizable spinner component to indicate loading or processing states.
+  The spinner can be adjusted in size, color, and type to match the desired style and theme.
+
+  ## Examples
+
+  ```elixir
+  <.spinner color="danger" size="extra_small" type="pinging" />
+  <.spinner color="misc" type="pinging" />
+  <.spinner color="warning" size="medium" type="pinging" />
+  <.spinner color="success" size="large" type="pinging" />
+  <.spinner color="primary" size="extra_large" type="pinging" />
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
   attr :type, :string, values: @spinner_types, default: "default", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, values: @colors, default: "dark", doc: ""
-  attr :size, :string, values: @sizes, default: "small", doc: ""
-  attr :rest, :global
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, values: @colors, default: "dark", doc: "Determines color theme"
+
+  attr :size, :string,
+    values: @sizes,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def spinner(assigns) do
     ~H"""
@@ -59,6 +99,7 @@ defmodule MishkaChelekom.Spinner do
     """
   end
 
+  @doc type: :component
   attr :type, :string, values: @spinner_types
 
   defp spinner_content(%{type: "pinging"} = assigns) do

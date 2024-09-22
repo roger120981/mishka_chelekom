@@ -1,37 +1,22 @@
 defmodule MishkaChelekom.Popover do
+  @moduledoc """
+  The `MishkaChelekom.Popover` module provides a versatile popover component for Phoenix LiveView
+  applications. It allows developers to create interactive and visually appealing popover elements
+  with various customization options.
+
+  This component supports different display configurations, such as inline and block styles, and
+  can be triggered by various user interactions like clicks or hover events. The popover can be
+  styled using predefined color schemes and variants, including options for shadowed elements.
+
+  The module also offers control over positioning, size, and spacing of the popover content, making
+  it adaptable to different use cases. It is built to be highly configurable while maintaining a
+  consistent design system across the application.
+
+  By utilizing `slots`, it allows developers to include custom content within the popover and
+  trigger elements, enhancing its flexibility and usability for complex UI scenarios.
+  """
   use Phoenix.Component
   alias Phoenix.LiveView.JS
-
-  @doc """
-  Avoid placing block-level elements inside a `<p>` tag if you want to use inline popover. These include:
-   - `<div>`
-   - `<header>`
-   - `<footer>`
-   - `<section>`
-   - `<article>`
-   - `<aside>`
-   - `<h1>`, `<h2>`, `<h3>`, etc.
-   - `<nav>`
-   - `<form>`
-   - `<table>`
-   - `<ul>`, `<ol>`, `<li>`
-    These elements create their own block context and should not be nested within a paragraph.
-
-    2. **Other `<p>` Tags**: Nesting one `<p>` tag inside another can lead to invalid HTML and unexpected rendering.
-
-    3. **Semantic Inconsistencies**: While you can technically include inline elements like:
-     `<a>`, `<strong>`, `<em>`, `<span>`, and `<img>` within a `<p>` tag,
-      avoid misusing them or using them in ways that don't align with their semantic purpose.
-
-    4. **Structural Tags**: Tags that define the structure of the document or a section, like:
-    `<main>`, `<section>`, `<article>`, `<aside>`, `<figure>`, etc., should not be inside a `<p>` tag.
-
-    ### Proper Usage
-  The `<p>` tag should primarily contain inline elements,
-  such as text, `<a>`, `<strong>`, `<em>`, `<span>`, and `<img>`
-  (with caution), or other inline elements that do not disrupt the flow of text within the paragraph.
-
-  """
 
   @colors [
     "white",
@@ -52,13 +37,75 @@ defmodule MishkaChelekom.Popover do
     "shadow"
   ]
 
+  @doc """
+  Renders a customizable popover component that can display additional information when an element is
+  hovered or clicked.
+
+  You can choose between inline and block rendering, and include rich content within the popover.
+
+  ## Examples
+
+  ```elixir
+  <p>
+    Due to its central geographic location in Southern Europe,
+    <.popover inline clickable>
+      <.popover_trigger trigger_id="popover-1" inline class="text-blue-400">Italy</.popover_trigger>
+      <.popover_content
+        id="popover-1"
+        rounded="large"
+        width="quadruple_large"
+        color="light"
+        padding="none"
+        class="grid grid-cols-5"
+        inline
+      >
+        <span class="block p-2 space-y-5 col-span-3">
+          <span class="font-semibold block">About Italy</span>
+          <span class="block">
+            Italy is located in the middle of the Mediterranean Sea, in Southern Europe,
+            and it is also considered part of Western Europe. It is a unitary parliamentary
+            republic with Rome as its capital and largest city.
+          </span>
+          <a href="/" class="block text-blue-400">Read more <.icon name="hero-link" /></a>
+        </span>
+        <img
+          src="https://example.com/italy.png"
+          class="h-full w-full col-span-2"
+          alt="Map of Italy"
+        />
+      </.popover_content>
+    </.popover>
+    has historically been home to myriad peoples and cultures. In addition to the various ancient peoples dispersed throughout what is now modern-day Italy, the most predominant being the Indo-European Italic peoples who gave the peninsula its name, beginning from the classical era, Phoenicians and Carthaginians founded colonies mostly in insular Italy.
+  </p>
+
+  <.popover clickable>
+    <.popover_trigger trigger_id="popover-2" class="text-blue-400">Hover or Click here</.popover_trigger>
+    <.popover_content id="popover-2" color="light" rounded="large" padding="medium">
+      <div class="p-4">
+        <h4 class="text-lg font-semibold">Popover Title</h4>
+        <p class="mt-2">This is a simple popover example with content that can be customized.</p>
+      </div>
+    </.popover_content>
+  </.popover>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :inline, :boolean, default: false, doc: ""
-  attr :clickable, :boolean, default: false, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :inline, :boolean, default: false, doc: "Determines whether this element is inline"
+
+  attr :clickable, :boolean,
+    default: false,
+    doc: "Determines if the element can be activated on click"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def popover(%{inline: true} = assigns) do
     ~H"""
@@ -96,12 +143,66 @@ defmodule MishkaChelekom.Popover do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :trigger_id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :inline, :boolean, default: false, doc: ""
-  slot :inner_block, required: false, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  Renders a popover trigger element, which is used to show or hide a popover content element.
+  The trigger can be rendered as either an inline or block element. When the trigger is clicked,
+  it toggles the visibility of the associated popover content.
+
+  ## Examples
+
+  ```elixir
+  <p>
+    Discover more about
+    <.popover_trigger trigger_id="popover-1" inline class="text-blue-400">Italy</.popover_trigger>
+    by clicking on the name.
+    <.popover_content
+      id="popover-1"
+      inline
+      rounded="large"
+      width="quadruple_large"
+      color="light"
+      padding="none"
+      class="grid grid-cols-5"
+    >
+      <span class="block p-2 space-y-5 col-span-3">
+        <span class="font-semibold block">About Italy</span>
+        <span class="block">
+          Italy is located in the middle of the Mediterranean Sea, in Southern Europe, and it is also considered part of Western Europe. It is a unitary parliamentary republic with Rome as its capital and largest city.
+        </span>
+        <a href="/" class="block text-blue-400">Read more <.icon name="hero-link" /></a>
+      </span>
+      <img
+        src="https://flowbite.com/docs/images/popovers/italy.png"
+        class="h-full w-full col-span-2"
+        alt="Map of Italy"
+      />
+    </.popover_content>
+  </p>
+
+  <.popover_trigger trigger_id="popover-2" class="text-blue-400">
+    Hover or Click here to show the popover
+  </.popover_trigger>
+  <.popover_content id="popover-2" color="light" rounded="large" padding="medium">
+    <div class="p-4">
+      <h4 class="text-lg font-semibold">Popover Title</h4>
+      <p class="mt-2">This is a simple popover example with content that can be customized.</p>
+    </div>
+  </.popover_content>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :trigger_id, :string, default: nil, doc: "Identifies what is the triggered element id"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :inline, :boolean, default: false, doc: "Determines whether this element is inline"
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def popover_trigger(%{inline: true} = assigns) do
     ~H"""
@@ -131,21 +232,53 @@ defmodule MishkaChelekom.Popover do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :inline, :boolean, default: false, doc: ""
-  attr :position, :string, default: "top", doc: ""
-  attr :variant, :string, values: @variants, default: "shadow", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :size, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :width, :string, default: "extra_large", doc: ""
-  attr :text_position, :string, default: "start", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, default: "none", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  Renders a popover content element, which displays additional information when the associated
+  popover trigger is activated.
+
+  The content can be positioned relative to the trigger and customized with various styles,
+  such as color, padding, and size.
+
+  ## Examples
+
+  ```elixir
+  <.popover_content id="popover-3" inline position="top" color="dark" rounded="small" padding="small">
+    <span class="block text-white p-2">This is a tooltip message!</span>
+  </.popover_content>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :inline, :boolean, default: false, doc: "Determines whether this element is inline"
+  attr :position, :string, default: "top", doc: "Determines the element position"
+  attr :variant, :string, values: @variants, default: "shadow", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+
+  attr :size, :string,
+    default: nil,
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :space, :string, default: nil, doc: "Space between items"
+  attr :width, :string, default: "extra_large", doc: "Determines the element width"
+  attr :text_position, :string, default: "start", doc: "Determines the element' text position"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def popover_content(%{inline: true} = assigns) do
     ~H"""

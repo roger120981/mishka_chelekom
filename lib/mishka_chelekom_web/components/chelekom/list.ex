@@ -1,4 +1,25 @@
 defmodule MishkaChelekom.List do
+  @moduledoc """
+  The `MishkaChelekom.List` module provides a versatile and customizable list
+  component for building both ordered and unordered lists, as well as a list
+  group component for more structured content. This module is designed to cater to
+  various styles and use cases, such as navigation menus, data presentations, or simple item listings.
+
+  ### Features
+
+  - **Styling Variants:** The component offers multiple variants like `default`,
+  `filled`, `outline`, `seperated`, `tinted_split`, and `transparent` to meet diverse design requirements.
+  - **Color Customization:** Choose from a variety of colors to style the list according to
+  your application's theme.
+  - **Flexible Layouts:** Control the size, spacing, and appearance of list items with extensive
+  customization options.
+  - **Nested Structure:** Easily nest lists and group items together with the list group
+  component for more complex layouts.
+
+  This module is ideal for creating well-structured and visually appealing lists in
+  your Phoenix LiveView applications.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -26,17 +47,49 @@ defmodule MishkaChelekom.List do
     "dawn"
   ]
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :size, :string, default: "large", doc: ""
-  attr :space, :string, values: @sizes ++ [nil], default: nil, doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :variant, :string, values: @variants, default: "filled", doc: ""
+  @doc """
+  Renders a list component that supports both ordered and unordered lists with customizable styles,
+  sizes, and colors.
+
+  ## Examples
+
+  ```elixir
+  <.list font_weight="font-bold" color="light" size="small">
+    <:item padding="small" count={1}>list count small</:item>
+    <:item padding="small" count={2}>list count small</:item>
+    <:item padding="small" count={3}>list count small</:item>
+    <:item padding="small" count={23658}>list count small</:item>
+  </.list>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :size, :string,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :space, :string, values: @sizes ++ [nil], default: nil, doc: "Space between items"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :variant, :string, values: @variants, default: "filled", doc: "Determines the style"
   attr :style, :string, default: "list-none", doc: ""
-  slot :item, validate_attrs: false
-  attr :rest, :global, include: ~w(ordered unordered), doc: ""
-  slot :inner_block, doc: ""
+  slot :item, validate_attrs: false, doc: "Specifies item slot of a list"
+
+  attr :rest, :global,
+    include: ~w(ordered unordered),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, doc: "Inner block that renders HEEx content"
 
   def list(%{rest: %{ordered: true}} = assigns) do
     ~H"""
@@ -60,17 +113,46 @@ defmodule MishkaChelekom.List do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :list, default: nil, doc: ""
-  attr :count, :integer, default: nil, doc: ""
-  attr :count_separator, :string, default: ". ", doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :icon_class, :string, default: "list-item-icon", doc: ""
-  attr :content_class, :string, default: nil
-  attr :padding, :string, default: "none", doc: ""
-  attr :position, :string, values: ["start", "end", "center"], default: "start", doc: ""
-  attr :rest, :global
-  slot :inner_block, required: true, doc: ""
+  @doc """
+  Renders a list item (`li`) component with optional count, icon, and custom styles.
+  This component is versatile and can be used within a list to display content with specific alignment,
+  padding, and style.
+
+  ## Examples
+
+  ```elixir
+  <MishkaChelekom.List.li>LI 1</MishkaChelekom.List.li>
+
+  <MishkaChelekom.List.li>L2</MishkaChelekom.List.li>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :list, default: nil, doc: "Custom CSS class for additional styling"
+  attr :count, :integer, default: nil, doc: "Li counter"
+  attr :count_separator, :string, default: ". ", doc: "Li counter separator"
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+
+  attr :icon_class, :string,
+    default: "list-item-icon",
+    doc: "Determines custom class for the icon"
+
+  attr :content_class, :string, default: nil, doc: "Determines custom class for the content"
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+
+  attr :position, :string,
+    values: ["start", "end", "center"],
+    default: "start",
+    doc: "Determines the element position"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   @spec li(map()) :: Phoenix.LiveView.Rendered.t()
   def li(assigns) do
@@ -97,17 +179,49 @@ defmodule MishkaChelekom.List do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :variant, :string, values: @variants, default: "filled", doc: ""
-  attr :size, :string, default: "medium", doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :style, :string, default: "list-none", doc: ""
-  attr :space, :string, values: @sizes ++ [nil], default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :rest, :global
-  slot :inner_block, required: true, doc: ""
+  @doc """
+  Renders an unordered list (`ul`) component with customizable styles and attributes.
+  You can define the appearance of the list using options for color, variant, size, width, and more.
+
+  It supports a variety of styles including `list-disc` for bulleted lists.
+
+  ## Examples
+
+  ```elixir
+  <.ul style="list-disc">
+    <li>Default background ul list disc</li>
+    <li>Default background ul list disc</li>
+    <li>Default background ul list disc</li>
+  </.ul>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :variant, :string, values: @variants, default: "filled", doc: "Determines the style"
+
+  attr :size, :string,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :width, :string, default: "full", doc: "Determines the element width"
+  attr :style, :string, default: "list-none", doc: "Determines the element style"
+  attr :space, :string, values: @sizes ++ [nil], default: nil, doc: "Space between items"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def ul(assigns) do
     ~H"""
@@ -130,16 +244,47 @@ defmodule MishkaChelekom.List do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :variant, :string, values: @variants, default: "filled", doc: ""
-  attr :size, :string, default: "medium", doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :space, :string, values: @sizes ++ [nil], default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :rest, :global
-  slot :inner_block, required: true, doc: ""
+  @doc """
+  Renders an ordered list (`ol`) component with customizable styles and attributes.
+  The list can be styled with different colors, variants, sizes, widths, and spacing to
+  fit various design needs.
+
+  ## Examples
+
+  ```elixir
+  <.ol style="list-decimal">
+    <li>Ordered list item 1</li>
+    <li>Ordered list item 2</li>
+    <li>Ordered list item 3</li>
+  </.ol>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :variant, :string, values: @variants, default: "filled", doc: "Determines the style"
+
+  attr :size, :string,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :width, :string, default: "full", doc: "Determines the element width"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :space, :string, values: @sizes ++ [nil], default: nil, doc: "Space between items"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def ol(assigns) do
     ~H"""
@@ -161,19 +306,61 @@ defmodule MishkaChelekom.List do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :size, :string, default: "medium", doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :space, :string, values: @sizes ++ [nil], default: "small", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "small", doc: ""
-  attr :border, :string, values: @sizes ++ [nil], default: "extra_small", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, values: @sizes ++ ["none"], default: "none", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global
-  slot :inner_block, required: true, doc: ""
+  @doc """
+  Renders a list group component with customizable styles, borders, and padding. It can be used to group list items with different variants, colors, and sizes.
+
+  ## Examples
+
+  ```elixir
+  <.list_group variant="seperated" rounded="extra_small" color="dawn">
+    <.li position="end" icon="hero-chat-bubble-left-ellipsis">HBase</.li>
+    <.li>PSQL</.li>
+    <.li>Sqlight</.li>
+  </.list_group>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+
+  attr :size, :string,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :width, :string, default: "full", doc: "Determines the element width"
+  attr :space, :string, values: @sizes ++ [nil], default: "small", doc: "Space between items"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "small",
+    doc: "Determines the border radius"
+
+  attr :border, :string,
+    values: @sizes ++ [nil],
+    default: "extra_small",
+    doc: "Determines border style"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string,
+    values: @sizes ++ ["none"],
+    default: "none",
+    doc: "Determines padding for items"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def list_group(assigns) do
     ~H"""

@@ -1,4 +1,24 @@
 defmodule MishkaChelekom.Keyboard do
+  @moduledoc """
+  The `MishkaChelekom.Keyboard` module provides a customizable keyboard component,
+  primarily used for displaying keyboard shortcuts, key combinations, or highlighting
+  key inputs in a user interface. The component is designed with flexibility in mind,
+  allowing you to easily change its appearance and style through various attributes.
+
+  ### Key Features:
+
+  - **Flexible Styling Options:** Choose from multiple color themes and variants
+  (e.g., `default`, `outline`, `transparent`, `shadow`) to match your application's look and feel.
+  - **Customizable Size and Border Radius:** Adjust the size of the keyboard
+  keys and control the border radius with predefined sizes like `small`, `medium`,
+  `large`, or even `full` for a rounded key appearance.
+  - **Inner Block Content:** Use the inner block slot to include text, icons, or any other
+  content inside the keyboard component, providing context or explanation for the
+  keys being represented.
+
+  This component is ideal for visually representing keyboard shortcuts or commands,
+  making it easy for users to understand and remember key combinations.
+  """
   use Phoenix.Component
 
   @sizes ["extra_small", "small", "medium", "large", "extra_large"]
@@ -24,17 +44,49 @@ defmodule MishkaChelekom.Keyboard do
     "unbordered"
   ]
 
-  @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :size, :string, default: "small", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "small", doc: ""
-  attr :font_weight, :string, default: "font-semibold", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  Renders a keyboard component, typically used to represent key presses or shortcuts in UI documentation.
+  It supports various styles, colors, and border radius options.
 
-  slot :inner_block, required: false, doc: ""
+  ## Examples
+
+  ```elixir
+  <.keyboard>CTRL</.keyboard>
+  <.keyboard color="primary">Esc</.keyboard>
+  <.keyboard color="secondary">Tab</.keyboard>
+  <.keyboard color="light">Tab</.keyboard>
+  <.keyboard color="info">Tab</.keyboard>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+
+  attr :size, :string,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "small",
+    doc: "Determines the border radius"
+
+  attr :font_weight, :string,
+    default: "font-semibold",
+    doc: "Determines custom class for the font weight"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def keyboard(assigns) do
     ~H"""

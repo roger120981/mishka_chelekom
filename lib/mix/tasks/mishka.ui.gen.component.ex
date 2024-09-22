@@ -1,7 +1,7 @@
-defmodule Mix.Tasks.Mishka.Ui.Component do
+defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   use Igniter.Mix.Task
 
-  @example "mix mishka.ui.component component --example arg"
+  @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
   @moduledoc """
   #{@shortdoc}
@@ -34,6 +34,7 @@ defmodule Mix.Tasks.Mishka.Ui.Component do
   * `--no-sub-config` - Creates dependent components with default settings
   * `--module` or `-m` - Specifies a custom name for the component module
   * `--sub` - Specifies this task is a sub task
+  * `--no-deps` - Specifies this task is created without sub task
   * `--yes` - Makes directly without questions
   """
 
@@ -65,6 +66,7 @@ defmodule Mix.Tasks.Mishka.Ui.Component do
         space: :string,
         type: :string,
         sub: :boolean,
+        no_deps: :boolean,
         no_sub_config: :boolean
       ],
       # CLI aliases
@@ -81,10 +83,11 @@ defmodule Mix.Tasks.Mishka.Ui.Component do
     if !options[:sub] do
       msg =
         """
-          ,_,
-          {o,o}
-          /)  )
-        ---"-"--
+              .-.
+             /'v'\\
+            (/   \\)
+            =="="==
+          Mishka.life
         """
 
       IO.puts(IO.ANSI.green() <> String.trim_trailing(msg) <> IO.ANSI.reset())
@@ -234,9 +237,13 @@ defmodule Mix.Tasks.Mishka.Ui.Component do
       igniter
       |> Igniter.copy_template(template_path, proper_location, assign, on_exists: :overwrite)
 
-    igniter
-    |> optional_components(template_config)
-    |> necessary_components(template_path, template_config, proper_location, options, assign)
+    if is_nil(options[:no_deps]) do
+      igniter
+      |> optional_components(template_config)
+      |> necessary_components(template_path, template_config, proper_location, options, assign)
+    else
+      igniter
+    end
   end
 
   defp optional_components(igniter, template_config) do
@@ -250,7 +257,7 @@ defmodule Mix.Tasks.Mishka.Ui.Component do
         Components: #{Enum.join(template_config[:optional], " - ")}
 
         You can run:
-            #{Enum.map(template_config[:optional], &"\n   * mix mishka.ui.component #{&1}\n")}
+            #{Enum.map(template_config[:optional], &"\n   * mix mishka.ui.gen.component #{&1}\n")}
       """)
     else
       igniter
@@ -294,7 +301,7 @@ defmodule Mix.Tasks.Mishka.Ui.Component do
 
       if template_config[:necessary] != [] and !options[:yes] and !options[:no_sub_config] do
         IO.puts(
-          "#{IO.ANSI.yellow() <> "#{Enum.map(template_config[:necessary], &"\n   * mix mishka.ui.component #{&1}\n")}" <> IO.ANSI.reset()}"
+          "#{IO.ANSI.yellow() <> "#{Enum.map(template_config[:necessary], &"\n   * mix mishka.ui.gen.component #{&1}\n")}" <> IO.ANSI.reset()}"
         )
       end
 
@@ -341,7 +348,7 @@ defmodule Mix.Tasks.Mishka.Ui.Component do
             []
           end
 
-        {module_coms ++ component_acc, Igniter.compose_task(acc, "mishka.ui.component", args)}
+        {module_coms ++ component_acc, Igniter.compose_task(acc, "mishka.ui.gen.component", args)}
       end)
       |> case do
         {[], igniter} ->

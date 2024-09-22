@@ -1,42 +1,111 @@
 defmodule MishkaChelekom.TelField do
+  @moduledoc """
+  The `MishkaChelekom.TelField` module provides a highly customizable telephone input field
+  component for use in Phoenix LiveView applications. This component supports various styling
+  options such as color themes, border styles, padding, and more.
+
+  It also includes options for displaying error messages, descriptions, and floating labels,
+  allowing for a rich user experience.
+
+  ### Features:
+  - **Color Themes**: Choose from different color options for both the input field and the error states.
+  - **Border Styles**: Apply various border styles, including outline, unbordered, and shadow.
+  - **Padding and Size Options**: Customize the overall size and padding of the input field.
+  - **Error Handling**: Easily display error messages with optional icons.
+  - **Label Placement**: Support for floating labels in both inner and outer styles.
+  - **Accessibility**: Includes support for ARIA attributes and accessible error handling.
+  - **Slots**: Provides slots for rendering additional content at the start and end of the
+  input field, allowing for flexible customization.
+
+  This component is designed to integrate seamlessly into your Phoenix LiveView forms and
+  provides a wide range of customization options to suit different design needs.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  The `TelField` component is a customizable telephone input field with support for various
+  styles, including floating labels and error messages.
+
+  ## Examples
+
+  ```elixir
+  <.tel_field
+    name="name"
+    space="small"
+    color="danger"
+    description="This is description"
+    label="This is outline label Tel"
+    placeholder="This is Tel placeholder"
+    floating="outer"
+  />
+
+  <.tel_field
+      name="name"
+      space="small"
+      color="danger"
+      description="This is description"
+      label="This is outline label Tel"
+      placeholder="This is Tel placeholder"
+      floating="outer"
+    >
+      <:start_section>
+        <.icon name="hero-home" class="size-4" />
+      </:start_section>
+      <:end_section>
+        <.icon name="hero-home" class="size-4" />
+      </:end_section>
+  </.tel_field>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :variant, :string, default: "outline", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :variant, :string, default: "outline", doc: "Determines the style"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
   attr :floating, :string, default: "none", doc: "none, inner, outer"
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
 
-  slot :start_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :start_section, required: false, doc: "Renders heex content in start of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  slot :end_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :end_section, required: false, doc: "Renders heex content in end of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
     include: ~w(autocomplete disabled form list maxlength minlength pattern placeholder
-        readonly required size inputmode inputmode title autofocus)
+        readonly required size inputmode inputmode title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec tel_field(map()) :: Phoenix.LiveView.Rendered.t()
   def tel_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -171,11 +240,12 @@ defmodule MishkaChelekom.TelField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -183,10 +253,11 @@ defmodule MishkaChelekom.TelField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

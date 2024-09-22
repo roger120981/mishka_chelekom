@@ -1,4 +1,35 @@
 defmodule MishkaChelekom.Alert do
+  @moduledoc """
+  A collection of alert components and helper functions for managing and displaying alerts
+  in a **Phoenix LiveView** application.
+
+  This module provides a set of customizable components for rendering various types of alerts,
+  such as information, warning, and error messages. It also includes functions to show and hide
+  alerts with smooth transition effects.
+
+  ## Components
+
+    - `flash/1`: Renders a flash notice with support for different styles and sizes.
+    - `flash_group/1`: Renders a group of flash messages with predefined content.
+    - `alert/1`: Renders a generic alert component with customizable styles and icons.
+
+  ## Functions
+
+    - `show_alert/2`: Displays an alert element using a defined transition effect.
+    - `hide_alert/2`: Hides an alert element using a defined transition effect.
+
+  ## Configuration
+
+  The module offers various configuration options through attributes and slots to allow
+  fine-grained control over the appearance and behavior of alerts. Attributes like `variant`,
+  `kind`, `position`, and `rounded` can be used to modify the styling, while slots provide
+  flexibility in rendering custom content within alerts.
+
+  ## Usage
+
+  Use the provided components in your LiveView templates to display notifications, warnings,
+  and other messages in a visually consistent manner across your application.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
   import MishkaChelekomWeb.Gettext
@@ -34,29 +65,68 @@ defmodule MishkaChelekom.Alert do
     :error
   ]
 
+  @doc type: :component
   @doc """
-  Renders flash notices.
+  The `flash` component is used to display flash messages with various styling options.
+  It supports customizable attributes such as `kind`, `variant`, and `position` for tailored appearance.
 
   ## Examples
 
-      <.flash kind={:info} flash={@flash} />
-      <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
-  """
-  attr :id, :string, doc: "the optional id of flash container"
-  attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
-  attr :title, :string, default: nil
-  attr :kind, :atom, values: @kind_typs, doc: "used for styling and flash lookup"
-  attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :position, :string, values: @positions ++ [nil], default: nil, doc: ""
-  attr :width, :string, values: @sizes ++ ["full"], default: "full", doc: ""
-  attr :size, :string, values: @sizes, default: "medium", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "small", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :icon, :any, default: "hero-chat-bubble-bottom-center-text", doc: ""
-  attr :class, :string, default: nil, doc: ""
+  ```elixir
+  <.flash kind={:info} title="This is info titlee" width="full" size="large">
+    <p>This is info Description</p>
+  </.flash>
 
-  slot :inner_block, doc: "the optional inner block that renders the flash message"
+  <.flash kind={:error} title="This is misc titlee" width="large" size="large" flash={@flash} />
+
+  <.flash_group flash={@flash} />
+
+  <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
+  ```
+  """
+  attr :id, :string, doc: "A unique identifier is used to manage state and interaction"
+  attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :kind, :atom, values: @kind_typs, doc: "used for styling and flash lookup"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+
+  attr :position, :string,
+    values: @positions ++ [nil],
+    default: nil,
+    doc: "Determines the element position"
+
+  attr :width, :string,
+    values: @sizes ++ ["full"],
+    default: "full",
+    doc: "Determines the element width"
+
+  attr :size, :string,
+    values: @sizes,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "small",
+    doc: "Determines the border radius"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :icon, :any,
+    default: "hero-chat-bubble-bottom-center-text",
+    doc: "Icon displayed alongside of an item"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  slot :inner_block, doc: "Inner block that renders HEEx content"
 
   def flash(assigns) do
     assigns = assign_new(assigns, :id, fn -> "flash-#{assigns.variant}-#{assigns.kind}" end)
@@ -65,7 +135,7 @@ defmodule MishkaChelekom.Alert do
     <div
       :if={msg = render_slot(@inner_block) || Phoenix.Flash.get(@flash, @kind)}
       id={@id}
-      phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
+      phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide_alert("##{@id}")}
       role="alert"
       class={[
         "z-50 px-2 py-1.5",
@@ -99,12 +169,17 @@ defmodule MishkaChelekom.Alert do
   @doc """
   Shows the flash group with standard titles and content.
 
-  ## Examples
-
-      <.flash_group flash={@flash} />
+  ## Example
+  ```
+  <.flash_group flash={@flash} />
+  ```
   """
+  @doc type: :component
+  attr :id, :string,
+    default: "flash-group",
+    doc: "A unique identifier is used to manage state and interaction"
+
   attr :flash, :map, required: true, doc: "the map of flash messages"
-  attr :id, :string, default: "flash-group", doc: "the optional id of flash container"
 
   def flash_group(assigns) do
     ~H"""
@@ -115,8 +190,8 @@ defmodule MishkaChelekom.Alert do
         id="client-error"
         kind={:error}
         title={gettext("We can't find the internet")}
-        phx-disconnected={show(".phx-client-error #client-error")}
-        phx-connected={hide("#client-error")}
+        phx-disconnected={show_alert(".phx-client-error #client-error")}
+        phx-connected={hide_alert("#client-error")}
         hidden
       >
         <%= gettext("Attempting to reconnect") %>
@@ -127,8 +202,8 @@ defmodule MishkaChelekom.Alert do
         id="server-error"
         kind={:error}
         title={gettext("Something went wrong!")}
-        phx-disconnected={show(".phx-server-error #server-error")}
-        phx-connected={hide("#server-error")}
+        phx-disconnected={show_alert(".phx-server-error #server-error")}
+        phx-connected={hide_alert("#server-error")}
         hidden
       >
         <%= gettext("Hang in there while we get back on track") %>
@@ -139,27 +214,74 @@ defmodule MishkaChelekom.Alert do
   end
 
   @doc """
-  Renders flash notices.
+  The `alert` component is used to display alert messages with various styling options.
+  It supports attributes like `kind`, `variant`, and `position` to control its appearance and behavior.
 
   ## Examples
 
-      <.flash kind={:info} flash={@flash} />
-      <.flash kind={:info} phx-mounted={show("#flash")}>Welcome Back!</.flash>
-  """
-  attr :id, :string, default: nil, doc: "the optional id of flash container"
-  attr :title, :string, default: nil
-  attr :kind, :atom, values: @kind_typs, doc: "used for styling and flash lookup"
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :position, :string, values: @positions ++ [nil], default: nil, doc: ""
-  attr :width, :string, values: @sizes ++ ["full"], default: "full", doc: ""
-  attr :size, :string, values: @sizes, default: "medium", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "small", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :icon, :any, default: "hero-chat-bubble-bottom-center-text", doc: ""
-  attr :class, :string, default: nil, doc: ""
+  ```elixir
+  <.alert kind={:info} title="This is info titlee" width="full" size="large">
+    <p>This is info Description</p>
+  </.alert>
 
-  slot :inner_block, doc: "the optional inner block that renders the flash message"
-  attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
+  <.alert kind={:misc} title="This is misc titlee" width="full" />
+
+  <.alert kind={:danger} title="This is title" width="large" size="extra_small" rounded="extra_large">
+    This is Danger
+  </.alert>
+
+  <.alert kind={:success} title="This is success title" size="extra_large" icon={nil}>
+    This is Success
+  </.alert>
+
+  <.alert kind={:primary}>This is Primary</.alert>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :kind, :atom, values: @kind_typs, doc: "used for styling and flash lookup"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+
+  attr :position, :string,
+    values: @positions ++ [nil],
+    default: nil,
+    doc: "Determines the element position"
+
+  attr :width, :string,
+    values: @sizes ++ ["full"],
+    default: "full",
+    doc: "Determines the element width"
+
+  attr :size, :string,
+    values: @sizes,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "small",
+    doc: "Determines the border radius"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :icon, :any,
+    default: "hero-chat-bubble-bottom-center-text",
+    doc: "Icon displayed alongside of an item"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  slot :inner_block, doc: "Inner block that renders HEEx content"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def alert(assigns) do
     ~H"""
@@ -401,7 +523,36 @@ defmodule MishkaChelekom.Alert do
 
   ## JS Commands
 
-  def show(js \\ %JS{}, selector) do
+  @doc """
+  Displays an alert element by applying a transition effect.
+
+  ## Parameters
+
+    - `js`: (optional) An existing `Phoenix.LiveView.JS` structure to apply transformations on.
+    Defaults to a new `%JS{}`.
+    - `selector`: A string representing the CSS selector of the alert element to be shown.
+
+  ## Returns
+
+    - A `Phoenix.LiveView.JS` structure with commands to show the alert element with a
+    smooth transition effect.
+
+  ## Transition Details
+
+    - The element transitions from an initial state of reduced opacity and scale
+    (`opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95`) to full opacity and scale
+    (`opacity-100 translate-y-0 sm:scale-100`) over a duration of 300 milliseconds.
+
+  ## Example
+
+    ```elixir
+    show_alert(%JS{}, "#alert-box")
+    ```
+
+  This example will show the alert element with the ID `alert-box` using the defined transition effect.
+  """
+
+  def show_alert(js \\ %JS{}, selector) do
     JS.show(js,
       to: selector,
       time: 300,
@@ -412,7 +563,36 @@ defmodule MishkaChelekom.Alert do
     )
   end
 
-  def hide(js \\ %JS{}, selector) do
+  @doc """
+  Hides an alert element by applying a transition effect.
+
+  ## Parameters
+
+    - `js`: (optional) An existing `Phoenix.LiveView.JS` structure to apply transformations on.
+    Defaults to a new `%JS{}`.
+    - `selector`: A string representing the CSS selector of the alert element to be hidden.
+
+  ## Returns
+
+    - A `Phoenix.LiveView.JS` structure with commands to hide the alert element with
+    a smooth transition effect.
+
+  ## Transition Details
+
+    - The element transitions from full opacity and scale (`opacity-100 translate-y-0 sm:scale-100`)
+    to reduced opacity and scale (`opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95`)
+    over a duration of 200 milliseconds.
+
+  ## Example
+
+    ```elixir
+    hide_alert(%JS{}, "#alert-box")
+    ```
+
+  This example will hide the alert element with the ID `alert-box` using the defined transition effect.
+  """
+
+  def hide_alert(js \\ %JS{}, selector) do
     JS.hide(js,
       to: selector,
       time: 200,

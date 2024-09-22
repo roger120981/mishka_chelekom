@@ -1,4 +1,31 @@
 defmodule MishkaChelekom.Avatar do
+  @moduledoc """
+  The `MishkaChelekom.Avatar` module provides a set of components for creating and
+  managing avatar elements in your **Phoenix LiveView** applications.
+
+  It supports various avatar types, including standard avatars, placeholders, and placeholder icons.
+  You can customize the appearance and behavior of avatars using attributes such as size, color,
+  border, and shadow.
+
+  ### Components
+
+  - **Avatar (`avatar/1`)**: Renders an individual avatar element, which can include an image,
+  icon, or text content. The component supports several attributes for customization,
+  such as size, color, shadow, and border radius. Slots are available for adding additional
+  content like icons.
+
+  - **Avatar Group (`avatar_group/1`)**: Renders a group of avatar elements arranged in a flex container.
+  You can control the spacing between avatars and provide custom styling using the
+  available attributes and slots.
+
+  ### Usage
+
+  The `MishkaChelekom.Avatar` module allows for flexible and customizable avatar components
+  that can be integrated seamlessly into your user interfaces.
+  Whether you need a simple avatar or a complex avatar group, this module provides the tools
+  to create rich and engaging UI elements.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -19,33 +46,84 @@ defmodule MishkaChelekom.Avatar do
     "dawn"
   ]
 
+  @doc """
+  The `avatar` component is used to display user avatars with various customization options,
+  including size, shape, and styling.
+
+  It supports displaying an image or an icon with optional inner content.
+
+  ## Examples
+
+  ```elixir
+  <.avatar size="medium" rounded="full" color="light">
+    <:icon name="hero-user" />
+    <.indicator size="small" bottom_right />
+  </.avatar>
+
+  <.avatar src="https://example.com/profile.jpg" size="extra_small" rounded="full">
+    <.indicator size="extra_small" bottom_left />
+  </.avatar>
+
+  <.avatar src="https://example.com/profile.jpg" size="extra_large" rounded="full">
+    <.indicator size="extra_small" color="success" top_left />
+  </.avatar>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
   attr :type, :string,
     values: ["default", "placeholder", "placeholder_icon"],
     default: "default",
     doc: ""
 
-  attr :class, :string, default: nil, doc: ""
-  attr :src, :string, default: nil, doc: ""
-  attr :color, :string, values: @colors ++ ["transparent"], default: "transparent", doc: ""
-  attr :size, :string, default: "small", doc: ""
-  attr :shadow, :string, values: @sizes ++ ["none"], default: "none", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "medium", doc: ""
-  attr :border, :string, default: "none", doc: ""
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :src, :string, default: nil, doc: "Media link"
+
+  attr :color, :string,
+    values: @colors ++ ["transparent"],
+    default: "transparent",
+    doc: "Determines color theme"
+
+  attr :size, :string,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :shadow, :string,
+    values: @sizes ++ ["none"],
+    default: "none",
+    doc: "Determines shadow style"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "medium",
+    doc: "Determines the border radius"
+
+  attr :border, :string, default: "none", doc: "Determines border style"
 
   slot :icon, required: false do
-    attr :name, :string, required: true
-    attr :class, :string
-    attr :icon_class, :string
-    attr :color, :string
-    attr :size, :string
+    attr :name, :string, required: true, doc: "Specifies the name of the element"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :color, :string, doc: "Determines color theme"
+
+    attr :size, :string,
+      doc:
+        "Determines the overall size of the elements, including padding, font size, and other items"
   end
 
-  attr :rest, :global
-  slot :inner_block, required: false, doc: ""
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def avatar(%{src: src, rounded: "full"} = assigns) when not is_nil(src) do
     ~H"""
@@ -135,18 +213,41 @@ defmodule MishkaChelekom.Avatar do
     """
   end
 
+  @doc """
+  The `avatar_group` component is used to display a group of avatars with customizable spacing and layout.
+  It supports different types of avatars such as `default`, `placeholder`, and `placeholder_icon`,
+  allowing for flexible content presentation within a group.
+
+  ## Examples
+
+  ```elixir
+  <.avatar_group>
+    <.avatar src="https://example.com/profile.jpg" size="large" color="dark" rounded="full"/>
+    <.avatar src="https://example.com/profile.jpg" size="large" border="extra_large" rounded="full"/>
+    <.avatar src="https://example.com/profile.jpg" size="large" color="warning" rounded="full"/>
+    <.avatar src="https://example.com/profile.jpg" size="large" color="dark" rounded="full"/>
+    <.avatar size="large" rounded="full" border="medium">+20</.avatar>
+  </.avatar_group>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
   attr :type, :string,
     values: ["default", "placeholder", "placeholder_icon", nil],
     default: "default",
-    doc: ""
+    doc: "Specifies the type of avatar group to be rendered"
 
-  attr :class, :string, default: nil, doc: ""
-  attr :space, :string, values: @sizes ++ ["none"], default: "medium", doc: ""
-  attr :rest, :global
-  slot :inner_block, required: false, doc: ""
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :space, :string, values: @sizes ++ ["none"], default: "medium", doc: "Space between items"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def avatar_group(assigns) do
     ~H"""

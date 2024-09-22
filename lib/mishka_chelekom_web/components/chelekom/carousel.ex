@@ -1,35 +1,136 @@
 defmodule MishkaChelekom.Carousel do
+  @moduledoc """
+  Provides a versatile and customizable carousel component for the `MishkaChelekom.Carousel`
+  project.
+
+  This component enables the creation of image carousels with various features such as
+  slide indicators, navigation controls, and dynamic slide content.
+
+  ## Features
+
+  - **Slides**: Define multiple slides, each with custom images, titles, descriptions, and links.
+  - **Navigation Controls**: Include previous and next buttons to manually navigate through the slides.
+  - **Indicators**: Optional indicators show the current slide and allow direct navigation to any slide.
+  - **Overlay Options**: Customize the appearance of the overlay for a more distinct visual style.
+  - **Responsive Design**: Supports various sizes and padding options to adapt to different screen sizes.
+
+  ## Usage
+
+  ### Basic Carousel Example
+
+  ```elixir
+  ..example...
+  ```
+
+  ### Carousel with Custom Navigation
+
+  ```elixir
+  ..example...
+  ```
+
+  This module offers an easy-to-use interface for building carousels with consistent
+  styling and behavior across your application, while providing the flexibility to
+  meet various design requirements.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
   alias Phoenix.LiveView.JS
 
-  @doc type: :component
-  attr :id, :string, required: true, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :overlay, :string, default: "dark", doc: ""
-  attr :size, :string, default: "large", doc: ""
-  attr :padding, :string, default: "medium", doc: ""
-  attr :text_position, :string, default: "center", doc: ""
-  attr :rest, :global, doc: ""
-  attr :indicator, :boolean, default: false
-  attr :control, :boolean, default: true
+  @doc """
+  The `carousel` component is used to create interactive image carousels with customizable attributes
+  such as `size`, `padding`, and `overlay`. It supports adding multiple slides with different content,
+  and includes options for navigation controls and indicators.
 
-  slot :inner_block, required: false, doc: ""
+  ## Examples
+
+  ```elixir
+  <.carousel id="carousel-test-one" indicator={true}>
+    <:slide
+      content_position="end"
+      title="This is a dummy title 1"
+      description="This is a description for our carousel and this is a dummy text"
+      image="https://example.com/slides/1.webp"
+      navigate="/examples/navbar"
+    />
+    <:slide
+      content_position="center"
+      title="This is a dummy title 2"
+      image="https://example.com/slides/2.webp"
+    />
+    <:slide
+      content_position="start"
+      title="This is a dummy title 3"
+      image="https://example.com/slides/3.webp"
+    />
+    <:slide title="This is a dummy title 4" image="https://example.com/slides/3.webp"/>
+    <:slide title="This is a dummy title 5" image="https://example.com/slides/4.webp"/>
+    <:slide
+      title="This is a dummy title 6"
+      image="https://example.com/slides/5.webp"
+    />
+    <:slide
+      title="This is a dummy title 7"
+      image="https://example.com/slides/6.webp"
+      content_position="end"
+      navigate="/examples/popover"
+    />
+    <:slide
+      image="https://example.com/slides/8.webp"
+      content_position="end"
+      title="This is a dummy title 8"
+      description="This is a description for our carousel and this is a dummy text"
+      navigate="/examples/list"
+    />
+  </.carousel>
+  ```
+
+  > If you want to reduce the volume of this component when sending from the server to the client,
+  > it is better not to activate the indicator option. In the next versions, javascript will be used
+  > to solve this problem
+  """
+  @doc type: :component
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :overlay, :string, default: "dark", doc: "Determines an overlay"
+
+  attr :size, :string,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :padding, :string, default: "medium", doc: "Determines padding for items"
+  attr :text_position, :string, default: "center", doc: "Determines the element' text position"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  attr :indicator, :boolean, default: false, doc: "Specifies whether to show element indicators"
+  attr :control, :boolean, default: true, doc: "Determines whether to show navigation controls"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   slot :slide, required: true do
-    attr :image, :string
-    attr :image_class, :string
-    attr :navigate, :string, doc: ""
-    attr :patch, :string, doc: ""
-    attr :href, :string, doc: ""
-    attr :title, :string
-    attr :description, :string
-    attr :title_class, :string
-    attr :description_class, :string
-    attr :wrapper_class, :string
-    attr :content_position, :string
-    attr :class, :string
-    attr :active, :boolean, doc: ""
+    attr :image, :string, doc: "Image displayed alongside of an item"
+    attr :image_class, :string, doc: "Determines custom class for the image"
+
+    attr :navigate, :string,
+      doc: "Defines the path for navigation within the application using a `navigate` attribute."
+
+    attr :patch, :string, doc: "Specifies the path for navigation using a LiveView patch."
+    attr :href, :string, doc: "Sets the URL for an external link."
+    attr :title, :string, doc: "Specifies the title of the element"
+    attr :description, :string, doc: "Determines a short description"
+    attr :title_class, :string, doc: "Determines custom class for the title"
+    attr :description_class, :string, doc: "Determines custom class for the description"
+    attr :wrapper_class, :string, doc: "Determines custom class for the wrapper"
+    attr :content_position, :string, doc: "Determines the alignment of the element's content"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :active, :boolean, doc: "Indicates whether the element is currently active and visible"
   end
 
   def carousel(assigns) do
@@ -109,13 +210,23 @@ defmodule MishkaChelekom.Carousel do
     """
   end
 
-  attr :id, :string, required: true, doc: ""
-  attr :navigate, :string, default: nil, doc: ""
-  attr :patch, :string, default: nil, doc: ""
-  attr :href, :string, default: nil, doc: ""
-  attr :image, :string, required: true, doc: ""
-  attr :index, :integer, required: true, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc type: :component
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :navigate, :string,
+    default: nil,
+    doc: "Defines the path for navigation within the application using a `navigate` attribute."
+
+  attr :patch, :string,
+    default: nil,
+    doc: "Specifies the path for navigation using a LiveView patch."
+
+  attr :href, :string, default: nil, doc: "Sets the URL for an external link."
+  attr :image, :string, required: true, doc: "Image displayed alongside of an item"
+  attr :index, :integer, required: true, doc: "Determines item index"
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   defp slide_image(%{navigate: nav, patch: pat, href: hrf} = assigns)
        when is_binary(nav) or is_binary(pat) or is_binary(hrf) do
@@ -142,14 +253,26 @@ defmodule MishkaChelekom.Carousel do
     """
   end
 
-  attr :id, :string, required: true, doc: ""
-  attr :title, :string, default: nil
-  attr :description, :string, default: nil
-  attr :title_class, :string, default: "text-white"
-  attr :description_class, :string, default: nil
-  attr :wrapper_class, :string, default: nil
-  attr :content_position, :string, default: nil
-  attr :index, :integer, required: true, doc: ""
+  @doc type: :component
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :title_class, :string, default: "text-white", doc: "Determines custom class for the title"
+
+  attr :description_class, :string,
+    default: nil,
+    doc: "Determines custom class for the description"
+
+  attr :wrapper_class, :string, default: nil, doc: "Determines custom class for the wrapper"
+
+  attr :content_position, :string,
+    default: nil,
+    doc: "Determines the alignment of the element's content"
+
+  attr :index, :integer, required: true, doc: "Determines item index"
 
   defp slide_content(assigns) do
     ~H"""
@@ -185,9 +308,13 @@ defmodule MishkaChelekom.Carousel do
     """
   end
 
-  attr :id, :string, required: true, doc: ""
-  attr :count, :integer, required: true, doc: ""
-  attr :index, :integer, required: true, doc: ""
+  @doc type: :component
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :count, :integer, required: true, doc: "Count of items"
+  attr :index, :integer, required: true, doc: "Determines item index"
 
   defp slide_indicators(assigns) do
     ~H"""
@@ -336,6 +463,34 @@ defmodule MishkaChelekom.Carousel do
     "[&_.carousel-overlay]:bg-[#1E1E1E]/30 text-white hover:[&_.carousel-controls]:bg-[#1E1E1E]/5"
   end
 
+  @doc """
+  Sets the specified slide as active and enables the navigation controls in the carousel.
+
+  ## Parameters
+
+    - `js`: A `Phoenix.LiveView.JS` structure for composing JavaScript commands.
+    Defaults to an empty `%JS{}` if not provided.
+    - `id`: The unique identifier of the carousel component.
+    - `count`: The index of the slide to be selected as active.
+
+  ## Functionality
+
+  Performs the following actions:
+
+    - Adds the `active-slide` CSS class to the specified slide, making it visible in the carousel.
+    - Removes the `disabled` attribute from the previous and next navigation buttons
+    for the active slide, allowing user interaction.
+
+  ### Example:
+
+    ```elixir
+    select_carousel(%JS{}, id, count)
+    ```
+
+  This function is used to display a specific slide in the carousel and enable
+  the navigation controls for that slide.
+  """
+
   def select_carousel(js \\ %JS{}, id, count) when is_binary(id) do
     JS.add_class(js, "active-slide",
       to: "##{id}-carousel-slide-#{count}",
@@ -344,6 +499,34 @@ defmodule MishkaChelekom.Carousel do
     |> JS.remove_attribute("disabled", to: "##{id}-carousel-pervious-btn-#{count}")
     |> JS.remove_attribute("disabled", to: "##{id}-carousel-next-btn-#{count}")
   end
+
+  @doc """
+  Removes the active state from all slides and disables navigation controls in the carousel.
+
+  ## Parameters
+
+    - `js`: A `Phoenix.LiveView.JS` structure for composing JavaScript commands.
+    Defaults to an empty `%JS{}` if not provided.
+    - `id`: The unique identifier of the carousel component.
+    - `count`: The total number of slides in the carousel.
+
+  ## Functionality
+
+  Iterates through each slide in the carousel, performing the following actions:
+
+    - Disables the previous and next navigation buttons by setting the `disabled` attribute.
+    - Removes the `active-slide` CSS class from all slides to hide them.
+    - Removes the `active-indicator` CSS class from all slide indicators.
+
+  ### Example:
+
+  ```elixir
+  unselect_carousel(%JS{}, id, count)
+  ```
+
+  This function is used to reset the carousel state, making all slides inactive and disabling
+  the navigation controls.
+  """
 
   def unselect_carousel(js \\ %JS{}, id, count) do
     Enum.reduce(1..count, js, fn item, acc ->

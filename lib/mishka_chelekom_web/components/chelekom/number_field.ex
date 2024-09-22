@@ -1,42 +1,102 @@
 defmodule MishkaChelekom.NumberField do
+  @moduledoc """
+  The `MishkaChelekom.NumberField` module provides a versatile and customizable
+  number input component for Phoenix LiveView applications. This component offers
+  extensive options for theming, styling, and layout configurations, including border styles,
+  color variants, rounded corners, and size settings.
+
+  With support for custom slots and icon placements, it allows for enhanced user
+  interactions and detailed input structures. The module also includes advanced features
+  like floating labels, control visibility options, and error handling, making it an ideal
+  solution for creating dynamic and user-friendly forms in web applications.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  Renders a customizable number input field with various options such as labels, descriptions,
+  and error messages.
+  It supports different sizes, colors, and styles, and can include additional sections and icons.
+
+  ## Examples
+
+  ```elixir
+  <.number_field
+    name="name"
+    value=""
+    space="small"
+    color="danger"
+    controls="hide"
+    description="This is description"
+    label="This is outline label Number"
+    placeholder="This is Number placeholder"
+    floating="outer"
+  />
+
+  <.number_field
+    name="name"
+    value="The value of input"
+    space="small"
+    label="This is label Number"
+    placeholder="This is Number placeholder"
+    errors={["Enter name"]}
+  >
+    <:end_section>
+      <button><.icon name="hero-clipboard-document" class="size-6" /></button>
+    </:end_section>
+  </.number_field>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :variant, :string, default: "outline", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :variant, :string, default: "outline", doc: "Determines the style"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
   attr :controls, :string, default: "default", doc: "fixed, hide, default"
   attr :floating, :string, default: "none", doc: "none, inner, outer"
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
 
-  slot :start_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :start_section, required: false, doc: "Renders heex content in start of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  slot :end_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :end_section, required: false, doc: "Renders heex content in end of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
-  attr :rest, :global, include: ~w(autocomplete disabled form list min max pattern placeholder
-        readonly required size inputmode inputmode step title autofocus)
+  attr :rest, :global,
+    include: ~w(autocomplete disabled form list min max pattern placeholder
+        readonly required size inputmode inputmode step title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec number_field(map()) :: Phoenix.LiveView.Rendered.t()
   def number_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -179,11 +239,12 @@ defmodule MishkaChelekom.NumberField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -191,10 +252,11 @@ defmodule MishkaChelekom.NumberField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

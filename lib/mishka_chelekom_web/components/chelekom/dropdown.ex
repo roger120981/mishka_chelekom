@@ -1,4 +1,13 @@
 defmodule MishkaChelekom.Dropdown do
+  @moduledoc """
+  The `MishkaChelekom.Dropdown` module provides a customizable dropdown component
+  built using Phoenix LiveView. It allows you to create dropdown menus with different styles,
+  positions, and behaviors, supporting various customization options through attributes and slots.
+
+  This module facilitates creating and managing dropdown components in a
+  Phoenix LiveView application with flexible customization options.
+  """
+
   use Phoenix.Component
   alias Phoenix.LiveView.JS
 
@@ -21,16 +30,71 @@ defmodule MishkaChelekom.Dropdown do
     "shadow"
   ]
 
+  @doc """
+  A dropdown component that displays a list of options or content when triggered.
+  It can be activated by a click or hover, and positioned in various directions relative to its parent.
+
+  ## Examples
+
+  ```elixir
+  <.dropdown relative="relative" position="right">
+    <.dropdown_trigger>
+      <.button color="primary" icon="hero-chevron-down" right_icon>
+        Dropdown Right
+      </.button>
+    </.dropdown_trigger>
+
+    <.dropdown_content space="small" rounded="large" width="full" padding="extra_small">
+      <.list size="small">
+        <:item padding="extra_small" icon="hero-envelope">Dashboard</:item>
+        <:item padding="extra_small" icon="hero-camera">Settings</:item>
+        <:item padding="extra_small" icon="hero-camera">Earning</:item>
+        <:item padding="extra_small" icon="hero-calendar">Sign out</:item>
+      </.list>
+    </.dropdown_content>
+  </.dropdown>
+
+  <.dropdown relative="relative" clickable>
+    <.dropdown_trigger trigger_id="test-1">
+      <.button color="primary" icon="hero-chevron-down" right_icon>
+        Dropdown Button
+      </.button>
+    </.dropdown_trigger>
+
+    <.dropdown_content id="test-1" space="small" rounded="large" width="full" padding="extra_small">
+      <.list size="small">
+        <:item padding="extra_small" icon="hero-envelope">Dashboard</:item>
+        <:item padding="extra_small" icon="hero-camera">Settings</:item>
+        <:item padding="extra_small" icon="hero-camera">Earning</:item>
+        <:item padding="extra_small" icon="hero-calendar">Sign out</:item>
+      </.list>
+    </.dropdown_content>
+  </.dropdown>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :width, :string, default: "w-fit", doc: ""
-  attr :position, :string, default: "bottom", doc: ""
-  attr :relative, :string, default: nil, doc: ""
-  attr :clickable, :boolean, default: false, doc: ""
-  attr :nomobile, :boolean, default: false, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :width, :string, default: "w-fit", doc: "Determines the element width"
+  attr :position, :string, default: "bottom", doc: "Determines the element position"
+  attr :relative, :string, default: nil, doc: "Custom relative position for the dropdown"
+
+  attr :clickable, :boolean,
+    default: false,
+    doc: "Determines if the element can be activated on click"
+
+  attr :nomobile, :boolean,
+    default: false,
+    doc: "Controls whether the dropdown is disabled on mobile devices"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def dropdown(assigns) do
     ~H"""
@@ -54,11 +118,30 @@ defmodule MishkaChelekom.Dropdown do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :trigger_id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  slot :inner_block, required: false, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  Defines a trigger for the dropdown component. When the element is clicked,
+  it toggles the visibility of the associated dropdown content.
+
+  ## Examples
+
+  ```elixir
+  <.dropdown_trigger>
+    <.button color="primary" icon="hero-chevron-down" right_icon>Dropdown Right</.button>
+  </.dropdown_trigger>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :trigger_id, :string, default: nil, doc: "Identifies what is the triggered element id"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def dropdown_trigger(assigns) do
     ~H"""
@@ -79,19 +162,53 @@ defmodule MishkaChelekom.Dropdown do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "shadow", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :size, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :width, :string, default: "extra_large", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, default: "none", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  Defines the content area of a dropdown component. The content appears when the dropdown trigger
+  is activated and can be customized with various styles such as size, color, padding, and border.
+
+  ## Examples
+
+  ```elixir
+  <.dropdown_content space="small" rounded="large" width="full" padding="extra_small">
+    <.list size="small">
+      <:item padding="extra_small" icon="hero-envelope">Dashboard</:item>
+      <:item padding="extra_small" icon="hero-camera">Settings</:item>
+      <:item padding="extra_small" icon="hero-camera">Earning</:item>
+      <:item padding="extra_small" icon="hero-calendar">Sign out</:item>
+    </.list>
+  </.dropdown_content>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "shadow", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+
+  attr :size, :string,
+    default: nil,
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :space, :string, default: nil, doc: "Space between items"
+  attr :width, :string, default: "extra_large", doc: "Determines the element width"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   # TODO: Add max-height and scroll
 

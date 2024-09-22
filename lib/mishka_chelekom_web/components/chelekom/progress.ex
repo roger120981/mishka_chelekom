@@ -1,4 +1,20 @@
 defmodule MishkaChelekom.Progress do
+  @moduledoc """
+  The `MishkaChelekom.Progress` module provides a customizable progress bar component for
+  Phoenix LiveView applications.
+
+  It offers a range of styling options, including different sizes, colors, and variants,
+  allowing developers to create both horizontal and vertical progress bars tailored to
+  their design requirements.
+
+  This component supports a variety of visual configurations, such as gradient backgrounds
+  and rounded corners, and can be used in diverse use cases, from displaying loading states
+  to indicating progress in forms and surveys.
+
+  The module's flexibility is further enhanced by its use of `slots`, enabling developers
+  to include custom content within the progress bar, making it a versatile choice for building
+  interactive and dynamic UIs.
+  """
   use Phoenix.Component
 
   @sizes ["extra_small", "small", "medium", "large", "extra_large"]
@@ -18,16 +34,70 @@ defmodule MishkaChelekom.Progress do
 
   @variants ["default", "gradient"]
 
+  @doc """
+  Renders a progress bar component that visually represents the completion status of a task.
+
+  It supports both horizontal and vertical orientations and can be customized with various colors and styles.
+
+  ## Examples
+
+  ```elixir
+  <.progress value={10} />
+  <.progress color="primary" value={20} />
+  <.progress color="secondary" value={30} />
+  <.progress variation="vertical" color="primary" value={20} />
+
+  <.progress>
+    <.progress_section color="primary" value={10} />
+    <.progress_section color="secondary" value={15} />
+    <.progress_section color="misc" value={10} />
+    <.progress_section color="danger" value={5} />
+    <.progress_section color="warning" value={10} />
+    <.progress_section color="success" value={10} />
+    <.progress_section color="info" value={5} />
+  </.progress>
+
+  <.progress variation="horizontal" size="large" value={70}>
+    <div class="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
+      70%
+    </div>
+  </.progress>
+
+  <.progress variation="vertical" size="extra_large" value={80}>
+    <div class="absolute bottom-0 left-0 flex items-center text-white">
+      80%
+    </div>
+  </.progress>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :value, :integer, default: nil, doc: ""
-  attr :variation, :string, values: ["horizontal", "vertical"], default: "horizontal", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :size, :string, values: @sizes, default: "small", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :value, :integer, default: nil, doc: "Value of inout"
+
+  attr :variation, :string,
+    values: ["horizontal", "vertical"],
+    default: "horizontal",
+    doc: "Defines the layout orientation of the component"
+
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+
+  attr :size, :string,
+    values: @sizes,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, doc: "Inner block that renders HEEx content"
 
   def progress(assigns) do
     ~H"""
@@ -53,13 +123,40 @@ defmodule MishkaChelekom.Progress do
     """
   end
 
+  @doc """
+  Renders a section of a progress bar component. Each section represents a part of the progress
+  with its own value and color, allowing for segmented progress bars.
+
+  ## Examples
+
+  ```elixir
+  <.progress>
+    <.progress_section color="primary" value={10} />
+    <.progress_section color="secondary" value={15} />
+    <.progress_section color="misc" value={10} />
+    <.progress_section color="danger" value={5} />
+    <.progress_section color="warning" value={10} />
+    <.progress_section color="success" value={10} />
+    <.progress_section color="info" value={5} />
+  </.progress>
+  ```
+  """
+  @doc type: :component
   attr :value, :integer, default: 0, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :variation, :string, values: ["horizontal", "vertical"], default: "horizontal", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :rounded, :string, default: "none", doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :rest, :global, doc: ""
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :variation, :string,
+    values: ["horizontal", "vertical"],
+    default: "horizontal",
+    doc: "Defines the layout orientation of the component"
+
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :rounded, :string, default: "none", doc: "Determines the border radius"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def progress_section(assigns) do
     assigns = assign(assigns, :value, (is_integer(assigns.value) && assigns.value) || 0)

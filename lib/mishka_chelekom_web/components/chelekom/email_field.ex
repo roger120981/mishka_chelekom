@@ -1,42 +1,111 @@
 defmodule MishkaChelekom.EmailField do
+  @moduledoc """
+  The `MishkaChelekom.EmailField` module provides a customizable email input field
+  component built using Phoenix LiveView. It offers extensive styling options and behavior
+  customizations for email input fields, such as:
+
+  - Setting the size, color, and style of the input field.
+  - Customizable labels, error messages, and descriptions.
+  - Support for floating labels with inner and outer options.
+  - Additional slots for icons or content at the start and end of the input field.
+  - Integration with `Phoenix.HTML.FormField` for easy form handling.
+
+  This component is designed to simplify the creation of styled and functional email
+  input fields in Phoenix LiveView applications, providing developers with the flexibility
+  to customize appearance and behavior according to their application's needs.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  Renders a customizable email input field with options for styling, floating labels, and additional
+  start or end sections.
+
+  The component allows you to create an email input field with various attributes
+  like `size`, `color`, `border`, and `error` handling.
+
+  ## Examples
+
+  ```elixir
+  <.email_field name="name" color="danger" placeholder="This is placeholder" floating="outer"/>
+
+  <.email_field
+    name="name"
+    space="small"
+    color="danger"
+    description="This is description"
+    label="This is outline label Email"
+    placeholder="This is Email placeholder"
+    floating="outer"
+  >
+    <:start_section>
+      <.icon name="hero-home" class="size-4" />
+    </:start_section>
+    <:end_section>
+      <.icon name="hero-home" class="size-4" />
+    </:end_section>
+  </.email_field>
+
+  <.email_field
+    name="name"
+    space="small"
+    color="silver"
+    rounded="extra_large"
+    label="This is outline Silver label Email"
+    placeholder="This is Email placeholder"
+    floating="outer"
+  />
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :variant, :string, default: "outline", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :variant, :string, default: "outline", doc: "Determines the style"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
   attr :floating, :string, default: "none", doc: "none, inner, outer"
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
 
-  slot :start_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :start_section, required: false, doc: "Renders heex content in start of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  slot :end_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :end_section, required: false, doc: "Renders heex content in end of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
     include:
-      ~w(autocomplete disabled form list maxlength minlength spellcheck pattern placeholder readonly required size multiple title autofocus)
+      ~w(autocomplete disabled form list maxlength minlength spellcheck pattern placeholder readonly required size multiple title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec email_field(map()) :: Phoenix.LiveView.Rendered.t()
   def email_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -171,11 +240,11 @@ defmodule MishkaChelekom.EmailField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -183,10 +252,11 @@ defmodule MishkaChelekom.EmailField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

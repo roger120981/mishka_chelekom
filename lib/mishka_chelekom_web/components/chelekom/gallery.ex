@@ -1,14 +1,61 @@
 defmodule MishkaChelekom.Gallery do
+  @moduledoc """
+  The `MishkaChelekom.Gallery` module provides a customizable gallery component for displaying
+  media content in a structured and visually appealing layout.
+
+  It supports various styles, including default, masonry, and featured galleries,
+  with options to control the number of columns, gaps, and additional styling.
+
+  ### Features:
+
+  - **Gallery Types:** Choose between "default", "masonry", and "featured" gallery layouts.
+  - **Customizable Columns and Gaps:** Configure the number of columns and spacing between gallery items.
+  - **Flexible Media Display:** Includes a `gallery_media` component for displaying individual
+  media items with options for styling, shadow, and border radius.
+
+  This component is ideal for showcasing images, videos, or other media content in a grid
+  or masonry layout, offering a clean and flexible way to present visual elements on a web page.
+  """
+
   use Phoenix.Component
 
+  @doc """
+  Renders a gallery component that supports various layout types including default grid,
+  masonry, and featured styles.
+
+  You can customize the number of columns and gaps between items to achieve the desired layout.
+
+  ## Examples
+
+  ```elixir
+  <.gallery type="masonary" cols="four" gap="large">
+    <.gallery_media src="https://example.com/gallery/masonry/image.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-2.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-3.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-4.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-5.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-6.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-7.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-8.jpg" />
+    <.gallery_media src="https://example.com/gallery/masonry/image-1.jpg" />
+  </.gallery>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
   attr :type, :string, values: ["default", "masonary", "featured"], default: "default", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :cols, :string, default: nil, doc: ""
-  attr :gap, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :cols, :string, default: nil, doc: "Determines cols of elements"
+  attr :gap, :string, default: nil, doc: "Determines gap between elements"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def gallery(assigns) do
     ~H"""
@@ -28,14 +75,33 @@ defmodule MishkaChelekom.Gallery do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :src, :string, default: nil, doc: ""
-  attr :alt, :string, default: "", doc: ""
-  attr :rounded, :string, default: "none", doc: ""
-  attr :shadow, :string, default: "shadow-none", doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  Renders a media component within a gallery, which typically includes images.
+  You can customize the border radius and shadow style of the media element.
+
+  ## Examples
+
+  ```elixir
+  <.gallery_media src="https://example.com/gallery/masonry/image.jpg" />
+  <.gallery_media src="https://example.com/gallery/masonry/image-2.jpg" rounded="large" shadow="shadow-lg" />
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :src, :string, default: nil, doc: "Media link"
+  attr :alt, :string, default: "", doc: "Media link description"
+  attr :rounded, :string, default: "none", doc: "Determines the border radius"
+  attr :shadow, :string, default: "shadow-none", doc: "Determines shadow style"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def gallery_media(assigns) do
     ~H"""

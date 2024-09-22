@@ -1,32 +1,74 @@
 defmodule MishkaChelekom.ToggleField do
+  @moduledoc """
+  A component that renders a toggle field with customizable options.
+
+  This module provides functionality for creating a toggle switch UI element
+  that can be integrated into forms. It supports various attributes to tailor
+  the appearance and behavior of the toggle, including size, color, and error handling.
+
+  The toggle field includes support for accessibility features and can display
+  error messages when validation fails. It is designed to be used within
+  Phoenix LiveView applications, enabling dynamic interactions.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :labe_class, :string, default: nil, doc: ""
-  attr :size, :string, default: "medium", doc: ""
+  @doc """
+  The `ToggleField` component is a customizable toggle switch input, often used for binary on/off
+  choices like enabling or disabling a feature.
+
+  ## Examples
+
+  ```elixir
+  <.toggle_field id="name1" color="danger" label="This is label" />
+
+  <.toggle_field id="name2" color="dark" label="This is label" size="extra_large"/>
+
+  <.toggle_field id="name3" color="warning" label="This is label" size="extra_small" checked={true} />
+
+  <.toggle_field id="name4" color="success" label="This is label" size="small"/>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :space, :string, default: "medium", doc: "Space between items"
+  attr :labe_class, :string, default: nil, doc: "Determines the labe class"
+
+  attr :size, :string,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
   attr :checked, :boolean, default: false, doc: ""
-  attr :ring, :boolean, default: true, doc: ""
-  attr :reverse, :boolean, default: false, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
+
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
     include:
-      ~w(autocomplete disabled form indeterminate checked multiple readonly required title autofocus)
+      ~w(autocomplete disabled form indeterminate checked multiple readonly required title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec toggle_field(map()) :: Phoenix.LiveView.Rendered.t()
   def toggle_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -72,11 +114,12 @@ defmodule MishkaChelekom.ToggleField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -84,10 +127,11 @@ defmodule MishkaChelekom.ToggleField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

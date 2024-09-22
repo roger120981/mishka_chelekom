@@ -1,4 +1,28 @@
 defmodule MishkaChelekom.InputField do
+  @moduledoc """
+  The `MishkaChelekom.InputField` module provides a customizable input field component that
+  integrates with Phoenix forms.
+
+  This component supports a variety of input types, including text, email, password,
+  select, textarea, and checkbox, making it versatile for
+  different data entry scenarios.
+
+  It includes features such as displaying error messages, handling various HTML
+  attributes, and generating labels for inputs. This component is ideal for creating
+  form fields with consistent styling and behavior across your application.
+
+  ### Key Features:
+
+  - **Flexible Input Types:** Supports multiple input types such as text, email,
+  password, select, textarea, and checkbox.
+  - **Form Integration:** Can be integrated with Phoenix.HTML.FormField for easier
+  management of form data and error handling.
+  - **Error Display:** Automatically displays error messages associated with the input field.
+  - **Custom Styling:** Provides options for custom classes, labels, and other HTML attributes.
+
+  This component is designed to simplify form handling and user input validation in Phoenix applications.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -30,20 +54,19 @@ defmodule MishkaChelekom.InputField do
   """
 
   @doc type: :component
-  attr :id, :any, default: nil
-  attr :name, :any
+  attr :id, :any, default: nil, doc: "A unique identifier is used to manage state and interaction"
+  attr :name, :any, doc: "Name of input"
   attr :label, :string, default: nil
-  attr :value, :any
+  attr :value, :any, doc: "Value of input"
 
   attr :type, :string,
     default: "text",
     values: ~w(checkbox color date datetime-local email file month number password
                range search select tel text textarea time url week)
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
-  attr :errors, :list, default: []
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
   attr :checked, :boolean, doc: "the checked flag for checkbox inputs"
   attr :prompt, :string, default: nil, doc: "the prompt for select inputs"
   attr :options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2"
@@ -51,7 +74,9 @@ defmodule MishkaChelekom.InputField do
 
   attr :rest, :global,
     include: ~w(accept autocomplete capture cols disabled form list max maxlength min minlength
-                multiple pattern placeholder readonly required rows size step)
+                multiple pattern placeholder readonly required rows size step),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def input_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     errors = if Phoenix.Component.used_input?(field), do: field.errors, else: []
@@ -156,8 +181,9 @@ defmodule MishkaChelekom.InputField do
   @doc """
   Renders a label.
   """
-  attr :for, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def label(assigns) do
     ~H"""
@@ -170,7 +196,8 @@ defmodule MishkaChelekom.InputField do
   @doc """
   Generates a generic error message.
   """
-  slot :inner_block, required: true
+  @doc type: :component
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def error(assigns) do
     ~H"""

@@ -1,4 +1,18 @@
 defmodule MishkaChelekom.Navbar do
+  @moduledoc """
+  The `MishkaChelekom.Navbar` module provides a flexible and customizable navigation
+  bar component for Phoenix LiveView applications. It allows for a variety of styles,
+  colors, and configurations to fit different design needs, including border styles,
+  content alignment, and text positioning.
+
+  This component supports nested elements through slots, enabling complex navigation structures.
+
+  It also offers extensive theming options, such as rounded corners, shadow effects,
+  and maximum width settings.
+
+  With built-in support for icons and images, the `Navbar` module makes it easy to create
+  visually appealing and interactive navigation bars that enhance the user experience.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -24,34 +38,127 @@ defmodule MishkaChelekom.Navbar do
     "unbordered"
   ]
 
+  @doc """
+  Renders a customizable navigation bar that can include links, dropdowns, and other components.
+
+  The navigation bar is designed to handle various styles, colors, and layouts.
+
+  ## Examples
+
+  ```elixir
+  <.navbar id="nav-11" color="success" variant="shadow">
+    <:list><.link navigate="/">Home</.link></:list>
+    <:list><.link navigate="/examples/sidebar">List</.link></:list>
+
+    <:list>
+      <.dropdown relative="md:relative" width="w-full" clickable>
+        <.dropdown_trigger width="full" trigger_id="test-31">
+          <button class="text-start w-full block">Dropdown</button>
+        </.dropdown_trigger>
+
+        <.dropdown_content space="small" id="test-31" rounded="large" width="large" padding="extra_small">
+          <ul class="space-y-5">
+            <li>
+              <.dropdown width="w-full" position="right" clickable>
+                <.dropdown_trigger trigger_id="test-19">
+                  <button class={[
+                    "py-1 px-2 text-start w-full flex items-center justify-between hover:bg-gray-200"
+                  ]}
+                  >
+                    Nested Dropdown <.icon name="hero-chevron-right" />
+                  </button>
+                </.dropdown_trigger>
+
+                <.dropdown_content id="test-19" rounded="large" width="large" padding="extra_small">
+                  <ul class="space-y-5">
+                    <li>
+                      <.link class="py-1 px-2 block hover:bg-gray-200" navigate="/examples/list">
+                        Security
+                      </.link>
+                    </li>
+
+                    <li>
+                      <.link class="py-1 px-2 block hover:bg-gray-200" navigate="/examples/dropdown">
+                        Memory
+                      </.link>
+                    </li>
+
+                    <li>
+                      <.link class="py-1 px-2 block hover:bg-gray-200" navigate="/examples/image">
+                        Design
+                      </.link>
+                    </li>
+                  </ul>
+                </.dropdown_content>
+              </.dropdown>
+            </li>
+
+            <li>
+              <.link class="py-1 px-2 block hover:bg-gray-200" navigate="/examples/dropdown">
+                Memory
+              </.link>
+            </li>
+
+            <li>
+              <.link class="py-1 px-2 block hover:bg-gray-200" navigate="/examples/image">
+                Design
+              </.link>
+            </li>
+          </ul>
+        </.dropdown_content>
+      </.dropdown>
+    </:list>
+
+    <:list><.link navigate="/examples/rating">Blog</.link></:list>
+    <:list><.link navigate="/examples/sidebar">Calendar</.link></:list>
+    <:list><.link navigate="/examples/rating">Booking</.link></:list>
+    <:list><.link navigate="/examples/sidebar">Partners</.link></:list>
+    <:list><.link navigate="/examples/rating">About</.link></:list>
+  </.navbar>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, required: true, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :text_position, :string, default: nil, doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :max_width, :string, default: nil, doc: ""
-  attr :content_position, :string, default: "between", doc: ""
-  attr :image, :string, default: nil, doc: ""
-  attr :image_class, :string, default: nil, doc: ""
-  attr :name, :string, default: nil, doc: ""
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :text_position, :string, default: nil, doc: "Determines the element' text position"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :max_width, :string, default: nil, doc: "Determines the style of element max width"
+
+  attr :content_position, :string,
+    default: "between",
+    doc: "Determines the alignment of the element's content"
+
+  attr :image, :string, default: nil, doc: "Image displayed alongside of an item"
+  attr :image_class, :string, default: nil, doc: "Determines custom class for the image"
+  attr :name, :string, default: nil, doc: "Specifies the name of the element"
   attr :relative, :boolean, default: false, doc: ""
   attr :link, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, default: "small", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  attr :space, :string, default: nil, doc: "Space between items"
 
-  slot :inner_block, required: false, doc: ""
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string, default: "small", doc: "Determines padding for items"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   slot :list, required: true do
-    attr :class, :string
-    attr :padding, :string
-    attr :icon, :string
-    attr :icon_class, :string
-    attr :icon_position, :string, doc: "end, start"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :padding, :string, doc: "Determines padding for items"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :icon_position, :string, doc: "Determines icon position"
   end
 
   def navbar(assigns) do

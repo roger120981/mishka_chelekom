@@ -1,22 +1,66 @@
 defmodule MishkaChelekom.Stepper do
+  @moduledoc """
+  The `MishkaChelekom.Stepper` module provides a flexible and interactive stepper component
+  for Phoenix LiveView applications. It supports both horizontal and vertical layouts,
+  making it ideal for displaying multi-step processes, such as onboarding, forms, or any
+  workflow that requires users to follow a sequence of steps.
+
+  This module allows extensive customization options, including size, color themes, border styles,
+  and spacing between steps. Each step can display icons, titles, descriptions, and custom content.
+  The component also offers various step states like `current`, `loading`, `completed`, and `canceled`,
+  enabling a visual indication of the user's progress.
+
+  The `MishkaChelekom.Stepper` enhances user experience by providing a clear and concise representation
+  of step-by-step workflows, ensuring users can easily track their position and progress within the application.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
-  @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :size, :string, default: "small", doc: ""
-  attr :margin, :string, default: "medium", doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :max_width, :string, default: nil, doc: ""
-  attr :seperator_size, :string, default: "extra_small", doc: ""
-  attr :vertical, :boolean, default: false, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  Renders a customizable stepper component that visually represents a multi-step process.
+  This component can be configured to display either horizontally or vertically, with various
+  styling options like color, size, and spacing.
 
-  slot :inner_block, required: false, doc: ""
+  ## Examples
+
+  ```elixir
+  <.stepper color="info" size="extra_large">
+    <.stepper_section step="current" title="First step" description="Create an account" />
+    <.stepper_section title="Second Step" description="Verify email" />
+    <.stepper_section title="Third Step" description="Get full access" />
+  </.stepper>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :size, :string,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :margin, :string, default: "medium", doc: "Determines the element margin"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :space, :string, default: nil, doc: "Space between items"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :max_width, :string, default: nil, doc: "Determines the style of element max width"
+  attr :seperator_size, :string, default: "extra_small", doc: "Determines the seperator size"
+  attr :vertical, :boolean, default: false, doc: "Determines whether element is vertical"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   @spec stepper(map()) :: Phoenix.LiveView.Rendered.t()
   def stepper(%{vertical: true} = assigns) do
@@ -61,26 +105,55 @@ defmodule MishkaChelekom.Stepper do
     """
   end
 
-  attr :id, :string, default: nil
-  attr :class, :string, default: nil
-  attr :size, :string, default: "small"
+  @doc """
+  Renders a step section within the stepper component, representing each individual step of
+  a multi-step process.
+
+  This section can display information such as the step number, title, description, and an icon.
+  It can also be customized to show different states, such as current, loading, completed, or canceled.
+
+  ## Examples
+
+  Horizontal Step Section:
+
+  ```elixir
+  <.stepper_section step="current" title="First step" description="Create an account" />
+  <.stepper_section title="Second Step" description="Verify email" />
+  <.stepper_section title="Third Step" description="Get full access" />
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :size, :string,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
 
   attr :step, :string,
     values: ["none", "current", "loading", "compeleted", "canceled"],
     default: "none"
 
-  attr :rounded, :string, default: "full"
-  attr :icon, :string, default: nil, doc: ""
+  attr :rounded, :string, default: "full", doc: "Determines the border radius"
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
   attr :color, :string, default: "white"
-  attr :title, :string, default: nil
-  attr :description, :string, default: nil
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :description, :string, default: nil, doc: "Determines a short description"
   attr :step_number, :integer, default: 1
-  attr :vertical, :boolean, default: false, doc: ""
-  attr :clickable, :boolean, default: true, doc: ""
-  attr :reverse, :boolean, default: false, doc: ""
-  attr :border, :string, default: "none"
+  attr :vertical, :boolean, default: false, doc: "Determines whether element is vertical"
 
-  slot :inner_block, required: false, doc: ""
+  attr :clickable, :boolean,
+    default: true,
+    doc: "Determines if the element can be activated on click"
+
+  attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
+  attr :border, :string, default: "none", doc: "Determines border style"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def stepper_section(%{vertical: true} = assigns) do
     ~H"""

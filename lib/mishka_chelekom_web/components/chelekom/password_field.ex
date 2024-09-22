@@ -1,45 +1,106 @@
 defmodule MishkaChelekom.PasswordField do
+  @moduledoc """
+  The `MishkaChelekom.PasswordField` module is a Phoenix component designed to render a customizable
+  password input field within LiveView applications. It provides a flexible and highly configurable
+  way to integrate password inputs with various visual styles, handling for error messages, and
+  toggle functionality for showing or hiding password text.
+
+  This module includes built-in support for multiple configuration options, such as color themes,
+  border styles, size, and spacing. It also allows users to easily add custom slots to render
+  additional content before and after the input field, enhancing the field's usability and appearance.
+
+  Moreover, it handles the common requirements for form input components, including error display,
+  label positioning, and visual feedback on user interaction. The module is intended to be integrated
+  seamlessly with Phoenix forms and is ideal for applications that require an interactive and
+  user-friendly password field.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
   alias Phoenix.LiveView.JS
   import Phoenix.LiveView.Utils, only: [random_id: 0]
 
+  @doc """
+  Renders a customizable password field with options for size, color, label, and validation errors.
+
+  It includes support for showing and hiding the password with an icon toggle.
+  You can add start and end sections with custom icons or text, and handle validation
+  errors with custom messages.
+
+  ## Examples
+
+  ```elixir
+  <.password_field
+    name="password"
+    value=""
+    space="small"
+    color="danger"
+    description="Enter your password"
+    label="Password"
+    placeholder="Enter your password"
+    floating="outer"
+    show_password={true}
+  >
+    <:start_section>
+      <.icon name="hero-lock-closed" class="size-4" />
+    </:start_section>
+    <:end_section>
+      <.icon name="hero-eye-slash" class="size-4" />
+    </:end_section>
+  </.password_field>
+
+  <.password_field name="confirm_password" value="" color="success" show_password={true}/>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :variant, :string, default: "outline", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :variant, :string, default: "outline", doc: "Determines the style"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
   attr :show_password, :boolean, default: false, doc: ""
-  attr :ring, :boolean, default: true, doc: ""
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
   attr :floating, :string, default: "none", doc: "none, inner, outer"
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
 
-  slot :start_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :start_section, required: false, doc: "Renders heex content in start of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  slot :end_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :end_section, required: false, doc: "Renders heex content in end of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
     include: ~w(autocomplete disabled form maxlength minlength pattern placeholder
-        readonly required size spellcheck inputmode title autofocus)
+        readonly required size spellcheck inputmode title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec password_field(map()) :: Phoenix.LiveView.Rendered.t()
   def password_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -200,11 +261,12 @@ defmodule MishkaChelekom.PasswordField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -212,10 +274,11 @@ defmodule MishkaChelekom.PasswordField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

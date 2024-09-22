@@ -1,4 +1,19 @@
 defmodule MishkaChelekom.Footer do
+  @moduledoc """
+  The `MishkaChelekom.Footer` module provides a customizable footer component for Phoenix applications,
+  allowing for various styles, colors, and layout options. It supports different design variants
+  such as default, outline, transparent, shadow, and unbordered.
+
+  ### Features:
+
+  - **Customizable Styles:** Choose from multiple color themes and design variants.
+  - **Flexible Layouts:** Control text positioning, spacing, padding, and border styles.
+  - **Responsive Design:** Set max width and rounded corners for adaptive layouts.
+  - **Global Attributes Support:** Allows for additional attributes to be merged with component defaults.
+
+  This component is designed to enhance the appearance and functionality of footers in web applications.
+  """
+
   use Phoenix.Component
 
   @colors [
@@ -23,21 +38,66 @@ defmodule MishkaChelekom.Footer do
     "unbordered"
   ]
 
-  @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :text_position, :string, default: nil, doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :max_width, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, default: "none", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  Renders a customizable footer component with different sections and styling options, allowing
+  for the inclusion of text, links, and other content.
 
-  slot :inner_block, required: false, doc: ""
+  ## Examples
+
+  ```elixir
+  <.footer color="secondary" padding="large" space="medium">
+    <.footer_section class="border-b" padding="small">Mishka Chelekom</.footer_section>
+
+    <.footer_section class="grid grid-cols-3 gap-2 justify-between" padding="large">
+      <MishkaChelekom.List.list color="secondary">
+        <:item><a href="/">Home</a></:item>
+        <:item><a href="/">Contact</a></:item>
+        <:item><a href="/">About</a></:item>
+      </MishkaChelekom.List.list>
+
+      <MishkaChelekom.List.list color="secondary" style="list-disc">
+        <:item>list</:item>
+        <:item>list</:item>
+        <:item>list</:item>
+      </MishkaChelekom.List.list>
+
+      <div>
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+        unknown printer took a galley of type and scrambled it to make a type specimen bookged.
+      </div>
+    </.footer_section>
+
+    <.footer_section text_position="center" class="border-t" padding="small">
+      © 2023 Mishka Chelekom
+    </.footer_section>
+  </.footer>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :text_position, :string, default: nil, doc: "Determines the element' text position"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :max_width, :string, default: nil, doc: "Determines the style of element max width"
+  attr :space, :string, default: nil, doc: "Space between items"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def footer(assigns) do
     ~H"""
@@ -63,12 +123,26 @@ defmodule MishkaChelekom.Footer do
     """
   end
 
-  attr :class, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :text_position, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :padding, :string, default: "none", doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  Renders a section within a footer component, allowing for customized text alignment, spacing, and styling.
+
+  ## Examples
+
+  ```elixir
+  <.footer_section class="border-b" padding="small">Mishka Chelekom</.footer_section>
+  ```
+  """
+  @doc type: :component
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :text_position, :string, default: nil, doc: "Determines the element' text position"
+  attr :space, :string, default: nil, doc: "Space between items"
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def footer_section(assigns) do
     ~H"""

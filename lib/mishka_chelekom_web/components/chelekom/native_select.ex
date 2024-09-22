@@ -1,39 +1,105 @@
 defmodule MishkaChelekom.NativeSelect do
+  @moduledoc """
+  The `MishkaChelekom.NativeSelect` module provides a customizable native select component
+  for forms in Phoenix LiveView. It supports a variety of styles, colors, and sizes, making
+  it adaptable to different design requirements. The module allows for flexible configuration
+  of the select element, including options for multi-selection, custom labels, and error handling.
+
+  This component is highly versatile, with extensive theming options such as border styles,
+  color variants, and rounded corners. It also provides a convenient way to render select
+  options through slots, enabling dynamic rendering of form elements based on the passed data.
+
+  With built-in error handling and custom error messages, `MishkaChelekom.NativeSelect`
+  enhances the user experience by providing clear feedback and interaction states,
+  ensuring a polished and user-friendly interface for form-based applications.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  Renders a customizable native select input component with options for single or multiple selections. Supports validation and various styling options.
+
+  ## Examples
+
+  ```elixir
+  <.native_select name="name" description="This is description" label="This is outline label">
+    <:option value="usa">USA</:option>
+    <:option value="uae" selected>UAE</:option>
+  </.native_select>
+
+  <.native_select
+    name="name"
+    space="small"
+    color="danger"
+    variant="default"
+    multiple
+    min_height="min-h-36"
+    size="extra_small"
+    description="This is multiple option group"
+    label="This is outline label"
+  >
+    <.select_option_group label="group 1">
+      <:option value="usa">USA</:option>
+      <:option value="uae" selected>UAE</:option>
+    </.select_option_group>
+
+    <.select_option_group label="group 2">
+      <:option value="usa">USA</:option>
+      <:option value="uae">UAE</:option>
+      <:option value="br" selected>Great Britain</:option>
+    </.select_option_group>
+  </.native_select>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :variant, :string, default: "native", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :min_height, :string, default: nil, doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
-  attr :multiple, :boolean, default: false
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
-  attr :errors, :list, default: []
-  attr :name, :any
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :variant, :string, default: "native", doc: "Determines the style"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :space, :string, default: "medium", doc: "Space between items"
+  attr :min_height, :string, default: nil, doc: "Determines min height style"
 
-  slot :inner_block, required: false, doc: ""
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+
+  attr :multiple, :boolean,
+    default: false,
+    doc: "Specifies if the select input allows multiple selections"
+
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   slot :option, required: false do
-    attr :value, :string
-    attr :selected, :boolean, required: false
-    attr :disabled, :string, required: false
+    attr :value, :string, doc: "Value of each select option"
+    attr :selected, :boolean, required: false, doc: "Specifies this option is seleted"
+    attr :disabled, :string, required: false, doc: "Specifies this option is disabled"
   end
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
-    include: ~w(autocomplete disabled form readonly multiple required title autofocus tabindex)
+    include: ~w(autocomplete disabled form readonly multiple required title autofocus tabindex),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec native_select(map()) :: Phoenix.LiveView.Rendered.t()
   def native_select(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -91,15 +157,36 @@ defmodule MishkaChelekom.NativeSelect do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
-  attr :class, :string, default: nil
-  attr :seperator, :boolean, default: nil
+  @doc """
+  Renders a group of selectable options within a native select input.
+  The group can have a label and multiple options, with support for selected and disabled states.
 
-  slot :option, required: false do
-    attr :value, :string
-    attr :selected, :boolean, required: false
-    attr :disabled, :string, required: false
+  ## Examples
+
+  ```elixir
+  <.select_option_group label="group 2">
+    <:option value="usa">USA</:option>
+    <:option value="uae">UAE</:option>
+    <:option value="br" selected>Great Britain</:option>
+  </.select_option_group>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  # TODO. this is not be used
+  attr :separator, :boolean,
+    default: nil,
+    doc: "Whether separator is active for select option group"
+
+  slot :option, required: false, doc: "Option slot for select" do
+    attr :value, :string, doc: "Value of each select option"
+    attr :selected, :boolean, required: false, doc: "Specifies this option is seleted"
+    attr :disabled, :string, required: false, doc: "Specifies this option is disabled"
   end
 
   def select_option_group(assigns) do
@@ -119,11 +206,12 @@ defmodule MishkaChelekom.NativeSelect do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -131,10 +219,11 @@ defmodule MishkaChelekom.NativeSelect do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

@@ -1,4 +1,20 @@
 defmodule MishkaChelekom.Indicator do
+  @moduledoc """
+  The `MishkaChelekom.Indicator` module provides a versatile component for visually highlighting
+  specific areas or elements in your Phoenix application.
+
+  It is designed to display small, circular indicators that can be used for notifications,
+  status updates, or visual cues on UI elements.
+
+  This component supports various sizes and colors and can be positioned in multiple areas
+  relative to its parent element. Additionally, it has an optional ping animation for drawing
+  attention to a specific point on the interface.
+
+  The indicator can be used in diverse scenarios, such as showing the number of unread messages,
+  indicating active states, or displaying connectivity status. It is customizable with different
+  styles, making it adaptable to various design needs.
+  """
+
   use Phoenix.Component
 
   @sizes ["extra_small", "small", "medium", "large", "extra_large"]
@@ -28,18 +44,43 @@ defmodule MishkaChelekom.Indicator do
     "bottom_right"
   ]
 
+  @doc """
+  Renders an indicator component with customizable size, color, and position.
+
+  The indicator can be positioned around its parent element and supports various sizes and styles.
+
+  ## Examples
+
+  ```elixir
+  <.indicator />
+  <.indicator color="misc" />
+  <.indicator size="extra_small" />
+  <.indicator color="warning" size="extra_small" bottom_left />
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :size, :string, values: @sizes, default: "small", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, values: @colors, default: "primary", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :size, :string,
+    values: @sizes,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, values: @colors, default: "primary", doc: "Determines color theme"
 
   attr :border, :string,
     values: @colors ++ ["transparent", "none"],
     default: "transparent",
-    doc: ""
+    doc: "Determines border style"
 
-  attr :rest, :global, include: ["pinging"] ++ @indicator_positions, doc: ""
+  attr :rest, :global,
+    include: ["pinging"] ++ @indicator_positions,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def indicator(%{rest: %{top_left: true}} = assigns) do
     ~H"""

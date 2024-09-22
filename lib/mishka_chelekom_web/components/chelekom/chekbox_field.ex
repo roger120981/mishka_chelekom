@@ -1,31 +1,80 @@
 defmodule MishkaChelekom.CheckboxField do
+  @moduledoc """
+  Provides a customizable checkbox component for use in Phoenix LiveView forms.
+
+  This module includes individual checkbox fields as well as grouped
+  checkbox fields, each with configurable options such as colors, borders,
+  sizes, and more. It allows for easy integration and styling of checkboxes,
+  with support for form validation and error handling.
+
+  ### Features:
+  - Individual and grouped checkbox fields with flexible styling options.
+  - Support for form integration using `Phoenix.HTML.FormField`.
+  - Customizable properties like color themes, border styles, sizes, and layout variations.
+  - Error handling with customizable icons and messages.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  The `checkbox_field` component is used to create customizable checkbox input elements with various
+  attributes such as `color`, `size`, and `label`.
+
+  It supports form field structures and displays error messages when present, making it suitable
+  for form validation.
+
+  ## Examples
+
+  ```elixir
+  <.checkbox_field name="home" value="Home" space="small" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="small" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="small" color="misc" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="small" color="dawn" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="large" color="success" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="small" color="info" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="small" color="light" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="small" color="danger" label="This is label"/>
+  <.checkbox_field name="home" value="Home" space="small" color="warning" label="This is label"/>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :label_class, :string, default: nil, doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
-  attr :reverse, :boolean, default: false, doc: ""
-  attr :checked, :boolean, default: false, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :space, :string, default: "medium", doc: "Space between items"
+  attr :label_class, :string, default: nil, doc: "Custom CSS class for the label styling"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
+  attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
+  attr :checked, :boolean, default: false, doc: "Specifies if the element is checked by default"
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
+
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
-    include: ~w(autocomplete disabled form checked multiple readonly required title autofocus)
+    include: ~w(autocomplete disabled form checked multiple readonly required title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec checkbox_field(map()) :: Phoenix.LiveView.Rendered.t()
   def checkbox_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -71,30 +120,67 @@ defmodule MishkaChelekom.CheckboxField do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :variation, :string, default: "vetrical", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :label_class, :string, default: nil, doc: ""
-  attr :ring, :boolean, default: true, doc: ""
-  attr :reverse, :boolean, default: false, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  @doc """
+  The `group_checkbox` component is used to create a group of checkboxes with customizable attributes
+  such as `color`, `size`, and `variation`.
+
+  It supports both horizontal and vertical layouts, and allows for individual styling of each
+  checkbox within the group.
+
+  ## Examples
+
+  ```elixir
+  <.group_checkbox id="items-2" variation="horizontal" name="items2" space="large" color="danger">
+    <:checkbox value="10">Label of item 1 in group</:checkbox>
+    <:checkbox value="30">Label of item 2 in group</:checkbox>
+    <:checkbox value="50">Label of item 3 in group</:checkbox>
+    <:checkbox value="60" checked={true}>Label of item 4 in group</:checkbox>
+  </.group_checkbox>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :variation, :string,
+    default: "vetrical",
+    doc: "Defines the layout orientation of the component"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :label_class, :string, default: nil, doc: "Custom CSS class for the label styling"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
+  attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
   attr :rest, :global,
     include:
-      ~w(autocomplete disabled form indeterminate multiple readonly required title autofocus)
+      ~w(autocomplete disabled form indeterminate multiple readonly required title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   slot :checkbox, required: true do
     attr :value, :string, required: true
     attr :checked, :boolean, required: false
-    attr :space, :string, required: false
+    attr :space, :string, required: false, doc: "Space between items"
   end
 
   slot :inner_block
@@ -141,12 +227,16 @@ defmodule MishkaChelekom.CheckboxField do
     """
   end
 
-  attr :class, :any, default: nil
-  attr :for, :string, default: nil
-  slot :inner_block, required: true
-  attr :rest, :global
+  @doc type: :component
+  attr :class, :any, default: nil, doc: "Custom CSS class for additional styling"
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -154,10 +244,11 @@ defmodule MishkaChelekom.CheckboxField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

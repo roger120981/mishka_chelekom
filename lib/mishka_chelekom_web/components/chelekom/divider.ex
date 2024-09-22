@@ -1,4 +1,18 @@
 defmodule MishkaChelekom.Divider do
+  @moduledoc """
+  The `MishkaChelekom.Divider` module provides a versatile and customizable divider
+  component for creating horizontal and vertical dividers with various styling options
+  in a Phoenix LiveView application.
+
+  ## Features:
+  - Supports different divider types: `solid`, `dashed`, and `dotted`.
+  - Flexible color themes with predefined options such as `primary`, `secondary`,
+  `success`, `danger`, and more.
+  - Allows for horizontal and vertical orientation.
+  - Customizable size, width, height, and margin for precise control over the appearance.
+  - Includes slots for adding text or icons with individual styling and positioning options.
+  - Global attributes and custom CSS classes can be applied for additional customization.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -17,34 +31,81 @@ defmodule MishkaChelekom.Divider do
     "silver"
   ]
 
+  @doc """
+  The `divider` component is used to visually separate content with either a horizontal or
+  vertical line. It supports different line styles (like dashed, dotted, or solid) and can
+  be customized with various attributes like `size`, `width`, `height`, and `color`.
+
+  ### Examples
+
+  ```elixir
+  <.divider type="dashed" size="small" color="primary">
+    <:text position="right">Or</:text>
+  </.divider>
+
+  <.divider type="dotted" size="extra_large">
+    <:icon name="hero-circle-stack" class="p-10 bg-white text-yellow-600" />
+  </.divider>
+  ```
+
+  This component is ideal for creating visual separations in your layout, whether it’s for breaking
+  up text, sections, or other elements in your design.
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :type, :string, values: ["dashed", "dotted", "solid"], default: "solid", doc: ""
-  attr :color, :string, values: @colors, default: "silver", doc: ""
-  attr :size, :string, default: "extra_small", doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :height, :string, default: "auto", doc: ""
-  attr :margin, :string, default: "none", doc: ""
-  attr :variation, :string, values: ["horizontal", "vertical"], default: "horizontal", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :type, :string,
+    values: ["dashed", "dotted", "solid"],
+    default: "solid",
+    doc: "Determines type of element"
+
+  attr :color, :string, values: @colors, default: "silver", doc: "Determines color theme"
+
+  attr :size, :string,
+    default: "extra_small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :width, :string, default: "full", doc: "Determines the element width"
+  attr :height, :string, default: "auto", doc: "Determines the element width"
+  attr :margin, :string, default: "none", doc: "Determines the element margin"
+
+  attr :variation, :string,
+    values: ["horizontal", "vertical"],
+    default: "horizontal",
+    doc: "Defines the layout orientation of the component"
 
   slot :text, required: false do
-    attr :class, :string
-    attr :color, :string
-    attr :size, :string
-    attr :position, :string
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :color, :string, doc: "Determines color theme"
+
+    attr :size, :string,
+      doc:
+        "Determines the overall size of the elements, including padding, font size, and other items"
+
+    attr :position, :string, doc: "Determines the element position"
   end
 
   slot :icon, required: false do
-    attr :name, :string, required: true
-    attr :class, :string
-    attr :icon_class, :string
-    attr :color, :string
-    attr :size, :string
-    attr :position, :string
+    attr :name, :string, required: true, doc: "Specifies the name of the element"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :color, :string, doc: "Determines color theme"
+
+    attr :size, :string,
+      doc:
+        "Determines the overall size of the elements, including padding, font size, and other items"
+
+    attr :position, :string, doc: "Determines the element position"
   end
 
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def divider(%{variation: "vertical"} = assigns) do
     ~H"""
@@ -131,31 +192,69 @@ defmodule MishkaChelekom.Divider do
     """
   end
 
+  @doc """
+  `MishkaChelekom.Divider.hr` is used to create a horizontal divider with customizable style, color,
+  and size options.
+
+  It can also include text or icons to enhance visual separation between content sections.
+
+  ## Examples
+
+  ```elixir
+  <.hr type="dashed" color="primary" />
+  <.hr type="dotted" size="large" />
+  <.hr><:text>Or</:text></.hr>
+  <.hr color="dawn"><:icon name="hero-circle-stack" /></.hr>
+  <.hr type="dashed" size="small"><:text>Or</:text></.hr>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :type, :string, values: ["dashed", "dotted", "solid"], default: "solid", doc: ""
-  attr :color, :string, values: @colors, default: "silver", doc: ""
-  attr :size, :string, default: "extra_small", doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :margin, :string, default: "none", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :type, :string,
+    values: ["dashed", "dotted", "solid"],
+    default: "solid",
+    doc: "Specifies the type of the element"
+
+  attr :color, :string, values: @colors, default: "silver", doc: "Determines color theme"
+
+  attr :size, :string,
+    default: "extra_small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :width, :string, default: "full", doc: "Determines the element width"
+  attr :margin, :string, default: "none", doc: "Determines the element margin"
 
   slot :text, required: false do
-    attr :class, :string
-    attr :color, :string
-    attr :size, :string
-    attr :position, :string
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :color, :string, doc: "Determines color theme"
+
+    attr :size, :string,
+      doc:
+        "Determines the overall size of the elements, including padding, font size, and other items"
+
+    attr :position, :string, doc: "Determines the element position"
   end
 
   slot :icon, required: false do
-    attr :name, :string, required: true
-    attr :class, :string
-    attr :icon_class, :string
-    attr :color, :string
-    attr :size, :string
+    attr :name, :string, required: true, doc: "Specifies the name of the element"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :color, :string, doc: "Determines color theme"
+
+    attr :size, :string,
+      doc:
+        "Determines the overall size of the elements, including padding, font size, and other items"
   end
 
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def hr(assigns) do
     ~H"""

@@ -1,4 +1,21 @@
 defmodule MishkaChelekom.Drawer do
+  @moduledoc """
+  The `MishkaChelekom.Drawer` module provides a flexible and customizable drawer component
+  for use in Phoenix LiveView applications.
+
+  ## Features:
+  - **Positioning:** Drawers can be positioned on the left, right, top, or bottom of the screen.
+  - **Styling Variants:** Offers several styling options like `default`, `outline`,
+  `transparent`, `shadow`, and `unbordered`.
+  - **Color Themes:** Supports a variety of predefined color themes, including `primary`,
+  `secondary`, `success`, `danger`, `info`, and more.
+  - **Customizable:** Allows customization of border style, size, border radius,
+  and padding to fit various design needs.
+  - **Interactive:** Integrated with `Phoenix.LiveView.JS` for show/hide functionality and
+  nteraction management.
+  - **Slots Support:** Includes slots for adding a custom header and inner content,
+  with full HEEx support for dynamic rendering.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
   alias Phoenix.LiveView.JS
@@ -26,26 +43,57 @@ defmodule MishkaChelekom.Drawer do
     "unbordered"
   ]
 
+  @doc """
+  A drawer component for displaying content in a sliding panel. It can be positioned on the left or
+  right side of the viewport and controlled using custom JavaScript actions.
+
+  ## Examples
+
+  ```elixir
+  <.drawer id="acc-left" show={true}>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea atque soluta
+    praesentium quidem dicta sapiente accusamus nihil.
+  </.drawer>
+
+  <.drawer id="acc-right" title_class="text-2xl font-light" position="right">
+    <:header><p>Right Drawer</p></:header>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea atque soluta praesentium
+    quidem dicta sapiente accusamus nihil.
+  </.drawer>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, required: true, doc: ""
-  attr :title, :string, default: nil
-  attr :title_class, :string, default: nil
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :size, :string, default: "large", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :position, :string, default: "left", doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :padding, :string, default: "none", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :on_hide, JS, default: %JS{}
-  attr :on_show, JS, default: %JS{}
-  attr :on_hide_away, JS, default: %JS{}
-  attr :show, :boolean, default: false
-  attr :rest, :global, doc: ""
-  slot :header, required: false
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :title_class, :string, default: nil, doc: "Determines custom class for the title"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+
+  attr :size, :string,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :position, :string, default: "left", doc: "Determines the element position"
+  attr :space, :string, default: nil, doc: "Space between items"
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :on_hide, JS, default: %JS{}, doc: "Custom JS module for on_hide action"
+  attr :on_show, JS, default: %JS{}, doc: "Custom JS module for on_show action"
+  attr :on_hide_away, JS, default: %JS{}, doc: "Custom JS module for on_hide_away action"
+  attr :show, :boolean, default: false, doc: "Show element"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :header, required: false, doc: "Specifies element's header that accepts heex"
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def drawer(assigns) do
     ~H"""
@@ -373,11 +421,51 @@ defmodule MishkaChelekom.Drawer do
     "bg-transparent text-[#1E1E1E] border-transparent"
   end
 
+  @doc """
+  Shows the drawer component by modifying its CSS classes to transition it into view.
+
+  ## Parameters:
+    - `js` (optional, `Phoenix.LiveView.JS`): The JS struct used to chain JavaScript commands.
+    Defaults to an empty `%JS{}`.
+    - `id` (string): The unique identifier of the drawer element to show.
+    - `position` (string): The position of the drawer, such as "left", "right", "top", or "bottom".
+
+  ## Behavior:
+  Removes the CSS class that keeps the drawer off-screen and adds the class `"transform-none"`
+  to bring the drawer into view.
+
+  ## Examples:
+
+  ```elixir
+  show_drawer(%JS{}, "drawer-id", "left")
+  ```
+
+  This will show the drawer with ID `drawer-id` positioned on the left side of the screen.
+  """
   def show_drawer(js \\ %JS{}, id, position) when is_binary(id) do
     JS.remove_class(js, translate_position(position), to: "##{id}")
     |> JS.add_class("transform-none", to: "##{id}")
   end
 
+  @doc """
+  Hides the drawer component by modifying its CSS classes to transition it out of view.
+
+  ## Parameters:
+    - `js` (optional, `Phoenix.LiveView.JS`): The JS struct used to chain JavaScript commands. Defaults to an empty `%JS{}`.
+    - `id` (string): The unique identifier of the drawer element to hide.
+    - `position` (string): The position of the drawer, such as "left", "right", "top", or "bottom".
+
+  ## Behavior:
+  Removes the `"transform-none"` CSS class that keeps the drawer visible and adds the class based on the drawer's position (e.g., `"-translate-x-full"` for a left-positioned drawer) to move the drawer off-screen.
+
+  ## Examples:
+
+  ```elixir
+  hide_drawer(%JS{}, "drawer-id", "left")
+  ```
+
+  This will hide the drawer with ID "drawer-id" positioned on the left side of the screen.
+  """
   def hide_drawer(js \\ %JS{}, id, position) do
     JS.remove_class(js, "transform-none", to: "##{id}")
     |> JS.add_class(translate_position(position), to: "##{id}")

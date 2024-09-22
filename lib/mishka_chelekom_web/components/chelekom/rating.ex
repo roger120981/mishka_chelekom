@@ -1,24 +1,66 @@
 defmodule MishkaChelekom.Rating do
+  @moduledoc """
+  The `MishkaChelekom.Rating` module provides a versatile rating component for Phoenix LiveView
+  applications. This component is designed to display a configurable number of rating stars with
+  customizable colors, sizes, and interactive capabilities.
+
+  The `Rating` component supports both static and interactive modes. In static mode,
+  the stars represent a pre-defined rating value, while in interactive mode, users can select a
+  rating by clicking on the stars. It offers a range of customization options such as gap size,
+  star color, and size, making it suitable for various user interfaces where feedback or ratings are required.
+
+  This component is ideal for implementing user reviews, feedback forms, and any other scenario where
+  a visual rating system is needed. Its flexibility and ease of integration make it a powerful
+  tool for enhancing the user experience in Phoenix LiveView applications.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
   alias Phoenix.LiveView.JS
 
+  @doc """
+  Renders a rating component using stars to represent a score or rating value.
+  The component supports interactive and non-interactive modes, making it suitable
+  for both display and user input scenarios.
+
+  ## Examples
+
+  ```elixir
+  <.rating interactive />
+  <.rating color="primary" gap="large" interactive />
+  <.rating color="danger" gap="extra_large" select={5} interactive />
+  <.rating color="success" gap="extra_large" select={3} interactive />
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :gap, :string, default: "small", doc: ""
-  attr :size, :string, default: "small", doc: ""
-  attr :color, :string, default: "warning", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :gap, :string, default: "small", doc: "Custom gap style"
+
+  attr :size, :string,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :color, :string, default: "warning", doc: "Determines color theme"
   attr :count, :integer, default: 5, doc: "Number of stars to display"
   attr :select, :integer, default: 0, doc: ""
-  attr :params, :map, default: %{}
-  attr :on_action, JS, default: %JS{}
+
+  attr :params, :map,
+    default: %{},
+    doc: "A map of additional parameters used for element configuration"
+
+  attr :on_action, JS, default: %JS{}, doc: "Custom JS module for on_action action"
 
   attr :interactive, :boolean,
     default: false,
     doc: "If true, stars are wrapped in a button for selecting a rating"
 
-  attr :rest, :global, doc: ""
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def rating(assigns) do
     ~H"""

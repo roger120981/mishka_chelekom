@@ -1,36 +1,101 @@
 defmodule MishkaChelekom.RangeField do
+  @moduledoc """
+  The `MishkaChelekom.RangeField` module provides a comprehensive range input field
+  component for Phoenix LiveView applications. This component is designed with flexibility and
+  customization in mind, allowing developers to configure various aspects such as size, color, and
+  styling options.
+
+  With attributes for managing state, interaction, and layout, the `RangeField` component can be
+  easily adapted to different use cases, from simple form inputs to more complex data-driven interfaces.
+  The module supports custom labels, error handling, and a range value slot for displaying dynamic
+  content based on the input value.
+
+  This component is particularly useful for scenarios that require user input in a defined range,
+  such as sliders for adjusting numerical values or settings. It ensures a visually consistent
+  and user-friendly experience across different parts of the application, while maintaining a
+  high level of customization and control.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
 
-  @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :label_class, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_small", doc: ""
-  attr :appearance, :string, default: "default", doc: "custom"
-  attr :width, :string, default: "full", doc: ""
-  attr :ring, :boolean, default: true, doc: ""
-  attr :reverse, :boolean, default: false, doc: ""
-  attr :checked, :boolean, default: false, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  @doc """
+  Renders a customizable range field, which allows users to select a numeric value from a defined range.
+  The component can be styled in different ways and supports additional labels or values at specified positions.
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form for example: @form[:email]"
+  ## Examples
+
+  ```elixir
+  <.range_field
+    appearance="custom"
+    value="40"
+    color="warning"
+    size="small"
+    min="10"
+    id="custom-range-1"
+    max="100"
+    name="custom-range"
+    step="5"
+  >
+    <:range_value position="start">Min ($100)</:range_value>
+    <:range_value position="middle">$700</:range_value>
+    <:range_value position="end">Max ($1500)</:range_value>
+  </.range_field>
+
+  <.range_field
+    value="60"
+    size="medium"
+    color="primary"
+    id="default-range-2"
+    name="default-range-2"
+    label="Primary Range"
+  >
+    <:range_value position="end">60%</:range_value>
+  </.range_field>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :label_class, :string, default: nil, doc: "Custom CSS class for the label styling"
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :space, :string, default: "medium", doc: "Space between items"
+
+  attr :size, :string,
+    default: "extra_small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :appearance, :string, default: "default", doc: "custom"
+  attr :width, :string, default: "full", doc: "Determines the element width"
+
+  attr :ring, :boolean,
+    default: true,
+    doc:
+      "Determines a ring border on focused input, utilities for creating outline rings with box-shadows."
+
+  attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
+  attr :checked, :boolean, default: false, doc: "Specifies if the element is checked by default"
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
+
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
   attr :rest, :global,
     include:
-      ~w(autocomplete disabled form checked multiple readonly min max step required title autofocus)
+      ~w(autocomplete disabled form checked multiple readonly min max step required title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   slot :range_value, required: false do
-    attr :class, :string
-    attr :position, :any, required: false
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :position, :any, required: false, doc: "Determines the element position"
   end
 
   @spec range_field(map()) :: Phoenix.LiveView.Rendered.t()
@@ -116,11 +181,12 @@ defmodule MishkaChelekom.RangeField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -128,10 +194,11 @@ defmodule MishkaChelekom.RangeField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

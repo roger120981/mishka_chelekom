@@ -36,10 +36,13 @@ defmodule MishkaChelekomWeb.CoreComponents do
       </.modal>
 
   """
-  attr :id, :string, required: true
-  attr :show, :boolean, default: false
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :show, :boolean, default: false, doc: "Show element"
   attr :on_cancel, JS, default: %JS{}
-  slot :inner_block, required: true
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def modal(assigns) do
     ~H"""
@@ -100,9 +103,12 @@ defmodule MishkaChelekomWeb.CoreComponents do
   """
   attr :id, :string, doc: "the optional id of flash container"
   attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
-  attr :title, :string, default: nil
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
   attr :kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup"
-  attr :rest, :global, doc: "the arbitrary HTML attributes to add to the flash container"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   slot :inner_block, doc: "the optional inner block that renders the flash message"
 
@@ -196,9 +202,10 @@ defmodule MishkaChelekomWeb.CoreComponents do
 
   attr :rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target multipart),
-    doc: "the arbitrary HTML attributes to apply to the form tag"
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
-  slot :inner_block, required: true
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
   slot :actions, doc: "the slot for form actions, such as a submit button"
 
   def simple_form(assigns) do
@@ -223,10 +230,10 @@ defmodule MishkaChelekomWeb.CoreComponents do
       <.button phx-click="go" class="ml-2">Send!</.button>
   """
   attr :type, :string, default: nil
-  attr :class, :string, default: nil
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
   attr :rest, :global, include: ~w(disabled form name value)
 
-  slot :inner_block, required: true
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def button(assigns) do
     ~H"""
@@ -271,19 +278,18 @@ defmodule MishkaChelekomWeb.CoreComponents do
       <.input name="my-input" errors={["oh no!"]} />
   """
   attr :id, :any, default: nil
-  attr :name, :any
+  attr :name, :any, doc: "Name of input"
   attr :label, :string, default: nil
-  attr :value, :any
+  attr :value, :any, doc: "Value of input"
 
   attr :type, :string,
     default: "text",
     values: ~w(checkbox color date datetime-local email file month number password
                range search select tel text textarea time url week)
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
-  attr :errors, :list, default: []
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
   attr :checked, :boolean, doc: "the checked flag for checkbox inputs"
   attr :prompt, :string, default: nil, doc: "the prompt for select inputs"
   attr :options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2"
@@ -291,7 +297,9 @@ defmodule MishkaChelekomWeb.CoreComponents do
 
   attr :rest, :global,
     include: ~w(accept autocomplete capture cols disabled form list max maxlength min minlength
-                multiple pattern placeholder readonly required rows size step)
+                multiple pattern placeholder readonly required rows size step),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def input(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
     errors = if Phoenix.Component.used_input?(field), do: field.errors, else: []
@@ -396,8 +404,8 @@ defmodule MishkaChelekomWeb.CoreComponents do
   @doc """
   Renders a label.
   """
-  attr :for, :string, default: nil
-  slot :inner_block, required: true
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def label(assigns) do
     ~H"""
@@ -410,7 +418,7 @@ defmodule MishkaChelekomWeb.CoreComponents do
   @doc """
   Generates a generic error message.
   """
-  slot :inner_block, required: true
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def error(assigns) do
     ~H"""
@@ -425,9 +433,9 @@ defmodule MishkaChelekomWeb.CoreComponents do
   @doc """
   Renders a header with title.
   """
-  attr :class, :string, default: nil
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
-  slot :inner_block, required: true
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
   slot :subtitle
   slot :actions
 
@@ -459,7 +467,10 @@ defmodule MishkaChelekomWeb.CoreComponents do
         <:col :let={user} label="username"><%= user.username %></:col>
       </.table>
   """
-  attr :id, :string, required: true
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
   attr :rows, :list, required: true
   attr :row_id, :any, default: nil, doc: "the function for generating the row id"
   attr :row_click, :any, default: nil, doc: "the function for handling phx-click on each row"
@@ -541,7 +552,7 @@ defmodule MishkaChelekomWeb.CoreComponents do
       </.list>
   """
   slot :item, required: true do
-    attr :title, :string, required: true
+    attr :title, :string, required: true, doc: "Specifies the title of the element"
   end
 
   def list(assigns) do
@@ -566,7 +577,7 @@ defmodule MishkaChelekomWeb.CoreComponents do
       <.back navigate={~p"/posts"}>Back to posts</.back>
   """
   attr :navigate, :any, required: true
-  slot :inner_block, required: true
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
   def back(assigns) do
     ~H"""
@@ -599,8 +610,8 @@ defmodule MishkaChelekomWeb.CoreComponents do
       <.icon name="hero-x-mark-solid" />
       <.icon name="hero-arrow-path" class="ml-1 w-3 h-3 animate-spin" />
   """
-  attr :name, :string, required: true
-  attr :class, :string, default: nil
+  attr :name, :string, required: true, doc: "Specifies the name of the element"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
   def icon(%{name: "hero-" <> _} = assigns) do
     ~H"""

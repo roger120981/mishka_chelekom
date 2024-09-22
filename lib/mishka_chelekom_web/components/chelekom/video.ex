@@ -1,51 +1,107 @@
 defmodule MishkaChelekom.Video do
+  @moduledoc """
+  A customizable video component for Phoenix applications, designed to simplify the
+  embedding of HTML5 video elements with support for various configurations.
+
+  This module ensures compatibility with web standards, addressing common issues such
+  as CORS when handling video and subtitle files. It provides a robust interface for
+  rendering videos with customizable features, including thumbnail images, aspect ratios, and caption styling.
+
+  The component is built to enhance user experience by offering options for caption display
+  and responsive design, catering to various screen sizes and user preferences.
+
+  By leveraging this module, developers can efficiently integrate video playback into their
+  Phoenix applications while maintaining flexibility in design and functionality.
+  """
   use Phoenix.Component
   import MishkaChelekomWeb.Gettext
 
+  # https://stackoverflow.com/questions/15268604/html5-track-captions-not-showing/15268843#15268843
+  # https://www.w3schools.com/tags/tag_video.asp
+
+  # Ensure your video and .vtt files are served from the same web server.
+  # Browsers may block captions if accessed from the local file system or different servers.
+  # Use a local web server for testing to avoid these issues.
+
+  # 1. When you access an HTML file directly from your file system (file:/// protocol),
+  #     browsers often have restrictions that prevent the proper functioning of certain features,
+  #     including the <track> tag. The captions might not display properly in such cases.
+
+  # 2. The video source and .vtt file should generally be hosted on the same server to avoid cross-origin issues (CORS).
+  #     If they are on different servers,
+  #     you may need to ensure proper CORS headers are set up to allow the browser to access the caption file.
+
+  # Important:  Adding a Base64-encoded subtitle directly to a video won't cause a CORS issue,
+  #             so you can use it in your components even if the subtitle is not from the same origin.
+
   @doc """
-  https://stackoverflow.com/questions/15268604/html5-track-captions-not-showing/15268843#15268843
-  https://www.w3schools.com/tags/tag_video.asp
+  The `video` component is used to embed a video element with various customization options like thumbnail, caption, size, and control settings. It supports multiple sources and subtitles.
 
-  Ensure your video and .vtt files are served from the same web server.
-  Browsers may block captions if accessed from the local file system or different servers.
-  Use a local web server for testing to avoid these issues.
+  ## Examples
 
-  1. When you access an HTML file directly from your file system (file:/// protocol),
-      browsers often have restrictions that prevent the proper functioning of certain features,
-      including the <track> tag. The captions might not display properly in such cases.
-
-  2. The video source and .vtt file should generally be hosted on the same server to avoid cross-origin issues (CORS).
-      If they are on different servers,
-      you may need to ensure proper CORS headers are set up to allow the browser to access the caption file.
-
-  Important:  Adding a Base64-encoded subtitle directly to a video won't cause a CORS issue,
-              so you can use it in your components even if the subtitle is not from the same origin.
+  ```elixir
+  <div class="space-y-5 max-w-xl mx-auto py-10">
+    <.video
+      ratio="video"
+      caption_bakcground="danger"
+      caption_size="quadruple_large"
+      thumbnail="https://example.com/uploads/title_anouncement.jpg"
+      controls
+    >
+      <:source
+        src="https://example.com/flower.webm"
+        type="video/webm"
+      />
+      <:source
+        src="https://example.com/flower.mp4"
+        type="video/mp4"
+      />
+      <:track
+        label="English"
+        kind="captions"
+        srclang="en"
+        src="data:text/vtt;base64,V0VCVlRUCgowMDowMDowMC4wMDAgLS0+IDAwOjAwOjAwLjk5OSAgbGluZTo4MCUKSGlsZHkhCgowMDowMDowMS4wMDAgLS0+IDAwOjAwOjAxLjQ5OSBsaW5lOjgwJQpIb3cgYXJlIHlvdT8KCjAwOjAwOjAxLjUwMCAtLT4gMDA6MDA6MDIuOTk5IGxpbmU6ODAlClRlbGwgbWUsIGlzIHRoZSA8dT5sb3JkIG9mIHRoZSB1bml2ZXJzZTwvdT4gaW4/CgowMDowMDowMy4wMDAgLS0+IDAwOjAwOjA0LjI5OSBsaW5lOjgwJQpZZXMsIGhlJ3MgaW4gLSBpbiBhIGJhZCBodW1vcgoKMDA6MDA6MDQuMzAwIC0tPiAwMDowMDowNi4wMDAgbGluZTo4MCUKU29tZWJ5IG11c3QndmUgc3RvbGVuIHRoZSBjcm93biBqZXdlbHMK"
+        default
+      />
+    </.video>
+  </div>
+  ```
   """
-
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :thumbnail, :string, default: nil, doc: ""
-  attr :width, :string, default: "full", doc: ""
-  attr :rounded, :string, default: "none", doc: ""
-  attr :height, :string, default: "auto", doc: ""
-  attr :caption_size, :string, default: "extra_small", doc: ""
-  attr :caption_bakcground, :string, default: "dark", doc: ""
-  attr :caption_opacity, :string, default: "solid", doc: ""
-  attr :ratio, :string, default: "auto", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, include: ~w(controls autoplay loop muted preload), doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
-  slot :source, required: true do
-    attr :src, :string, required: true
-    attr :type, :string, required: true
+  attr :thumbnail, :string, default: nil, doc: "Determines thumbnail for video"
+  attr :width, :string, default: "full", doc: "Determines the element width"
+  attr :rounded, :string, default: "none", doc: "Determines the border radius"
+  attr :height, :string, default: "auto", doc: "Determines the element width"
+  attr :caption_size, :string, default: "extra_small", doc: "Determines the video caption size"
+
+  attr :caption_bakcground, :string,
+    default: "dark",
+    doc: "Determines the video caption bakcground"
+
+  attr :caption_opacity, :string, default: "solid", doc: "Determines the video caption opacity"
+  attr :ratio, :string, default: "auto", doc: "Determines the video ratio"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    include: ~w(controls autoplay loop muted preload),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :source, required: true, doc: "Determines media source" do
+    attr :src, :string, required: true, doc: "Media link"
+    attr :type, :string, required: true, doc: "Media type"
   end
 
-  slot :track, required: false do
-    attr :src, :string, required: true
-    attr :label, :string
-    attr :kind, :string
-    attr :srclang, :string
-    attr :default, :boolean
+  slot :track, required: false, doc: "Determines media subtitle" do
+    attr :src, :string, required: true, doc: "Subtitle link"
+    attr :label, :string, doc: "Subtitle Lable"
+    attr :kind, :string, doc: "Subtitle Kind"
+    attr :srclang, :string, doc: "Subtitle language link or symbol"
+    attr :default, :boolean, doc: "Determines whether this subtitle is default"
   end
 
   def video(assigns) do

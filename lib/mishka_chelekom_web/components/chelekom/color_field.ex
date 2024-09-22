@@ -1,38 +1,96 @@
 defmodule MishkaChelekom.ColorField do
+  @moduledoc """
+  The `MishkaChelekom.ColorField` module provides a reusable and customizable color
+  input component for Phoenix applications. This component supports various styling options,
+  error handling, and additional customization through attributes and slots.
+
+  ## Features:
+  - Customizable color themes, border styles, and rounded corners.
+  - Optional sections for displaying icons or additional elements before and after the input field.
+  - Flexible error handling with support for custom error icons and messages.
+  - Configurable size and layout options for various use cases.
+  - Support for Phoenix form field integration.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  The `color_field` component is used to create a customizable color input field with various
+  options such as `size`, `color`, and `rounded`.
+
+  It supports labels, descriptions, and error messages, making it suitable for form validation and styling.
+
+  ## Examples
+
+  ```elixir
+  <div class="p-10">
+    <.color_field
+      name="name1"
+      value="#ff5733"
+      border="none"
+      rounded="small"
+      color="danger"
+      description="This is description"
+      label="This is label"
+    />
+
+    <.color_field
+      name="name1"
+      color="dark"
+      description="This is description"
+      label="This is label"
+      size="extra_large"
+    />
+
+    <.color_field name="name1" color="dark" size="full" label="This is label"/>
+  </div>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "white", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :circle, :boolean, default: false, doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :label, :string, default: nil
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
-  slot :start_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "white", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :circle, :boolean,
+    default: false,
+    doc: "Determines if the color input should be displayed as a circle"
+
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :label, :string, default: nil, doc: "Specifies text for the label"
+
+  slot :start_section, required: false, doc: "Renders heex content in start of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  slot :end_section, required: false do
-    attr :class, :string
-    attr :icon, :string
+  slot :end_section, required: false, doc: "Renders heex content in end of an element" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
   end
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any, default: "#000000"
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, default: "#000000", doc: "Value of input"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :field, Phoenix.HTML.FormField, doc: "a form field struct retrieved from the form"
 
-  attr :rest, :global, include: ~w(autocomplete disabled form list min max pattern placeholder
-        readonly required size inputmode inputmode step title autofocus)
+  attr :rest, :global,
+    include: ~w(autocomplete disabled form list min max pattern placeholder
+        readonly required size inputmode inputmode step title autofocus),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   @spec color_field(map()) :: Phoenix.LiveView.Rendered.t()
   def color_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
@@ -78,11 +136,12 @@ defmodule MishkaChelekom.ColorField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -90,10 +149,11 @@ defmodule MishkaChelekom.ColorField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />

@@ -1,43 +1,87 @@
-defmodule MishkaChelekom.FieldsetField do
+defmodule MishkaChelekom.Fieldset do
+  @moduledoc """
+  The `MishkaChelekom.FieldsetField` module provides a reusable and customizable
+  component for creating styled fieldsets in Phoenix LiveView applications.
+
+  It offers various options for styling, layout, and interaction, including:
+
+  - Customizable color themes, border styles, and sizes.
+  - Support for displaying error messages alongside form fields.
+  - Flexible layout options using slots for adding controls and content inside the fieldset.
+  - Global attributes support for enhanced configurability and integration.
+
+  This component is designed to enhance the user interface of forms by providing consistent
+  and visually appealing fieldsets that can be easily integrated into any LiveView application.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  Renders a `fieldset` component that groups related form elements visually and semantically.
+
+  ## Examples
+
+  ```elixir
+  <.fieldset space="small" color="success" variant="outline">
+    <:control>
+      <.radio_field name="home" value="Home" space="small" color="success" label="This is label"/>
+    </:control>
+
+    <:control>
+      <.radio_field
+        name="home"
+        value="Home"
+        space="small"
+        color="success"
+        label="This is label of radio"
+      />
+    </:control>
+
+    <:control>
+      <.radio_field
+        name="home"
+        value="Home"
+        space="small"
+        color="success"
+        label="This is label of radio"
+      />
+    </:control>
+  </.fieldset>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: "light", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: "small", doc: ""
-  attr :padding, :string, default: "small", doc: ""
-  attr :variant, :string, default: "outline", doc: ""
-  attr :space, :string, default: "medium", doc: ""
-  attr :size, :string, default: "extra_large", doc: ""
-  attr :error_icon, :string, default: nil, doc: ""
-  attr :legend, :string, default: nil
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
 
-  attr :errors, :list, default: []
-  attr :name, :any
-  attr :value, :any
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: "light", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
+  attr :padding, :string, default: "small", doc: "Determines padding for items"
+  attr :variant, :string, default: "outline", doc: "Determines the style"
+  attr :space, :string, default: "medium", doc: "Space between items"
 
-  attr :field, Phoenix.HTML.FormField,
-    doc: "a form field struct retrieved from the form, for example: @form[:email]"
+  attr :size, :string,
+    default: "extra_large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
 
-  attr :rest, :global, include: ~w(disabled form title)
+  attr :error_icon, :string, default: nil, doc: "Icon to be displayed alongside error messages"
+  attr :legend, :string, default: nil, doc: "Determines a caption for the content of its parent"
 
-  slot :control, required: false
+  attr :errors, :list, default: [], doc: "List of error messages to be displayed"
+  attr :name, :any, doc: "Name of input"
+  attr :value, :any, doc: "Value of input"
 
-  @spec fieldset_field(map()) :: Phoenix.LiveView.Rendered.t()
-  def fieldset_field(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
-    errors = if Phoenix.Component.used_input?(field), do: field.errors, else: []
+  attr :rest, :global,
+    include: ~w(disabled form title),
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
-    assigns
-    |> assign(field: nil, id: assigns.id || field.id)
-    |> assign(:errors, Enum.map(errors, &translate_error(&1)))
-    |> assign_new(:value, fn -> field.value end)
-    |> fieldset_field()
-  end
+  slot :control, required: false, doc: "Defines a collection of elements inside the fieldset"
 
-  def fieldset_field(assigns) do
+  def fieldset(assigns) do
     ~H"""
     <div class={[
       color_variant(@variant, @color),
@@ -61,11 +105,12 @@ defmodule MishkaChelekom.FieldsetField do
     """
   end
 
-  attr :for, :string, default: nil
-  attr :class, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def label(assigns) do
+  defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
       <%= render_slot(@inner_block) %>
@@ -73,10 +118,11 @@ defmodule MishkaChelekom.FieldsetField do
     """
   end
 
-  attr :icon, :string, default: nil
-  slot :inner_block, required: true
+  @doc type: :component
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
 
-  def error(assigns) do
+  defp error(assigns) do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" /> <%= render_slot(@inner_block) %>

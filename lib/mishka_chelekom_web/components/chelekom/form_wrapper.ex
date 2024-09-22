@@ -1,25 +1,65 @@
 defmodule MishkaChelekom.FormWrapper do
+  @moduledoc """
+  The `MishkaChelekom.FormWrapper` module provides a flexible and customizable form
+  wrapper component for Phoenix applications. It offers various options for styling,
+  size, and layout to suit different form designs and requirements.
+
+  ### Features:
+  - **Customizable Styles:** Choose from multiple color themes, border styles, and design variants.
+  - **Layout Flexibility:** Control padding, spacing, and border radius to adjust the form's appearance.
+  - **Form Slots:** Define inner content and actions slots to organize form elements and buttons.
+  - **Global Attribute Support:** Allows for additional attributes like `autocomplete`, `method`,
+  and more to be merged with component defaults.
+
+  This component is ideal for wrapping forms with consistent styles and structure across an application.
+  """
+
   use Phoenix.Component
 
+  @doc """
+  Renders a form wrapper component that supports custom styles and input fields.
+
+  It allows for the inclusion of multiple input fields and form actions, such as a submit button,
+  within a consistent layout.
+
+  ## Examples
+
+  ```elixir
+  <.form_wrapper class="space-y-10">
+    <div class="grid lg:grid-cols-2 gap-2">
+      <.text_field name="name1" space="small" color="light"/>
+      ...
+    </div>
+  </.form_wrapper>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :color, :string, default: nil, doc: ""
-  attr :variant, :string, default: nil, doc: ""
-  attr :border, :string, default: nil, doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :padding, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :size, :string, default: nil, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :color, :string, default: nil, doc: "Determines color theme"
+  attr :variant, :string, default: nil, doc: "Determines the style"
+  attr :border, :string, default: nil, doc: "Determines border style"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :padding, :string, default: nil, doc: "Determines padding for items"
+  attr :space, :string, default: nil, doc: "Space between items"
+
+  attr :size, :string,
+    default: nil,
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
 
   attr :for, :any, required: false, doc: "the data structure for the form"
   attr :as, :any, default: nil, doc: "the server side parameter to collect all input under"
 
   attr :rest, :global,
     include: ~w(autocomplete name rel action enctype method novalidate target multipart),
-    doc: "the arbitrary HTML attributes to apply to the form tag"
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
-  slot :inner_block, required: true
+  slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
   slot :actions, required: false, doc: "the slot for form actions, such as a submit button"
 
   def form_wrapper(assigns) do

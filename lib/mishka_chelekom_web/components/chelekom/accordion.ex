@@ -1,4 +1,43 @@
 defmodule MishkaChelekom.Accordion do
+  @moduledoc """
+  The `MishkaChelekom.Accordion` module provides a flexible and customizable accordion
+  component for Phoenix LiveView applications.
+
+  It supports a variety of configuration options including size, variant, color, padding,
+  and border styles.
+
+  ### Features
+
+  - **Customizable Design**: Supports multiple variants such as `"default"`, `"contained"`,
+  `"filled"`, `"separated"`, `"tinted_split"`, `"transparent"`, and `"menu"`.
+  - **Size and Spacing**: Provides control over the size and spacing of accordion items
+  using predefined values such as `"extra_small"`, `"small"`, `"medium"`,
+  `"large"`, and `"extra_large"`.
+  - **Color Themes**: Offers a range of color options including `"primary"`,
+  `"secondary"`, `"success"`, `"warning"`, `"danger"`, `"info"`, `"light"`, `"dark"`, and more.
+  - **Interactive Animations**: Includes interactive JavaScript-based animations
+  for showing and hiding content with smooth transitions.
+  - **Icon and Media Support**: Allows the inclusion of icons and images within
+  accordion items, enhancing the visual appeal and usability of the component.
+
+  ### Usage
+
+  The module provides two main components:
+
+  1. **`accordion/1`**: A fully customizable accordion with advanced configurations
+  for layout, colors, and interactivity.
+  2. **`native_accordion/1`**: A native `<details>` based accordion component with
+  minimalistic design and functionality.
+
+  ### Slots
+
+  The module supports an item slot, which allows defining custom attributes for each
+  accordion item including title, description, icon, and other styling options.
+
+  ### Dependencies
+
+  1. `Phoenix.Component` and `Phoenix.LiveView.JS` for rendering and interactivity.
+  """
   use Phoenix.Component
   import MishkaChelekomComponents
   alias Phoenix.LiveView.JS
@@ -29,38 +68,86 @@ defmodule MishkaChelekom.Accordion do
     "dawn"
   ]
 
-  @doc type: :component
-  attr :id, :string, required: true, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :space, :string, values: @sizes, default: "small", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :border, :string, default: "transparent", doc: ""
-  attr :padding, :string, default: "small", doc: ""
-  attr :rounded, :string, default: "none", doc: ""
-  attr :chevron_icon, :string, default: "hero-chevron-right", doc: ""
-  attr :media_size, :string, values: @sizes, default: "small", doc: ""
-  attr :size, :string, default: nil, doc: ""
+  @doc """
+  The Accordion component provides a collapsible structure with various styling options,
+  ideal for organizing content into expandable panels. It supports customizable attributes such
+  as `variant`, `color`, and `media_size.
 
-  slot :item, required: true do
-    attr :title, :string, required: true
-    attr :description, :string
-    attr :icon, :string
-    attr :class, :string
-    attr :image, :string
-    attr :hover, :string
-    attr :image_class, :string
-    attr :icon_class, :string
-    attr :content_class, :string
-    attr :title_class, :string
-    attr :summary_class, :string
-    attr :font_weight, :string
-    attr :open, :boolean
+  ## Examples
+  ```elixir
+  <.accordion id="test-108" media_size="medium" color="secondary">
+    <:item
+      title="Accordion Version native"
+      description="Need to be something like this yeehh!?"
+      image="https://img.icons8.com/clouds/256/000000/futurama-bender.png"
+    >
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis fugit, voluptas nam quia,
+      sunt sapiente itaque velit illo sed nesciunt molestias commodi, veniam adipisci quo
+      laboriosam in ipsa illum tenetur.
+    </:item>
+    <:item
+      title="Accordion Version native"
+      description="Need to be something like this yeehh!?"
+      image="https://img.icons8.com/clouds/256/000000/futurama-bender.png"
+    >
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis fugit, voluptas nam quia,
+      sunt sapiente itaque velit illo sed nesciunt molestias commodi, veniam adipisci quo
+      laboriosam in ipsa illum tenetur.
+    </:item>
+  </.accordion>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :space, :string, values: @sizes, default: "small", doc: "Space between items"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :border, :string, default: "transparent", doc: "Determines border style"
+  attr :padding, :string, default: "small", doc: "Determines padding for items"
+  attr :rounded, :string, default: "none", doc: "Determines the border radius"
+
+  attr :chevron_icon, :string,
+    default: "hero-chevron-right",
+    doc: "Determines the icon for the chevron"
+
+  attr :media_size, :string,
+    values: @sizes,
+    default: "small",
+    doc: "Determines size of the media elements"
+
+  attr :size, :string,
+    default: nil,
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  slot :item, required: true, doc: "Specifies item slot of a accordion" do
+    attr :title, :string,
+      required: true,
+      doc: "Specifies the title of the element",
+      doc: "Specifies the title of the element"
+
+    attr :description, :string, doc: "Determines a short description"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :image, :string, doc: "Image displayed alongside of an item"
+    attr :hover, :string, doc: "Determines custom class for the hover"
+    attr :image_class, :string, doc: "Determines custom class for the image"
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :content_class, :string, doc: "Determines custom class for the content"
+    attr :title_class, :string, doc: "Determines custom class for the title"
+    attr :summary_class, :string, doc: "Determines custom class for the summary"
+    attr :font_weight, :string, doc: "Determines custom class for the font weight"
+    attr :open, :boolean, doc: "Whether the accordion item is initially open or closed"
   end
 
   attr :rest, :global,
     include: ~w(left_chevron right_chevron chevron hide_chevron),
-    doc: ""
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def accordion(assigns) do
     ~H"""
@@ -139,36 +226,86 @@ defmodule MishkaChelekom.Accordion do
     """
   end
 
-  @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :name, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :space, :string, values: @sizes, default: "small", doc: ""
-  attr :color, :string, default: "white", doc: ""
-  attr :border, :string, default: "transparent", doc: ""
-  attr :padding, :string, values: @sizes ++ ["none"], default: "small", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "none", doc: ""
-  attr :media_size, :string, values: @sizes, default: "small", doc: ""
-  attr :chevron_icon, :string, default: "hero-chevron-right", doc: ""
+  @doc """
+  The Native Accordion component provides an expandable structure that uses the native `<details>`
+  HTML element.
 
-  slot :item, required: true do
-    attr :title, :string, required: true
-    attr :description, :string
-    attr :icon, :string
-    attr :class, :string
-    attr :image, :string
-    attr :image_class, :string
-    attr :icon_class, :string
-    attr :content_class, :string
-    attr :title_class, :string
-    attr :summary_class, :string
-    attr :open, :boolean
+  It offers various customization options such as `variant`, `color`, and `media_size` for
+  styling and configuration.
+
+  ## Examples
+  ```elixir
+  <.native_accordion name="example-zero" media_size="small">
+    <:item
+      title="Accordion Version native"
+      description="Need to be something like this yeehh!?"
+      image="https://img.icons8.com/clouds/256/000000/futurama-bender.png"
+    >
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis fugit, voluptas nam quia,
+      sunt sapiente itaque velit illo sed nesciunt molestias commodi, veniam adipisci quo
+      laboriosam in ipsa illum tenetur.
+    </:item>
+    <:item
+      title="Accordion Version native"
+      description="Need to be something like this yeehh!?"
+      image="https://img.icons8.com/clouds/256/000000/futurama-bender.png"
+    >
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis fugit, voluptas nam quia,
+      sunt sapiente itaque velit illo sed nesciunt molestias commodi, veniam adipisci quo
+      laboriosam in ipsa illum tenetur.
+    </:item>
+  </.native_accordion>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :name, :string, default: nil, doc: "Specifies the name of the element"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :space, :string, values: @sizes, default: "small", doc: "Space between items"
+  attr :color, :string, default: "white", doc: "Determines color theme"
+  attr :border, :string, default: "transparent", doc: "Determines border style"
+
+  attr :padding, :string,
+    values: @sizes ++ ["none"],
+    default: "small",
+    doc: "Determines padding for items"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "none",
+    doc: "Determines the border radius"
+
+  attr :media_size, :string,
+    values: @sizes,
+    default: "small",
+    doc: "Determines size of the media elements"
+
+  attr :chevron_icon, :string,
+    default: "hero-chevron-right",
+    doc: "Determines the icon for the chevron"
+
+  slot :item, required: true, doc: "Specifies item slot of a accordion" do
+    attr :title, :string, required: true, doc: "Specifies the title of the element"
+    attr :description, :string, doc: "Determines a short description"
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+    attr :image, :string, doc: "Image displayed alongside of an item"
+    attr :image_class, :string, doc: "Determines custom class for the image"
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :content_class, :string, doc: "Determines custom class for the content"
+    attr :title_class, :string, doc: "Determines custom class for the title"
+    attr :summary_class, :string, doc: "Determines custom class for the summary"
+    attr :open, :boolean, doc: "Whether the accordion item is initially open or closed"
   end
 
   attr :rest, :global,
     include: ~w(left_chevron right_chevron chevron hide_chevron),
-    doc: ""
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def native_accordion(assigns) do
     ~H"""
@@ -219,13 +356,19 @@ defmodule MishkaChelekom.Accordion do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :item, :map
-  attr :position, :string, values: ["left", "right"]
-  attr :chevron_icon, :string
-  attr :hide_chevron, :boolean, default: false
-  attr :rest, :global
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :item, :map, doc: "Determines each item"
+  attr :position, :string, values: ["left", "right"], doc: "Determines the element position"
+  attr :chevron_icon, :string, doc: "Determines the icon for the chevron"
+  attr :hide_chevron, :boolean, default: false, doc: "Hide chevron icon"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   defp native_chevron_position(%{position: "left"} = assigns) do
     ~H"""
@@ -315,6 +458,31 @@ defmodule MishkaChelekom.Accordion do
     """
   end
 
+  @doc """
+  Shows the content of an accordion item and applies the necessary CSS classes to indicate
+  its active state.
+
+  ## Parameters
+
+    - `js`: (optional) An existing `Phoenix.LiveView.JS` structure to apply transformations on.
+    Defaults to a new `%JS{}`.
+    - `id`: A string representing the unique identifier of the accordion item. It is used
+    to target the specific DOM elements for showing content and applying classes.
+
+  ## Returns
+
+    - A `Phoenix.LiveView.JS` structure with commands to show the accordion content,
+    add the `active` class to the content, and add the `active-accordion-button`
+    class to the corresponding button.
+
+  ## Example
+  ```elixir
+  show_accordion_content(%JS{}, "accordion-item-1")
+  ```
+
+  This example will show the content of the accordion item with the ID `accordion-item-1`
+  and add the active classes to it.
+  """
   def show_accordion_content(js \\ %JS{}, id) when is_binary(id) do
     js
     |> JS.show(to: "##{id}")
@@ -322,6 +490,29 @@ defmodule MishkaChelekom.Accordion do
     |> JS.add_class("active-accordion-button", to: "##{id}-role-button")
   end
 
+  @doc """
+  Hides the content of an accordion item and removes the active CSS classes to indicate its
+  inactive state.
+
+  ## Parameters
+
+    - `js`: (optional) An existing `Phoenix.LiveView.JS` structure to apply transformations on.
+    Defaults to a new `%JS{}`.
+    - `id`: A string representing the unique identifier of the accordion item. It is used to
+    target the specific DOM elements for hiding content and removing classes.
+
+  ## Returns
+
+    - A `Phoenix.LiveView.JS` structure with commands to remove the `active` class from
+    the content and the `active-accordion-button` class from the corresponding button.
+
+  ## Example
+  ```elixir
+  hide_accordion_content(%JS{}, "accordion-item-1")
+  ```
+  This example will hide the content of the accordion item with the ID "accordion-item-1" and remove
+  the active classes from it.
+  """
   def hide_accordion_content(js \\ %JS{}, id) do
     js
     |> JS.remove_class("active", to: "##{id}")

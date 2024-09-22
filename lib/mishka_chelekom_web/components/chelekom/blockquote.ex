@@ -1,4 +1,27 @@
 defmodule MishkaChelekom.Blockquote do
+  @moduledoc """
+  This module provides a versatile `MishkaChelekom.Blockquote` component for creating
+  stylish and customizable blockquotes in your Phoenix LiveView application.
+
+  ## Features
+
+  - **Customizable Styles**: Choose from multiple `variant` styles like `default`,
+  `outline`, `transparent`, `shadow`, and `unbordered` to match your design needs.
+  - **Color Themes**: Apply different color themes, including `primary`, `secondary`,
+  `success`, `warning`, and more.
+  - **Flexible Sizing**: Control the overall size of the blockquote, as well as specific
+  attributes like padding, border radius, and font weight.
+  - **Icon and Caption Support**: Add icons and captions to your blockquotes for
+  enhanced visual appeal and content clarity.
+  - **Positioning Options**: Fine-tune the positioning and spacing of content within the
+  blockquote for a polished layout.
+  - **Global Attributes**: Utilize global attributes such as `left_border`, `right_border`,
+  `hide_border`, and `full_border` to easily customize the border display and positioning.
+
+  Use this module to create visually appealing and content-rich blockquotes that enhance
+  the readability and aesthetics of your LiveView applications.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -25,32 +48,115 @@ defmodule MishkaChelekom.Blockquote do
     "unbordered"
   ]
 
+  @doc """
+  The `blockquote` component is used to display stylized quotations with customizable attributes
+  such as `variant`, `color`, and `padding`. It supports optional captions and icons to
+  enhance the visual presentation.
+
+  ## Examples
+
+  ```elixir
+  <.blockquote left_border hide_icon>
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem nihil commodi,
+      facere voluptatum dolores tempora vero soluta harum nam esse
+    </p>
+    <:caption
+      image="https://example.com/profile.jpg"
+      position="left"
+    >
+      Shahryar Tavakkoli | CEO
+    </:caption>
+  </.blockquote>
+
+  <.blockquote left_border icon="hero-chat-bubble-left-ellipsis">
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem nihil commodi,
+      facere voluptatum dolores tempora vero soluta harum nam esse
+    </p>
+    <:caption
+      image="https://example.com/profile.jpg"
+      position="left"
+    >
+      Shahryar Tavakkoli | CEO
+    </:caption>
+  </.blockquote>
+
+  <.blockquote variant="transparent" color="primary">
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem nihil commodi,
+      facere voluptatum dolores tempora vero soluta harum nam esse
+    </p>
+    <:caption image="https://example.com/profile.jpg">
+      Shahryar Tavakkoli | CEO
+    </:caption>
+  </.blockquote>
+
+  <.blockquote variant="shadow" color="dark">
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem nihil commodi,
+      facere voluptatum dolores tempora vero soluta harum nam esse
+    </p>
+    <:caption image="https://example.com/profile.jpg">
+      Shahryar Tavakkoli | CEO
+    </:caption>
+  </.blockquote>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :border, :string, values: @sizes ++ [nil], default: "medium", doc: ""
-  attr :rounded, :string, values: @sizes ++ ["full", "none"], default: "small", doc: ""
-  attr :size, :string, default: "medium", doc: ""
-  attr :space, :string, values: @sizes, default: "small", doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, values: @sizes ++ ["none"], default: "small", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :icon, :string, default: "hero-quote", doc: ""
-  attr :icon_class, :string, default: nil, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+
+  attr :border, :string,
+    values: @sizes ++ [nil],
+    default: "medium",
+    doc: "Determines border style"
+
+  attr :rounded, :string,
+    values: @sizes ++ ["full", "none"],
+    default: "small",
+    doc: "Determines the border radius"
+
+  attr :size, :string,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :space, :string, values: @sizes, default: "small", doc: "Space between items"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string,
+    values: @sizes ++ ["none"],
+    default: "small",
+    doc: "Determines padding for items"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :icon, :string, default: "hero-quote", doc: "Icon displayed alongside of an item"
+  attr :icon_class, :string, default: nil, doc: "Determines custom class for the icon"
 
   slot :caption, required: false do
-    attr :image, :string
-    attr :image_class, :string
-    attr :position, :string, values: ["right", "left", "center"]
+    attr :image, :string, doc: "Image displayed alongside of an item"
+    attr :image_class, :string, doc: "Determines custom class for the image"
+
+    attr :position, :string,
+      values: ["right", "left", "center"],
+      doc: "Determines the element position"
   end
 
   slot :content, required: false
-  slot :inner_block, required: false, doc: ""
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   attr :rest, :global,
     include: ~w(left_border right_border hide_border full_border hide_icon),
-    doc: ""
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
 
   def blockquote(assigns) do
     ~H"""
@@ -92,8 +198,9 @@ defmodule MishkaChelekom.Blockquote do
     """
   end
 
-  attr :name, :string, required: true
-  attr :class, :list, default: nil
+  @doc type: :component
+  attr :name, :string, required: true, doc: "Specifies the name of the element"
+  attr :class, :list, default: nil, doc: "Custom CSS class for additional styling"
 
   defp blockquote_icon(%{name: "hero-quote"} = assigns) do
     ~H"""

@@ -1,4 +1,30 @@
 defmodule MishkaChelekom.Card do
+  @moduledoc """
+  Provides a set of card components for the `MishkaChelekom.Card` project. These components
+  allow for flexible and customizable card layouts, including features such as card titles,
+  media, content sections, and footers.
+
+  ## Components
+
+    - `card/1`: Renders a basic card container with customizable size, color, border,
+    padding, and other styling options.
+    - `card_title/1`: Renders a title section for the card with support for icons and
+    custom positioning.
+    - `card_media/1`: Renders a media section within the card, such as an image or other media types.
+    - `card_content/1`: Renders a content section within the card to display various information.
+    - `card_footer/1`: Renders a footer section for the card, suitable for additional
+    information or actions.
+
+  ## Configuration Options
+
+  The module supports various attributes such as size, color, variant, and border
+  styles to match different design requirements. Components can be nested and
+  combined to create complex card layouts with ease.
+
+  This module offers a powerful and easy-to-use way to create cards with consistent
+  styling and behavior while providing the flexibility to adapt to various use cases.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
@@ -42,18 +68,78 @@ defmodule MishkaChelekom.Card do
     "around"
   ]
 
+  @doc """
+  The `card` component is used to display content in a structured container with various customization options such as `variant`, `color`, and `padding`. It supports an inner block for rendering nested content like media, titles, and footers, allowing for flexible layout designs.
+
+  ## Examples
+
+  ```elixir
+  <.card>
+    <.card_title title="This is a title in inner content" icon="hero-home" size="extra_large" />
+    <.card_content>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea atque soluta praesentium
+      quidem dicta sapiente accusamus nihil.
+    </.card_content>
+  </.card>
+
+  <.card>
+    <.card_media src="https://example.com/bg.png" alt="test"/>
+    <.card_content padding="large">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea atque soluta praesentium
+        quidem dicta sapiente accusamus nihil.
+      </p>
+    </.card_content>
+    <.card_footer padding="large">
+      <.button size="full">See more</.button>
+    </.card_footer>
+  </.card>
+
+  <.card padding="small">
+    <.card_title class="flex items-center gap-2 justify-between">
+      <div>Title</div>
+      <div>Link</div>
+    </.card_title>
+    <MishkaChelekom.Divider.hr />
+    <.card_content space="large">
+      <.card_media rounded="large" src="https://example.com/bg.png" alt="test"/>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea atque soluta
+        praesentium quidem dicta sapiente accusamus nihil.
+      </p>
+    </.card_content>
+    <MishkaChelekom.Divider.hr />
+    <.card_footer class="flex items-center gap-2">
+      <.card_media src="https://example.com/bg.png" alt="test"/>
+      <.card_media src="https://example.com/bg.png" alt="test"/>
+      <.card_media src="https://example.com/bg.png" alt="test"/>
+    </.card_footer>
+  </.card>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :variant, :string, values: @variants, default: "default", doc: ""
-  attr :color, :string, values: @colors, default: "white", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :padding, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :variant, :string, values: @variants, default: "default", doc: "Determines the style"
+  attr :color, :string, values: @colors, default: "white", doc: "Determines color theme"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :space, :string, default: nil, doc: "Space between items"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :padding, :string, default: nil, doc: "Determines padding for items"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def card(assigns) do
     ~H"""
@@ -76,16 +162,52 @@ defmodule MishkaChelekom.Card do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :title, :string, default: nil, doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :position, :string, values: @positions, default: "start", doc: ""
-  attr :font_weight, :string, default: "font-semibold", doc: ""
-  attr :size, :string, values: @sizes, default: "large", doc: ""
-  attr :padding, :string, default: "none", doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  The `card_title` component is used to display the title section of a card with customizable
+  attributes such as `position`, `size`, and `padding`.
+
+  It supports adding an optional icon alongside the title and includes an inner block for additional content.
+
+  ## Examples
+
+  ```elixir
+  <.card_title class="border-b" padding="small" position="between">
+    <div>Title</div>
+    <div><.icon name="hero-ellipsis-horizontal" /></div>
+  </.card_title>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+
+  attr :position, :string,
+    values: @positions,
+    default: "start",
+    doc: "Determines the element position"
+
+  attr :font_weight, :string,
+    default: "font-semibold",
+    doc: "Determines custom class for the font weight"
+
+  attr :size, :string,
+    values: @sizes,
+    default: "large",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :padding, :string, default: "none", doc: "Determines padding for items"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def card_title(assigns) do
     ~H"""
@@ -110,13 +232,38 @@ defmodule MishkaChelekom.Card do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :alt, :string, doc: ""
-  attr :src, :string, required: true, doc: ""
-  attr :rounded, :string, values: @sizes ++ [nil], default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  The `card_media` component is used to display media elements, such as images, within a card.
+
+  It supports customizable attributes like `rounded` and `class` for styling and can include an inner
+  block for additional content.
+
+  ## Examples
+
+  ```elixir
+  <.card_media src="https://example.com/bg.png" alt="test"/>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :alt, :string, doc: "Media link description"
+  attr :src, :string, required: true, doc: "Media link"
+
+  attr :rounded, :string,
+    values: @sizes ++ [nil],
+    default: nil,
+    doc: "Determines the border radius"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   # TODO: we should support other media like video (should have inner block)
 
@@ -136,12 +283,42 @@ defmodule MishkaChelekom.Card do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :space, :string, values: @sizes, default: "extra_small", doc: ""
-  attr :padding, :string, values: @sizes ++ ["none"], default: "none", doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  The `card_content` component is used to display the main content of a card with customizable attributes
+  such as `padding` and `space` between items.
+
+  It supports an inner block for rendering additional content, allowing for flexible layout and styling.
+
+  ## Examples
+
+  ```elixir
+  <.card_content padding="large">
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi ea atque soluta praesentium
+      quidem dicta sapiente accusamus nihil.
+    </p>
+  </.card_content>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :space, :string, values: @sizes, default: "extra_small", doc: "Space between items"
+
+  attr :padding, :string,
+    values: @sizes ++ ["none"],
+    default: "none",
+    doc: "Determines padding for items"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def card_content(assigns) do
     ~H"""
@@ -159,11 +336,38 @@ defmodule MishkaChelekom.Card do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :padding, :string, values: @sizes ++ ["none"], default: "none", doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  The `card_footer` component is used to display the footer section of a card, allowing for
+  additional actions or information at the bottom of the card.
+
+  It supports customizable attributes such as `padding` and `class` for styling and includes an
+  inner block for rendering content.
+
+  ## Examples
+
+  ```elixir
+  <.card_footer padding="large">
+    <.button size="full">See more</.button>
+  </.card_footer>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :padding, :string,
+    values: @sizes ++ ["none"],
+    default: "none",
+    doc: "Determines padding for items"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def card_footer(assigns) do
     ~H"""

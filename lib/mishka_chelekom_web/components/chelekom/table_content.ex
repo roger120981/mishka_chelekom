@@ -1,22 +1,83 @@
 defmodule MishkaChelekom.TableContent do
+  @moduledoc """
+  `MishkaChelekom.TableContent` is a component module designed to create flexible and dynamic
+  content within a table. This module allows for a variety of customizations, including styles,
+  colors, borders, padding, and animations. It is composed of several subcomponents such as
+  `table_content/1`, `content_wrapper/1`, and `content_item/1`, each providing specific
+  roles for content display and interaction.
+
+  The `table_content/1` function creates a container with customizable styles and an optional title.
+  `content_wrapper/1` and `content_item/1` allow further structuring of content, including icons,
+  font weights, and active states, making it easy to build interactive and visually appealing
+  layouts within tables. The module leverages slots to enable dynamic content rendering,
+  offering high flexibility in the design of complex table layouts.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
   alias Phoenix.LiveView.JS
 
+  @doc """
+  The `table_content` component is used to display organized content with customizable styling
+  options such as color, padding, and animation.
+
+  It supports nested content items and wrappers for better content management and display.
+
+  ## Examples
+
+  ```elixir
+  <.table_content color="primary" animated>
+    <.content_item icon="hero-hashtag">
+      <.link href="#prag">Content 1</.link>
+    </.content_item>
+
+    <.content_item icon="hero-hashtag">
+      <.link href="#home">Content 2</.link>
+    </.content_item>
+
+    <.content_item title="Wrapper Content">
+      <.content_wrapper>
+        <.content_item icon="hero-hashtag">
+          <.link href="#home">Content 1</.link>
+        </.content_item>
+
+        <.content_item icon="hero-hashtag">
+          <.link href="#home">Content 2</.link>
+        </.content_item>
+
+        <.content_item icon="hero-hashtag" active>
+          <.link href="#home">Content 3</.link>
+        </.content_item>
+      </.content_wrapper>
+    </.content_item>
+  </.table_content>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :title, :string, default: nil, doc: ""
-  attr :color, :string, default: "white", doc: ""
-  attr :variant, :string, default: "default", doc: ""
-  attr :space, :string, default: nil, doc: ""
-  attr :animated, :boolean, default: false, doc: ""
-  attr :padding, :string, default: nil, doc: ""
-  attr :rounded, :string, default: nil, doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :size, :string, default: "small", doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :color, :string, default: "white", doc: "Determines color theme"
+  attr :variant, :string, default: "default", doc: "Determines the style"
+  attr :space, :string, default: nil, doc: "Space between items"
+  attr :animated, :boolean, default: false, doc: "Determines whether element's icon has animation"
+  attr :padding, :string, default: nil, doc: "Determines padding for items"
+  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+
+  attr :size, :string,
+    default: "small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def table_content(assigns) do
     ~H"""
@@ -39,13 +100,47 @@ defmodule MishkaChelekom.TableContent do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :title, :string, default: nil, doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-normal", doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  The `content_wrapper` component is used to wrap multiple content items, allowing for grouped
+  and structured presentation of content. It provides options for custom styling and font
+  weight, making it versatile for various use cases.
+
+  ## Examples
+
+  ```elixir
+  <.content_wrapper>
+    <.content_item icon="hero-hashtag">
+      <.link href="#home">Content 1</.link>
+    </.content_item>
+
+    <.content_item icon="hero-hashtag">
+      <.link href="#home">Content 2</.link>
+    </.content_item>
+
+    <.content_item icon="hero-hashtag" active>
+      <.link href="#home">Content 3</.link>
+    </.content_item>
+  </.content_wrapper>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+
+  attr :font_weight, :string,
+    default: "font-normal",
+    doc: "Determines custom class for the font weight"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def content_wrapper(assigns) do
     ~H"""
@@ -63,15 +158,44 @@ defmodule MishkaChelekom.TableContent do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :title, :string, default: nil, doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :icon_class, :string, default: nil, doc: ""
-  attr :font_weight, :string, default: "font-noraml", doc: ""
-  attr :active, :boolean, default: false, doc: ""
-  attr :rest, :global, doc: ""
-  slot :inner_block, required: false, doc: ""
+  @doc """
+  The `content_item` component is used to represent a single content item with an optional
+  icon and custom styling.
+
+  It allows for active state management and supports various configurations such as font
+  weight and additional CSS classes.
+
+  ## Examples
+
+  ```elixir
+  <.content_item icon="hero-hashtag">
+    <.link href="#prag">Content 1</.link>
+  </.content_item>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  attr :icon_class, :string, default: nil, doc: "Determines custom class for the icon"
+
+  attr :font_weight, :string,
+    default: "font-noraml",
+    doc: "Determines custom class for the font weight"
+
+  attr :active, :boolean,
+    default: false,
+    doc: "Indicates whether the element is currently active and visible"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def content_item(assigns) do
     ~H"""

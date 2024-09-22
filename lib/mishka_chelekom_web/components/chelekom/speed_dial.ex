@@ -1,46 +1,119 @@
 defmodule MishkaChelekom.SpeedDial do
+  @moduledoc """
+  The `MishkaChelekom.SpeedDial` module provides a versatile speed dial component for Phoenix
+  LiveView applications. This component enhances user interactions by offering a dynamic
+  menu of actions that can be triggered from a single button. The speed dial is
+  especially useful for applications that need to offer quick access to multiple
+  actions without cluttering the UI.
+
+  ## Features
+
+  - **Customizable Appearance:** Supports various size, color, and style options, including
+  `default`, `outline`, `transparent`, `shadow`, and `unbordered` variants. Users can control the
+  overall size, border radius, padding, and spacing between elements to fit different design requirements.
+  - **Action Configuration:** The `SpeedDial` component can hold multiple action items,
+  each with individual icons, colors, and navigation paths. Items can link to different parts
+  of the application, trigger patches, or direct to external URLs.
+  - **Interactive Control:** The speed dial can be toggled to show or hide the list of actions.
+  This makes it easy to manage the visibility of the component based on user interactions.
+  - **Flexible Positioning:** Allows placement at various positions on the screen, such as
+  `top-start`, `top-end`, `bottom-start`, and `bottom-end`. The position can be adjusted
+  based on the container's size and requirements.
+  - **Animation and Icon Support:** Includes built-in animation options for icons and button
+  states, creating an engaging user experience. Icons can be added or animated when hovering
+  over the speed dial button.
+
+  This component is perfect for implementing quick action menus in applications where users need
+  to perform frequent operations from a single access point.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
   import MishkaChelekomWeb.Gettext
   alias Phoenix.LiveView.JS
 
+  @doc """
+  Renders a customizable speed dial component that provides quick access to multiple actions.
+  The speed dial can be configured with various styles, sizes, and colors.
+
+  It supports navigation, icons, and custom content in each item.
+
+  ## Examples
+
+  ```elixir
+  <.speed_dial
+    icon="hero-plus"
+    space="large"
+    icon_animated
+    id="test-1"
+    size="extra_small"
+    clickable
+  >
+    <:item icon="hero-home" href="/examples/navbar" color="danger"></:item>
+    <:item icon="hero-bars-3" href="/examples/navbar" variant="shadow" color="misc">11</:item>
+    <:item icon="hero-chart-bar" href="/examples/navbar" variant="unbordered" color="warning">
+    </:item>
+  </.speed_dial>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, required: true, doc: ""
-  attr :class, :string, default: nil, doc: ""
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
   attr :action_position, :string, default: "bottom-end", doc: ""
   attr :position_size, :string, default: "large", doc: ""
   attr :wrapper_position, :string, default: "top", doc: ""
-  attr :rounded, :string, default: "full", doc: ""
-  attr :size, :string, default: "medium", doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :variant, :string, default: "default", doc: ""
-  attr :space, :string, default: "extra_small", doc: ""
-  attr :width, :string, default: "fit", doc: ""
-  attr :border, :string, default: "extra_small", doc: ""
-  attr :padding, :string, default: "extra_small", doc: ""
-  attr :clickable, :boolean, default: false, doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :icon_animated, :boolean, default: false, doc: ""
-  attr :rest, :global, doc: ""
+  attr :rounded, :string, default: "full", doc: "Determines the border radius"
 
-  slot :item, required: false do
-    attr :icon, :string
-    attr :class, :string
-    attr :navigate, :string, doc: ""
-    attr :patch, :string, doc: ""
-    attr :href, :string, doc: ""
-    attr :icon_class, :string
-    attr :content_class, :string
-    attr :color, :string
-    attr :variant, :string
-    attr :icon_position, :string, doc: "end, start"
+  attr :size, :string,
+    default: "medium",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :variant, :string, default: "default", doc: "Determines the style"
+  attr :space, :string, default: "extra_small", doc: "Space between items"
+  attr :width, :string, default: "fit", doc: "Determines the element width"
+  attr :border, :string, default: "extra_small", doc: "Determines border style"
+  attr :padding, :string, default: "extra_small", doc: "Determines padding for items"
+
+  attr :clickable, :boolean,
+    default: false,
+    doc: "Determines if the element can be activated on click"
+
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+
+  attr :icon_animated, :boolean,
+    default: false,
+    doc: "Determines whether element's icon has animation"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :item, required: false, doc: "Specifies item slot of a speed dial" do
+    attr :icon, :string, doc: "Icon displayed alongside of an item"
+    attr :class, :string, doc: "Custom CSS class for additional styling"
+
+    attr :navigate, :string,
+      doc: "Defines the path for navigation within the application using a `navigate` attribute."
+
+    attr :patch, :string, doc: "Specifies the path for navigation using a LiveView patch."
+    attr :href, :string, doc: "Sets the URL for an external link."
+    attr :icon_class, :string, doc: "Determines custom class for the icon"
+    attr :content_class, :string, doc: "Determines custom class for the content"
+    attr :color, :string, doc: "Determines color theme"
+    attr :variant, :string, doc: "Determines the style"
+    attr :icon_position, :string, doc: "Determines icon position"
   end
 
-  slot :trigger_content, required: false do
-    attr :class, :string
+  slot :trigger_content, required: false, doc: "Determines triggered content" do
+    attr :class, :string, doc: "Custom CSS class for additional styling"
   end
 
-  slot :inner_block, required: false, doc: ""
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def speed_dial(assigns) do
     ~H"""
@@ -120,18 +193,28 @@ defmodule MishkaChelekom.SpeedDial do
     """
   end
 
-  attr :id, :string, required: true, doc: ""
-  attr :navigate, :string, default: nil, doc: ""
-  attr :patch, :string, default: nil, doc: ""
-  attr :href, :string, default: nil, doc: ""
-  attr :color, :string, default: "primary", doc: ""
-  attr :variant, :string, default: "default", doc: ""
-  attr :icon, :string, default: nil, doc: ""
-  attr :icon_class, :string, default: nil, doc: ""
-  attr :content_class, :string, default: nil, doc: ""
-  attr :index, :integer, required: true, doc: ""
-  attr :icon_position, :string, doc: "end, start"
-  slot :inner_block, required: false, doc: ""
+  @doc type: :component
+  attr :id, :string,
+    required: true,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :navigate, :string,
+    default: nil,
+    doc: "Defines the path for navigation within the application using a `navigate` attribute."
+
+  attr :patch, :string,
+    default: nil,
+    doc: "Specifies the path for navigation using a LiveView patch."
+
+  attr :href, :string, default: nil, doc: "Sets the URL for an external link."
+  attr :color, :string, default: "primary", doc: "Determines color theme"
+  attr :variant, :string, default: "default", doc: "Determines the style"
+  attr :icon, :string, default: nil, doc: "Icon displayed alongside of an item"
+  attr :icon_class, :string, default: nil, doc: "Determines custom class for the icon"
+  attr :content_class, :string, default: nil, doc: "Determines custom class for the content"
+  attr :index, :integer, required: true, doc: "Determines item index"
+  attr :icon_position, :string, doc: "Determines icon position"
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   defp speed_dial_content(%{navigate: nav, patch: pat, href: hrf} = assigns)
        when is_binary(nav) or is_binary(pat) or is_binary(hrf) do

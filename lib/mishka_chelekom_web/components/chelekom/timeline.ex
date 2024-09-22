@@ -1,17 +1,110 @@
 defmodule MishkaChelekom.Timeline do
+  @moduledoc """
+  The `MishkaChelekom.Timeline` module is a versatile and customizable component
+  designed for displaying timeline-style content in Phoenix LiveView applications.
+
+  It allows users to present chronological or sequential events in both horizontal and vertical formats.
+
+  ### Features:
+  - **Layout Options**: Supports both horizontal and vertical timeline orientations,
+  providing flexibility in content presentation.
+  - **Customizable Appearance**: Offers various attributes to modify the appearance of
+  timeline sections, such as colors, line widths, and bullet sizes.
+  - **Thematic Colors**: Includes multiple color themes like primary, secondary, success,
+  warning, and more to match the design aesthetic.
+  - **Bullet and Icon Support**: Provides options to include icons or images in place of the
+  standard timeline bullets for enhanced visual representation.
+  - **Slot-based Content**: Supports slot-based content insertion, allowing developers to include
+  custom HTML or components within the timeline sections.
+  - **Responsive Design**: Adapts to different screen sizes and orientations, ensuring a consistent
+  user experience across devices.
+  - **Flexible Styling**: Attributes like `gapped_sections` and `hide_last_line` offer additional
+  control over the layout and visibility of timeline elements.
+
+  This component integrates seamlessly into Phoenix LiveView applications, providing a rich
+  and interactive way to visualize timelines, events, or progressions.
+  """
+
   use Phoenix.Component
   import MishkaChelekomComponents
 
+  @doc """
+  The `Timeline` component provides a structured layout to display a sequence of events or actions,
+  either horizontally or vertically.
+
+  It can include various content, such as images and text, and supports customization options
+  like color themes and spacing.
+
+  ## Examples
+
+  ```elixir
+  <.timeline>
+    <.timeline_section
+      size="double_large"
+      image="https://example.com/profile.jpg"
+    >
+      <.card padding="large" rounded="large">
+        <div class="items-center justify-between">
+          <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">
+            just now
+          </time>
+          <div class="text-sm font-normal text-gray-500">
+            Bonnie moved
+            <a href="#" class="font-semibold text-blue-600 dark:text-blue-500 hover:underline">
+              Jese Leos
+            </a>
+            to
+            <span class={[
+              "bg-gray-100 text-gray-800 text-xs font-normal me-2 px-2.5 py-0.5 rounded",
+              "dark:bg-gray-600 dark:text-gray-300"
+            ]}>
+              Funny Group
+            </span>
+          </div>
+        </div>
+      </.card>
+    </.timeline_section>
+    <.timeline_section
+      size="double_large"
+      image="https://example.com/profile.jpg"
+    >
+      <.card padding="large" rounded="large">
+        <div class="items-center justify-between mb-3 sm:flex">
+          <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">
+            2 hours ago
+          </time>
+          <div class="text-sm font-normal text-gray-500">
+            Thomas Lean commented on
+            <a href="#" class="font-semibold text-gray-900 hover:underline">Flowbite Pro</a>
+          </div>
+        </div>
+        <div class="p-3 text-xs italic font-normal text-gray-500 border border-gray-200 rounded-lg bg-gray-50">
+          Hi ya'll! I wanted to share a webinar zeroheight is having regarding how to
+          best measure your design system! This is the second session of our new webinar
+          series on #DesignSystems discussions where we'll be speaking about Measurement.
+        </div>
+      </.card>
+    </.timeline_section>
+  </.timeline>
+  ```
+  """
   @doc type: :component
-  attr :id, :string, default: nil, doc: ""
-  attr :color, :string, default: "silver", doc: ""
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :color, :string, default: "silver", doc: "Determines color theme"
   attr :hide_last_line, :boolean, default: false, doc: ""
   attr :gapped_sections, :boolean, default: false, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
-  attr :horizontal, :boolean, default: false, doc: ""
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
-  slot :inner_block, required: false, doc: ""
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  attr :horizontal, :boolean, default: false, doc: "Determines whether element is horizontal"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   # TODO: User cannot change color based on their need
 
@@ -44,19 +137,64 @@ defmodule MishkaChelekom.Timeline do
     """
   end
 
-  attr :id, :string, default: nil, doc: ""
-  attr :line_width, :string, default: "extra_small", doc: ""
-  attr :size, :string, default: "extra_small", doc: ""
-  attr :bullet_icon, :string, default: nil, doc: ""
-  attr :image, :string, default: nil, doc: ""
-  attr :title, :string, default: nil, doc: ""
-  attr :time, :string, default: nil, doc: ""
-  attr :description, :string, default: nil, doc: ""
-  attr :horizontal, :boolean, default: false, doc: ""
-  attr :class, :string, default: nil, doc: ""
-  attr :rest, :global, doc: ""
+  @doc """
+  The `TimelineSection` component is used to define individual sections within a `Timeline`.
 
-  slot :inner_block, required: false, doc: ""
+  It supports both vertical and horizontal layouts, and can include a title, time, description,
+  and additional content. It also allows for custom icons or images to be displayed alongside
+  each timeline section.
+
+  ## Examples
+
+  ```elixir
+  <.timeline_section
+    size="double_large"
+    image="https://example.com/profile.jpg"
+  >
+    <.card padding="large" rounded="large">
+      <div class="items-center justify-between mb-3 sm:flex">
+        <time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">
+          2 hours ago
+        </time>
+        <div class="text-sm font-normal text-gray-500">
+          Thomas Lean commented on
+          <a href="#" class="font-semibold text-gray-900 hover:underline">Flowbite Pro</a>
+        </div>
+      </div>
+      <div class="p-3 text-xs italic font-normal text-gray-500 border border-gray-200 rounded-lg bg-gray-50">
+        Hi ya'll! I wanted to share a webinar zeroheight is having regarding how to
+        best measure your design system! This is the second session of our new webinar
+        series on #DesignSystems discussions where we'll be speaking about Measurement.
+      </div>
+    </.card>
+  </.timeline_section>
+  ```
+  """
+  @doc type: :component
+  attr :id, :string,
+    default: nil,
+    doc: "A unique identifier is used to manage state and interaction"
+
+  attr :line_width, :string, default: "extra_small", doc: "Determines line width of timeline"
+
+  attr :size, :string,
+    default: "extra_small",
+    doc:
+      "Determines the overall size of the elements, including padding, font size, and other items"
+
+  attr :bullet_icon, :string, default: nil, doc: "Determines bullet icon"
+  attr :image, :string, default: nil, doc: "Image displayed alongside of an item"
+  attr :title, :string, default: nil, doc: "Specifies the title of the element"
+  attr :time, :string, default: nil, doc: "Specifies the time"
+  attr :description, :string, default: nil, doc: "Determines a short description"
+  attr :horizontal, :boolean, default: false, doc: "Determines whether element is horizontal"
+  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
+
+  attr :rest, :global,
+    doc:
+      "Global attributes can define defaults which are merged with attributes provided by the caller"
+
+  slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
   def timeline_section(%{horizontal: true} = assigns) do
     ~H"""
