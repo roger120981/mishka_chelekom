@@ -2,7 +2,6 @@
   divider: [
     name: "divider",
     args: [
-      variant: ["default", "outline", "shadow", "unbordered"],
       color: [
         "white",
         "primary",
@@ -15,13 +14,13 @@
         "light",
         "misc",
         "dawn",
-        "transparent"
+        "silver"
       ],
       size: ["extra_small", "small", "medium", "large", "extra_large"],
-      padding: ["extra_small", "small", "medium", "large", "extra_large"],
-      space: ["extra_small", "small", "medium", "large", "extra_large"]
+      type: ["divider", "hr"],
+      module: ""
     ],
     optional: [],
-    necessary: [],
+    necessary: []
   ]
 ]

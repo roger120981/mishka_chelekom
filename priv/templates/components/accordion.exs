@@ -2,7 +2,15 @@
   accordion: [
     name: "accordion",
     args: [
-      variant: ["default", "outline", "shadow", "unbordered"],
+      variant: [
+        "default",
+        "contained",
+        "filled",
+        "seperated",
+        "tinted_split",
+        "transparent",
+        "menu"
+      ],
       color: [
         "white",
         "primary",
@@ -14,14 +22,16 @@
         "info",
         "light",
         "misc",
-        "dawn",
-        "transparent"
+        "dawn"
       ],
       size: ["extra_small", "small", "medium", "large", "extra_large"],
       padding: ["extra_small", "small", "medium", "large", "extra_large"],
-      space: ["extra_small", "small", "medium", "large", "extra_large"]
+      space: ["extra_small", "small", "medium", "large", "extra_large"],
+      type: ["accordion", "native_accordion"],
+      rounded: ["extra_small", "small", "medium", "large", "extra_large", "full"],
+      module: ""
     ],
     optional: [],
-    necessary: ["divider"]
+    necessary: []
   ]
 ]

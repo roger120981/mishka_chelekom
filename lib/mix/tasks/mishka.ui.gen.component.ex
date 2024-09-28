@@ -31,6 +31,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   * `--padding` or `-p` - Specifies component padding
   * `--space` or `-sp` - Specifies component space
   * `--type` or `-t` - Specifies component type
+  * `--rounded` or `-r` - Specifies component type
   * `--no-sub-config` - Creates dependent components with default settings
   * `--module` or `-m` - Specifies a custom name for the component module
   * `--sub` - Specifies this task is a sub task
@@ -65,12 +66,22 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
         padding: :string,
         space: :string,
         type: :string,
+        rounded: :string,
         sub: :boolean,
         no_deps: :boolean,
         no_sub_config: :boolean
       ],
       # CLI aliases
-      aliases: [v: :variant, c: :color, s: :size, m: :module, p: :padding, sp: :space, t: :type]
+      aliases: [
+        v: :variant,
+        c: :color,
+        s: :size,
+        m: :module,
+        p: :padding,
+        sp: :space,
+        t: :type,
+        r: :rounded
+      ]
     }
   end
 
@@ -179,24 +190,25 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
          {igniter, proper_location, assign, template_path, template_config},
          options
        ) do
-    new_assign =
-      options |> Keyword.take(Keyword.keys(template_config[:args])) |> Keyword.merge(assign)
-
-    user_bad_args =
-      Enum.map(new_assign, fn {key, value} ->
+    {user_bad_args, new_assign} =
+      options
+      |> Keyword.take(Keyword.keys(template_config[:args]))
+      |> Keyword.merge(assign)
+      |> Enum.reduce({[], []}, fn {key, value}, {bad_acc, data_acc} ->
         case template_config[:args][key] do
           args when is_list(args) ->
-            user_values =
-              String.split(value, ",", trim: true)
-              |> Enum.all?(&(&1 in args))
+            splited_args = String.split(value, ",", trim: true)
 
-            if !user_values, do: {key, args}, else: nil
+            if !Enum.all?(splited_args, &(&1 in args)) do
+              {[{key, args} | bad_acc], data_acc}
+            else
+              {bad_acc, [{key, splited_args} | data_acc]}
+            end
 
           _ ->
-            nil
+            {bad_acc, [{key, value} | data_acc]}
         end
       end)
-      |> Enum.reject(&is_nil(&1))
 
     if length(user_bad_args) > 0 do
       msg = """
@@ -208,7 +220,15 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
       {:error, :bad_args, msg, igniter}
     else
-      {igniter, template_path, template_config, proper_location, new_assign, options}
+      # we put nil assigns keys to prevent the does not exist warning
+      updated_new_assign =
+        Keyword.keys(template_config[:args])
+        |> Enum.reduce(new_assign, fn key, acc ->
+          if Keyword.has_key?(acc, key), do: acc, else: Keyword.put(acc, key, nil)
+        end)
+        |> Keyword.merge(web_module: Igniter.Libs.Phoenix.web_module(igniter))
+
+      {igniter, template_path, template_config, proper_location, updated_new_assign, options}
     end
   end
 

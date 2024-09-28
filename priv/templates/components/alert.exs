@@ -4,24 +4,25 @@
     args: [
       variant: ["default", "outline", "shadow", "unbordered"],
       color: [
+        "info",
+        "danger",
+        "success",
         "white",
         "primary",
         "secondary",
-        "dark",
-        "success",
-        "warning",
-        "danger",
-        "info",
-        "light",
         "misc",
+        "warning",
+        "dark",
+        "light",
         "dawn",
-        "transparent"
+        "error"
       ],
       size: ["extra_small", "small", "medium", "large", "extra_large"],
-      padding: ["extra_small", "small", "medium", "large", "extra_large"],
-      space: ["extra_small", "small", "medium", "large", "extra_large"]
+      rounded: ["extra_small", "small", "medium", "large", "extra_large", "full", "none"],
+      type: ["flash", "flash_group", "alert"],
+      module: ""
     ],
-    optional: ["rating", "avatar"],
-    necessary: ["accordion"],
+    optional: [],
+    necessary: []
   ]
 ]
