@@ -14,7 +14,7 @@ defmodule <%= @module %> do
   Phoenix applications while maintaining flexibility in design and functionality.
   """
   use Phoenix.Component
-  import <%= @web_module %>.Gettext
+  import <%= inspect(@web_module) %>.Gettext
 
   @colors [
     "white",

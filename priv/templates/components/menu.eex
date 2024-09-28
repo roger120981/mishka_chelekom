@@ -16,8 +16,8 @@ defmodule <%= @module %> do
   control the layout and appearance of the menu.
   """
   use Phoenix.Component
-  import <%= @web_module %>.Components.Accordion, only: [accordion: 1]
-  import <%= @web_module %>.Components.Button, only: [button_link: 1]
+  import <%= inspect(@web_module) %>.Components.Accordion, only: [accordion: 1]
+  import <%= inspect(@web_module) %>.Components.Button, only: [button_link: 1]
 
   @doc """
   Renders a customizable `menu` component that can include menu items as a list of maps or use

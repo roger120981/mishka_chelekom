@@ -26,7 +26,7 @@ defmodule <%= @module %> do
   flexibility in rendering custom content within alerts.
   """
   use Phoenix.Component
-  import <%= @web_module %>.Gettext
+  import <%= inspect(@web_module) %>.Gettext
   alias Phoenix.LiveView.JS
 
   @sizes ["extra_small", "small", "medium", "large", "extra_large"]

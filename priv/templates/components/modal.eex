@@ -17,7 +17,7 @@ defmodule <%= @module %> do
   """
 
   use Phoenix.Component
-  import <%= @web_module %>.Gettext
+  import <%= inspect(@web_module) %>.Gettext
   alias Phoenix.LiveView.JS
 
   @sizes [

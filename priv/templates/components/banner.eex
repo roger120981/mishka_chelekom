@@ -28,7 +28,7 @@ defmodule <%= @module %> do
 
   use Phoenix.Component
   alias Phoenix.LiveView.JS
-  import <%= @web_module %>.Gettext
+  import <%= inspect(@web_module) %>.Gettext
 
   @sizes ["extra_small", "small", "medium", "large", "extra_large"]
   @colors [
