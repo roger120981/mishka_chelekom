@@ -74,7 +74,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
         else: components
 
     igniter =
-      Enum.reduce(Enum.take(list, 1), igniter, fn item, acc ->
+      Enum.reduce(list, igniter, fn item, acc ->
         acc
         |> Igniter.compose_task("mishka.ui.gen.component", [item, "--no-deps", "--sub", "--yes"])
       end)
