@@ -18,9 +18,9 @@ defmodule MishkaChelekom.MixProject do
       homepage_url: "https://github.com/mishka-group",
       source_url: @source_url,
       docs: [
-        main: "MishkaChelekom",
-        source_ref: "master",
-        extras: ["README.md"],
+        main: "readme",
+        source_ref: "v#{@version}",
+        extras: ["README.md", "CHANGELOG.md"],
         source_url: @source_url
       ]
     ]
@@ -37,7 +37,8 @@ defmodule MishkaChelekom.MixProject do
 
   defp deps do
     [
-      {:igniter, github: "ash-project/igniter", branch: "main"}
+      {:igniter, "~> 0.3.45"},
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]
   end
 
@@ -52,7 +53,8 @@ defmodule MishkaChelekom.MixProject do
       maintainers: ["Shahryar Tavakkoli", "Mona Aghili", "Arian Alijani"],
       links: %{
         "GitHub" => @source_url,
-        "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md"
+        "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md",
+        "Official document" => "https://mishka.life/chelekom/docs"
       }
     ]
   end
