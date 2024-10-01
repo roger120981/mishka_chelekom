@@ -97,11 +97,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
             Macro.underscore(web_module) <> ".components.mishka_components"
           )
 
-        children_list =
-          Enum.map(list, &Component.get_component_template(igniter, &1).config[:args][:only])
-          |> List.flatten()
-          |> Enum.map(&{String.to_atom(&1), 1})
-
         igniter
         |> Igniter.create_new_file(
           proper_location,
@@ -109,9 +104,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
           defmodule #{module_name} do
             defmacro __using__(_) do
               quote do
-                import #{inspect(web_module)}.Components.{
-                 #{Enum.map(list, &"#{Component.atom_to_module(&1)},\n")}
-                }, only: [#{Enum.map_join(children_list, ",\n", fn {key, value} -> "#{key}: #{value}" end)}]
+                #{Enum.map(create_import_string(list, web_module, igniter), fn item -> "#{item}\n" end)}
               end
             end
           end
@@ -123,6 +116,21 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
       end
 
     igniter
+  end
+
+  defp create_import_string(list, web_module, igniter) do
+    children = fn component ->
+      Component.get_component_template(igniter, component).config[:args][:only]
+      |> List.flatten()
+      |> Enum.map(&{String.to_atom(&1), 1})
+      |> Enum.map_join(", ", fn {key, value} -> "#{key}: #{value}" end)
+    end
+
+    Enum.map(list, fn item ->
+      child_imports = children.(item)
+
+      "import #{inspect(web_module)}.Components.#{Component.atom_to_module(item)}, only: [#{child_imports}]"
+    end)
   end
 
   defp get_all_components_names() do
