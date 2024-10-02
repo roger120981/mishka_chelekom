@@ -15,7 +15,7 @@ defmodule <%= @module %> do
   for a cohesive and interactive application experience.
   """
   use Phoenix.Component
-  import <%= inspect(@web_module) %>.Gettext
+  use Gettext, backend: <%= inspect(@web_module) %>.Gettext
   alias Phoenix.LiveView.JS
 
   @colors [

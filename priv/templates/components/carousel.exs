@@ -21,6 +21,6 @@
       module: ""
     ],
     optional: [],
-    necessary: []
+    necessary: ["image"]
   ]
 ]

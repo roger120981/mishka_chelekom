@@ -18,8 +18,8 @@
       size: ["extra_small", "small", "medium", "large", "extra_large"],
       rounded: ["extra_small", "small", "medium", "large", "extra_large"],
       space: ["extra_small", "small", "medium", "large", "extra_large"],
-      type: ["checkbox", "group_checkbox"],
-      only: ["checkbox", "group_checkbox"],
+      type: ["checkbox_field", "group_checkbox"],
+      only: ["checkbox_field", "group_checkbox"],
       module: ""
     ],
     optional: [],

@@ -2,7 +2,7 @@
   native_select: [
     name: "native_select",
     args: [
-      variant: ["default", "outline", "transparent", "shadow", "unbordered"],
+      variant: ["default", "outline", "transparent", "shadow", "unbordered", "native"],
       color: [
         "white",
         "primary",

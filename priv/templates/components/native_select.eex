@@ -16,7 +16,7 @@ defmodule <%= @module %> do
 
   use Phoenix.Component
 
-  @variants ["default", "outline", "transparent", "shadow", "unbordered"]
+  @variants ["default", "outline", "transparent", "shadow", "unbordered", "native"]
 
   @colors [
     "white",
