@@ -1,6 +1,7 @@
 # MishkaChelekom
 
 Mishka Chelekom is a library offering various templates for components in **Phoenix** and **Phoenix LiveView** [(Phoenix UI kit and components)](https://mishka.life/chelekom).
+
 This means you can generate any component listed in this project using a `CLI` command with customizable options.
 
 > For example, you can create a component with an `info` color and a "shadow" variant without having any unnecessary code clutter.
@@ -61,3 +62,39 @@ This project ensures optimal performance by minimizing dependencies and leveragi
 3. [Phoenix LiveView](https://github.com/phoenixframework/phoenix_live_view)
 4. [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
 5. Pure JavaScript
+
+---
+
+### FAQ
+
+* Do I need any config or external project?
+
+> The Chelekom library is fully zero-configuration, meaning you don't need to install anything other than the library itself
+
+* What does the generator do?
+
+> The generator does all the work for you, from building to updating and transferring the heex, ex files to your Phoenix project.
+
+* What should be done for Phoenix umbrella projects?
+
+> Just go to the path of your desired Phoenix project and execute the required Mix commands there.
+
+* How much will this project be updated?
+
+> In the initial versions, we managed to create more than 80 components for Phoenix and LiveView, and our goal is up to 200 components. After that, we are going to build complete templates as well as a very useful API for programmers.
+
+* Are these components not developed after offering the paid version?
+
+> Our paid services are not about components at all, but more facilities, including exclusive support, as well as complete templates, etc., and as long as the Mishka team exists, this project will be developed and maintained for free and open source.
+
+### Contributing
+
+We appreciate any contribution to MishkaChelekom. Just create a PR!! 🎉🥳
+
+### Community & Support
+
+- Create issue: https://github.com/mishka-group/mishka_chelekom/issues
+- Ask question in elixir forum: https://elixirforum.com ➝ mention `@shahryarjb`
+- Ask question in elixir Slack: https://elixir-slack.community ➝ mention `@shahryarjb`
+- Ask question in elixir Discord: https://discord.gg/elixir ➝ mention `@shahryarjb`
+- For commercial & sponsoring communication: `shahryar@mishka.life`
