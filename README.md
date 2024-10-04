@@ -1,10 +1,12 @@
 # MishkaChelekom
 
-Mishka Chelekom is a library offering various templates for components in **Phoenix** and **Phoenix LiveView** [(Phoenix UI kit and components)](https://mishka.life/chelekom).
+Mishka Chelekom is a library offering various templates for components in **Phoenix** and **Phoenix LiveView** - [Phoenix UI kit and components](https://mishka.life/chelekom).
 
 This means you can generate any component listed in this project using a `CLI` command with customizable options.
 
 > For example, you can create a component with an `info` color and a "shadow" variant without having any unnecessary code clutter.
+
+![Screenshot 2024-10-05 at 01 53 03](https://github.com/user-attachments/assets/16860771-e9e8-43f5-8441-d16ad8793ae6)
 
 If you want to add another variant in the future, the project is powered by the [**Igniter**](https://github.com/ash-project/igniter) library, which makes it easy to update the previous code seamlessly.
 
