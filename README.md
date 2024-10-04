@@ -87,9 +87,13 @@ This project ensures optimal performance by minimizing dependencies and leveragi
 
 > Our paid services are not about components at all, but more facilities, including exclusive support, as well as complete templates, etc., and as long as the Mishka team exists, this project will be developed and maintained for free and open source.
 
+---
+
 ### Contributing
 
 We appreciate any contribution to MishkaChelekom. Just create a PR!! 🎉🥳
+
+---
 
 ### Community & Support
 
@@ -98,3 +102,42 @@ We appreciate any contribution to MishkaChelekom. Just create a PR!! 🎉🥳
 - Ask question in elixir Slack: https://elixir-slack.community ➝ mention `@shahryarjb`
 - Ask question in elixir Discord: https://discord.gg/elixir ➝ mention `@shahryarjb`
 - For commercial & sponsoring communication: `shahryar@mishka.life`
+
+---
+
+# Donate
+
+If the project was useful for you, the only way you can donate to me is the following ways
+
+| **BTC**                                                                                                                            | **ETH**                                                                                                                            | **DOGE**                                                                                                                           | **TRX**                                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/mishka-group/mishka_developer_tools/assets/8413604/230ea4bf-7e8f-4f18-99c9-0f940dd3c6eb" width="200"> | <img src="https://github.com/mishka-group/mishka_developer_tools/assets/8413604/0c8e677b-7240-4b0d-8b9e-bd1efca970fb" width="200"> | <img src="https://github.com/mishka-group/mishka_developer_tools/assets/8413604/3de9183e-c4c0-40fe-b2a1-2b9bb4268e3a" width="200"> | <img src="https://github.com/mishka-group/mishka_developer_tools/assets/8413604/aaa1f103-a7c7-43ed-8f39-20e4c8b9975e" width="200"> |
+
+<details>
+  <summary>Donate addresses</summary>
+
+**BTC**:‌
+
+```
+bc1q24pmrpn8v9dddgpg3vw9nld6hl9n5dkw5zkf2c
+```
+
+**ETH**:
+
+```
+0xD99feB9db83245dE8B9D23052aa8e62feedE764D
+```
+
+**DOGE**:
+
+```
+DGGT5PfoQsbz3H77sdJ1msfqzfV63Q3nyH
+```
+
+**TRX**:
+
+```
+TBamHas3wAxSEvtBcWKuT3zphckZo88puz
+```
+
+</details>
