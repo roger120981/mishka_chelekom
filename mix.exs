@@ -37,7 +37,7 @@ defmodule MishkaChelekom.MixProject do
 
   defp deps do
     [
-      {:igniter, "~> 0.3.49"},
+      {:igniter, "~> 0.3.74"},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false},
       {:owl, "~> 0.12.0"}
     ]
@@ -53,7 +53,7 @@ defmodule MishkaChelekom.MixProject do
       licenses: ["Apache-2.0"],
       maintainers: ["Shahryar Tavakkoli", "Mona Aghili", "Arian Alijani"],
       links: %{
-        "Official document" => "https://mishka.life/chelekom/docs",
+        "Official document" => "https://mishka.tools/chelekom/docs",
         "GitHub" => @source_url,
         "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md"
       }

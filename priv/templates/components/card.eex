@@ -32,10 +32,7 @@ defmodule <%= @module %> do
     "small",
     "medium",
     "large",
-    "extra_large",
-    "double_large",
-    "triple_large",
-    "quadruple_large"
+    "extra_large"
   ]
   @colors [
     "white",
@@ -485,7 +482,7 @@ defmodule <%= @module %> do
     do: "[&:has(.card-section)>.card-section]:p-5 [&:not(:has(.card-section))]:p-5"
   <% end %>
   <%= if is_nil(@padding) or "none" in @padding do %>
-  defp wrapper_padding("none"), do: "p-0"
+  defp wrapper_padding("none"), do: nil
   <% end %>
   defp wrapper_padding(params) when is_binary(params), do: params
   <%= if is_nil(@padding) or "none" in @padding do %>
