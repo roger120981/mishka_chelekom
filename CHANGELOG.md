@@ -1,3 +1,19 @@
+# Changelog for MishkaChelekom 0.0.2
+
+### Features:
+
+### Refactors:
+
+
+### Bugs:
+- Fix un-CSP progress mounted #72
+- Fix Adjust spacing for checkbox and radio fields #73
+- Fix modal title `default: nil` value #76
+
+
+---
+
+
 # Changelog for MishkaChelekom 0.0.1
 
 > We are delighted to introduce our new version of MishkaChelekom fully featured components and UI kit library for Phoenix & Phoenix LiveView.
