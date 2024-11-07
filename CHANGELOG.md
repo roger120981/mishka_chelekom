@@ -3,12 +3,13 @@
 ### Features:
 
 ### Refactors:
-
+- Fix Adjust spacing for checkbox and radio fields #73
 
 ### Bugs:
 - Fix un-CSP progress mounted #72
-- Fix Adjust spacing for checkbox and radio fields #73
 - Fix modal title `default: nil` value #76
+- Correct typo separated across the project #81
+- Revision and fix some missing part of some fields (version 0.0.1) #84
 
 
 ---
