@@ -1,6 +1,7 @@
 defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   alias Mix.Tasks.Mishka.Ui.Gen.Component
   use Igniter.Mix.Task
+  alias Igniter.Project.Application, as: IAPP
 
   @example "mix mishka.ui.gen.components component1, component1"
   @shortdoc "A Mix Task for generating and configuring multi components of Phoenix"
@@ -43,9 +44,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
       # This ensures your option schema includes options from nested tasks
       composes: ["mishka.ui.gen.component"],
       # `OptionParser` schema
-      schema: [import: :boolean],
+      schema: [import: :boolean, helpers: :boolean],
       # CLI aliases
-      aliases: [i: :import]
+      aliases: [i: :import, h: :helpers]
     }
   end
 
@@ -74,7 +75,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
 
     list =
       if components == [] or Enum.member?(components, "all"),
-        do: get_all_components_names(),
+        do: get_all_components_names(igniter),
         else: components
 
     igniter =
@@ -82,7 +83,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
         acc
         |> Igniter.compose_task("mishka.ui.gen.component", [item, "--no-deps", "--sub", "--yes"])
       end)
-      |> create_import_macro(list, options[:import])
+      |> create_import_macro(list, options[:import], options[:helpers])
 
     if Map.get(igniter, :issues, []) == [],
       do: Owl.Spinner.stop(id: :my_spinner, resolution: :ok, label: "Done"),
@@ -91,9 +92,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     igniter
   end
 
-  defp create_import_macro(igniter, list, status) do
+  defp create_import_macro(igniter, list, import_status, helpers_status) do
     igniter =
-      if status do
+      if import_status and Map.get(igniter, :issues, []) == [] do
         web_module = Igniter.Libs.Phoenix.web_module(igniter)
 
         proper_location =
@@ -112,7 +113,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
           defmodule #{module_name} do
             defmacro __using__(_) do
               quote do
-                #{Enum.map(create_import_string(list, web_module, igniter), fn item -> "#{item}\n" end)}
+                #{Enum.map(create_import_string(list, web_module, igniter, helpers_status), fn item -> "#{item}\n" end)}
               end
             end
           end
@@ -126,25 +127,41 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     igniter
   end
 
-  defp create_import_string(list, web_module, igniter) do
-    children = fn component ->
-      Component.get_component_template(igniter, component).config[:args][:only]
-      |> List.flatten()
-      |> Enum.map(&{String.to_atom(&1), 1})
-      |> Enum.map_join(", ", fn {key, value} -> "#{key}: #{value}" end)
+  defp create_import_string(list, web_module, igniter, helpers?) do
+    if Map.get(igniter, :issues, []) == [] do
+      children = fn component ->
+        config = Component.get_component_template(igniter, component).config[:args]
+
+        Keyword.get(config, :only, [])
+        |> List.flatten()
+        |> Enum.map(&{String.to_atom(&1), 1})
+        |> Keyword.merge(if helpers?, do: Keyword.get(config, :helpers, []), else: [])
+        |> Enum.map_join(", ", fn {key, value} -> "#{key}: #{value}" end)
+      end
+
+      Enum.map(list, fn item ->
+        child_imports = children.(item)
+        item = Component.component_to_atom(item)
+
+        if child_imports != "" do
+          "import #{inspect(web_module)}.Components.#{Component.atom_to_module("#{item}")}, only: [#{child_imports}]"
+        else
+          "import #{inspect(web_module)}.Components.#{Component.atom_to_module("#{item}")}"
+        end
+      end)
+    else
+      igniter
     end
-
-    Enum.map(list, fn item ->
-      child_imports = children.(item)
-
-      "import #{inspect(web_module)}.Components.#{Component.atom_to_module(item)}, only: [#{child_imports}]"
-    end)
   end
 
-  defp get_all_components_names() do
-    Application.app_dir(:mishka_chelekom, ["priv", "templates", "components"])
-    |> Path.join("*.eex")
-    |> Path.wildcard()
+  defp get_all_components_names(igniter) do
+    [
+      Application.app_dir(:mishka_chelekom, ["priv", "templates", "components"]),
+      IAPP.priv_dir(igniter, ["mishka_chelekom", "components"]),
+      IAPP.priv_dir(igniter, ["mishka_chelekom", "templates"]),
+      IAPP.priv_dir(igniter, ["mishka_chelekom", "presets"])
+    ]
+    |> Enum.flat_map(&Path.wildcard(Path.join(&1, "*.eex")))
     |> Enum.map(&Path.basename(&1, ".eex"))
     |> Enum.uniq()
   end

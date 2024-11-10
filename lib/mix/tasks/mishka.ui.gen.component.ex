@@ -1,5 +1,6 @@
 defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   use Igniter.Mix.Task
+  alias Igniter.Project.Application, as: IAPP
 
   @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
@@ -118,10 +119,20 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     component = String.replace(component, " ", "") |> Macro.underscore()
 
     template_path =
-      Path.join(
-        Application.app_dir(:mishka_chelekom, ["priv", "templates", "components"]),
-        "#{component}.eex"
-      )
+      cond do
+        String.starts_with?(component, "component_") ->
+          Path.join(IAPP.priv_dir(igniter, ["mishka_chelekom", "components"]), "#{component}.eex")
+
+        String.starts_with?(component, "preset_") ->
+          Path.join(IAPP.priv_dir(igniter, ["mishka_chelekom", "presets"]), "#{component}.eex")
+
+        String.starts_with?(component, "template_") ->
+          Path.join(IAPP.priv_dir(igniter, ["mishka_chelekom", "templates"]), "#{component}.eex")
+
+        true ->
+          Application.app_dir(:mishka_chelekom, ["priv", "templates", "components"])
+          |> Path.join("#{component}.eex")
+      end
 
     template_config_path = Path.rootname(template_path) <> ".exs"
 
@@ -132,7 +143,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
           igniter: igniter,
           component: component,
           path: template_path,
-          config: Config.Reader.read!(template_config_path)[String.to_atom(component)]
+          config: Config.Reader.read!(template_config_path)[component_to_atom(component)]
         }
 
       _ ->
@@ -158,7 +169,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
       true ->
         component =
-          atom_to_module(custom_module || web_module <> ".components.#{template.component}")
+          atom_to_module(
+            custom_module || web_module <> ".components.#{component_to_atom(template.component)}"
+          )
 
         proper_location =
           if is_nil(custom_module) do
@@ -405,6 +418,14 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     |> String.split(".", trim: true)
     |> List.last()
     |> Macro.camelize()
+    |> String.to_atom()
+  end
+
+  def component_to_atom(component_str) do
+    component_str
+    |> String.replace_prefix("component_", "")
+    |> String.replace_prefix("preset_", "")
+    |> String.replace_prefix("template_", "")
     |> String.to_atom()
   end
 end
