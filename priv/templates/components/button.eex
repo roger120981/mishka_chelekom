@@ -593,8 +593,8 @@ defmodule <%= @module %> do
   defp color_variant("default", "natural") do
      [
       "bg-[#4B4B4B] text-white hover:bg-[#282828] dark:bg-[#DDDDDD]",
-      "dark:text-black dark:hover:bg-[#E8E8E8] [&>.indicator]:bg-[##000000]",
-      "dark:[&>.indicator]:bg-white disabled:bg-[#F3F3F3] disabled:text-[#BBBBBB]",
+      "dark:text-black dark:hover:bg-[#E8E8E8] [&>.indicator]:bg-white",
+      "dark:[&>.indicator]:bg-black disabled:bg-[#F3F3F3] disabled:text-[#BBBBBB]",
       "dark:disabled:bg-[#4B4B4B] dark:disabled:text-[#868686]"
     ]
   end
@@ -1021,8 +1021,8 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "natural") do
     [
       "bg-[#4B4B4B] text-white hover:bg-[#282828] dark:bg-[#DDDDDD]",
-      "dark:text-black dark:hover:bg-[#E8E8E8] [&>.indicator]:bg-[##000000]",
-      "dark:[&>.indicator]:bg-white disabled:bg-[#F3F3F3] disabled:text-[#BBBBBB]",
+      "dark:text-black dark:hover:bg-[#E8E8E8] [&>.indicator]:bg-white",
+      "dark:[&>.indicator]:bg-black disabled:bg-[#F3F3F3] disabled:text-[#BBBBBB]",
       "dark:disabled:bg-[#4B4B4B] dark:disabled:text-[#868686]",
       "shadow-[0px_4px_6px_-4px_rgba(134,134,134,0.5)] shadow-[0px_10px_15px_-3px_rgba(134,134,134,0.5)] dark:shadow-none"
     ]
