@@ -17,7 +17,7 @@
       ],
       size: ["extra_small", "small", "medium", "large", "extra_large"],
       space: ["extra_small", "small", "medium", "large", "extra_large"],
-      only: ["radio_field"],
+      only: ["radio_field", "group_radio"],
       helpers: [radio_check: 3],
       module: ""
     ],
