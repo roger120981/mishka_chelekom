@@ -2,12 +2,11 @@
   drawer: [
     name: "drawer",
     args: [
-      variant: ["default", "outline", "transparent", "shadow", "unbordered"],
+      variant: ["default", "outline", "transparent"],
       color: [
-        "white",
+        "natural",
         "primary",
         "secondary",
-        "dark",
         "success",
         "warning",
         "danger",
@@ -18,6 +17,7 @@
       ],
       size: ["extra_small", "small", "medium", "large", "extra_large"],
       only: ["drawer"],
+      helpers: [hide_drawer: 3, show_drawer: 3],
       module: ""
     ],
     optional: [],
