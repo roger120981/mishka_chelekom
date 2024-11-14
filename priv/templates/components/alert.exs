@@ -2,18 +2,17 @@
   alert: [
     name: "alert",
     args: [
-      variant: ["default", "outline", "shadow", "unbordered"],
+      variant: ["default", "outline", "shadow"],
       color: [
         "info",
         "danger",
         "success",
-        "white",
+        "natural",
         "primary",
         "secondary",
         "misc",
         "warning",
-        "dark",
-        "light",
+        "silver",
         "dawn",
         "error"
       ],
@@ -21,6 +20,7 @@
       rounded: ["extra_small", "small", "medium", "large", "extra_large", "full", "none"],
       type: ["flash", "flash_group", "alert"],
       only: ["flash", "flash_group", "alert"],
+      helpers: [show_alert: 2, hide_alert: 2],
       module: ""
     ],
     optional: [],
