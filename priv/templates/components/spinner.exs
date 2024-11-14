@@ -3,15 +3,14 @@
     name: "spinner",
     args: [
       color: [
-        "white",
+        "natural",
         "primary",
         "secondary",
-        "dark",
         "success",
         "warning",
         "danger",
         "info",
-        "light",
+        "silver",
         "misc",
         "dawn"
       ],
@@ -27,6 +26,7 @@
       ],
       type: ["default", "pinging", "dots", "bars"],
       only: ["spinner"],
+      helper: [],
       module: ""
     ],
     optional: [],
