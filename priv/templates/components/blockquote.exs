@@ -2,17 +2,16 @@
   blockquote: [
     name: "blockquote",
     args: [
-      variant: ["default", "outline", "transparent", "shadow", "unbordered"],
+      variant: ["default", "outline", "transparent", "shadow", "bordered"],
       color: [
-        "white",
+        "natural",
         "primary",
         "secondary",
-        "dark",
         "success",
         "warning",
         "danger",
         "info",
-        "light",
+        "silver",
         "misc",
         "dawn"
       ],
@@ -21,6 +20,7 @@
       space: ["extra_small", "small", "medium", "large", "extra_large"],
       padding: ["extra_small", "small", "medium", "large", "extra_large", "none"],
       only: ["blockquote"],
+      helpers: [],
       module: ""
     ],
     optional: [],
