@@ -2,17 +2,16 @@
   card: [
     name: "card",
     args: [
-      variant: ["default", "outline", "transparent", "shadow", "unbordered"],
+      variant: ["default", "outline", "transparent", "shadow", "bordered"],
       color: [
-        "white",
+        "natural",
         "primary",
         "secondary",
-        "dark",
         "success",
         "warning",
         "danger",
         "info",
-        "light",
+        "silver",
         "misc",
         "dawn"
       ],
@@ -47,6 +46,7 @@
       rounded: ["extra_small", "small", "medium", "large", "extra_large"],
       type: ["card", "card_title", "card_media", "card_content", "card_footer"],
       only: ["card", "card_title", "card_media", "card_content", "card_footer"],
+      helpers: [],
       module: ""
     ],
     optional: [],
