@@ -2,9 +2,11 @@
   banner: [
     name: "banner",
     args: [
-      variant: ["default", "outline", "transparent", "shadow"],
+      variant: ["default", "outline", "transparent", "shadow", "bordered", "gradient"],
       color: [
         "natural",
+        "white",
+        "dark",
         "primary",
         "secondary",
         "success",
