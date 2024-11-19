@@ -2,8 +2,9 @@
   popover: [
     name: "popover",
     args: [
-      variant: ["default", "shadow"],
+      variant: ["default", "shadow", "bordered", "gradient"],
       color: [
+        "natural",
         "white",
         "primary",
         "secondary",
@@ -12,7 +13,7 @@
         "warning",
         "danger",
         "info",
-        "light",
+        "silver",
         "misc",
         "dawn"
       ],
@@ -22,6 +23,7 @@
       space: ["extra_small", "small", "medium", "large", "extra_large"],
       type: ["popover", "popover_trigger", "popover_content"],
       only: ["popover", "popover_trigger", "popover_content"],
+      helpers: [],
       module: ""
     ],
     optional: [],
