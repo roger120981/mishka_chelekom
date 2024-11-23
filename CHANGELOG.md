@@ -31,6 +31,8 @@
 - Add dark mode of MegaMenu component [#133](https://github.com/mishka-group/mishka_chelekom/pull/133)
 - Add dark mode of Navbar component [#134](https://github.com/mishka-group/mishka_chelekom/pull/134)
 - Add dark mode of Progress component [#136](https://github.com/mishka-group/mishka_chelekom/pull/136)
+- Add dark mode of email, url, search, number, password, textarea, tel, text fields components [#138](https://github.com/mishka-group/mishka_chelekom/pull/138)
+
 
 ### Bugs:
 - Fix un-CSP progress mounted [#72](https://github.com/mishka-group/mishka_chelekom/pull/72)
