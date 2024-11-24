@@ -2,22 +2,24 @@
   sidebar: [
     name: "sidebar",
     args: [
-      variant: ["default", "outline", "transparent", "shadow", "unbordered"],
+      variant: ["default", "outline", "transparent", "bordered", "gradient"],
       color: [
+        "natural",
         "white",
+        "dark",
         "primary",
         "secondary",
-        "dark",
         "success",
         "warning",
         "danger",
         "info",
-        "light",
+        "silver",
         "misc",
         "dawn"
       ],
       size: ["extra_small", "small", "medium", "large", "extra_large"],
       only: ["sidebar"],
+      helpers: [],
       module: ""
     ],
     optional: [],
