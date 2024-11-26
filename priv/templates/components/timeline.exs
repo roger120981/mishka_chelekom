@@ -11,7 +11,7 @@
         "warning",
         "danger",
         "info",
-        "light",
+        "natural",
         "misc",
         "dawn",
         "silver"
@@ -28,6 +28,7 @@
       ],
       type: ["timeline", "timeline_section"],
       only: ["timeline", "timeline_section"],
+      helpers: [],
       module: ""
     ],
     optional: [],
