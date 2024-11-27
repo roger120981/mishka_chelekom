@@ -6,12 +6,13 @@
         "outline",
         "default",
         "shadow",
-        "unbordered",
+        "bordered",
         "transparent",
         "hoverable",
         "stripped"
       ],
       color: [
+        "natural",
         "white",
         "primary",
         "secondary",
@@ -20,7 +21,6 @@
         "warning",
         "danger",
         "info",
-        "light",
         "misc",
         "dawn",
         "silver"
@@ -29,6 +29,7 @@
       padding: ["extra_small", "small", "medium", "large", "extra_large"],
       type: ["table", "th", "tr", "td"],
       only: ["table", "th", "tr", "td"],
+      helpers: [],
       module: ""
     ],
     optional: [],
