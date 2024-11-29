@@ -2,17 +2,16 @@
   tabs: [
     name: "tabs",
     args: [
-      variant: ["default", "outline", "pills"],
+      variant: ["default", "pills"],
       color: [
-        "white",
+        "natural",
         "primary",
         "secondary",
-        "dark",
         "success",
         "warning",
         "danger",
         "info",
-        "light",
+        "silver",
         "misc",
         "dawn"
       ],
@@ -20,6 +19,7 @@
       size: ["extra_small", "small", "medium", "large", "extra_large"],
       padding: ["extra_small", "small", "medium", "large", "none"],
       only: ["tabs"],
+      helpers: [show_tab: 3, hide_tab: 3],
       module: ""
     ],
     optional: [],
