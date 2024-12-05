@@ -185,7 +185,7 @@ defmodule <%= @module %> do
     >
       <div class="flex gap-2 items-center justify-between">
         <div>
-          <%%= render_slot(@inner_block) %>
+          {render_slot(@inner_block)}
         </div>
         <.banner_dismiss :if={!@hide_dismiss} id={@id} dismiss_size={@dismiss_size} params={@params} />
       </div>

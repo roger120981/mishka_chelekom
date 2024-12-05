@@ -123,7 +123,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </span>
     """
   end
@@ -141,7 +141,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -217,7 +217,7 @@ defmodule <%= @module %> do
       class={["inline-block cursor-pointer popover-trigger", @class]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </span>
     """
   end
@@ -231,7 +231,7 @@ defmodule <%= @module %> do
       class={["cursor-pointer popover-trigger", @class]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -309,7 +309,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
       <span :if={@show_arrow && @variant != "bordered"} class={["block absolute size-[8px] bg-inherit rotate-45 popover-arrow"]}></span>
     </span>
     """
@@ -337,7 +337,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
       <span :if={@show_arrow && @variant != "bordered"} class={["block absolute size-[8px] bg-inherit rotate-45 popover-arrow"]}></span>
     </div>
     """

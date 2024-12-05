@@ -179,7 +179,7 @@ defmodule <%= @module %> do
       {@rest}
     >
       <div class="nav-wrapper md:flex items-center gap-2 md:gap-5">
-        <div :if={@start_content != [] and !is_nil(@start_content)}><%%= render_slot(@start_content) %></div>
+        <div :if={@start_content != [] and !is_nil(@start_content)}>{render_slot(@start_content)}</div>
         <.link
           :if={!is_nil(@link)}
           navigate={@link}
@@ -187,7 +187,7 @@ defmodule <%= @module %> do
         >
           <img :if={!is_nil(@image)} src={@image} class={@image_class} />
           <h1 :if={!is_nil(@name)} class="text-xl font-semibold">
-            <%%= @name %>
+            {@name}
           </h1>
         </.link>
 
@@ -205,12 +205,12 @@ defmodule <%= @module %> do
               ]}
             >
               <.icon :if={list[:icon]} name={list[:icon]} class={["list-icon", list[:icon_class]]} />
-              <%%= render_slot(list) %>
+              {render_slot(list)}
             </li>
           </ul>
         </div>
-        <%%= render_slot(@inner_block) %>
-        <div :if={@end_content != [] and !is_nil(@end_content)}><%%= render_slot(@end_content) %></div>
+        {render_slot(@inner_block)}
+        <div :if={@end_content != [] and !is_nil(@end_content)}>{render_slot(@end_content)}</div>
       </div>
     </nav>
     """

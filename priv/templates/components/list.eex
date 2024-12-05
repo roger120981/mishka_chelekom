@@ -99,9 +99,9 @@ defmodule <%= @module %> do
     ~H"""
     <.ol {assigns}>
       <.li :for={item <- @item} {item}>
-        <%%= render_slot(item) %>
+        {render_slot(item)}
       </.li>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </.ol>
     """
   end
@@ -110,9 +110,9 @@ defmodule <%= @module %> do
     ~H"""
     <.ul {assigns}>
       <.li :for={item <- @item} {item}>
-        <%%= render_slot(item) %>
+        {render_slot(item)}
       </.li>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </.ul>
     """
   end
@@ -175,9 +175,9 @@ defmodule <%= @module %> do
         content_position(@position)
       ]}>
         <.icon :if={!is_nil(@icon)} name={@icon} class={@icon_class} />
-        <span :if={is_integer(@count)}><%%= @count %><%%= @count_separator %></span>
+        <span :if={is_integer(@count)}>{@count}{@count_separator}</span>
         <div class="w-full">
-          <%%= render_slot(@inner_block) %>
+          {render_slot(@inner_block)}
         </div>
       </div>
     </li>
@@ -247,7 +247,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </ul>
     """
   end
@@ -312,7 +312,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </ol>
     """
   end
@@ -392,7 +392,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </ul>
     """
   end

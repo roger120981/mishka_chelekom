@@ -94,8 +94,8 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <h5 class="font-semibold text-sm leading-6"><%%= @title %></h5>
-      <%%= render_slot(@inner_block) %>
+      <h5 class="font-semibold text-sm leading-6">{@title}</h5>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -154,7 +154,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -211,7 +211,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <div :if={!is_nil(@title)}><%%= @title %></div>
+      <div :if={!is_nil(@title)}>{@title}</div>
       <div class="flex items-center transition-all hover:font-bold hover:opacity-90">
         <.icon
           :if={!is_nil(@icon)}
@@ -219,7 +219,7 @@ defmodule <%= @module %> do
           class={["content-icon me-2 inline-block", @icon_class]}
         />
         <div>
-          <%%= render_slot(@inner_block) %>
+          {render_slot(@inner_block)}
         </div>
       </div>
     </div>

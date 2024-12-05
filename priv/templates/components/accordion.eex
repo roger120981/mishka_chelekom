@@ -205,7 +205,7 @@ defmodule <%= @module %> do
             ]}
           >
             <div class="overflow-hidden">
-              <%%= render_slot(item) %>
+              {render_slot(item)}
             </div>
           </div>
         </.focus_wrap>
@@ -339,7 +339,7 @@ defmodule <%= @module %> do
           item_color(@variant, @color),
           item[:content_class]
         ]}>
-          <%%= render_slot(item) %>
+          {render_slot(item)}
         </div>
       </details>
     </div>
@@ -391,11 +391,11 @@ defmodule <%= @module %> do
               @item[:title_class],
               @item[:font_weight]
             ]}>
-              <%%= @item[:title] %>
+              {@item[:title]}
             </div>
 
             <div :if={!is_nil(@item[:description])} class="text-xs font-light">
-              <%%= @item[:description] %>
+              {@item[:description]}
             </div>
           </div>
         </div>
@@ -429,11 +429,11 @@ defmodule <%= @module %> do
               @item[:title_class],
               @item[:font_weight]
             ]}>
-              <%%= @item[:title] %>
+              {@item[:title]}
             </div>
 
             <div :if={!is_nil(@item[:description])} class="text-xs font-light">
-              <%%= @item[:description] %>
+              {@item[:description]}
             </div>
           </div>
         </div>

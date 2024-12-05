@@ -165,13 +165,13 @@ defmodule <%= @module %> do
                     name={header[:icon]}
                     class={["table-header-icon block me-2", header[:icon_class]]}
                   />
-                  <%%= render_slot(header) %>
+                  {render_slot(header)}
                 </.th>
               </.tr>
             </thead>
 
             <tbody class="">
-              <%%= render_slot(@inner_block) %>
+              {render_slot(@inner_block)}
             </tbody>
 
             <tfoot :if={length(@footer) > 0} class={@footer_class}>
@@ -187,7 +187,7 @@ defmodule <%= @module %> do
                       name={footer[:icon]}
                       class={["table-footer-icon block me-2", footer[:icon_class]]}
                     />
-                    <%%= render_slot(footer) %>
+                    {render_slot(footer)}
                   </div>
                 </.td>
               </.tr>
@@ -227,7 +227,7 @@ defmodule <%= @module %> do
   def th(assigns) do
     ~H"""
     <th scope={@scope} class={["table-header", @class]} {@rest}>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </th>
     """
   end
@@ -262,7 +262,7 @@ defmodule <%= @module %> do
   def tr(assigns) do
     ~H"""
     <tr class={["table-row", @class]} {@rest}>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </tr>
     """
   end
@@ -293,7 +293,7 @@ defmodule <%= @module %> do
   def td(assigns) do
     ~H"""
     <td class={["table-data-cell", @class]} {@rest}>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </td>
     """
   end

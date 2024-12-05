@@ -175,10 +175,10 @@ defmodule <%= @module %> do
           ]}
         >
           <.speed_dial_content id={@id} index={index} {item}>
-            <%%= render_slot(item) %>
+            {render_slot(item)}
           </.speed_dial_content>
         </div>
-        <%%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </div>
 
       <button
@@ -200,8 +200,8 @@ defmodule <%= @module %> do
             @icon_animated && "transition-transform group-hover:rotate-45"
           ]}
         />
-        <span :if={is_nil(@icon)} class={@trigger_content[:class]}><%%= @trigger_content %></span>
-        <span class="sr-only"><%%= gettext("Open actions menu") %></span>
+        <span :if={is_nil(@icon)} class={@trigger_content[:class]}>{@trigger_content}</span>
+        <span class="sr-only">{gettext("Open actions menu")}</span>
       </button>
     </div>
     """
@@ -242,7 +242,7 @@ defmodule <%= @module %> do
     >
       <.icon :if={@icon} name={@icon} class={["speed-dial-icon-base", @icon_class]} />
       <span :if={is_nil(@icon)} class={["block text-xs text-center", @content_class]}>
-        <%%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </span>
     </.link>
     """
@@ -256,7 +256,7 @@ defmodule <%= @module %> do
     >
       <.icon :if={@icon} name={@icon} class={["speed-dial-icon-base", @icon_class]} />
       <span :if={is_nil(@icon)} class={["block text-xs text-center", @content_class]}>
-        <%%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </span>
     </div>
     """

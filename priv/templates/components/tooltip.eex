@@ -107,7 +107,7 @@ defmodule <%= @module %> do
   def tooltip(assigns) do
     ~H"""
     <span class="relative w-fit group">
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
       <span
         role="tooltip"
         id={@id}
@@ -128,7 +128,7 @@ defmodule <%= @module %> do
         ]}
         {@rest}
       >
-        <%%= @text %>
+        {@text}
         <span
           :if={@show_arrow && @variant != "bordered"}
           class="block absolute size-[8px] bg-inherit rotate-45 tooltip-arrow"

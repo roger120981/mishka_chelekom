@@ -141,7 +141,7 @@ defmodule <%= @module %> do
             >
               <div class="flex items-center justify-between mb-4">
                 <div :if={@title} class="font-semibold text-base md:text-lg xl:text-2xl">
-                  <%%= @title %>
+                  {@title}
                 </div>
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
@@ -154,7 +154,7 @@ defmodule <%= @module %> do
               </div>
 
               <div id={"#{@id}-content"}>
-                <%%= render_slot(@inner_block) %>
+                {render_slot(@inner_block)}
               </div>
             </.focus_wrap>
           </div>

@@ -128,7 +128,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -193,13 +193,13 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
       <div :for={status <- @status} class="flex items-center justify-between gap-2 text-xs">
-        <div :if={status[:time]}><%%= status[:time] %></div>
-        <div :if={status[:deliver]} class="font-semibold"><%%= status[:deliver] %></div>
+        <div :if={status[:time]}>{status[:time]}</div>
+        <div :if={status[:deliver]} class="font-semibold">{status[:deliver]}</div>
       </div>
 
-      <div :for={meta <- @meta}><%%= render_slot(meta) %></div>
+      <div :for={meta <- @meta}>{render_slot(meta)}</div>
     </div>
     """
   end

@@ -129,7 +129,7 @@ defmodule <%= @module %> do
         ]}
         {@rest}
       />
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -151,7 +151,7 @@ defmodule <%= @module %> do
       <div :for={icon <- @icon} class={[icon[:size], icon[:color], icon[:class]]}>
         <.icon name={icon[:name]} class={icon[:icon_class] || size_class(@size, :icon)} />
       </div>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -172,7 +172,7 @@ defmodule <%= @module %> do
         ]}
         {@rest}
       />
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -194,7 +194,7 @@ defmodule <%= @module %> do
       <div :for={icon <- @icon} class={[icon[:size], icon[:color], icon[:class]]}>
         <.icon name={icon[:name]} class={icon[:icon_class] || size_class(@size, :icon)} />
       </div>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -242,7 +242,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end

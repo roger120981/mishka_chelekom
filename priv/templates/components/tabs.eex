@@ -175,7 +175,7 @@ defmodule <%= @module %> do
         >
           <.icon :if={tab[:icon]} name={tab[:icon]} class="tab-icon" />
           <span class="block">
-            <%%= render_slot(tab) %>
+            {render_slot(tab)}
           </span>
         </button>
       </div>
@@ -191,7 +191,7 @@ defmodule <%= @module %> do
             "[&.active-tab-panel]:block [&.active-tab-panel]:opacity-100 [&.active-tab-panel]:visible"
           ]}
         >
-          <%%= render_slot(panel) %>
+          {render_slot(panel)}
         </div>
       </div>
     </div>
@@ -238,7 +238,7 @@ defmodule <%= @module %> do
         >
           <.icon :if={tab[:icon]} name={tab[:icon]} class="tab-icon" />
           <span class="block">
-            <%%= render_slot(tab) %>
+            {render_slot(tab)}
           </span>
         </button>
       </div>
@@ -254,7 +254,7 @@ defmodule <%= @module %> do
             "[&.active-tab-panel]:block [&.active-tab-panel]:opacity-100 [&.active-tab-panel]:visible"
           ]}
         >
-          <%%= render_slot(panel) %>
+          {render_slot(panel)}
         </div>
       </div>
     </div>

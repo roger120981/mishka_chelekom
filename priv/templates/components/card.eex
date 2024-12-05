@@ -155,7 +155,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -224,9 +224,9 @@ defmodule <%= @module %> do
     >
       <div :if={@title || @icon} class="flex gap-2 items-center">
         <.icon :if={@icon} name={@icon} class="card-title-icon" />
-        <h3 :if={@title}><%%= @title %></h3>
+        <h3 :if={@title}>{@title}</h3>
       </div>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -330,7 +330,7 @@ defmodule <%= @module %> do
         @class
       ]}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
@@ -380,7 +380,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end

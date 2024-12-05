@@ -221,7 +221,7 @@ defmodule <%= @module %> do
         src={@image}
         id={"#{@id}-carousel-slide-image-#{@index}"}
       />
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </.link>
     """
   end
@@ -233,7 +233,7 @@ defmodule <%= @module %> do
       src={@image}
       id={"#{@id}-carousel-slide-image-#{@index}"}
     />
-    <%%= render_slot(@inner_block) %>
+    {render_slot(@inner_block)}
     """
   end
 
@@ -278,14 +278,14 @@ defmodule <%= @module %> do
           id={"#{@id}-carousel-slide-content-title-#{@index}"}
           class={["carousel-title", @title_class]}
         >
-          <%%= @title %>
+          {@title}
         </div>
         <p
           :if={!is_nil(@description)}
           id={"#{@id}-carousel-slide-content-description-#{@index}"}
           class={["carousel-description", @description_class]}
         >
-          <%%= @description %>
+          {@description}
         </p>
       </div>
     </div>

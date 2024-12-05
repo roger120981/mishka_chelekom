@@ -155,10 +155,10 @@ defmodule <%= @module %> do
       <div class="flex items-center justify-between gap-2">
         <div class="space-y-1.5">
           <div :if={@title} class="flex items-center gap-1.5 font-semibold">
-            <.icon :if={!is_nil(@icon)} name={@icon} class="aler-icon" /> <%%= @title %>
+            <.icon :if={!is_nil(@icon)} name={@icon} class="aler-icon" /> {@title}
           </div>
 
-          <div class=""><%%= msg %></div>
+          <div class="">{msg}</div>
         </div>
 
         <button type="button" class="group p-2 shrink-0" aria-label={gettext("close")}>
@@ -198,7 +198,7 @@ defmodule <%= @module %> do
         phx-connected={hide_alert("#client-error")}
         hidden
       >
-        <%%= gettext("Attempting to reconnect") %>
+        {gettext("Attempting to reconnect")}
         <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
       </.flash>
 
@@ -210,7 +210,7 @@ defmodule <%= @module %> do
         phx-connected={hide_alert("#server-error")}
         hidden
       >
-        <%%= gettext("Hang in there while we get back on track") %>
+        {gettext("Hang in there while we get back on track")}
         <.icon name="hero-arrow-path" class="ml-1 h-3 w-3 animate-spin" />
       </.flash>
     </div>
@@ -314,10 +314,10 @@ defmodule <%= @module %> do
       <div class="flex items-center justify-between gap-2">
         <div class="space-y-1.5">
           <div :if={@title} class="flex items-center gap-1.5 font-semibold">
-            <.icon :if={!is_nil(@icon)} name={@icon} class="aler-icon" /> <%%= @title %>
+            <.icon :if={!is_nil(@icon)} name={@icon} class="aler-icon" /> {@title}
           </div>
 
-          <div class=""><%%= render_slot(@inner_block) %></div>
+          <div class="">{render_slot(@inner_block)}</div>
         </div>
       </div>
     </div>

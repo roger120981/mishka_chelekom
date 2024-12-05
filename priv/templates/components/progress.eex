@@ -121,7 +121,7 @@ defmodule <%= @module %> do
           (@variation == "horizontal" && "flex-row") || "flex-col"
         ]}
       >
-        <%%= msg %>
+        {msg}
       </div>
     </div>
     """

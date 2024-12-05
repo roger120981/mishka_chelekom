@@ -176,7 +176,7 @@ defmodule <%= @module %> do
         class={["quote-icon", @icon_class]}
       />
       <blockquote class="p-2 italic">
-        <%%= render_slot(@inner_block) %>
+        {render_slot(@inner_block)}
       </blockquote>
       <figcaption
         :for={caption <- @caption}
@@ -191,7 +191,7 @@ defmodule <%= @module %> do
           src={caption[:image]}
         />
         <div class="flex items-center divide-x-2 rtl:divide-x-reverse">
-          <%%= render_slot(caption) %>
+          {render_slot(caption)}
         </div>
       </figcaption>
     </figure>

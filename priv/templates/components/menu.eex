@@ -377,7 +377,7 @@ defmodule <%= @module %> do
           </:item>
         </.accordion>
       </li>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </ul>
     """
   end

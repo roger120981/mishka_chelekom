@@ -116,13 +116,13 @@ defmodule <%= @module %> do
       >
         <.icon :if={!is_nil(item[:icon])} name={item[:icon]} class="breadcrumb-icon" />
         <div :if={!is_nil(item[:link])}>
-          <.link navigate={item[:link]} title={item[:tile]}><%%= render_slot(item) %></.link>
+          <.link navigate={item[:link]} title={item[:tile]}>{render_slot(item)}</.link>
         </div>
 
-        <div :if={is_nil(item[:link])}><%%= render_slot(item) %></div>
+        <div :if={is_nil(item[:link])}>{render_slot(item)}</div>
         <.separator :if={index != length(@item)} name={item[:separator] || @separator} />
       </li>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </ul>
     """
   end
@@ -139,7 +139,7 @@ defmodule <%= @module %> do
 
   defp separator(assigns) do
     ~H"""
-    <span class={@class || "separator-text"}><%%= @name %></span>
+    <span class={@class || "separator-text"}>{@name}</span>
     """
   end
   <%= if is_nil(@color) or "white" in @color do %>

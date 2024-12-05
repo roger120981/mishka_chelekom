@@ -161,7 +161,7 @@ defmodule <%= @module %> do
           ]
       }
     >
-      <%%= render_slot(@start_items) %>
+      {render_slot(@start_items)}
 
       <.item_button
         :if={@rest[:show_edges]}
@@ -209,7 +209,7 @@ defmodule <%= @module %> do
         disabled={@active >= @total}
       />
 
-      <%%= render_slot(@end_items) %>
+      {render_slot(@end_items)}
     </div>
     """
   end
@@ -226,7 +226,7 @@ defmodule <%= @module %> do
 
   defp icon_or_text(assigns) do
     ~H"""
-    <span class={@class || "pagination-text"}><%%= @name %></span>
+    <span class={@class || "pagination-text"}>{@name}</span>
     """
   end
 
@@ -253,7 +253,7 @@ defmodule <%= @module %> do
       }
       disabled={elem(@page, 0) == elem(@page, 1)}
     >
-      <%%= elem(@page, 0) %>
+      {elem(@page, 0)}
     </button>
     """
   end

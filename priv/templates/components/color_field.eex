@@ -128,9 +128,9 @@ defmodule <%= @module %> do
       @class
     ]}>
       <div class="mb-2">
-        <.label for={@id}><%%= @label %></.label>
+        <.label for={@id}>{@label}</.label>
         <div :if={!is_nil(@description)} class="text-xs">
-          <%%= @description %>
+          {@description}
         </div>
       </div>
       <div class="color-field-wrapper">
@@ -145,7 +145,7 @@ defmodule <%= @module %> do
           {@rest}
         />
       </div>
-      <.error :for={msg <- @errors} icon={@error_icon}><%%= msg %></.error>
+      <.error :for={msg <- @errors} icon={@error_icon}>{msg}</.error>
     </div>
     """
   end
@@ -158,7 +158,7 @@ defmodule <%= @module %> do
   defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </label>
     """
   end
@@ -171,7 +171,7 @@ defmodule <%= @module %> do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end

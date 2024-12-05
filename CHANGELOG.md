@@ -3,6 +3,7 @@
 ### Features:
 - Support community cli version (beta) [#92](https://github.com/mishka-group/mishka_chelekom/pull/92)
 - Supports cli helpers import [#93](https://github.com/mishka-group/mishka_chelekom/pull/93)
+- Update all templates for new syntax `{}` (Phoenix LiveView 1.0.0)
 
 ### Refactors:
 - Fix Adjust spacing for checkbox and radio fields [#73](https://github.com/mishka-group/mishka_chelekom/pull/73)
@@ -47,6 +48,16 @@
 - Add dark mode of Timeline component [#154](https://github.com/mishka-group/mishka_chelekom/pull/154)
 - Add dark mode of Table component [#155](https://github.com/mishka-group/mishka_chelekom/pull/155)
 - Add dark mode of Tabs component [#156](https://github.com/mishka-group/mishka_chelekom/pull/156)
+- Add dark mode of NativeSelect component [#158](https://github.com/mishka-group/mishka_chelekom/pull/158)
+- Add dark mode of RangeField component [#159](https://github.com/mishka-group/mishka_chelekom/pull/159)
+- Add dark mode of Toast component [#160](https://github.com/mishka-group/mishka_chelekom/pull/160)
+- Add dark mode of List component [#161](https://github.com/mishka-group/mishka_chelekom/pull/161)
+- Add dark mode of Fieldset component [#162](https://github.com/mishka-group/mishka_chelekom/pull/162)
+- Add dark mode of FileField component [#163](https://github.com/mishka-group/mishka_chelekom/pull/163)
+- Add dark mode of Stepper component [#165](https://github.com/mishka-group/mishka_chelekom/pull/165)
+- Add dark mode of Accordion component [#166](https://github.com/mishka-group/mishka_chelekom/pull/166)
+- Add dark mode of DeviceMockup component [#167](https://github.com/mishka-group/mishka_chelekom/pull/167)
+- Add dark mode of pagination component [#168](https://github.com/mishka-group/mishka_chelekom/pull/168)
 
 
 ### Bugs:

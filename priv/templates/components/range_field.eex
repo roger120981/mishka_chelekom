@@ -128,7 +128,7 @@ defmodule <%= @module %> do
       width_class(@width),
       @class
     ]}>
-      <.label for={@id}><%%= @label %></.label>
+      <.label for={@id}>{@label}</.label>
       <div class="relative mb-8">
         <input type="range" value={@value} name={@name} id={@id} class={["w-full", color_class(@appearance, @color)]} {@rest} />
         <span
@@ -140,10 +140,10 @@ defmodule <%= @module %> do
             range_value[:class]
           ]}
         >
-          <%%= render_slot(range_value) %>
+          {render_slot(range_value)}
         </span>
       </div>
-      <.error :for={msg <- @errors} icon={@error_icon}><%%= msg %></.error>
+      <.error :for={msg <- @errors} icon={@error_icon}>{msg}</.error>
     </div>
     """
   end
@@ -156,7 +156,7 @@ defmodule <%= @module %> do
       width_class(@width),
       @class
     ]}>
-      <.label for={@id}><%%= @label %></.label>
+      <.label for={@id}>{@label}</.label>
       <div class="relative mb-8">
         <input
           type="range"
@@ -188,10 +188,10 @@ defmodule <%= @module %> do
             range_value[:class]
           ]}
         >
-          <%%= render_slot(range_value) %>
+          {render_slot(range_value)}
         </span>
       </div>
-      <.error :for={msg <- @errors} icon={@error_icon}><%%= msg %></.error>
+      <.error :for={msg <- @errors} icon={@error_icon}>{msg}</.error>
     </div>
     """
   end
@@ -204,7 +204,7 @@ defmodule <%= @module %> do
   defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </label>
     """
   end
@@ -217,7 +217,7 @@ defmodule <%= @module %> do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end

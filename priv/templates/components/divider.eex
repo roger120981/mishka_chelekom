@@ -130,7 +130,7 @@ defmodule <%= @module %> do
           text[:size]
         ]}
       >
-        <%%= render_slot(text) %>
+        {render_slot(text)}
       </div>
     </div>
     """
@@ -185,7 +185,7 @@ defmodule <%= @module %> do
           text[:size]
         ]}
       >
-        <%%= render_slot(text) %>
+        {render_slot(text)}
       </div>
     </div>
     """
@@ -297,7 +297,7 @@ defmodule <%= @module %> do
           text[:size]
         ]}
       >
-        <%%= render_slot(text) %>
+        {render_slot(text)}
       </div>
     </div>
     """

@@ -80,9 +80,9 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block, f) %>
+      {render_slot(@inner_block, f)}
       <div :for={action <- @actions}>
-        <%%= render_slot(action, f) %>
+        {render_slot(action, f)}
       </div>
     </.form>
     """

@@ -121,10 +121,10 @@ defmodule <%= @module %> do
           ]}
           {@rest}
         />
-        <span class="block"><%%= @label %></span>
+        <span class="block">{@label}</span>
       </.label>
 
-      <.error :for={msg <- @errors} icon={@error_icon}><%%= msg %></.error>
+      <.error :for={msg <- @errors} icon={@error_icon}>{msg}</.error>
     </div>
     """
   end
@@ -211,7 +211,7 @@ defmodule <%= @module %> do
       variation_gap(@space),
       @class
     ]}>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
       <input type="hidden" name={@name} value="" disabled={@rest[:disabled]} />
       <div
         :for={{radio, index} <- Enum.with_index(@radio, 1)}
@@ -237,11 +237,11 @@ defmodule <%= @module %> do
             class={["bg-white radio-input rounded-full"]}
             {@rest}
           />
-          <span class="block"><%%= render_slot(radio) %></span>
+          <span class="block">{render_slot(radio)}</span>
         </.label>
       </div>
     </div>
-    <.error :for={msg <- @errors} icon={@error_icon}><%%= msg %></.error>
+    <.error :for={msg <- @errors} icon={@error_icon}>{msg}</.error>
     """
   end
 
@@ -269,7 +269,7 @@ defmodule <%= @module %> do
   defp label(assigns) do
     ~H"""
     <label for={@for} class={["block text-sm font-semibold leading-6", @class]}>
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </label>
     """
   end
@@ -282,7 +282,7 @@ defmodule <%= @module %> do
     ~H"""
     <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </p>
     """
   end

@@ -159,7 +159,7 @@ defmodule <%= @module %> do
                 space_class(@space),
             ]}
           >
-            <%%= render_slot(@inner_block) %>
+            {render_slot(@inner_block)}
           </div>
           <.toast_dismiss id={@id} params={@params} />
         </div>
@@ -253,7 +253,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-      <%%= render_slot(@inner_block) %>
+      {render_slot(@inner_block)}
     </div>
     """
   end
