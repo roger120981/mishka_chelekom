@@ -58,7 +58,13 @@
 - Add dark mode of Accordion component [#166](https://github.com/mishka-group/mishka_chelekom/pull/166)
 - Add dark mode of DeviceMockup component [#167](https://github.com/mishka-group/mishka_chelekom/pull/167)
 - Add dark mode of pagination component [#168](https://github.com/mishka-group/mishka_chelekom/pull/168)
-
+- Add full width to button [#170](https://github.com/mishka-group/mishka_chelekom/pull/170)
+- Add filter props to image component [#171](https://github.com/mishka-group/mishka_chelekom/pull/171)
+- Add other line styles to timeline [#172](https://github.com/mishka-group/mishka_chelekom/pull/172)
+- Add loader to slot to button component [#173](https://github.com/mishka-group/mishka_chelekom/pull/173)
+- Add radius to toggle component [#174](https://github.com/mishka-group/mishka_chelekom/pull/174)
+- Add space based on sizes to pagination component [#175](https://github.com/mishka-group/mishka_chelekom/pull/175)
+- Add label slot to each chunk of progress [#176](https://github.com/mishka-group/mishka_chelekom/pull/176)
 
 ### Bugs:
 - Fix un-CSP progress mounted [#72](https://github.com/mishka-group/mishka_chelekom/pull/72)
@@ -66,7 +72,7 @@
 - Correct typo separated across the project [#81](https://github.com/mishka-group/mishka_chelekom/pull/81)
 - Revision and fix some missing part of some fields (version 0.0.1) [#84](https://github.com/mishka-group/mishka_chelekom/pull/84)
 - Fix without `--import` option error of components task CLI [b0b7492](https://github.com/mishka-group/mishka_chelekom/commit/b0b7492e636663d2c55d4b56a04c89b2376f422a)
-
+- Fix issue of breadcrumb RTL mode [#170](https://github.com/mishka-group/mishka_chelekom/pull/170)
 
 ---
 
