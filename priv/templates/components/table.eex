@@ -1127,7 +1127,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@variant) or "separated" in @variant do %>
   <%= if is_nil(@color) or "white" in @color do %>
   defp color_variant("separated", "white") do
-      "bg-white text-black"
+      "[&_table_tr]:bg-white [&_table]:text-black"
   end
   <% end %>
   <%= if is_nil(@color) or "natural" in @color do %>
@@ -1182,7 +1182,7 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@color) or "dark" in @color do %>
   defp color_variant("separated", "dark") do
-    "[&_table]:bg-[#282828] [&_table]:text-white"
+    "[&_table_tr]:bg-[#282828] [&_table]:text-white"
   end
   <% end %>
   <% end %>
