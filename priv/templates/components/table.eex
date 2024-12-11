@@ -377,7 +377,7 @@ defmodule <%= @module %> do
   defp text_position("end"), do: "[&_table]:text-end [&_table_thead]:text-end"
   defp text_position(_), do: text_position("start")
 
-  defp border_class(_, variant) when variant in ["default", "shadow", "transparent", "stripped", "hoverable"],
+  defp border_class(_, variant) when variant in ["default", "shadow", "transparent", "stripped", "hoverable", "separated"],
     do: nil
 
   defp border_class("extra_small", _), do: "border"
