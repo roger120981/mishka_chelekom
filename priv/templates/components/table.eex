@@ -110,7 +110,7 @@ defmodule <%= @module %> do
   attr :footer_class, :string, default: nil, doc: "Adds custom CSS classes to the table footer"
   attr :table_fixed, :boolean, default: false, doc: "Enables or disables the table's fixed layout"
   attr :text_position, :string, default: "left", doc: "Determines the element's text position"
-  attr :space, :string, default: nil, doc: "Determines the table row spaces"
+  attr :space, :string, default: "medium", doc: "Determines the table row spaces"
 
   attr :rest, :global,
     doc:
@@ -151,6 +151,7 @@ defmodule <%= @module %> do
             class={[
               "min-w-full",
               @table_fixed && "table-fixed",
+              @variant == "separated" && "border-separate",
               @class
             ]}
             {@rest}
