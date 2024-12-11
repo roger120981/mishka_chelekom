@@ -65,6 +65,7 @@
 - Add radius to toggle component [#174](https://github.com/mishka-group/mishka_chelekom/pull/174)
 - Add space based on sizes to pagination component [#175](https://github.com/mishka-group/mishka_chelekom/pull/175)
 - Add label slot to each chunk of progress [#176](https://github.com/mishka-group/mishka_chelekom/pull/176)
+- Add separated variant to table [#178](https://github.com/mishka-group/mishka_chelekom/pull/178)
 
 ### Bugs:
 - Fix un-CSP progress mounted [#72](https://github.com/mishka-group/mishka_chelekom/pull/72)

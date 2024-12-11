@@ -9,7 +9,8 @@
         "bordered",
         "transparent",
         "hoverable",
-        "stripped"
+        "stripped",
+        "separated"
       ],
       color: [
         "natural",
