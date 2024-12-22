@@ -70,6 +70,11 @@
 - Modify structure of popover and dropdown components [#189](https://github.com/mishka-group/mishka_chelekom/pull/189)
 - Add animations to gallery [#190](https://github.com/mishka-group/mishka_chelekom/pull/190)
 - Stop spinner when an image is in done [#194](https://github.com/mishka-group/mishka_chelekom/pull/194)
+- Modify styles of form fields, add new prop to badge [#192](https://github.com/mishka-group/mishka_chelekom/pull/192)
+- Modify card and overlay components styles [#193](https://github.com/mishka-group/mishka_chelekom/pull/193)
+- Modify table content component [#195](https://github.com/mishka-group/mishka_chelekom/pull/195)
+- Add variant to stepper, add loading state to stepper [#196](https://github.com/mishka-group/mishka_chelekom/pull/196)
+- add hoverable prop to listdd [#197](https://github.com/mishka-group/mishka_chelekom/pull/197)
 
 ### Bugs:
 - Fix un-CSP progress mounted [#72](https://github.com/mishka-group/mishka_chelekom/pull/72)
