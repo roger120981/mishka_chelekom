@@ -15,7 +15,7 @@
         "info",
         "misc",
         "dawn",
-        "silver",
+        "silver"
       ],
       rounded: ["extra_small", "small", "medium", "large", "extra_large", "full", "none"],
       only: ["skeleton"],

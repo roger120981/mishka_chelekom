@@ -13,7 +13,7 @@
         "bordered_seperated",
         "transparent",
         "base",
-        "base_separated",
+        "base_separated"
       ],
       color: [
         "base",
