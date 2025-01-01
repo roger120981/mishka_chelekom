@@ -34,14 +34,14 @@ defmodule <%= @module %> do
   attr :alt, :string, default: nil, doc: "Media link description"
   attr :srcset, :string, default: nil, doc: "Allows you to specify a list of different images"
 
-  attr :loading, :string,
+  attr :loading, :any,
     values: ["eager", "lazy", nil],
     default: nil,
     doc: "eager: is default, lazy"
 
   attr :referrerpolicy, :string, default: nil, doc: ""
 
-  attr :fetchpriority, :string,
+  attr :fetchpriority, :any,
     values: ["high", "low", "auto", nil],
     default: nil,
     doc: "high, low, auto is default"

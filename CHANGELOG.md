@@ -84,6 +84,7 @@
 - Fix without `--import` option error of components task CLI [b0b7492](https://github.com/mishka-group/mishka_chelekom/commit/b0b7492e636663d2c55d4b56a04c89b2376f422a)
 - Fix issue of breadcrumb RTL mode [#170](https://github.com/mishka-group/mishka_chelekom/pull/170)
 - Remove space-y-0 classes from Menu, Footer, Navbar, Tooltip components [#183](https://github.com/mishka-group/mishka_chelekom/pull/183)
+- Delete none pattern functions from all components [#246](https://github.com/mishka-group/mishka_chelekom/pull/246)
 
 ---
 
