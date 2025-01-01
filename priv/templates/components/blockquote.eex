@@ -24,18 +24,6 @@ defmodule <%= @module %> do
 
   use Phoenix.Component
 
-  @sizes ["extra_small", "small", "medium", "large", "extra_large"]
-
-  @variants [
-    "default",
-    "outline",
-    "transparent",
-    "shadow",
-    "bordered",
-    "gradient",
-    "base"
-  ]
-
   @doc """
   The `blockquote` component is used to display stylized quotations with customizable attributes
   such as `variant`, `color`, and `padding`. It supports optional captions and icons to
@@ -96,34 +84,23 @@ defmodule <%= @module %> do
     default: nil,
     doc: "A unique identifier is used to manage state and interaction"
 
-  attr :variant, :string, values: @variants, default: "base", doc: "Determines the style"
+  attr :variant, :string, default: "base", doc: "Determines the style"
   attr :color, :string, default: "base", doc: "Determines color theme"
-
-  attr :border, :string,
-    values: @sizes ++ [nil],
-    default: "medium",
-    doc: "Determines border style"
-
-  attr :rounded, :string,
-    values: @sizes ++ ["full", "none"],
-    default: "small",
-    doc: "Determines the border radius"
+  attr :border, :string, default: "medium", doc: "Determines border style"
+  attr :rounded, :string, default: "small", doc: "Determines the border radius"
 
   attr :size, :string,
     default: "medium",
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
 
-  attr :space, :string, values: @sizes, default: "small", doc: "Space between items"
+  attr :space, :string, default: "small", doc: "Space between items"
 
   attr :font_weight, :string,
     default: "font-normal",
     doc: "Determines custom class for the font weight"
 
-  attr :padding, :string,
-    values: @sizes ++ ["none"],
-    default: "small",
-    doc: "Determines padding for items"
+  attr :padding, :string,default: "small", doc: "Determines padding for items"
 
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
   attr :icon, :string, default: "hero-quote", doc: "Icon displayed alongside of an item"
@@ -169,7 +146,7 @@ defmodule <%= @module %> do
         :for={caption <- @caption}
         class={[
           "flex items-center space-x-3 rtl:space-x-reverse",
-          caption_position(caption[:position])
+          !is_nil(caption[:position]) && caption_position(caption[:position])
         ]}
       >
         <img
@@ -224,7 +201,8 @@ defmodule <%= @module %> do
     "justify-center"
   end
 
-  defp caption_position(_), do: caption_position("right")
+  defp caption_position(params) when is_binary(params), do: params
+
   <%= if is_nil(@space) or "extra_small" in @space do %>
   defp space_class("extra_small"), do: "space-y-2"
   <% end %>
@@ -239,6 +217,9 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@space) or "extra_large" in @space do %>
   defp space_class("extra_large"), do: "space-y-6"
+  <% end %>
+  <%= if is_nil(@space) or "none" in @space do %>
+  defp space_class("none"), do: nil
   <% end %>
   defp space_class(params) when is_binary(params), do: params
 
@@ -286,7 +267,7 @@ defmodule <%= @module %> do
   end
 
   defp border_class(params, _, _) when is_binary(params), do: [params]
-  defp border_class(nil, _, _), do: nil
+
   <%= if is_nil(@rounded) or "extra_small" in @rounded do %>
   defp rounded_size("extra_small"), do: "rounded-sm"
   <% end %>
@@ -305,7 +286,10 @@ defmodule <%= @module %> do
   <%= if is_nil(@rounded) or "full" in @rounded do %>
   defp rounded_size("full"), do: "rounded-full"
   <% end %>
-  defp rounded_size(nil), do: "rounded-none"
+  <%= if is_nil(@rounded) or "none" in @rounded do %>
+  defp rounded_size("none"), do: nil
+  <% end %>
+  defp rounded_size(params) when is_binary(params), do: params
   <%= if is_nil(@padding) or "extra_small" in @padding do %>
   defp padding_size("extra_small"), do: "p-1"
   <% end %>
@@ -325,9 +309,7 @@ defmodule <%= @module %> do
   defp padding_size("none"), do: "p-0"
   <% end %>
   defp padding_size(params) when is_binary(params), do: params
-  <%= if is_nil(@padding) or "small" in @padding do %>
-  defp padding_size(_), do: padding_size("small")
-  <% end %>
+
   <%= if is_nil(@size) or "extra_small" in @size do %>
   defp size_class("extra_small"), do: "text-[12px] [&>.quote-icon]:size-7"
   <% end %>
@@ -344,9 +326,7 @@ defmodule <%= @module %> do
   defp size_class("extra_large"), do: "text-[16px] [&>.quote-icon]:size-12"
   <% end %>
   defp size_class(params) when is_binary(params), do: params
-  <%= if is_nil(@size) or "medium" in @size do %>
-  defp size_class(_), do: size_class("medium")
-  <% end %>
+
 <%= if is_nil(@variant) or "base" in @variant do %>
   <%= if is_nil(@color) or "base" in @color do %>
   defp color_variant("base", "base") do
@@ -840,11 +820,7 @@ defmodule <%= @module %> do
   <% end %>
   <% end %>
   defp color_variant(params,_) when is_binary(params), do: params
-  <%= if is_nil(@variant) or "base" in @variant do %>
-  <%= if is_nil(@color) or "base" in @color do %>
-  defp color_variant(_,_), do: color_variant("base", "base")
-  <% end %>
-  <% end %>
+
   defp border_position(%{hide_border: true}), do: "none"
   defp border_position(%{left_border: true}), do: "left"
   defp border_position(%{right_border: true}), do: "right"

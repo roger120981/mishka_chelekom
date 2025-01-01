@@ -16,17 +16,6 @@ defmodule <%= @module %> do
 
   use Phoenix.Component
 
-  @sizes [
-    "extra_small",
-    "small",
-    "medium",
-    "large",
-    "extra_large",
-    "double_large",
-    "triple_large",
-    "quadruple_large"
-  ]
-
   @spinner_types [
     "default",
     "dots",
@@ -58,7 +47,6 @@ defmodule <%= @module %> do
   attr :color, :string, default: "base", doc: "Determines color theme"
 
   attr :size, :string,
-    values: @sizes,
     default: "small",
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
@@ -321,10 +309,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@size) or "quadruple_large" in @size do %>
   defp size_class("default", "quadruple_large"), do: "size-10 border-[6px]"
   <% end %>
-  <%= if is_nil(@size) or "small" in @size do %>
-  defp size_class(_, _), do: size_class("default", "small")
   <% end %>
-  <% end %>
+  defp size_class(_, params) when is_binary(params), do: params
 
   <%= if is_nil(@color) or "base" in @color do %>
   defp color_class("base") do
@@ -425,7 +411,4 @@ defmodule <%= @module %> do
   end
   <% end %>
   defp color_class(params) when is_binary(params), do: params
-  <%= if is_nil(@color) or "base" in @color do %>
-  defp color_class(_), do: color_class("base")
-  <% end %>
 end

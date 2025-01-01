@@ -14,18 +14,6 @@ defmodule <%= @module %> do
 
   use Phoenix.Component
 
-  @variants [
-    "outline",
-    "bordered",
-    "shadow",
-    "default",
-    "transparent",
-    "hoverable",
-    "stripped",
-    "separated",
-    "base"
-  ]
-
   <%= if is_nil(@type) or "table" in @type do %>
   @doc """
   Renders a customizable `table` component that supports custom styling for rows, columns,
@@ -83,15 +71,15 @@ defmodule <%= @module %> do
     doc: "A unique identifier is used to manage state and interaction"
 
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :variant, :string, values: @variants, default: "base", doc: "Determines the style"
-  attr :rounded, :string, default: nil, doc: "Determines the border radius"
+  attr :variant, :string, default: "base", doc: "Determines the style"
+  attr :rounded, :string, default: "", doc: "Determines the border radius"
   attr :padding, :string, default: "small", doc: "Determines padding for items"
   attr :text_size, :string, default: "small", doc: "Determines text size"
   attr :color, :string, default: "base", doc: "Determines color theme"
-  attr :border, :string, default: nil, doc: "Determines border style"
-  attr :header_border, :string, default: nil, doc: "Sets the border style for the table header"
-  attr :rows_border, :string, default: nil, doc: "Sets the border style for rows in the table"
-  attr :cols_border, :string, default: nil, doc: "Sets the border style for columns in the table"
+  attr :border, :string, default: "", doc: "Determines border style"
+  attr :header_border, :string, default: "", doc: "Sets the border style for the table header"
+  attr :rows_border, :string, default: "", doc: "Sets the border style for rows in the table"
+  attr :cols_border, :string, default: "", doc: "Sets the border style for columns in the table"
   attr :thead_class, :string, default: nil, doc: "Adds custom CSS classes to the table header"
   attr :footer_class, :string, default: nil, doc: "Adds custom CSS classes to the table footer"
   attr :table_fixed, :boolean, default: false, doc: "Enables or disables the table's fixed layout"
@@ -345,7 +333,6 @@ defmodule <%= @module %> do
   defp rounded_size("extra_large", _), do: "rounded-xl"
 
   defp rounded_size(params, _) when is_binary(params), do: [params]
-  defp rounded_size(_, _), do: nil
 
   defp text_size("extra_small"), do: "text-xs"
   defp text_size("small"), do: "text-sm"
@@ -353,7 +340,6 @@ defmodule <%= @module %> do
   defp text_size("large"), do: "text-lg"
   defp text_size("extra_large"), do: "text-xl"
   defp text_size(params) when is_binary(params), do: [params]
-  defp text_size(_), do: text_size("small")
 
   defp text_position("left"), do: "[&_table]:text-left [&_table_thead]:text-left"
   defp text_position("right"), do: "[&_table]:text-right [&_table_thead]:text-right"
@@ -361,7 +347,7 @@ defmodule <%= @module %> do
   defp text_position("justify"), do: "[&_table]:text-justify [&_table_thead]:text-justify"
   defp text_position("start"), do: "[&_table]:text-start [&_table_thead]:text-start"
   defp text_position("end"), do: "[&_table]:text-end [&_table_thead]:text-end"
-  defp text_position(_), do: text_position("start")
+  defp text_position(params) when is_binary(params), do: params
 
   defp border_class(_, variant) when variant in ["default", "shadow", "transparent", "stripped", "hoverable", "separated"],
     do: nil
@@ -372,7 +358,6 @@ defmodule <%= @module %> do
   defp border_class("large", _), do: "border-4"
   defp border_class("extra_large", _), do: "border-[5px]"
   defp border_class(params, _) when is_binary(params), do: [params]
-  defp border_class(_, _), do: nil
 
   defp cols_border(_, variant) when variant in ["default", "shadow", "transparent", "stripped", "hoverable", "separated"],
     do: nil
@@ -418,7 +403,6 @@ defmodule <%= @module %> do
   end
 
   defp cols_border(params, _) when is_binary(params), do: [params]
-  defp cols_border(_, _), do: nil
 
   defp rows_border(_, variant) when variant in ["default", "shadow", "transparent", "stripped", "hoverable", "separated"],
     do: nil
@@ -429,7 +413,6 @@ defmodule <%= @module %> do
   defp rows_border("large", _), do: "[&_table_tbody]:divide-y-4"
   defp rows_border("extra_large", _), do: "[&_table_tbody]:divide-y-[5px]"
   defp rows_border(params, _) when is_binary(params), do: [params]
-  defp rows_border(_, _), do: nil
 
   defp header_border(_, variant) when variant in ["default", "shadow", "transparent", "stripped", "hoverable", "separated"],
     do: nil
@@ -440,7 +423,6 @@ defmodule <%= @module %> do
   defp header_border("large", _), do: "[&_table]:divide-y-4"
   defp header_border("extra_large", _), do: "[&_table]:divide-y-[5px]"
   defp header_border(params, _) when is_binary(params), do: [params]
-  defp header_border(_, _), do: nil
 
   defp rows_space(_, variant)
        when variant in ["default", "shadow", "transparent", "stripped", "hoverable", "bordered", "outline"],
@@ -451,7 +433,6 @@ defmodule <%= @module %> do
   defp rows_space("large", _), do: "[&_table]:border-spacing-y-3"
   defp rows_space("extra_large", _), do: "[&_table]:border-spacing-y-4"
   defp rows_space(params, _) when is_binary(params), do: [params]
-  defp rows_space(_, _), do: rows_space("medium", nil)
 
   <%= if is_nil(@padding) or "extra_small" in @padding do %>
   defp padding_size("extra_small") do
@@ -494,9 +475,6 @@ defmodule <%= @module %> do
   end
   <% end %>
   defp padding_size(params) when is_binary(params), do: params
-  <%= if is_nil(@padding) or "small" in @padding do %>
-  defp padding_size(_), do: padding_size("small")
-  <% end %>
 
   <%= if is_nil(@variant) or "base" in @variant do %>
   <%= if is_nil(@color) or "base" in @color do %>
@@ -1184,7 +1162,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <% end %>
-  defp color_variant(_, _), do: nil
+  defp color_variant(params, _) when is_binary(params), do: params
 
   attr :name, :string, required: true, doc: "Specifies the name of the element"
   attr :class, :any, default: nil, doc: "Custom CSS class for additional styling"

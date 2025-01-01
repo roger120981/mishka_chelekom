@@ -27,12 +27,6 @@ defmodule <%= @module %> do
   use Phoenix.Component
   alias Phoenix.LiveView.JS
 
-  @variants [
-    "default",
-    "base",
-    "pills"
-  ]
-
   @doc """
   The `tabs` component provides a set of clickable tabs for organizing content.
 
@@ -70,7 +64,7 @@ defmodule <%= @module %> do
     required: true,
     doc: "A unique identifier is used to manage state and interaction"
 
-  attr :variant, :string, values: @variants, default: "base", doc: "Determines the style"
+  attr :variant, :string, default: "base", doc: "Determines the style"
   attr :color, :string, default: "base", doc: "Determines color theme"
   attr :border, :string, default: "none", doc: "Determines border style"
   attr :tab_border, :string, default: "small", doc: "Determines border style for tab"
@@ -81,7 +75,7 @@ defmodule <%= @module %> do
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
 
-  attr :gap, :string, default: nil, doc: "Determines gap for tabs"
+  attr :gap, :string, default: "", doc: "Determines gap for tabs"
   attr :rounded, :string, default: "none", doc: "Determines the border radius"
 
   attr :font_weight, :string,
@@ -147,7 +141,7 @@ defmodule <%= @module %> do
           @variant == "default" &&
             "border-[#e8e8e8] dark:border-[#5e5e5e] [&:not(.active-tab)_.tab-trigger]:border-[#e8e8e8] dark:[&:not(.active-tab)_.tab-trigger]:border-[#5e5e5e]",
           @variant == "base" &&
-            "border-[#e4e4e7] dark:border-[#27272a] [&:not(.active-tab)_.tab-trigger]:border-[#e4e4e7] dark:[&:not(.active-tab)_.tab-trigger]:border-[#27272a]"
+            "border-[#e4e4e7] dark:border-[#27272A] [&:not(.active-tab)_.tab-trigger]:border-[#e4e4e7] dark:[&:not(.active-tab)_.tab-trigger]:border-[#27272a]"
         ]}
       >
         <button
@@ -333,9 +327,6 @@ defmodule <%= @module %> do
   <% end %>
 
   defp padding_size(params) when is_binary(params), do: params
-  <%= if is_nil(@padding) or "small" in @padding do %>
-  defp padding_size(_), do: padding_size("small")
-  <% end %>
 
   <%= if is_nil(@size) or "extra_small" in @size do %>
   defp size_class("extra_small"), do: "text-xs [&_.tab-icon]:size-4"
@@ -353,9 +344,6 @@ defmodule <%= @module %> do
   defp size_class("extra_large"), do: "text-xl [&_.tab-icon]:size-8"
   <% end %>
   defp size_class(params) when is_binary(params), do: params
-  <%= if is_nil(@size) or "medium" in @size do %>
-  defp size_class(_), do: size_class("medium")
-  <% end %>
 
   defp gap_size("extra_small"), do: "[&_.tab-trigger-list]:gap-1"
   defp gap_size("small"), do: "[&_.tab-trigger-list]:gap-2"
@@ -363,7 +351,6 @@ defmodule <%= @module %> do
   defp gap_size("large"), do: "[&_.tab-trigger-list]:gap-4"
   defp gap_size("extra_large"), do: "[&_.tab-trigger-list]:gap-5"
   defp gap_size(params) when is_binary(params), do: params
-  defp gap_size(_), do: nil
 
   defp border_class("none"), do: "border-0"
   defp border_class("extra_small"), do: "border"
@@ -381,7 +368,6 @@ defmodule <%= @module %> do
   defp tab_border("large", true), do: "[&_.tab-trigger]:border-e-4"
   defp tab_border("extra_large", true), do: "[&_.tab-trigger]:border-e-[5px]"
   defp tab_border(params, true) when is_binary(params), do: [params]
-  defp tab_border(_, true), do: tab_border("extra_small", true)
 
   defp tab_border("none", false) do
     [
@@ -420,7 +406,6 @@ defmodule <%= @module %> do
   end
 
   defp tab_border(params, false) when is_binary(params), do: [params]
-  defp tab_border(_, false), do: tab_border("extra_small", false)
 
   <%= if is_nil(@variant) or "default" in @variant do %>
   defp rounded_size(_, "default"), do: "rounded-none"
@@ -451,9 +436,6 @@ defmodule <%= @module %> do
   <% end %>
 
   defp rounded_size(params, _) when is_binary(params), do: [params]
-  <%= if is_nil(@variant) or "default" in @variant do %>
-  defp rounded_size(_, _), do: rounded_size(nil, "default")
-  <% end %>
 
   <%= if is_nil(@variant) or "base" in @variant do %>
   <%= if is_nil(@color) or "base" in @color do %>
@@ -675,11 +657,6 @@ defmodule <%= @module %> do
   <% end %>
   <% end %>
   defp color_variant(params,_) when is_binary(params), do: params
-  <%= if is_nil(@variant) or "base" in @variant do %>
-  <%= if is_nil(@color) or "base" in @color do %>
-  defp color_variant(_,_), do: color_variant("base", "base")
-  <% end %>
-  <% end %>
 
   @doc """
   Sets a specific tab as active by adding `active-tab` and `active-tab-panel` CSS classes to the

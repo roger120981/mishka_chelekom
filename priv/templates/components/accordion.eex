@@ -25,22 +25,6 @@ defmodule <%= @module %> do
   alias Phoenix.LiveView.JS
   <% end %>
 
-  @sizes ["extra_small", "small", "medium", "large", "extra_large"]
-
-  @variants [
-    "default",
-    "bordered",
-    "outline",
-    "shadow",
-    "gradient",
-    "menu",
-    "outline_separated",
-    "bordered_separated",
-    "transparent",
-    "base",
-    "base_separated"
-  ]
-
   <%= if is_nil(@type) or "accordion" in @type do %>
   @doc """
   The `accordion` component provides a collapsible structure with various styling options,
@@ -77,8 +61,8 @@ defmodule <%= @module %> do
     doc: "A unique identifier is used to manage state and interaction"
 
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :variant, :string, values: @variants, default: "base", doc: "Determines the style"
-  attr :space, :string, values: @sizes, default: "small", doc: "Space between items"
+  attr :variant, :string, default: "base", doc: "Determines the style"
+  attr :space, :string, default: "small", doc: "Space between items"
   attr :color, :string, default: "base", doc: "Determines color theme"
   attr :border, :string, default: "extra_small", doc: "Determines border style"
   attr :padding, :string, default: "small", doc: "Determines padding for items"
@@ -88,13 +72,10 @@ defmodule <%= @module %> do
     default: "hero-chevron-right",
     doc: "Determines the icon for the chevron"
 
-  attr :media_size, :string,
-    values: @sizes,
-    default: "small",
-    doc: "Determines size of the media elements"
+  attr :media_size, :string, default: "small", doc: "Determines size of the media elements"
 
   attr :size, :string,
-    default: nil,
+    default: "",
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
 
@@ -126,6 +107,7 @@ defmodule <%= @module %> do
   def accordion(assigns) do
     ~H"""
     <div
+      id={@id}
       class={[
         "overflow-hidden w-full h-fit",
         @variant == "menu" && menu_rounded(@rounded),
@@ -240,25 +222,16 @@ defmodule <%= @module %> do
 
   attr :name, :string, default: nil, doc: "Specifies the name of the element"
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :variant, :string, values: @variants, default: "base", doc: "Determines the style"
-  attr :space, :string, values: @sizes, default: "small", doc: "Space between items"
+  attr :variant, :string, default: "base", doc: "Determines the style"
+  attr :space, :string, default: "small", doc: "Space between items"
   attr :color, :string, default: "base", doc: "Determines color theme"
   attr :border, :string, default: "extra_small", doc: "Determines border style"
 
-  attr :padding, :string,
-    values: @sizes ++ ["none"],
-    default: "small",
-    doc: "Determines padding for items"
+  attr :padding, :string, default: "small", doc: "Determines padding for items"
 
-  attr :rounded, :string,
-    values: @sizes ++ ["full", "none"],
-    default: "none",
-    doc: "Determines the border radius"
+  attr :rounded, :string, default: "none", doc: "Determines the border radius"
 
-  attr :media_size, :string,
-    values: @sizes,
-    default: "small",
-    doc: "Determines size of the media elements"
+  attr :media_size, :string, default: "small", doc: "Determines size of the media elements"
 
   attr :chevron_icon, :string,
     default: "hero-chevron-right",
@@ -513,8 +486,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@space) or "extra_large" in @space do %>
   defp space_class("extra_large", _), do: "accordion-item-gap space-y-6"
   <% end %>
+  <%= if is_nil(@space) or "none" in @space do %>
+  defp space_class("none", _), do: nil
+  <% end %>
   defp space_class(params, _) when is_binary(params), do: params
-  defp space_class(_, _), do: nil
+
   <%= if is_nil(@rounded) or "extra_small" in @rounded do %>
   defp menu_rounded("extra_small"), do: "[&_.accordion-summary]:rounded-sm"
   <% end %>
@@ -534,7 +510,7 @@ defmodule <%= @module %> do
   defp menu_rounded("full"), do: "[&_.accordion-summary]:rounded-full"
   <% end %>
   defp menu_rounded(params) when is_binary(params), do: params
-  defp menu_rounded(_), do: nil
+
   <%= if is_nil(@size) or "extra_small" in @size do %>
   defp media_size("extra_small"), do: "[&>.accordion-item-wrapper_.accordion-title-media]:size-12"
   <% end %>
@@ -551,7 +527,7 @@ defmodule <%= @module %> do
   defp media_size("extra_large"), do: "[&>.accordion-item-wrapper_.accordion-title-media]:size-24"
   <% end %>
   defp media_size(params) when is_binary(params), do: params
-  defp media_size(_), do: media_size("small")
+
   <%= if is_nil(@size) or "extra_small" in @size do %>
   defp size_class("extra_small") do
     [
@@ -588,7 +564,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   defp size_class(params) when is_binary(params), do: params
-  defp size_class(_), do: nil
+
   <%= if is_nil(@rounded) or "extra_small" in @rounded do %>
   defp rounded_size("extra_small") do
     [
@@ -687,8 +663,6 @@ defmodule <%= @module %> do
   <% end %>
   defp padding_size("zero"), do: "[&>.accordion-item-wrapper>.accordion-summary]:p-0"
   defp padding_size(params) when is_binary(params), do: params
-  defp padding_size(_), do: padding_size("small")
-
 
   defp border_class(_, variant) when variant in ["default", "shadow", "transparent", "gradient"],
     do: nil
@@ -897,8 +871,6 @@ defmodule <%= @module %> do
     "[&>.accordion-item-wrapper>.accordion-summary]:border-[5px]"
   end
   defp border_class(params, _) when is_binary(params), do: params
-
-  defp border_class(_, _), do: border_class("none", "base")
 
   <%= if is_nil(@variant) or "base" in @variant do %>
   <%= if is_nil(@color) or "base" in @color do %>
@@ -1258,7 +1230,7 @@ defmodule <%= @module %> do
     [
       "text-[#282828] border-[#282828] bg-[#F3F3F3]",
       "dark:text-[#E8E8E8] dark:border-[#E8E8E8] dark:bg-[#4B4B4B]",
-      "hover:[&>.accordion-item-wrapper>.accordion-summary]:bg-[#E8E8E8] dark:hover:[&>.accordion-item-wrapper>.accordion-summary]:bg-[#5E5E5]",
+      "hover:[&>.accordion-item-wrapper>.accordion-summary]:bg-[#E8E8E8] dark:hover:[&>.accordion-item-wrapper>.accordion-summary]:bg-[#5E5E5E]",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-[#282828]",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-[#282828]",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-[#E8E8E8]",
@@ -1869,11 +1841,7 @@ defmodule <%= @module %> do
   <% end %>
   <% end %>
   defp color_variant(params, _) when is_binary(params), do: params
-  <%= if is_nil(@variant) or "base" in @variant do %>
-  <%= if is_nil(@color) or "base" in @color do %>
-  defp color_variant(_, _), do: color_variant("base", "base")
-  <% end %>
-  <% end %>
+
   <%= if is_nil(@variant) or "base" in @variant do %>
   <%= if is_nil(@color) or "base" in @color do %>
   defp item_color("base", "base") do
@@ -2299,11 +2267,7 @@ defmodule <%= @module %> do
   <% end %>
   <% end %>
   defp item_color(params, _) when is_binary(params), do: params
-  <%= if is_nil(@variant) or "base" in @variant do %>
-  <%= if is_nil(@color) or "base" in @color do %>
-  defp item_color(_, _), do: item_color("base", "base")
-  <% end %>
-  <% end %>
+
   defp chevron_position(%{left_chevron: true}), do: "left"
   defp chevron_position(%{right_chevron: true}), do: "right"
   defp chevron_position(%{chevron: true}), do: "right"
