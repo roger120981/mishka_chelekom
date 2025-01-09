@@ -1,6 +1,7 @@
 defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   use Igniter.Mix.Task
   alias Igniter.Project.Application, as: IAPP
+  alias IgniterJs.Parsers.Javascript.Parser
 
   @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
@@ -109,7 +110,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     |> get_component_template(component)
     |> converted_components_path(Keyword.get(options, :module))
     |> update_eex_assign(options)
-    |> create_update_component()
+    |> create_or_update_component()
+    |> create_or_update_scripts()
   end
 
   def supports_umbrella?(), do: false
@@ -130,7 +132,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
           Path.join(IAPP.priv_dir(igniter, ["mishka_chelekom", "templates"]), "#{component}.eex")
 
         true ->
-          Application.app_dir(:mishka_chelekom, ["priv", "templates", "components"])
+          Application.app_dir(:mishka_chelekom, ["priv", "components"])
           |> Path.join("#{component}.eex")
       end
 
@@ -160,7 +162,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   defp converted_components_path(template, custom_module) do
     # Reset the assigns to prevent creating .igniter.exs config file to add all the paths
-    web_module = "#{Igniter.Project.Application.app_name(template.igniter)}" <> "_web"
+    web_module = "#{IAPP.app_name(template.igniter)}" <> "_web"
 
     Path.join("lib", web_module <> "/components")
     |> File.dir?()
@@ -262,15 +264,15 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     project created with Phoenix, check the following path. It is possible that your naming convention does
     not align with Elixir's naming style.
 
-    Is your web path (#{inspect(web_module)})!? but we found this (#{inspect(Igniter.Project.Application.app_name(template.igniter)) <> "_web"})!!
+    Is your web path (#{inspect(web_module)})!? but we found this (#{inspect(IAPP.app_name(template.igniter)) <> "_web"})!!
     """
 
     {:error, :no_dir, msg, template.igniter}
   end
 
-  defp create_update_component({:error, _, msg, igniter}), do: Igniter.add_issue(igniter, msg)
+  defp create_or_update_component({:error, _, msg, igniter}), do: Igniter.add_issue(igniter, msg)
 
-  defp create_update_component(
+  defp create_or_update_component(
          {igniter, template_path, template_config, proper_location, assign, options}
        ) do
     igniter =
@@ -282,7 +284,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       |> optional_components(template_config)
       |> necessary_components(template_path, template_config, proper_location, options, assign)
     else
-      igniter
+      {igniter, template_config}
     end
   end
 
@@ -312,102 +314,118 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
          options,
          assign
        ) do
-    if Keyword.get(template_config, :necessary, []) != [] and Igniter.changed?(igniter) do
-      if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
-           !options[:no_sub_config] do
-        IO.puts("#{IO.ANSI.bright() <> "Note:\n" <> IO.ANSI.reset()}")
+    igniter =
+      if Keyword.get(template_config, :necessary, []) != [] and Igniter.changed?(igniter) do
+        if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
+             !options[:no_sub_config] do
+          IO.puts("#{IO.ANSI.bright() <> "Note:\n" <> IO.ANSI.reset()}")
 
-        msg = """
-        This component is dependent on other components, so it is necessary to build other
-        items along with this component.
+          msg = """
+          This component is dependent on other components, so it is necessary to build other
+          items along with this component.
 
-        Note: If you have used custom names for your dependent modules, this script will not be able to find them,
-        so it will think that they have not been created.
+          Note: If you have used custom names for your dependent modules, this script will not be able to find them,
+          so it will think that they have not been created.
 
-        Components: #{Enum.join(template_config[:necessary], " - ")}
-        """
+          Components: #{Enum.join(template_config[:necessary], " - ")}
+          """
 
-        Mix.Shell.IO.info(IO.ANSI.cyan() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+          Mix.Shell.IO.info(IO.ANSI.cyan() <> String.trim_trailing(msg) <> IO.ANSI.reset())
 
-        msg =
-          "\nNote: \nIf approved, dependent components will be created without restrictions and you can change them manually."
+          msg =
+            "\nNote: \nIf approved, dependent components will be created without restrictions and you can change them manually."
 
-        IO.puts("#{IO.ANSI.blue() <> msg <> IO.ANSI.reset()}")
+          IO.puts("#{IO.ANSI.blue() <> msg <> IO.ANSI.reset()}")
 
-        IO.puts(
-          "#{IO.ANSI.cyan() <> "\nYou can run before generating this component:" <> IO.ANSI.reset()}"
-        )
-      end
-
-      if template_config[:necessary] != [] and !options[:yes] and !options[:no_sub_config] do
-        IO.puts(
-          "#{IO.ANSI.yellow() <> "#{Enum.map(template_config[:necessary], &"\n   * mix mishka.ui.gen.component #{&1}\n")}" <> IO.ANSI.reset()}"
-        )
-      end
-
-      if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
-           !options[:no_sub_config] do
-        Mix.Shell.IO.error("""
-
-        In this section you can set your custom args for each dependent component.
-        If you press the enter key, you have selected the default settings
-        """)
-      end
-
-      Enum.reduce(template_config[:necessary], {[], igniter}, fn item, {module_coms, acc} ->
-        commands =
-          if !options[:yes] and !options[:no_sub_config] do
-            Mix.Shell.IO.prompt("* Component #{String.capitalize(item)}: Enter your args:")
-            |> String.trim()
-            |> String.split(" ", trim: true)
-          else
-            []
-          end
-
-        args =
-          cond do
-            !is_nil(options[:yes]) ->
-              [item, "--sub", "--no-sub-config", "--yes"]
-
-            !is_nil(options[:no_sub_config]) ->
-              [item, "--sub", "--no-sub-config"]
-
-            commands == [] ->
-              [item, "--sub"]
-
-            true ->
-              [item, "--sub"] ++ commands
-          end
-
-        templ_options = options!(args)
-
-        component_acc =
-          if !is_nil(templ_options[:module]) do
-            [{item, atom_to_module(templ_options[:module])}]
-          else
-            []
-          end
-
-        {module_coms ++ component_acc, Igniter.compose_task(acc, "mishka.ui.gen.component", args)}
-      end)
-      |> case do
-        {[], igniter} ->
-          igniter
-
-        {custom_modules, igniter} ->
-          new_assign =
-            Enum.map(custom_modules, fn {k, v} -> {String.to_atom(k), v} end)
-            |> then(&Keyword.merge(assign, &1))
-
-          igniter
-          |> Igniter.copy_template(template_path, proper_location, new_assign,
-            on_exists: :overwrite
+          IO.puts(
+            "#{IO.ANSI.cyan() <> "\nYou can run before generating this component:" <> IO.ANSI.reset()}"
           )
+        end
+
+        if template_config[:necessary] != [] and !options[:yes] and !options[:no_sub_config] do
+          IO.puts(
+            "#{IO.ANSI.yellow() <> "#{Enum.map(template_config[:necessary], &"\n   * mix mishka.ui.gen.component #{&1}\n")}" <> IO.ANSI.reset()}"
+          )
+        end
+
+        if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
+             !options[:no_sub_config] do
+          Mix.Shell.IO.error("""
+
+          In this section you can set your custom args for each dependent component.
+          If you press the enter key, you have selected the default settings
+          """)
+        end
+
+        Enum.reduce(template_config[:necessary], {[], igniter}, fn item, {module_coms, acc} ->
+          commands =
+            if !options[:yes] and !options[:no_sub_config] do
+              Mix.Shell.IO.prompt("* Component #{String.capitalize(item)}: Enter your args:")
+              |> String.trim()
+              |> String.split(" ", trim: true)
+            else
+              []
+            end
+
+          args =
+            cond do
+              !is_nil(options[:yes]) ->
+                [item, "--sub", "--no-sub-config", "--yes"]
+
+              !is_nil(options[:no_sub_config]) ->
+                [item, "--sub", "--no-sub-config"]
+
+              commands == [] ->
+                [item, "--sub"]
+
+              true ->
+                [item, "--sub"] ++ commands
+            end
+
+          templ_options = options!(args)
+
+          component_acc =
+            if !is_nil(templ_options[:module]) do
+              [{item, atom_to_module(templ_options[:module])}]
+            else
+              []
+            end
+
+          {module_coms ++ component_acc,
+           Igniter.compose_task(acc, "mishka.ui.gen.component", args)}
+        end)
+        |> case do
+          {[], igniter} ->
+            igniter
+
+          {custom_modules, igniter} ->
+            new_assign =
+              Enum.map(custom_modules, fn {k, v} -> {String.to_atom(k), v} end)
+              |> then(&Keyword.merge(assign, &1))
+
+            igniter
+            |> Igniter.copy_template(template_path, proper_location, new_assign,
+              on_exists: :overwrite
+            )
+        end
+      else
+        igniter
       end
+
+    {igniter, template_config}
+  end
+
+  def create_or_update_scripts({igniter, template_config}) do
+    if Keyword.get(template_config, :scripts, []) != [] do
+      igniter
+      |> check_and_update_package_json(template_config)
+      |> check_and_update_js_files(template_config)
     else
       igniter
     end
   end
+
+  def create_or_update_scripts(%Igniter{} = igniter), do: igniter
 
   @doc false
   def atom_to_module(field) do
@@ -433,5 +451,109 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     |> String.replace_prefix("preset_", "")
     |> String.replace_prefix("template_", "")
     |> String.to_atom()
+  end
+
+  defp check_and_update_package_json(igniter, _) do
+    # TODO: for now we have no plan for it, it needs some way to handle npm, bun or etc and create init files like
+    # TODO: package.json. why we need this? for example, add DOMPurify to sanitizer client side input or adding js project
+    igniter
+  end
+
+  defp check_and_update_js_files(igniter, template_config) do
+    files = Keyword.get(template_config, :scripts) |> Enum.filter(&(&1.type == "file"))
+
+    if files != [] do
+      igniter =
+        Enum.reduce(files, igniter, fn item, acc ->
+          content =
+            Application.app_dir(:mishka_chelekom, ["priv", "assets", "js"])
+            |> Path.join("#{item.file}")
+            |> File.read!()
+
+          caller_js =
+            case File.read("assets/vendor/mishka_components.js") do
+              {:ok, content} ->
+                content
+
+              _ ->
+                Application.app_dir(:mishka_chelekom, ["priv", "assets", "js"])
+                |> Path.join("mishka_components.js")
+                |> File.read!()
+            end
+
+          acc
+          |> Igniter.create_or_update_file("assets/vendor/#{item.file}", content, fn source ->
+            Rewrite.Source.update(source, :content, content)
+          end)
+          |> Igniter.create_or_update_file(
+            "assets/vendor/mishka_components.js",
+            caller_js,
+            fn source ->
+              original_content = Rewrite.Source.get(source, :content)
+              Rewrite.Source.update(source, :content, original_content)
+            end
+          )
+          |> Igniter.create_or_update_file(
+            "assets/vendor/mishka_components.js",
+            caller_js,
+            fn source ->
+              with original_content <- Rewrite.Source.get(source, :content),
+                   {:ok, _, imported} <-
+                     Parser.insert_imports(original_content, "#{item.imports}"),
+                   {:ok, _, extended} <-
+                     Parser.extend_var_object_by_object_names(
+                       imported,
+                       "Components",
+                       "#{item.module}"
+                     ) do
+                Rewrite.Source.update(source, :content, extended)
+              else
+                {:error, _, error} ->
+                  msg = """
+                  Note:
+                  When you see this error, it means there is a syntax issue in the part you are trying to import.
+                  Please review the relevant file again.
+
+                  Full Erros: "#{inspect(error)}"
+                  """
+
+                  Rewrite.Source.add_issue(source, msg)
+              end
+            end
+          )
+        end)
+
+      app_js = "assets/js/app.js"
+
+      case File.read(app_js) do
+        {:ok, content} ->
+          igniter
+          |> Igniter.create_or_update_file(app_js, content, fn source ->
+            imports = """
+            import MishkaComponents from "../vendor/mishka_components.js";
+            """
+
+            # TODO: igniter_js deletes comment, should be fixed
+            with original_content <- Rewrite.Source.get(source, :content),
+                 {:ok, _, imported} <- Parser.insert_imports(original_content, imports),
+                 {:ok, _, output} <- Parser.extend_hook_object(imported, "MishkaComponents") do
+              Rewrite.Source.update(source, :content, output)
+            else
+              {:error, _, error} ->
+                Igniter.add_issue(igniter, "#{inspect(error)}")
+            end
+          end)
+
+        _ ->
+          msg = """
+          Note:
+          Unfortunately, we couldn't find the assets/js/app.js file in your project path.
+          """
+
+          Igniter.add_issue(igniter, msg)
+      end
+    else
+      igniter
+    end
   end
 end

@@ -37,8 +37,9 @@ defmodule MishkaChelekom.MixProject do
 
   defp deps do
     [
-      {:igniter, "~> 0.5.0"},
+      {:igniter, "~> 0.5.8"},
       {:guarded_struct, "~> 0.0.4"},
+      {:igniter_js, "~> 0.3.0"},
       {:owl, "~> 0.12.0"},
       {:req, "~> 0.5.8"},
       {:jason, "~> 1.4.4"},
