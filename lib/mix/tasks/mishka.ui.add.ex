@@ -33,6 +33,13 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
   **Official Community Version Repository**:
   - https://github.com/mishka-group/mishka_chelekom_community
 
+  **Important Notice:**:
+  > Several sections in the documentation on Mishka.tools, as well as individual tasks,
+  > address security concerns. Since you are integrating an external component,
+  > it is crucial to verify the source from which the file is being imported.
+  > Please note that all responsibility for this integration lies with you.
+
+
   ## Example
 
   ```bash
@@ -51,7 +58,8 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
     )
 
     field(:type, String.t(),
-      derive: "sanitize(tag=strip_tags) validate(enum=String[component::preset::template])",
+      derive:
+        "sanitize(tag=strip_tags) validate(enum=String[component::preset::template::javascript])",
       enforce: true
     )
 
@@ -61,8 +69,7 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
       default: []
     ) do
       field(:components, String.t(),
-        derive: "sanitize(tag=strip_tags) validate(not_empty_string, max_len=25, min_len=3)",
-        validator: {Mix.Tasks.Mishka.Ui.Add, :is_component?}
+        derive: "sanitize(tag=strip_tags) validate(not_empty_string, max_len=25, min_len=3)"
       )
     end
 
@@ -72,7 +79,8 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
       default: []
     ) do
       field(:type, String.t(),
-        derive: "sanitize(tag=strip_tags) validate(enum=String[component::preset::template])",
+        derive:
+          "sanitize(tag=strip_tags) validate(enum=String[component::preset::template::javascript])",
         enforce: true
       )
 
@@ -91,8 +99,7 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
         default: []
       ) do
         field(:optional, String.t(),
-          derive: "sanitize(tag=strip_tags) validate(not_empty_string, max_len=25, min_len=3)",
-          validator: {Mix.Tasks.Mishka.Ui.Add, :is_component?}
+          derive: "sanitize(tag=strip_tags) validate(not_empty_string, max_len=25, min_len=3)"
         )
       end
 
@@ -102,9 +109,16 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
         default: []
       ) do
         field(:necessary, String.t(),
-          derive: "sanitize(tag=strip_tags) validate(not_empty_string, max_len=25, min_len=3)",
-          validator: {Mix.Tasks.Mishka.Ui.Add, :is_component?}
+          derive: "sanitize(tag=strip_tags) validate(not_empty_string, max_len=25, min_len=3)"
         )
+      end
+
+      conditional_field(:scripts, list(String.t()),
+        structs: true,
+        derive: "validate(list)",
+        default: []
+      ) do
+        field(:scripts, map(), derive: "validate(map)")
       end
 
       sub_field(:args, map(), default: %{}) do
@@ -116,8 +130,7 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
         field(:type, list(String.t()), derive: "validate(list)", default: [])
         field(:rounded, list(String.t()), derive: "validate(list)", default: [])
         field(:only, list(String.t()), derive: "validate(list)", default: [])
-        field(:helpers, list(String.t()), derive: "validate(list)", default: [])
-
+        field(:helpers, list(String.t()), derive: "validate(map)", default: %{})
         field(:module, String.t(), derive: "validate(string)", default: "")
       end
     end
@@ -197,54 +210,7 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
                {:ok, igniter, decoded_body} <-
                  convert_request_body(body, repo_action, igniter),
                {:ok, params} <- __MODULE__.builder(decoded_body) do
-            params = Map.merge(params, %{from: String.trim(repo)})
-
-            Enum.reduce(params.files, igniter, fn item, acc ->
-              args =
-                if is_struct(item.args),
-                  do:
-                    item.args
-                    |> Map.from_struct()
-                    |> Map.to_list()
-                    |> Enum.reject(
-                      &(match?({_, []}, &1) and elem(&1, 0) not in [:only, :helpers])
-                    )
-                    |> Enum.sort(),
-                  else: []
-
-              direct_path =
-                File.cwd!()
-                |> Path.join([
-                  "priv",
-                  "/mishka_chelekom",
-                  "/#{item.type}s",
-                  "/#{item.type}_#{item.name}"
-                ])
-
-              config =
-                [
-                  {String.to_atom(item.name),
-                   [
-                     name: item.name,
-                     args: args,
-                     optional: item.necessary,
-                     necessary: item.optional
-                   ]}
-                ]
-                |> Enum.into([])
-
-              decode! =
-                case Base.decode64(item.content) do
-                  :error -> item.content
-                  {:ok, content} -> content
-                end
-
-              acc
-              |> Igniter.create_new_file(direct_path <> ".eex", decode!, on_exists: :overwrite)
-              |> Igniter.create_new_file(direct_path <> ".exs", "#{inspect(config)}",
-                on_exists: :overwrite
-              )
-            end)
+            create_requested_files(igniter, params, repo)
           else
             %Req.Response{status: 404} ->
               msg = "The link or repo name entered is wrong."
@@ -260,7 +226,22 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
 
         igniter
       else
-        igniter
+        with {:file, {:ok, file}} <- {:file, File.read(String.trim(repo))},
+             {:json, {:ok, decoded_body}} <- {:json, Jason.decode(file)},
+             {:builder, {:ok, params}} <- {:builder, __MODULE__.builder(decoded_body)} do
+          create_requested_files(igniter, params, repo)
+        else
+          {:file, {:error, _result}} ->
+            msg = "Unfortunately, the file cannot be accessed."
+            show_errors(igniter, %{fields: :path, message: msg, action: :get_repo})
+
+          {:json, {:error, _result}} ->
+            msg = "There was a problem reading the JSON file. Please ensure the file is correct."
+            show_errors(igniter, %{fields: :path, message: msg, action: :get_repo})
+
+          {:builder, {:error, errors}} ->
+            show_errors(igniter, errors)
+        end
       end
 
     if Map.get(final_igniter, :issues, []) == [],
@@ -275,14 +256,6 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
 
   def supports_umbrella?(), do: false
 
-  # Validator functions
-  def is_component?(name, value) do
-    if Enum.member?(components(), value),
-      do: {:ok, name, value},
-      else:
-        {:error, name, "One of the components entered as a dependency is missing from the list!"}
-  end
-
   def uniq_components?(name, value) do
     names = Enum.map(value, & &1[:name]) |> Enum.uniq() |> length()
 
@@ -294,13 +267,6 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
 
       {:error, [%{message: msg, field: :files, action: :validator}]}
     end
-  end
-
-  defp components() do
-    Application.app_dir(:mishka_chelekom, ["priv", "templates", "components"])
-    |> File.ls!()
-    |> Enum.filter(&(Path.extname(&1) == ".eex"))
-    |> Enum.map(&Path.rootname(&1, ".eex"))
   end
 
   # Errors functions
@@ -386,8 +352,12 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
     ValidationDerive.validate(:url, repo, :repo)
     |> case do
       {:error, :repo, :url, msg} ->
-        {"none_url_error", :url,
-         show_errors(igniter, %{fields: :repo, message: msg, action: :get_repo})}
+        if File.exists?(repo) do
+          {"none_url_error", :url, igniter}
+        else
+          {"none_url_error", :url,
+           show_errors(igniter, %{fields: :repo, message: msg, action: :get_repo})}
+        end
 
       url when is_binary(url) ->
         type = external_url_type(url)
@@ -464,6 +434,58 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
     |> Enum.map(fn item ->
       [key, value] = String.split(item, ": ")
       {String.trim(key), String.trim(value)}
+    end)
+  end
+
+  defp create_requested_files(igniter, params, repo) do
+    params = Map.merge(params, %{from: String.trim(repo)})
+
+    Enum.reduce(params.files, igniter, fn item, acc ->
+      args =
+        if is_struct(item.args) do
+          item.args
+          |> Map.from_struct()
+          |> Map.merge(%{helpers: Map.to_list(item.args.helpers)})
+          |> Map.to_list()
+          |> Enum.reject(&(match?({_, []}, &1) and elem(&1, 0) not in [:only, :helpers]))
+          |> Enum.sort()
+        else
+          []
+        end
+
+      direct_path =
+        File.cwd!()
+        |> Path.join(["priv", "/mishka_chelekom", "/#{item.type}s", "/#{item.name}"])
+
+      decode! =
+        case Base.decode64(item.content) do
+          :error -> item.content
+          {:ok, content} -> content
+        end
+
+      if item.type == "javascript" do
+        acc
+        |> Igniter.create_new_file(direct_path <> ".js", decode!, on_exists: :overwrite)
+      else
+        config =
+          [
+            {String.to_atom(item.name),
+             [
+               name: item.name,
+               args: args,
+               optional: item.optional,
+               necessary: item.necessary,
+               scripts: item.scripts
+             ]}
+          ]
+          |> Enum.into([])
+
+        acc
+        |> Igniter.create_new_file(direct_path <> ".eex", decode!, on_exists: :overwrite)
+        |> Igniter.create_new_file(direct_path <> ".exs", "#{inspect(config)}",
+          on_exists: :overwrite
+        )
+      end
     end)
   end
 end
