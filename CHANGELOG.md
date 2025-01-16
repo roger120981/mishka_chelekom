@@ -93,6 +93,7 @@
 - Fix issue of breadcrumb RTL mode [#170](https://github.com/mishka-group/mishka_chelekom/pull/170)
 - Remove space-y-0 classes from Menu, Footer, Navbar, Tooltip components [#183](https://github.com/mishka-group/mishka_chelekom/pull/183)
 - Delete none pattern functions from all components [#246](https://github.com/mishka-group/mishka_chelekom/pull/246)
+- Fix some global issues
 
 ---
 

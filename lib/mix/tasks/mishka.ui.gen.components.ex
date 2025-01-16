@@ -3,7 +3,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   use Igniter.Mix.Task
   alias Igniter.Project.Application, as: IAPP
 
-  @example "mix mishka.ui.gen.components component1, component1"
+  @example "mix mishka.ui.gen.components component1,component2"
   @shortdoc "A Mix Task for generating and configuring multi components of Phoenix"
   @moduledoc """
   #{@shortdoc}
