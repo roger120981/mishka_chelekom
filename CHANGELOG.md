@@ -83,6 +83,24 @@
 - Modify table content component [#195](https://github.com/mishka-group/mishka_chelekom/pull/195)
 - Add variant to stepper, add loading state to stepper [#196](https://github.com/mishka-group/mishka_chelekom/pull/196)
 - add hoverable prop to listdd [#197](https://github.com/mishka-group/mishka_chelekom/pull/197)
+- Add classes to badge [#257](https://github.com/mishka-group/mishka_chelekom/pull/257)
+- Add new styles to tabs [#273](https://github.com/mishka-group/mishka_chelekom/pull/273)
+- change structure of tooltip [#277](https://github.com/mishka-group/mishka_chelekom/pull/277)
+- Add and remove unnecessary classes textarea field [#276](https://github.com/mishka-group/mishka_chelekom/pull/276)
+- Add and remove unnecessary classes text field [#275](https://github.com/mishka-group/mishka_chelekom/pull/275)
+- Add and remove unnecessary classes tel field [#274](https://github.com/mishka-group/mishka_chelekom/pull/274)
+- Add new variants to table [#272](https://github.com/mishka-group/mishka_chelekom/pull/272)
+- Change styles in stepper [#271](https://github.com/mishka-group/mishka_chelekom/pull/271)
+- Add and remove unnecessary classes of search [#270](https://github.com/mishka-group/mishka_chelekom/pull/270)
+- Add line height class to rating button [#269](https://github.com/mishka-group/mishka_chelekom/pull/269)
+- Change styles of progress [#268](https://github.com/mishka-group/mishka_chelekom/pull/268)
+- Change structure of popover [#267](https://github.com/mishka-group/mishka_chelekom/pull/267)
+- Add and remove unnecessary classes number field [#265](https://github.com/mishka-group/mishka_chelekom/pull/265)
+- Add new props and fix color issues, remove extra functions from list [#263](https://github.com/mishka-group/mishka_chelekom/pull/263)
+- Add and remove unnecessary classes from email field [#261](https://github.com/mishka-group/mishka_chelekom/pull/261)
+- Add and remove unnecessary classes from date field [#260](https://github.com/mishka-group/mishka_chelekom/pull/260)
+- change chat section styles [#259](https://github.com/mishka-group/mishka_chelekom/pull/259)
+- Add new prop to card media [#258](https://github.com/mishka-group/mishka_chelekom/pull/258)
 
 ### Bugs:
 - Fix un-CSP progress mounted [#72](https://github.com/mishka-group/mishka_chelekom/pull/72)
@@ -93,6 +111,9 @@
 - Fix issue of breadcrumb RTL mode [#170](https://github.com/mishka-group/mishka_chelekom/pull/170)
 - Remove space-y-0 classes from Menu, Footer, Navbar, Tooltip components [#183](https://github.com/mishka-group/mishka_chelekom/pull/183)
 - Delete none pattern functions from all components [#246](https://github.com/mishka-group/mishka_chelekom/pull/246)
+- Fix issues of password field [#266](https://github.com/mishka-group/mishka_chelekom/pull/266)
+- Fix issues of shadow in native select [#264](https://github.com/mishka-group/mishka_chelekom/pull/264)
+- Fix style issues of fieldset [#262](https://github.com/mishka-group/mishka_chelekom/pull/262)
 - Fix some global issues
 
 ---
