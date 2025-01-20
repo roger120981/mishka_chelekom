@@ -1,7 +1,7 @@
 defmodule MishkaChelekom.MixProject do
   use Mix.Project
 
-  @version "0.0.2-rc.2"
+  @version "0.0.2"
   @source_url "https://github.com/mishka-group/mishka_chelekom"
 
   def project do
@@ -60,7 +60,8 @@ defmodule MishkaChelekom.MixProject do
         "Chelekom" => "https://mishka.tools/chelekom",
         "Official document" => "https://mishka.tools/chelekom/docs",
         "GitHub" => @source_url,
-        "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md"
+        "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md",
+        "Sponsor/Donate" => "https://github.com/sponsors/mishka-group"
       }
     ]
   end

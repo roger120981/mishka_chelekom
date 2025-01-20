@@ -3,6 +3,6 @@
   inputs: [
     "{mix,.formatter}.exs",
     "{config,lib,test}/**/*.{ex,exs}",
-    "priv/templates/components/**/*.{exs}"
+    "priv/components/**/*.{exs}"
   ]
 ]
