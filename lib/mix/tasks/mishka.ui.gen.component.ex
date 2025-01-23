@@ -61,14 +61,14 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       composes: [],
       # `OptionParser` schema
       schema: [
-        variant: :string,
-        color: :string,
-        size: :string,
+        variant: :csv,
+        color: :csv,
+        size: :csv,
         module: :string,
-        padding: :string,
-        space: :string,
-        type: :string,
-        rounded: :string,
+        padding: :csv,
+        space: :csv,
+        type: :csv,
+        rounded: :csv,
         sub: :boolean,
         no_deps: :boolean,
         no_sub_config: :boolean
@@ -211,7 +211,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       |> Enum.reduce({[], []}, fn {key, value}, {bad_acc, data_acc} ->
         case template_config[:args][key] do
           args when is_list(args) ->
-            splited_args = String.split(value, ",", trim: true)
+            splited_args = convert_options(value)
 
             if !Enum.all?(splited_args, &(&1 in args)) do
               {[{key, args} | bad_acc], data_acc}
@@ -239,6 +239,10 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
         Keyword.keys(template_config[:args])
         |> Enum.reduce(new_assign, fn key, acc ->
           if Keyword.has_key?(acc, key), do: acc, else: Keyword.put(acc, key, nil)
+        end)
+        |> Enum.map(fn
+          {key, value} when value == [] -> {key, nil}
+          {key, value} -> {key, value}
         end)
         |> Keyword.merge(web_module: Igniter.Libs.Phoenix.web_module(igniter))
 
@@ -472,7 +476,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
               "#{item.file}"
             )
 
-          IO.inspect(mishka_user_priv_path)
           # Priority is given to Core assets.
           content =
             cond do
@@ -572,4 +575,11 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       igniter
     end
   end
+
+  def convert_options(nil), do: nil
+
+  def convert_options(value) when is_binary(value),
+    do: String.trim(value) |> String.split(",") |> Enum.map(&String.trim/1)
+
+  def convert_options(value), do: Enum.map(value, &String.trim/1)
 end

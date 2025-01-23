@@ -1,7 +1,7 @@
 defmodule MishkaChelekom.MixProject do
   use Mix.Project
 
-  @version "0.0.2"
+  @version "0.0.3-alpha.1"
   @source_url "https://github.com/mishka-group/mishka_chelekom"
 
   def project do
@@ -37,7 +37,7 @@ defmodule MishkaChelekom.MixProject do
 
   defp deps do
     [
-      {:igniter, "~> 0.5.9"},
+      {:igniter, "~> 0.5.15"},
       {:guarded_struct, "~> 0.0.4"},
       {:igniter_js, "~> 0.4.3"},
       {:owl, "~> 0.12.0"},
