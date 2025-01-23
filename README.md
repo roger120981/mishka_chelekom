@@ -76,6 +76,9 @@ Generate all components inside the `components` directory of your Phoenix projec
 ```bash
 mix mishka.ui.gen.component alert --color info --variant default
 mix mishka.ui.gen.component alert
+# For Windows users please use `""` when you have more than
+# one value for an argument
+mix mishka.ui.gen.component alert --color "info,danger"
 ```
 
 ### Generating All Components
