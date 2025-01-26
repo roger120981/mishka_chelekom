@@ -3,6 +3,8 @@
 ### Features:
 - Support JS community cli version (beta) [#254](https://github.com/mishka-group/mishka_chelekom/pull/254)
 - Support Export community cli version (beta) [#256](https://github.com/mishka-group/mishka_chelekom/pull/256)
+- Add paddings and width fit to alert  [#287](https://github.com/mishka-group/mishka_chelekom/pull/287)
+- Add badge to tab component [#288](https://github.com/mishka-group/mishka_chelekom/pull/288)
 
 ---
 
