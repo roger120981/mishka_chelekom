@@ -87,7 +87,7 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
       field(:content, String.t(), derive: "validate(not_empty_string)", enforce: true)
 
       field(:name, String.t(),
-        derive: "sanitize(tag=strip_tags) validate(not_empty_string, regex=\"^[a-z_]+$\")",
+        derive: "sanitize(tag=strip_tags) validate(not_empty_string, regex=\"^[a-z0-9_]+$\")",
         enforce: true
       )
 
@@ -337,15 +337,15 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
   end
 
   defp repo_url("component_" <> name, igniter, _github?) do
-    {Path.join(@community_url, ["components", "/#{name}.json"]), :community, igniter}
+    {Path.join(@community_url, ["components", "/component_#{name}.json"]), :community, igniter}
   end
 
   defp repo_url("preset_" <> name, igniter, _github?) do
-    {Path.join(@community_url, ["presets", "/#{name}.json"]), :community, igniter}
+    {Path.join(@community_url, ["presets", "/preset_#{name}.json"]), :community, igniter}
   end
 
   defp repo_url("template_" <> name, igniter, _github?) do
-    {Path.join(@community_url, ["templates", "/#{name}.json"]), :community, igniter}
+    {Path.join(@community_url, ["templates", "/template_#{name}.json"]), :community, igniter}
   end
 
   defp repo_url(repo, igniter, github?) do
