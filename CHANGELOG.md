@@ -1,10 +1,25 @@
+# Changelog for MishkaChelekom 0.0.4
+
+### Features:
+
+### Bugs:
+
+---
+
+
 # Changelog for MishkaChelekom 0.0.3
 
 ### Features:
 - Support JS community cli version (beta) [#254](https://github.com/mishka-group/mishka_chelekom/pull/254)
 - Support Export community cli version (beta) [#256](https://github.com/mishka-group/mishka_chelekom/pull/256)
 - Add paddings and width fit to alert  [#287](https://github.com/mishka-group/mishka_chelekom/pull/287)
-- Add badge to tab component [#288](https://github.com/mishka-group/mishka_chelekom/pull/288)
+- Add badge to tab component [#290](https://github.com/mishka-group/mishka_chelekom/pull/290)
+- Add Igniter installer mix task
+
+### Bugs:
+- Fix alert title type [#288](https://github.com/mishka-group/mishka_chelekom/pull/288)
+- Fix some issues about windows PowerShell
+
 
 ---
 
