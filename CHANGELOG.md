@@ -1,9 +1,11 @@
 # Changelog for MishkaChelekom 0.0.4
 
 ### Features:
+- Add on_select attribute on tab slot
 
 ### Bugs:
-
+- Add missing slot to gallery component [#294](https://github.com/mishka-group/mishka_chelekom/pull/294)
+- fix typo in tab, checkbox field, radio field components [#295](https://github.com/mishka-group/mishka_chelekom/pull/295)
 ---
 
 
