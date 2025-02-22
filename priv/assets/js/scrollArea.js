@@ -108,6 +108,11 @@ let ScrollArea = {
 
   onThumbYPointerDown(e) {
     e.preventDefault();
+    // Set dragging state to true for vertical thumb
+    this.isDraggingY = true;
+    if (this.scrollbarY) {
+      this.scrollbarY.style.visibility = "visible";
+    }
     this.startY = e.clientY;
     this.startScrollTop = this.viewport.scrollTop;
     this.boundThumbYPointerMove = (e) => this.onThumbYPointerMove(e);
@@ -131,12 +136,22 @@ let ScrollArea = {
   },
 
   onThumbYPointerUp() {
+    // Reset dragging state for vertical thumb
+    this.isDraggingY = false;
+    if (this.scrollbarY) {
+      this.scrollbarY.style.visibility = "";
+    }
     document.removeEventListener("pointermove", this.boundThumbYPointerMove);
     document.removeEventListener("pointerup", this.boundThumbYPointerUp);
   },
 
   onThumbXPointerDown(e) {
     e.preventDefault();
+    // Set dragging state to true for horizontal thumb
+    this.isDraggingX = true;
+    if (this.scrollbarX) {
+      this.scrollbarX.style.visibility = "visible";
+    }
     this.startX = e.clientX;
     this.startScrollLeft = this.viewport.scrollLeft;
     this.boundThumbXPointerMove = (e) => this.onThumbXPointerMove(e);
@@ -160,6 +175,11 @@ let ScrollArea = {
   },
 
   onThumbXPointerUp() {
+    // Reset dragging state for horizontal thumb
+    this.isDraggingX = false;
+    if (this.scrollbarX) {
+      this.scrollbarX.style.visibility = "";
+    }
     document.removeEventListener("pointermove", this.boundThumbXPointerMove);
     document.removeEventListener("pointerup", this.boundThumbXPointerUp);
   },
