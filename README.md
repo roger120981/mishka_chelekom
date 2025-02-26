@@ -100,8 +100,17 @@ mix mishka.ui.gen.components alert,accordion,chat --import --yes
 ### Generating All Components Using an Import File with Helper Functions
 
 ```bash
+# Install all components along with helper functions and macros for importing
 mix mishka.ui.gen.components --import --helpers --yes
 mix mishka.ui.gen.components alert,accordion,chat --import --helpers --yes
+
+# Install all components with helper functions and macros for importing,
+# and globally replace them with Phoenix core components (**Recommended**)
+mix mishka.ui.gen.components --import --helpers --global --yes
+
+# Alternatively, if your project includes Igniter and
+# you are using the latest alpha version, you can run:
+mix igniter.new my_app --with phx.new --install mishka_chelekom
 ```
 
 <details>
