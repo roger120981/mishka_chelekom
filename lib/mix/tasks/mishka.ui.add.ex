@@ -453,9 +453,7 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
           []
         end
 
-      direct_path =
-        File.cwd!()
-        |> Path.join(["priv", "/mishka_chelekom", "/#{item.type}s", "/#{item.name}"])
+      direct_path = Path.join("priv", ["mishka_chelekom", "/#{item.type}s", "/#{item.name}"])
 
       decode! =
         case Base.decode64(item.content) do
