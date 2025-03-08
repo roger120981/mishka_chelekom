@@ -59,7 +59,7 @@ defmodule MishkaChelekom.MixProject do
         "Official document" => "https://mishka.tools/chelekom/docs",
         "GitHub" => @source_url,
         "Changelog" => "#{@source_url}/blob/master/CHANGELOG.md",
-        "Sponsor/Donate" => "https://github.com/sponsors/mishka-group"
+        "Sponsor" => "https://github.com/sponsors/mishka-group"
       }
     ]
   end
