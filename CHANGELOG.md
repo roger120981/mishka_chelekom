@@ -15,6 +15,7 @@
 
 ### Refactors:
 - Refactor some Phoenix CoreComponent backward compatibility issues for Ash [#312](https://github.com/mishka-group/mishka_chelekom/pull/312)
+- Refactor and Use more generous dependency on igniter [#317](https://github.com/mishka-group/mishka_chelekom/pull/317)
 
 ---
 
