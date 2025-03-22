@@ -9,7 +9,7 @@ defmodule <%= @module %> do
   color variants, and rounded corners. It also provides a convenient way to render select
   options through slots, enabling dynamic rendering of form elements based on the passed data.
 
-  With built-in error handling and custom error messages, `MishkaChelekom.NativeSelect`
+  With built-in error handling and custom error messages, `<%= @module %>`
   enhances the user experience by providing clear feedback and interaction states,
   ensuring a polished and user-friendly interface for form-based applications.
   """
@@ -128,10 +128,12 @@ defmodule <%= @module %> do
     ]}>
       <div>
         <.label for={@id}>{@label}</.label>
+
         <div :if={!is_nil(@description)} class="text-xs">
           {@description}
         </div>
       </div>
+
       <select
         name={@name}
         id={@id}
@@ -145,7 +147,6 @@ defmodule <%= @module %> do
         ]}
         {@rest}
       >
-        {render_slot(@inner_block)}
         <option
           :for={{option, index} <- Enum.with_index(@option, 1)}
           id={"#{@id}-option-#{index}"}
@@ -156,6 +157,7 @@ defmodule <%= @module %> do
           {render_slot(option)}
         </option>
       </select>
+
       <.error :for={msg <- @errors} icon={@error_icon}>{msg}</.error>
     </div>
     """
