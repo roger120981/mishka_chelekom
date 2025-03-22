@@ -170,7 +170,7 @@ defmodule <%= @module %> do
         </div>
       </div>
 
-      <div phx-hook="ComboboxHook" data-multiple={@multiple} id={"#{@id}-combo"}>
+      <div phx-hook="Combobox" data-multiple={@multiple} id={"#{@id}-combo"}>
         <input type="hidden" name={@name} />
         <select id={@id} name={@name} multiple class="combo-select hidden" {@rest}>
           <option value=""></option>
@@ -359,7 +359,7 @@ defmodule <%= @module %> do
         </div>
       </div>
 
-      <div phx-hook="ComboboxHook" id={"#{@id}-combo"}>
+      <div phx-hook="Combobox" id={"#{@id}-combo"}>
         <select id={@id} name={@name} class="combo-select hidden" {@rest}>
           <option value=""></option>
 

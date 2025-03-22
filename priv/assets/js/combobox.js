@@ -1,4 +1,4 @@
-let ComboboxHook = {
+let Combobox = {
   mounted() {
     this.initElements();
 
@@ -511,4 +511,4 @@ let ComboboxHook = {
   },
 };
 
-export default ComboboxHook;
+export default Combobox;
