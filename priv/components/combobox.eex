@@ -15,7 +15,6 @@ defmodule <%= @module %> do
   """
 
   use Phoenix.Component
-  alias Phoenix.HTML.Form
   use Gettext, backend: <%= inspect(@web_module) %>.Gettext
   import <%= inspect(@web_module) %>.Components.ScrollArea, only: [scroll_area: 1]
   import Phoenix.LiveView.Utils, only: [random_id: 0]
@@ -39,12 +38,11 @@ defmodule <%= @module %> do
    ## Example usage:
     <.combobox
       options={@options}
-      selected={@selected}
       placeholder="Select an option"
       on_change="handle_selection"
     />
     # Single selection with options
-    <.combobox selected="Item 1" placeholder="Select an item">
+    <.combobox placeholder="Select an item">
       <:option value="Item 1">First Item</:option>
       <:option value="Item 2">Second Item</:option>
       <:option value="Item 3">Third Item</:option>
@@ -124,7 +122,6 @@ defmodule <%= @module %> do
   slot :option, required: false do
     attr :value, :string, required: true, doc: "Value of the select option"
     attr :group, :string, required: false, doc: "Group name for the option"
-    attr :selected, :boolean, required: false, doc: "Specifies if this option is selected"
     attr :disabled, :boolean, required: false, doc: "Specifies if this option is disabled"
   end
 
@@ -151,6 +148,7 @@ defmodule <%= @module %> do
       |> assign_new(:id, fn -> "combo-#{random_id()}" end)
       |> assign_new(:options, fn -> [] end)
       |> assign_new(:option, fn -> [] end)
+      |> assign_new(:value, fn -> Map.get(assigns, :value, []) end)
 
     ~H"""
     <div class={[
@@ -183,24 +181,17 @@ defmodule <%= @module %> do
               :if={!is_nil(group_label)}
               label={group_label}
             >
-              <option
-                :for={option <- grouped_options}
-                value={option[:value]}
-                selected={option[:selected]}
-                disabled={option[:disabled]}
-              >
-                {option[:value]}
-              </option>
+              {Phoenix.HTML.Form.options_for_select(
+                Enum.map(grouped_options, fn option -> {option[:value], option[:value]} end),
+                @value
+              )}
             </optgroup>
 
-            <option
-              :for={option <- Enum.filter(@option, &is_nil(&1[:group]))}
-              value={option[:value]}
-              selected={option[:selected]}
-              disabled={option[:disabled]}
-            >
-              {option[:value]}
-            </option>
+            {!Enum.any?(@option, &Map.has_key?(&1, :group)) &&
+              Phoenix.HTML.Form.options_for_select(
+                Enum.map(@option, fn %{value: v} -> {v, v} end),
+                @value
+              )}
           <%% end %>
         </select>
 
@@ -303,7 +294,6 @@ defmodule <%= @module %> do
                     <.option
                       :for={option <- grouped_options}
                       value={option[:value]}
-                      selected={option[:selected]}
                       disabled={option[:disabled]}
                     >
                       {render_slot(option)}
@@ -314,7 +304,6 @@ defmodule <%= @module %> do
                 <.option
                   :for={option <- Enum.filter(@option, &is_nil(&1[:group]))}
                   value={option[:value]}
-                  selected={option[:selected]}
                   disabled={option[:disabled]}
                 >
                   {render_slot(option)}
@@ -340,6 +329,7 @@ defmodule <%= @module %> do
       |> assign_new(:id, fn -> "combo-#{random_id()}" end)
       |> assign_new(:options, fn -> [] end)
       |> assign_new(:option, fn -> [] end)
+      |> assign_new(:value, fn -> Map.get(assigns, :value) end)
 
     ~H"""
     <div class={[
@@ -371,24 +361,17 @@ defmodule <%= @module %> do
               :if={!is_nil(group_label)}
               label={group_label}
             >
-              <option
-                :for={option <- grouped_options}
-                value={option[:value]}
-                selected={option[:selected]}
-                disabled={option[:disabled]}
-              >
-                {option[:value]}
-              </option>
+              {Phoenix.HTML.Form.options_for_select(
+                Enum.map(grouped_options, fn option -> {option[:value], option[:value]} end),
+                @value
+              )}
             </optgroup>
 
-            <option
-              :for={option <- Enum.filter(@option, &is_nil(&1[:group]))}
-              value={option[:value]}
-              selected={option[:selected]}
-              disabled={option[:disabled]}
-            >
-              {option[:value]}
-            </option>
+            {!Enum.any?(@option, &Map.has_key?(&1, :group)) &&
+              Phoenix.HTML.Form.options_for_select(
+                Enum.map(@option, fn %{value: v} -> {v, v} end),
+                @value
+              )}
           <%% end %>
         </select>
 
@@ -409,8 +392,7 @@ defmodule <%= @module %> do
                 {@placeholder}
               </div>
 
-              <div data-part="select-toggle-label" class="selected-value">
-              </div>
+              <div data-part="select-toggle-label" class="selected-value"></div>
             </div>
 
             <div class="flex items-center gap-1">
@@ -485,7 +467,6 @@ defmodule <%= @module %> do
                     <.option
                       :for={option <- grouped_options}
                       value={option[:value]}
-                      selected={option[:selected]}
                       disabled={option[:disabled]}
                     >
                       {render_slot(option)}
@@ -496,7 +477,6 @@ defmodule <%= @module %> do
                 <.option
                   :for={option <- Enum.filter(@option, &is_nil(&1[:group]))}
                   value={option[:value]}
-                  selected={option[:selected]}
                   disabled={option[:disabled]}
                 >
                   {render_slot(option)}
@@ -518,7 +498,6 @@ defmodule <%= @module %> do
 
   @doc type: :component
   attr :value, :string, required: true, doc: "Specifies the form which is associated with"
-  attr :selected, :boolean, default: false, doc: "Custom CSS class for additional styling"
   attr :disabled, :boolean, default: false, doc: "Inner block that renders HEEx content"
   slot :inner_block, required: false, doc: "Inner block that renders HEEx content"
 
@@ -574,32 +553,6 @@ defmodule <%= @module %> do
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" /> {render_slot(@inner_block)}
     </p>
     """
-  end
-
-  def combobox_check(:list, {field, value}, %{params: params, data: data} = _form) do
-    if params[Atom.to_string(field)] do
-      new_value = if is_atom(value), do: Atom.to_string(value), else: value
-      new_value == params[Atom.to_string(field)]
-    else
-      Map.get(data, field) == value
-    end
-  end
-
-  def combobox_check(:multiple_list, {field, value}, %{params: params, data: data} = _form) do
-    if params[Atom.to_string(field)] do
-      new_value = if is_atom(value), do: Atom.to_string(value), else: value
-      new_value in params[Atom.to_string(field)]
-    else
-      Map.get(data, field) == value
-    end
-  end
-
-  def combobox_check(:boolean, field, %{params: params, data: data} = _form) do
-    if params[Atom.to_string(field)] do
-      Form.normalize_value("combo", params[Atom.to_string(field)])
-    else
-      Map.get(data, field, false)
-    end
   end
 
   defp size_class("extra_small") do
