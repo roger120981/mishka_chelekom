@@ -48,14 +48,28 @@
   </a>
 </p>
 
-Mishka Chelekom is a library offering various templates for components in **Phoenix** and **Phoenix LiveView** - [Phoenix UI kit and components](https://mishka.tools/chelekom).
+## Why you should use Mishka Chelekom as Phoenix component library
 
-This means you can generate any component listed in this project using a `CLI` command with customizable options.
+**Mishka Chelekom** is a powerful library designed to simplify the process of building UI components in **Phoenix** and **Phoenix LiveView** projects. Unlike other solutions, it generates fully customizable components directly into your project—no hidden dependencies, no complex configurations.
 
+With our rich collection of ready-to-use components, comprehensive documentation, and numerous examples, you can easily tailor every element to fit your needs. All components are generated locally (by Our `mix` generator), giving you full control over the source code without being locked into any external library.
+
+<div align="center">
+  <pre style="display: inline-block; text-align: left;">
+      <strong>💼 All components are completely free and open-source.🥂</strong>
+      For <strong>Pro support</strong> and <strong>enterprise services</strong>, <a href="https://mishka.tools/chelekom/custom-service">click here!</a> to get in touch with us.
+  </pre>
+</div>
+
+> **Mishka Chelekom** is a library offering various templates for components in **Phoenix** and **Phoenix LiveView** - [Phoenix UI kit and components](https://mishka.tools/chelekom).
+>
+> This means you can generate any component listed in this project using a `CLI` command with customizable options.
+>
 > For example, you can create a component with an `info` color and a "shadow" variant without having any unnecessary code clutter.
 
 
 If you want to add another variant in the future, the project is powered by the [**Igniter**](https://github.com/ash-project/igniter) library, which makes it easy to update the previous code seamlessly.
+
 
 You will only use this library in your `development` environment, and it will not have any presence in production.
 
@@ -64,7 +78,7 @@ You will only use this library in your `development` environment, and it will no
 ```elixir
 def deps do
   [
-    {:mishka_chelekom, "~> 0.0.3", only: :dev}
+    {:mishka_chelekom, "~> 0.0.4", only: :dev}
   ]
 end
 ```
