@@ -1,7 +1,7 @@
 defmodule MishkaChelekom.MixProject do
   use Mix.Project
 
-  @version "0.0.5-alpha.4"
+  @version "0.0.5-alpha.6"
   @source_url "https://github.com/mishka-group/mishka_chelekom"
 
   def project do
@@ -51,6 +51,7 @@ defmodule MishkaChelekom.MixProject do
 
   defp package() do
     [
+      extra: %{igniter_only: ["dev"]},
       files: ~w(lib priv .formatter.exs mix.exs LICENSE README*),
       licenses: ["Apache-2.0"],
       maintainers: ["Shahryar Tavakkoli", "Mona Aghili", "Arian Alijani"],
