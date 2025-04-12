@@ -230,7 +230,7 @@ We appreciate any contribution to MishkaChelekom. Just create a PR!! 🎉🥳
 
 - Create issue: https://github.com/mishka-group/mishka_chelekom/issues
 - Ask question in elixir forum: https://elixirforum.com ➝ mention `@shahryarjb`
-- Ask question in elixir Slack: https://elixir-slack.community ➝ mention `@shahryarjb`
+- Ask question in elixir Slack: https://elixir-slack.community ➝ find `#mishka` channel [Link](https://elixir-lang.slack.com/archives/C08N0U2697W)
 - Ask question in elixir Discord: https://discord.gg/elixir ➝ mention `@shahryarjb`
 - For commercial & sponsoring communication: `shahryar@mishka.tools`
 
