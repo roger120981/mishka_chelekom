@@ -8,17 +8,17 @@
 - Add support for fractional values to the rating component [#334](https://github.com/mishka-group/mishka_chelekom/pull/334)
 - Add tooltip to progress section [#335](https://github.com/mishka-group/mishka_chelekom/pull/335)
 - Add Clipboard component and hook integration [#337](https://github.com/mishka-group/mishka_chelekom/pull/337)
-- Refactor components replaced icon functions with shared icon component [#338](https://github.com/mishka-group/mishka_chelekom/pull/338)
 
 ### Refactors:
 
 - Fix Dropdown Bugs and Enhance Dynamic Behavior [#328](https://github.com/mishka-group/mishka_chelekom/pull/328)
 - Add conditional styling to divider and buttons [#329](https://github.com/mishka-group/mishka_chelekom/pull/329)
 - Add Custom Hook, Loading State, and Bug Fixes of Carousel Component [#336](https://github.com/mishka-group/mishka_chelekom/pull/336)
+- Replace custom icon functions with shared icon component [#338](https://github.com/mishka-group/mishka_chelekom/pull/338)
 
----
+### Bugs:
 
-# Changelog for MishkaChelekom 0.0.4
+- Fix Stepper icon display issue [#338](https://github.com/mishka-group/mishka_chelekom/pull/338)
 
 ### Features:
 
