@@ -15,6 +15,7 @@ defmodule <%= @module %> do
   """
 
   use Phoenix.Component
+  import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]
 
   <%= if is_nil(@type) or "stepper" in @type do %>
   @doc """
@@ -75,7 +76,7 @@ defmodule <%= @module %> do
       border_class(@border),
       space_class(@space),
       size_class(@size),
-      color_variant(@color, @variant),
+      color_variant(@variant, @color),
       @font_weight,
       @class
     ]}
@@ -95,7 +96,7 @@ defmodule <%= @module %> do
         "[&_.stepper-seperator:last-child]:hidden",
         step_visibility(),
         size_class(@size),
-        color_variant(@color, @variant),
+        color_variant(@variant, @color),
         border_class(@border),
         wrapper_width(@max_width),
         seperator_margin(@margin),
@@ -330,9 +331,6 @@ defmodule <%= @module %> do
 
  defp step_visibility() do
     [
-      "[&_.stepper-icon]:hidden",
-      "[&_.stepper-icon]:invisible",
-      "[&_.stepper-icon]:opacity-0",
       "[&_.stepper-loading-icon]:block",
       "[&_.stepper-loading-icon]:visible",
       "[&_.stepper-loading-icon]:opacity-100",
@@ -583,7 +581,7 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@variant) or "default" in @variant do %>
   <%= if is_nil(@color) or "natural" in @color do %>
-  defp color_variant("natural", "default") do
+  defp color_variant("default", "natural") do
     [
       "[&_.stepper-step]:bg-[#F3F3F3] [&_.stepper-step]:text-[#282828] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#282828]",
@@ -603,7 +601,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "primary" in @color do %>
-  defp color_variant("primary", "default") do
+  defp color_variant("default", "primary") do
     [
       "[&_.stepper-step]:bg-[#E2F8FB] [&_.stepper-step]:text-[#016974] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#016974]",
@@ -623,7 +621,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "secondary" in @color do %>
-  defp color_variant("secondary", "default") do
+  defp color_variant("default", "secondary") do
     [
       "[&_.stepper-step]:bg-[#EFF4FE] [&_.stepper-step]:text-[#175BCC] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#175BCC]",
@@ -643,7 +641,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "success" in @color do %>
-  defp color_variant("success", "default") do
+  defp color_variant("default", "success") do
     [
       "[&_.stepper-step]:bg-[#EAF6ED] [&_.stepper-step]:text-[#166C3B] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#166C3B]",
@@ -663,7 +661,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "warning" in @color do %>
-  defp color_variant("warning", "default") do
+  defp color_variant("default", "warning") do
     [
       "[&_.stepper-step]:bg-[#FFF7E6] [&_.stepper-step]:text-[#976A01] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#976A01]",
@@ -683,7 +681,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "danger" in @color do %>
-  defp color_variant("danger", "default") do
+  defp color_variant("default", "danger") do
     [
       "[&_.stepper-step]:bg-[#FFF0EE] [&_.stepper-step]:text-[#BB032A] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#BB032A]",
@@ -703,7 +701,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "info" in @color do %>
-  defp color_variant("info", "default") do
+  defp color_variant("default", "info") do
     [
       "[&_.stepper-step]:bg-[#E7F6FD] [&_.stepper-step]:text-[#08638C] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#08638C]",
@@ -723,7 +721,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "misc" in @color do %>
-  defp color_variant("misc", "default") do
+  defp color_variant("default", "misc") do
     [
       "[&_.stepper-step]:bg-[#F6F0FE] [&_.stepper-step]:text-[#653C94] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#653C94]",
@@ -743,7 +741,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "dawn" in @color do %>
-  defp color_variant("dawn", "default") do
+  defp color_variant("default", "dawn") do
     [
       "[&_.stepper-step]:bg-[#FBF2ED] [&_.stepper-step]:text-[#7E4B2A] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#7E4B2A]",
@@ -763,7 +761,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "silver" in @color do %>
-  defp color_variant("silver", "default") do
+  defp color_variant("default", "silver") do
     [
       "[&_.stepper-step]:bg-[#F3F3F3] [&_.stepper-step]:text-[#727272] [&_.stepper-loading-icon]:fill-[#374151]",
       "[&_.stepper-step]:border-transparent [&_.stepper-current-step_.stepper-step]:border-[#727272]",
@@ -785,7 +783,7 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@variant) or "gradient" in @variant do %>
   <%= if is_nil(@color) or "natural" in @color do %>
-  defp color_variant("natural", "gradient") do
+  defp color_variant("gradient", "natural") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#282828] to-[#727272] [&_.stepper-step]:text-white",
       "dark:from-[#A6A6A6] dark:to-[#FFFFFF] dark:[&_.stepper-step]:text-black",
@@ -806,7 +804,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "primary" in @color do %>
-  defp color_variant("primary", "gradient") do
+  defp color_variant("gradient", "primary") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#016974] to-[#01B8CA] [&_.stepper-step]:text-white",
       "dark:from-[#01B8CA] dark:to-[#B0E7EF] dark:[&_.stepper-step]:text-black",
@@ -827,7 +825,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "secondary" in @color do %>
-  defp color_variant("secondary", "gradient") do
+  defp color_variant("gradient", "secondary") do
      [
       "[&_.stepper-step]:bg-gradient-to-br from-[#175BCC] to-[#6DAAFB] [&_.stepper-step]:text-white",
       "dark:from-[#6DAAFB] dark:to-[#CDDEFF] dark:[&_.stepper-step]:text-black",
@@ -848,7 +846,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "success" in @color do %>
-  defp color_variant("success", "gradient") do
+  defp color_variant("gradient", "success") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#166C3B] to-[#06C167] [&_.stepper-step]:text-white",
       "dark:from-[#06C167] dark:to-[#B1EAC2] dark:[&_.stepper-step]:text-black",
@@ -869,7 +867,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "warning" in @color do %>
-  defp color_variant("warning", "gradient") do
+  defp color_variant("gradient", "warning") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#976A01] to-[#FDC034] [&_.stepper-step]:text-white",
       "dark:from-[#FDC034] dark:to-[#FEDF99] dark:[&_.stepper-step]:text-black",
@@ -890,7 +888,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "danger" in @color do %>
-  defp color_variant("danger", "gradient") do
+  defp color_variant("gradient", "danger") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#BB032A] to-[#FC7F79] [&_.stepper-step]:text-white",
       "dark:from-[#FC7F79] dark:to-[#FFD2CD] dark:[&_.stepper-step]:text-black",
@@ -911,7 +909,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "info" in @color do %>
-  defp color_variant("info", "gradient") do
+  defp color_variant("gradient", "info") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#08638C] to-[#3EB7ED] [&_.stepper-step]:text-white",
       "dark:from-[#3EB7ED] dark:to-[#9FDBF6] dark:[&_.stepper-step]:text-black",
@@ -932,7 +930,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "misc" in @color do %>
-  defp color_variant("misc", "gradient") do
+  defp color_variant("gradient", "misc") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#653C94] to-[#BA83F9] [&_.stepper-step]:text-white",
       "dark:from-[#BA83F9] dark:to-[#DDC1FC] dark:[&_.stepper-step]:text-black",
@@ -953,7 +951,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "dawn" in @color do %>
-  defp color_variant("dawn", "gradient") do
+  defp color_variant("gradient", "dawn") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#7E4B2A] to-[#DB976B] [&_.stepper-step]:text-white",
       "dark:from-[#DB976B] dark:to-[#EDCBB5] dark:[&_.stepper-step]:text-black",
@@ -974,7 +972,7 @@ defmodule <%= @module %> do
   end
   <% end %>
   <%= if is_nil(@color) or "silver" in @color do %>
-  defp color_variant("silver", "gradient") do
+  defp color_variant("gradient", "silver") do
     [
       "[&_.stepper-step]:bg-gradient-to-br from-[#5E5E5E] to-[#A6A6A6] [&_.stepper-step]:text-white",
       "dark:from-[#868686] dark:to-[#BBBBBB] dark:[&_.stepper-step]:text-black",
@@ -995,20 +993,5 @@ defmodule <%= @module %> do
   end
   <% end %>
   <% end %>
-  defp color_variant(_, params) when is_binary(params), do: params
-
-  attr :name, :string, required: true, doc: "Specifies the name of the element"
-  attr :class, :any, default: nil, doc: "Custom CSS class for additional styling"
-
-  defp icon(%{name: "hero-" <> _, class: class} = assigns) when is_list(class) do
-    ~H"""
-    <span class={[@name] ++ @class} />
-    """
-  end
-
-  defp icon(%{name: "hero-" <> _} = assigns) do
-    ~H"""
-    <span class={[@name, @class]} />
-    """
-  end
+  defp color_variant(params, _) when is_binary(params), do: params
 end
