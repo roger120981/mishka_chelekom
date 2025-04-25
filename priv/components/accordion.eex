@@ -20,6 +20,7 @@ defmodule <%= @module %> do
   - **Icon and Media Support**: Allows the inclusion of icons and images within
   accordion items, enhancing the visual appeal and usability of the component.
   """
+
   use Phoenix.Component
   <%= if is_nil(@type) or "accordion" in @type do %>
   alias Phoenix.LiveView.JS
@@ -30,9 +31,10 @@ defmodule <%= @module %> do
   @doc """
   The `accordion` component provides a collapsible structure with various styling options,
   ideal for organizing content into expandable panels. It supports customizable attributes such
-  as `variant`, `color`, and `media_size.
+  as `variant`, `color`, and `media_size`.
 
   ## Examples
+
   ```elixir
   <.accordion id="test-108" media_size="medium" color="secondary">
     <:item

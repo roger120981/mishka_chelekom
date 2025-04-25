@@ -10,7 +10,8 @@ const Floating = {
     this.boundUpdatePosition = this.updatePosition.bind(this);
 
     this.enableAria = this.el.getAttribute("data-enable-aria") !== "false";
-    this.smartPositioning = this.el.getAttribute("data-smart-position") === "true";
+    this.smartPositioning =
+      this.el.getAttribute("data-smart-position") === "true";
     this.clickable = this.el.getAttribute("data-clickable") === "true";
     this.position = this.el.getAttribute("data-position") || "bottom";
 
@@ -30,8 +31,14 @@ const Floating = {
       } else {
         this.trigger.addEventListener("mouseenter", this.boundHandleMouseEnter);
         this.trigger.addEventListener("mouseleave", this.boundHandleMouseLeave);
-        this.floatingContent?.addEventListener("mouseenter", this.boundHandleMouseEnter);
-        this.floatingContent?.addEventListener("mouseleave", this.boundHandleMouseLeave);
+        this.floatingContent?.addEventListener(
+          "mouseenter",
+          this.boundHandleMouseEnter,
+        );
+        this.floatingContent?.addEventListener(
+          "mouseleave",
+          this.boundHandleMouseLeave,
+        );
       }
 
       if (this.enableAria && this.floatingType === "dropdown") {
@@ -50,10 +57,12 @@ const Floating = {
   },
 
   initElements() {
-    this.floatingContent = this.el.querySelector("[data-floating-content]") ||
+    this.floatingContent =
+      this.el.querySelector("[data-floating-content]") ||
       this.el.querySelector(".dropdown-content");
 
-    this.trigger = this.el.querySelector("[data-floating-trigger]") ||
+    this.trigger =
+      this.el.querySelector("[data-floating-trigger]") ||
       this.el.querySelector(".dropdown-trigger");
   },
 
@@ -67,7 +76,9 @@ const Floating = {
   setupAria() {
     if (!this.trigger || !this.floatingContent) return;
 
-    const id = this.floatingContent.id || `floating-${Math.random().toString(36).substr(2, 9)}`;
+    const id =
+      this.floatingContent.id ||
+      `floating-${Math.random().toString(36).substr(2, 9)}`;
     this.floatingContent.id = id;
 
     if (this.floatingType === "tooltip") {
@@ -78,7 +89,10 @@ const Floating = {
     if (this.floatingType === "dropdown") {
       this.trigger.setAttribute("aria-controls", id);
       this.trigger.setAttribute("aria-haspopup", "menu");
-      this.floatingContent.setAttribute("aria-labelledby", this.trigger.id || id);
+      this.floatingContent.setAttribute(
+        "aria-labelledby",
+        this.trigger.id || id,
+      );
     }
 
     if (this.floatingType === "popover") {
@@ -89,7 +103,9 @@ const Floating = {
 
   handleClick(e) {
     e.stopPropagation();
-    const allContents = document.querySelectorAll(".dropdown-content.show-dropdown");
+    const allContents = document.querySelectorAll(
+      ".dropdown-content.show-dropdown",
+    );
 
     allContents.forEach((content) => {
       if (content !== this.floatingContent) {
@@ -136,7 +152,9 @@ const Floating = {
     if (role !== "menu") return;
 
     const items = Array.from(
-      this.floatingContent.querySelectorAll('[role="menuitem"]:not([disabled]):not([hidden])')
+      this.floatingContent.querySelectorAll(
+        '[role="menuitem"]:not([disabled]):not([hidden])',
+      ),
     );
     if (!items.length) return;
 
@@ -163,7 +181,8 @@ const Floating = {
     const rect = this.trigger.getBoundingClientRect();
     const content = this.floatingContent;
     const gap = 4;
-    const isRTL = getComputedStyle(document.documentElement).direction === "rtl";
+    const isRTL =
+      getComputedStyle(document.documentElement).direction === "rtl";
     let pos = this.position;
 
     if (this.smartPositioning && content.offsetHeight) {
@@ -177,13 +196,13 @@ const Floating = {
       const spaceLeft = left;
       const spaceRight = innerWidth - right;
 
-      if ((pos === "bottom" && spaceBottom < height && spaceTop >= height)) {
+      if (pos === "bottom" && spaceBottom < height && spaceTop >= height) {
         pos = "top";
-      } else if ((pos === "top" && spaceTop < height && spaceBottom >= height)) {
+      } else if (pos === "top" && spaceTop < height && spaceBottom >= height) {
         pos = "bottom";
-      } else if ((pos === "left" && spaceLeft < width && spaceRight >= width)) {
+      } else if (pos === "left" && spaceLeft < width && spaceRight >= width) {
         pos = "right";
-      } else if ((pos === "right" && spaceRight < width && spaceLeft >= width)) {
+      } else if (pos === "right" && spaceRight < width && spaceLeft >= width) {
         pos = "left";
       }
     }
@@ -237,9 +256,7 @@ const Floating = {
       }
     }
 
-    content.style.width = this.forcedWidth
-      ? `${this.forcedWidth}px`
-      : "auto";
+    content.style.width = this.forcedWidth ? `${this.forcedWidth}px` : "auto";
 
     content.offsetHeight; // force reflow
     content.style.transition = transition;
@@ -260,7 +277,11 @@ const Floating = {
   hide() {
     if (!this.floatingContent) return;
 
-    this.floatingContent.classList.remove("visible", "opacity-100", "show-dropdown");
+    this.floatingContent.classList.remove(
+      "visible",
+      "opacity-100",
+      "show-dropdown",
+    );
     this.floatingContent.classList.add("invisible", "opacity-0");
 
     if (this.enableAria && this.trigger && this.floatingType === "dropdown") {
@@ -281,10 +302,22 @@ const Floating = {
       this.trigger.removeEventListener("click", this.boundHandleClick);
     }
     if (!this.clickable && this.trigger) {
-      this.trigger.removeEventListener("mouseenter", this.boundHandleMouseEnter);
-      this.trigger.removeEventListener("mouseleave", this.boundHandleMouseLeave);
-      this.floatingContent?.removeEventListener("mouseenter", this.boundHandleMouseEnter);
-      this.floatingContent?.removeEventListener("mouseleave", this.boundHandleMouseLeave);
+      this.trigger.removeEventListener(
+        "mouseenter",
+        this.boundHandleMouseEnter,
+      );
+      this.trigger.removeEventListener(
+        "mouseleave",
+        this.boundHandleMouseLeave,
+      );
+      this.floatingContent?.removeEventListener(
+        "mouseenter",
+        this.boundHandleMouseEnter,
+      );
+      this.floatingContent?.removeEventListener(
+        "mouseleave",
+        this.boundHandleMouseLeave,
+      );
     }
   },
 };
