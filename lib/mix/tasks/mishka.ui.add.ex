@@ -1,5 +1,4 @@
 defmodule Mix.Tasks.Mishka.Ui.Add do
-  # TODO: Handle JS side for external repo and add it to user project
   use Igniter.Mix.Task
   use GuardedStruct
   alias GuardedStruct.Derive.ValidationDerive
@@ -161,11 +160,11 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
     }
   end
 
-  def igniter(igniter, argv) do
+  def igniter(igniter) do
     Application.ensure_all_started(:req)
     Application.ensure_all_started(:owl)
     # extract positional arguments according to `positional` above
-    {%{repo: repo}, argv} = positional_args!(argv)
+    %Igniter.Mix.Task.Args{positional: %{repo: repo}, argv: argv} = igniter.args
 
     options = options!(argv)
 

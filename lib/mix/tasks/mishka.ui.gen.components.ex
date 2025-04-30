@@ -53,11 +53,11 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     }
   end
 
-  def igniter(igniter, argv) do
+  def igniter(igniter) do
     # Based on https://github.com/fuelen/owl/issues/27
     Application.ensure_all_started(:owl)
     # extract positional arguments according to `positional` above
-    {%{components: components}, argv} = positional_args!(argv)
+    %Igniter.Mix.Task.Args{positional: %{components: components}, argv: argv} = igniter.args
 
     options = options!(argv)
 

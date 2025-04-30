@@ -87,9 +87,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     }
   end
 
-  def igniter(igniter, argv) do
+  def igniter(igniter) do
     # extract positional arguments according to `positional` above
-    {%{component: component}, argv} = positional_args!(argv)
+    %Igniter.Mix.Task.Args{positional: %{component: component}, argv: argv} = igniter.args
 
     options = options!(argv)
 
