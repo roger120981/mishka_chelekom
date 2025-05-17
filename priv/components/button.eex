@@ -174,7 +174,7 @@ defmodule <%= @module %> do
 
   attr :rest, :global,
     include:
-      ~w(disabled form name value right_icon left_icon pinging circle) ++ @indicator_positions,
+      ~w(disabled form name value right_icon left_icon pinging circle download) ++ @indicator_positions,
     doc:
       "Global attributes can define defaults which are merged with attributes provided by the caller"
 
@@ -376,7 +376,7 @@ defmodule <%= @module %> do
 
   attr :rest, :global,
     include:
-      ~w(right_icon left_icon pinging circle download hreflang referrerpolicy rel target type csrf_token method replace) ++
+      ~w(right_icon left_icon pinging circle download hreflang referrerpolicy rel target type csrf_token method replace download) ++
         @indicator_positions,
     doc:
       "Global attributes can define defaults which are merged with attributes provided by the caller"
