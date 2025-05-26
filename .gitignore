@@ -29,3 +29,5 @@ mishka_chelekom-*.tar
 .DS_Store
 /.zed/
 .iex.exs
+/assets
+/config
