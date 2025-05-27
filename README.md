@@ -1,9 +1,7 @@
 # MishkaChelekom
 
 <p align="center">
-
-![Screenshot 2024-10-05 at 01 53 03](https://github.com/user-attachments/assets/16860771-e9e8-43f5-8441-d16ad8793ae6)
-
+<img src="https://github.com/user-attachments/assets/16860771-e9e8-43f5-8441-d16ad8793ae6">
 </p>
 
 <p align="center">
@@ -240,9 +238,24 @@ We appreciate any contribution to MishkaChelekom. Just create a PR!! 🎉🥳
 
 You can support this project through the "[Sponsor](https://github.com/sponsors/mishka-group)" button on GitHub or via cryptocurrency donations. All our projects are **open-source** and **free**, and we rely on community contributions to enhance and improve them further.
 
-| **BTC**                                                                                                                            | **ETH**                                                                                                                            | **DOGE**                                                                                                                           | **TRX**                                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://mishka.tools/images/donate/BTC.png" width="200"> | <img src="https://mishka.tools/images/donate/ETH.png" width="200"> | <img src="https://mishka.tools/images/donate/DOGE.png" width="200"> | <img src="https://mishka.tools/images/donate/TRX.png" width="200"> |
+<table>
+  <thead>
+    <tr>
+      <th><strong>BTC</strong></th>
+      <th><strong>ETH</strong></th>
+      <th><strong>DOGE</strong></th>
+      <th><strong>TRX</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://mishka.tools/images/donate/BTC.png" width="200" alt="BTC"></td>
+      <td><img src="https://mishka.tools/images/donate/ETH.png" width="200" alt="ETH"></td>
+      <td><img src="https://mishka.tools/images/donate/DOGE.png" width="200" alt="DOGE"></td>
+      <td><img src="https://mishka.tools/images/donate/TRX.png" width="200" alt="TRX"></td>
+    </tr>
+  </tbody>
+</table>
 
 <details>
   <summary>Donate addresses</summary>
