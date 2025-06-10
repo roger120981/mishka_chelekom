@@ -87,7 +87,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
         |> Igniter.compose_task("mishka.ui.gen.component", [item, "--no-deps", "--sub", "--yes"])
       end)
       |> create_import_macro(list, options[:import] || false, options[:helpers], options[:global])
-      |> update_for_new_version_phoenix(options[:global])
 
     if Map.get(igniter, :issues, []) == [],
       do: Owl.Spinner.stop(id: :my_spinner, resolution: :ok, label: "Done"),
@@ -95,6 +94,26 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
 
     igniter
   end
+
+  defp new_phoenix(igniter, true) do
+    web_module = Igniter.Libs.Phoenix.web_module(igniter)
+    module_name = Module.concat(web_module, "Layouts")
+
+    case Igniter.Project.Module.find_module(igniter, module_name) do
+      {:ok, {_igniter, _source, zipper}} ->
+        case Sourceror.Zipper.find(zipper, fn node ->
+               match?({:def, _, [{:flash_group, _, [_]}, _]}, node)
+             end) do
+          nil -> {igniter, false}
+          _function_zipper -> {igniter, true}
+        end
+
+      {:error, _igniter} ->
+        {igniter, false}
+    end
+  end
+
+  defp new_phoenix(igniter, _), do: {igniter, false}
 
   defp create_import_macro(igniter, list, import_status, helpers_status, global) do
     igniter =
@@ -117,7 +136,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
           defmodule #{module_name} do
             defmacro __using__(_) do
               quote do
-                #{Enum.map(create_import_string(list, web_module, igniter, helpers_status), fn item -> "#{item}\n" end)}
+                #{Enum.map(create_import_string(list, web_module, igniter, helpers_status, global), fn item -> "#{item}\n" end)}
               end
             end
           end
@@ -130,41 +149,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
       end
 
     igniter
-  end
-
-  defp update_for_new_version_phoenix(igniter, global) do
-    if global do
-      web_module = Igniter.Libs.Phoenix.web_module(igniter)
-      module_name = Module.concat(web_module, "Layouts")
-
-      igniter
-      |> Igniter.Project.Module.find_and_update_module(module_name, fn zipper ->
-        case Sourceror.Zipper.find(zipper, fn node ->
-               match?({:def, _, [{:flash_group, _, [_]}, _]}, node)
-             end) do
-          nil ->
-            {:ok, zipper}
-
-          function_zipper ->
-            updated_zipper =
-              Sourceror.Zipper.update(function_zipper, fn
-                {:def, meta, [{:flash_group, func_meta, args}, body]} ->
-                  {:def, meta, [{:layout_flash_group, func_meta, args}, body]}
-
-                node ->
-                  node
-              end)
-
-            {:ok, updated_zipper}
-        end
-      end)
-      |> case do
-        {:ok, updated_igniter} -> updated_igniter
-        _ -> igniter
-      end
-    else
-      igniter
-    end
   end
 
   defp globalize_components(igniter, import_module, true) do
@@ -247,13 +231,21 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     end
   end
 
-  defp create_import_string(list, web_module, igniter, helpers?) do
+  defp create_import_string(list, web_module, igniter, helpers?, global) do
+    {igniter, new_phoenix?} = new_phoenix(igniter, global)
+
     if Map.get(igniter, :issues, []) == [] do
       children = fn component ->
         config = Component.get_component_template(igniter, component).config[:args]
 
-        Keyword.get(config, :only, [])
-        |> List.flatten()
+        get_only =
+          Keyword.get(config, :only, [])
+          |> List.flatten()
+
+        if(component == "alert" and new_phoenix?,
+          do: Enum.reject(get_only, &(&1 == "flash_group")),
+          else: get_only
+        )
         |> Enum.map(&{String.to_atom(&1), 1})
         |> Keyword.merge(if helpers?, do: Keyword.get(config, :helpers, []), else: [])
         |> Enum.map_join(", ", fn {key, value} -> "#{key}: #{value}" end)
