@@ -1,3 +1,10 @@
+# Changelog for MishkaChelekom 0.0.7
+
+### Features:
+
+
+---
+
 # Changelog for MishkaChelekom 0.0.6
 
 ### Features:
@@ -5,6 +12,9 @@
 - Add install version of `mishka.assets.deps` mix command [#413](https://github.com/mishka-group/mishka_chelekom/pull/413)
 - Add remove JS package for `mix mishka.assets.deps` cli [#414](https://github.com/mishka-group/mishka_chelekom/pull/414)
 
+### Bugs:
+
+- Add temporary patch for fixing Phoenix 1.8 Flash group
 
 ---
 
