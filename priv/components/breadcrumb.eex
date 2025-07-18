@@ -103,7 +103,7 @@ defmodule <%= @module %> do
           class={["flex items-center", item[:class]]}
         >
           <.icon :if={!is_nil(item[:icon])} name={item[:icon]} class={["breadcrumb-icon", item[:icon_class]]} />
-          <.link :if={!is_nil(item[:link])} navigate={item[:link]} title={item[:tile]} class={item[:link_class]}>{render_slot(item)}</.link>
+          <.link :if={!is_nil(item[:link])} navigate={item[:link]} title={item[:title]} class={item[:link_class]}>{render_slot(item)}</.link>
 
           <div :if={is_nil(item[:link])}>{render_slot(item)}</div>
 
