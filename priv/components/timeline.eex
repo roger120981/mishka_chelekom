@@ -201,7 +201,7 @@ defmodule <%= @module %> do
   attr :icon_class, :string, default: nil, doc: "Custom CSS class for additional styling icon"
   attr :line_class, :string, default: nil, doc: "Custom CSS class for additional styling lines"
 
-  attr :bullte_wrapper_class,
+  attr :bullet_wrapper_class,
     :string, default: nil,
     doc: "Custom CSS class for additional styling icon"
 
@@ -213,7 +213,7 @@ defmodule <%= @module %> do
     default: nil,
     doc: "Custom CSS class for additional styling bullet wrapper"
 
-  attr :image_class, :string, default: nil, doc: "Custom CSS class for additional styling icon"
+  attr :image_class, :string, default: nil, doc: "Custom CSS class for additional styling image"
 
   attr :content_class, :string,
     default: nil,
@@ -309,7 +309,7 @@ defmodule <%= @module %> do
           @line_class
         ]}
       >
-        <div class={["timeline-bullet-wrapper relative z-10 size-7 flex justify-center", @bullte_wrapper_class]}>
+        <div class={["timeline-bullet-wrapper relative z-10 size-7 flex justify-center", @bullet_wrapper_class]}>
           <div class={[
             "timeline-bullet rounded-full flex justify-center items-center",
             bullet_size(@size),
@@ -330,7 +330,7 @@ defmodule <%= @module %> do
           @line_class
         ]}
       >
-        <div class={["relative z-10", @bullte_wrapper_class]}>
+        <div class={["relative z-10", @bullet_wrapper_class]}>
           <div class={[
             "timeline-image-wrapper",
             bullet_size(@size),
