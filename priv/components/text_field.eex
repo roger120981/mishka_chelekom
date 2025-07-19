@@ -79,7 +79,7 @@ defmodule <%= @module %> do
   attr :field_wrapper_class, :string, default: nil, doc: "Custom CSS class field wrapper"
   attr :input_class, :string, default: nil, doc: "Custom CSS class for the input"
 
-  attr :flaoting_label_class, :string,
+  attr :floating_label_class, :string,
     default: nil,
     doc: "Custom CSS class for the flaoting label"
 
@@ -182,7 +182,7 @@ defmodule <%= @module %> do
             class={[
               "floating-label px-1 start-1 -z-[1] absolute text-xs duration-300 transform scale-75 origin-[0]",
               variant_label_position(@floating),
-              @flaoting_label_class
+              @floating_label_class
             ]}
             for={@id}
           >

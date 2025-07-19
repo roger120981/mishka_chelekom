@@ -100,7 +100,7 @@ defmodule <%= @module %> do
       doc: "Custom CSS class for additional styling to content wrapper"
 
     attr :link_class, :string, doc: "Custom CSS class for additional styling to link"
-    attr :contetn_class, :string, doc: "Custom CSS class for additional styling to content"
+    attr :content_class, :string, doc: "Custom CSS class for additional styling to content"
   end
 
   def table_content(assigns) do
@@ -254,7 +254,7 @@ defmodule <%= @module %> do
   attr :link, :string, default: nil, doc: "Determines path of link"
 
   attr :font_weight, :string,
-    default: "font-noraml",
+    default: "font-normal",
     doc: "Determines custom class for the font weight"
 
   attr :active, :boolean,
