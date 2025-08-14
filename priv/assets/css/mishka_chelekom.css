@@ -1,0 +1,252 @@
+:root {
+  /* ==========================================
+     Base System Colors
+     ========================================== */
+  --base-border-light: #e4e4e7;
+  --base-border-dark: #27272a;
+  --base-text-light: #09090b;
+  --base-text-dark: #FAFAFA;
+  --base-bg-dark: #18181B;
+  --base-hover-light: #F8F9FA;
+  --base-hover-dark: #242424;
+  --base-disabled-bg-light: #f1f3f5;
+  --base-disabled-bg-dark: #2e2e2e;
+  --base-disabled-text-light: #adb5bd;
+  --base-disabled-text-dark: #696969;
+  --base-disabled-border-light: #dee2e6;
+  --base-disabled-border-dark: #424242;
+
+
+
+  /* ==========================================
+     Natural Colors
+     ========================================== */
+  --natural-light: #4B4B4B;
+  --natural-dark: #DDDDDD;
+  --natural-hover-light: #282828;
+  --natural-hover-dark: #E8E8E8;
+  --natural-bg-light: #F3F3F3;
+  --natural-bg-dark: #4B4B4B;
+  --natural-border-light: #282828;
+  --natural-border-dark: #E8E8E8;
+  --natural-bordered-text-light: #282828;
+  --natural-bordered-text-dark: #E8E8E8;
+  --natural-bordered-bg-light: #F3F3F3;
+  --natural-bordered-bg-dark: #4B4B4B;
+  --natural-disabled-light: #DDDDDD;
+  --natural-disabled-dark: #727272;
+
+  /* ==========================================
+     Primary Colors
+     ========================================== */
+  --primary-light: #007F8C;
+  --primary-dark: #01B8CA;
+  --primary-hover-light: #016974;
+  --primary-hover-dark: #77D5E3;
+  --primary-bordered-text-light: #016974;
+  --primary-bordered-text-dark: #77D5E3;
+  --primary-bordered-bg-light: #E2F8FB;
+  --primary-bordered-bg-dark: #002D33;
+  --primary-indicator-light: #1A535A;
+  --primary-indicator-dark: #B0E7EF;
+
+  /* ==========================================
+     Secondary Colors
+     ========================================== */
+  --secondary-light: #266EF1;
+  --secondary-dark: #6DAAFB;
+  --secondary-hover-light: #175BCC;
+  --secondary-hover-dark: #A9C9FF;
+  --secondary-bordered-text-light: #175BCC;
+  --secondary-bordered-text-dark: #A9C9FF;
+  --secondary-bordered-bg-light: #EFF4FE;
+  --secondary-bordered-bg-dark: #002661;
+  --secondary-indicator-light: #1948A3;
+  --secondary-indicator-dark: #CDDEFF;
+
+  /* ==========================================
+     Success Colors
+     ========================================== */
+  --success-light: #0E8345;
+  --success-dark: #06C167;
+  --success-hover-light: #166C3B;
+  --success-hover-dark: #7FD99A;
+  --success-bordered-text-light: #166C3B;
+  --success-bordered-text-dark: #7FD99A;
+  --success-bordered-bg-light: #EAF6ED;
+  --success-bordered-bg-dark: #002F14;
+  --success-indicator-light: #047857;
+  --success-indicator-alt-light: #0D572D;
+  --success-indicator-dark: #B1EAC2;
+
+  /* ==========================================
+     Warning Colors
+     ========================================== */
+  --warning-light: #CA8D01;
+  --warning-dark: #FDC034;
+  --warning-hover-light: #976A01;
+  --warning-hover-dark: #FDD067;
+  --warning-bordered-text-light: #976A01;
+  --warning-bordered-text-dark: #FDD067;
+  --warning-bordered-bg-light: #FFF7E6;
+  --warning-bordered-bg-dark: #322300;
+  --warning-indicator-light: #FF8B08;
+  --warning-indicator-alt-light: #654600;
+  --warning-indicator-dark: #FEDF99;
+
+  /* ==========================================
+     Danger Colors
+     ========================================== */
+  --danger-light: #DE1135;
+  --danger-dark: #FC7F79;
+  --danger-hover-light: #BB032A;
+  --danger-hover-dark: #FFB2AB;
+  --danger-bordered-text-light: #BB032A;
+  --danger-bordered-text-dark: #FFB2AB;
+  --danger-bordered-bg-light: #FFF0EE;
+  --danger-bordered-bg-dark: #520810;
+  --danger-indicator-light: #E73B3B;
+  --danger-indicator-alt-light: #950F22;
+  --danger-indicator-dark: #FFD2CD;
+
+  /* ==========================================
+     Info Colors
+     ========================================== */
+  --info-light: #0B84BA;
+  --info-dark: #3EB7ED;
+  --info-hover-light: #08638C;
+  --info-hover-dark: #6EC9F2;
+  --info-bordered-text-light: #0B84BA;
+  --info-bordered-text-dark: #6EC9F2;
+  --info-bordered-bg-light: #E7F6FD;
+  --info-bordered-bg-dark: #03212F;
+  --info-indicator-light: #004FC4;
+  --info-indicator-alt-light: #06425D;
+  --info-indicator-dark: #9FDBF6;
+
+  /* ==========================================
+     Misc Colors
+     ========================================== */
+  --misc-light: #8750C5;
+  --misc-dark: #BA83F9;
+  --misc-hover-light: #653C94;
+  --misc-hover-dark: #CBA2FA;
+  --misc-bordered-text-light: #653C94;
+  --misc-bordered-text-dark: #CBA2FA;
+  --misc-bordered-bg-light: #F6F0FE;
+  --misc-bordered-bg-dark: #221431;
+  --misc-indicator-light: #52059C;
+  --misc-indicator-alt-light: #442863;
+  --misc-indicator-dark: #DDC1FC;
+
+  /* ==========================================
+     Dawn Colors
+     ========================================== */
+  --dawn-light: #A86438;
+  --dawn-dark: #DB976B;
+  --dawn-hover-light: #7E4B2A;
+  --dawn-hover-dark: #E4B190;
+  --dawn-bordered-text-light: #7E4B2A;
+  --dawn-bordered-text-dark: #E4B190;
+  --dawn-bordered-bg-light: #FBF2ED;
+  --dawn-bordered-bg-dark: #2A190E;
+  --dawn-indicator-light: #4D4137;
+  --dawn-indicator-alt-light: #54321C;
+  --dawn-indicator-dark: #EDCBB5;
+
+  /* ==========================================
+     Silver Colors
+     ========================================== */
+  --silver-light: #868686;
+  --silver-dark: #A6A6A6;
+  --silver-hover-light: #727272;
+  --silver-hover-dark: #BBBBBB;
+  --silver-bordered-text-light: #727272;
+  --silver-bordered-text-dark: #BBBBBB;
+  --silver-bordered-bg-light: #F3F3F3;
+  --silver-bordered-bg-dark: #4B4B4B;
+  --silver-indicator-light: #707483;
+  --silver-indicator-alt-light: #5E5E5E;
+  --silver-indicator-dark: #DDDDDD;
+
+  /* ==========================================
+     Bordered Variant Specific Colors
+     ========================================== */
+  --bordered-white-border: #DDDDDD;
+  --bordered-dark-bg: #282828;
+  --bordered-dark-border: #727272;
+
+  /* ==========================================
+     Disabled Colors
+     ========================================== */
+  --disabled-bg-light: #F3F3F3;
+  --disabled-bg-dark: #4B4B4B;
+  --disabled-text-light: #BBBBBB;
+  --disabled-text-dark: #868686;
+
+  /* ==========================================
+     Shadow Colors
+     ========================================== */
+  --shadow-natural: rgba(134, 134, 134, 0.5);
+  --shadow-primary: rgba(0, 149, 164, 0.5);
+  --shadow-secondary: rgba(6, 139, 238, 0.5);
+  --shadow-success: rgba(0, 154, 81, 0.5);
+  --shadow-warning: rgba(252, 176, 1, 0.5);
+  --shadow-danger: rgba(248, 52, 70, 0.5);
+  --shadow-info: rgba(14, 165, 233, 0.5);
+  --shadow-misc: rgba(169, 100, 247, 0.5);
+  --shadow-dawn: rgba(210, 125, 70, 0.5);
+  --shadow-silver: rgba(134, 134, 134, 0.5);
+
+  /* ==========================================
+     Gradient Colors
+     ========================================== */
+  --gradient-natural-from-light: #282828;
+  --gradient-natural-to-light: #727272;
+  --gradient-natural-from-dark: #A6A6A6;
+
+  --gradient-primary-from-light: #016974;
+  --gradient-primary-to-light: #01B8CA;
+  --gradient-primary-from-dark: #01B8CA;
+  --gradient-primary-to-dark: #B0E7EF;
+
+  --gradient-secondary-from-light: #175BCC;
+  --gradient-secondary-to-light: #6DAAFB;
+  --gradient-secondary-from-dark: #6DAAFB;
+  --gradient-secondary-to-dark: #CDDEFF;
+
+  --gradient-success-from-light: #166C3B;
+  --gradient-success-to-light: #06C167;
+  --gradient-success-from-dark: #06C167;
+  --gradient-success-to-dark: #B1EAC2;
+
+  --gradient-warning-from-light: #976A01;
+  --gradient-warning-to-light: #FDC034;
+  --gradient-warning-from-dark: #FDC034;
+  --gradient-warning-to-dark: #FEDF99;
+
+  --gradient-danger-from-light: #BB032A;
+  --gradient-danger-to-light: #FC7F79;
+  --gradient-danger-from-dark: #FC7F79;
+  --gradient-danger-to-dark: #FFD2CD;
+
+  --gradient-info-from-light: #08638C;
+  --gradient-info-to-light: #3EB7ED;
+  --gradient-info-from-dark: #3EB7ED;
+  --gradient-info-to-dark: #9FDBF6;
+
+  --gradient-misc-from-light: #653C94;
+  --gradient-misc-to-light: #BA83F9;
+  --gradient-misc-from-dark: #BA83F9;
+  --gradient-misc-to-dark: #DDC1FC;
+
+  --gradient-dawn-from-light: #7E4B2A;
+  --gradient-dawn-to-light: #DB976B;
+  --gradient-dawn-from-dark: #DB976B;
+  --gradient-dawn-to-dark: #EDCBB5;
+
+  --gradient-silver-from-light: #5E5E5E;
+  --gradient-silver-to-light: #A6A6A6;
+  --gradient-silver-from-dark: #868686;
+  --gradient-silver-to-dark: #BBBBBB;
+}
