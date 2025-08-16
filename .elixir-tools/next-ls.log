@@ -1,0 +1,82 @@
+
+10:29:18.048 [info] Loading 45 CA(s) from :otp store
+
+10:29:19.263 id=0 [debug] handled request client -> server initialize in 497ms
+
+10:29:19.298 [debug] sent notification server -> client window/logMessage
+
+10:29:19.313 [debug] NextLS v0.23.4 has initialized!
+
+10:29:19.313 [debug] sent notification server -> client window/logMessage
+
+10:29:19.313 [debug] Log file located at c:/Users/dvlpr/Desktop/mishka/mishka_chelekom/.elixir-tools/next-ls.log
+
+10:29:19.327 [debug] sent notification server -> client window/logMessage
+
+10:29:19.327 id=3 [debug] sent request server -> client client/registerCapability
+
+10:29:19.327 [info] [extension] Credo initializing with options %NextLS.InitOpts.Extensions.Credo{enable: true, cli_options: []}
+
+10:29:36.467 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 8ms
+
+10:29:40.456 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 410µs
+
+10:29:43.841 [debug] sent notification server -> client window/logMessage
+
+10:29:43.842 [debug] Booting runtimes...
+
+10:29:43.851 id=4 [debug] sent request server -> client window/workDoneProgress/create
+
+10:29:43.857 [debug] sent notification server -> client $/progress
+
+10:29:44.771 [debug] sent notification server -> client window/logMessage
+
+10:29:44.771 [info] Beginning DB migration...
+
+10:29:44.790 [debug] sent notification server -> client window/logMessage
+
+10:29:44.790 [info] Database is being upgraded from version 0 to 7.
+
+This will trigger a full recompilation in order to re-index your codebase.
+
+
+10:29:44.793 [debug] sent notification server -> client window/logMessage
+
+10:29:44.793 [info] Finished DB migration...
+
+10:29:44.803 [error] ** (MatchError) no match of right hand side value: {:error, {:shutdown, {:failed_to_start_child, NextLS.Runtime, {:badarg, [{NextLS.Runtime, :init, 1, [file: ~c"lib/next_ls/runtime.ex", line: 131, error_info: %{cause: {1, :binary, :type, nil}, function: :format_bs_fail, module: :erl_erts_errors}]}, {:gen_server, :init_it, 2, [file: ~c"gen_server.erl", line: 2229]}, {:gen_server, :init_it, 6, [file: ~c"gen_server.erl", line: 2184]}, {:proc_lib, :init_p_do_apply, 3, [file: ~c"proc_lib.erl", line: 329]}]}}}}
+    (next_ls 0.23.4) lib/next_ls.ex:907: anonymous fn/5 in NextLS.handle_notification/2
+    (elixir 1.17.3) lib/enum.ex:2531: Enum."-reduce/3-lists^foldl/2-0-"/3
+    (next_ls 0.23.4) lib/next_ls.ex:902: NextLS.handle_notification/2
+    (gen_lsp 0.11.0) lib/gen_lsp.ex:528: anonymous fn/2 in GenLSP.loop/3
+    (telemetry 1.3.0) /Users/runner/work/next-ls/next-ls/deps/telemetry/src/telemetry.erl:324: :telemetry.span/3
+    (gen_lsp 0.11.0) lib/gen_lsp.ex:524: anonymous fn/4 in GenLSP.loop/3
+    (gen_lsp 0.11.0) lib/gen_lsp.ex:601: anonymous fn/4 in GenLSP.attempt/4
+    (elixir 1.17.3) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+
+
+10:29:44.803 [debug] sent notification server -> client window/logMessage
+
+10:29:44.803 [warning] client -> server notification crashed
+
+10:31:24.008 [debug] handled notification client -> server textDocument/didOpen in 7ms
+
+10:31:24.064 id=2 [debug] handled request client -> server textDocument/documentSymbol in 17ms
+
+10:31:24.089 id=1 [debug] handled request client -> server textDocument/codeAction in 71ms
+
+10:31:24.321 id=3 [debug] handled request client -> server textDocument/documentSymbol in 615µs
+
+10:31:24.763 [debug] handled notification client -> server textDocument/didClose in 5ms
+
+10:31:43.752 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 512µs
+
+10:31:52.504 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 921µs
+
+10:32:55.383 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 614µs
+
+10:32:59.446 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 410µs
+
+10:33:05.276 [debug] handled notification client -> server workspace/didChangeWatchedFiles in 410µs
+
+10:33:06.114 id=4 [debug] handled request client -> server shutdown in 8ms
