@@ -252,4 +252,32 @@
   --gradient-silver-to-light: #A6A6A6;
   --gradient-silver-from-dark: #868686;
   --gradient-silver-to-dark: #BBBBBB;
+
+  --primary-gradient-indicator-dark: #CDEEF3;
+  --secondary-gradient-indicator-dark: #DEE9FE;
+  --success-gradient-indicator-dark: #D3EFDA;
+  --warning-gradient-indicator-dark: #FEEFCC;
+  --danger-gradient-indicator-dark: #FFE1DE;
+  --info-gradient-indicator-dark: #CFEDFB;
+  --misc-gradient-indicator-dark: #EEE0FD;
+  --dawn-gradient-indicator-dark: #F6E5DA;
+
+  --primary-border-light: #000000;
+  --primary-border-dark: #B0E7EF;
+  --secondary-border-light: #1948A3;
+  --secondary-border-dark: #CDDEFF;
+  --success-border-light: #0D572D;
+  --success-border-dark: #B1EAC2;
+  --warning-border-light: #654600;
+  --warning-border-dark: #FEDF99;
+  --danger-border-light: #950F22;
+  --danger-border-dark: #FFD2CD;
+  --info-border-light: #06425D;
+  --info-border-dark: #9FDBF6;
+  --misc-border-light: #442863;
+  --misc-border-dark: #DDC1FC;
+  --dawn-border-light: #54321C;
+  --dawn-border-dark: #EDCBB5;
+  --silver-border-light: #5E5E5E;
+  --silver-border-dark: #DDDDDD;
 }

@@ -253,4 +253,32 @@
   --color-gradient-silver-to-light: var(--gradient-silver-to-light);
   --color-gradient-silver-from-dark: var(--gradient-silver-from-dark);
   --color-gradient-silver-to-dark: var(--gradient-silver-to-dark);
+
+  --color-primary-gradient-indicator-dark: var(--primary-gradient-indicator-dark);
+  --color-secondary-gradient-indicator-dark: var(--secondary-gradient-indicator-dark);
+  --color-success-gradient-indicator-dark: var(--success-gradient-indicator-dark);
+  --color-warning-gradient-indicator-dark: var(--warning-gradient-indicator-dark);
+  --color-danger-gradient-indicator-dark: var(--danger-gradient-indicator-dark);
+  --color-info-gradient-indicator-dark: var(--info-gradient-indicator-dark);
+  --color-misc-gradient-indicator-dark: var(--misc-gradient-indicator-dark);
+  --color-dawn-gradient-indicator-dark: var(--dawn-gradient-indicator-dark);
+
+  --color-primary-border-light: var(--primary-border-light);
+  --color-primary-border-dark: var(--primary-border-dark);
+  --color-secondary-border-light: var(--secondary-border-light);
+  --color-secondary-border-dark: var(--secondary-border-dark);
+  --color-success-border-light: var(--success-border-light);
+  --color-success-border-dark: var(--success-border-dark);
+  --color-warning-border-light: var(--warning-border-light);
+  --color-warning-border-dark: var(--warning-border-dark);
+  --color-danger-border-light: var(--danger-border-light);
+  --color-danger-border-dark: var(--danger-border-dark);
+  --color-info-border-light: var(--info-border-light);
+  --color-info-border-dark: var(--info-border-dark);
+  --color-misc-border-light: var(--misc-border-light);
+  --color-misc-border-dark: var(--misc-border-dark);
+  --color-dawn-border-light: var(--dawn-border-light);
+  --color-dawn-border-dark: var(--dawn-border-dark);
+  --color-silver-border-light: var(--silver-border-light);
+  --color-silver-border-dark: var(--silver-border-dark);
 }
