@@ -9,6 +9,8 @@
   --color-base-bg-dark: var(--base-bg-dark);
   --color-base-hover-light: var(--base-hover-light);
   --color-base-hover-dark: var(--base-hover-dark);
+  --color-base-text-hover-light: var(--base-text-hover-light);
+  --color-base-text-hover-dark: var(--base-text-hover-dark);
   --color-base-disabled-bg-light: var(--base-disabled-bg-light);
   --color-base-disabled-bg-dark: var(--base-disabled-bg-dark);
   --color-base-disabled-text-light: var(--base-disabled-text-light);
