@@ -16,7 +16,10 @@
   --base-disabled-border-light: #dee2e6;
   --base-disabled-border-dark: #424242;
 
-
+   /* ==========================================
+     Default Colors
+     ========================================== */
+  --default-dark-bg: #282828;
 
   /* ==========================================
      Natural Colors

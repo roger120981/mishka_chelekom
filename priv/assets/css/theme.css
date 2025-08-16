@@ -16,6 +16,10 @@
   --color-base-disabled-border-light: var(--base-disabled-border-light);
   --color-base-disabled-border-dark: var(--base-disabled-border-dark);
 
+  /* ==========================================
+     Default Colors
+     ========================================== */
+  --color-default-dark-bg: var(--default-dark-bg);
 
 
   /* ==========================================
