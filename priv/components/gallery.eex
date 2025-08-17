@@ -192,7 +192,7 @@ defmodule <%= @module %> do
             :if={@filter == []}
             data-gallery-filter
             data-category={@default_filter}
-            class="filter-btn bg-white border rounded py-1.5 px-3 leading-5 text-[#09090b] border-[#e4e4e7] hover:bg-[#F8F9FA] dark:bg-[#18181B] dark:text-[#FAFAFA] dark:border-[#27272a] dark:hover:bg-[#242424] disabled:bg-[#f1f3f5] disabled:text-[#adb5bd] dark:disabled:bg-[#2e2e2e] dark:disabled:text-[#696969] disabled:border-[#dee2e6] dark:disabled:border-[#424242] shadow-sm"
+            class="filter-btn bg-white border rounded py-1.5 px-3 leading-5 text-base-text-light border-base-border-light hover:bg-base-hover-light dark:bg-base-bg-dark dark:text-base-text-dark dark:border-base-border-dark dark:hover:bg-base-hover-dark disabled:bg-base-disabled-bg-light disabled:text-base-disabled-text-light dark:disabled:bg-base-disabled-bg-dark dark:disabled:text-base-disabled-text-dark disabled:border-base-disabled-border-light dark:disabled:border-base-disabled-border-dark shadow-sm"
           >
             {@default_filter}
           </button>
@@ -207,7 +207,7 @@ defmodule <%= @module %> do
             :if={@filter == []}
             data-gallery-filter
             data-category={filter}
-            class="filter-btn bg-white border rounded py-1.5 px-3 leading-5 text-[#09090b] border-[#e4e4e7] hover:bg-[#F8F9FA] dark:bg-[#18181B] dark:text-[#FAFAFA] dark:border-[#27272a] dark:hover:bg-[#242424] disabled:bg-[#f1f3f5] disabled:text-[#adb5bd] dark:disabled:bg-[#2e2e2e] dark:disabled:text-[#696969] disabled:border-[#dee2e6] dark:disabled:border-[#424242] shadow-sm"
+            class="filter-btn bg-white border rounded py-1.5 px-3 leading-5 text-base-text-light border-base-border-light hover:bg-base-hover-light dark:bg-base-bg-dark dark:text-base-text-dark dark:border-base-border-dark dark:hover:bg-base-hover-dark disabled:bg-base-disabled-bg-light disabled:text-base-disabled-text-light dark:disabled:bg-base-disabled-bg-dark dark:disabled:text-base-disabled-text-dark disabled:border-base-disabled-border-light dark:disabled:border-base-disabled-border-dark shadow-sm"
           >
             {filter}
           </button>
@@ -283,35 +283,35 @@ defmodule <%= @module %> do
 
   defp animation("backdrop", "extra_small") do
     [
-      "hover:[&_.gallery-media]:after:bg-[#4B4B4B]/30 dark:hover:[&_.gallery-media]:after:bg-[#DDDDDD]/30",
+      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
       "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.02rem]"
     ]
   end
 
   defp animation("backdrop", "small") do
     [
-      "hover:[&_.gallery-media]:after:bg-[#4B4B4B]/30 dark:hover:[&_.gallery-media]:after:bg-[#DDDDDD]/30",
+      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
       "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.04rem]"
     ]
   end
 
   defp animation("backdrop", "medium") do
     [
-      "hover:[&_.gallery-media]:after:bg-[#4B4B4B]/30 dark:hover:[&_.gallery-media]:after:bg-[#DDDDDD]/30",
+      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
       "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.06rem]"
     ]
   end
 
   defp animation("backdrop", "large") do
     [
-      "hover:[&_.gallery-media]:after:bg-[#4B4B4B]/30 dark:hover:[&_.gallery-media]:after:bg-[#DDDDDD]/30",
+      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
       "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.08rem]"
     ]
   end
 
   defp animation("backdrop", "extra_large") do
     [
-      "hover:[&_.gallery-media]:after:bg-[#4B4B4B]/30 dark:hover:[&_.gallery-media]:after:bg-[#DDDDDD]/30",
+      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
       "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.1rem]"
     ]
   end
