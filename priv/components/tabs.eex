@@ -535,15 +535,15 @@ defmodule <%= @module %> do
   <%= if is_nil(@variant) or "base" in @variant do %>
   defp color_variant("base", _) do
     [
-      "[&_.tab-trigger.active-tab]:bg-[#e4e4e7] [&_.tab-trigger.active-tab]:text-[#09090b]",
-      "[&_.tab-trigger.active-tab]:border-[#e4e4e7]",
-      "hover:[&_.tab-trigger]:text-[#09090b] hover:[&_.tab-trigger]:border-[#e4e4e7]",
-      "[&_.tab-trigger]:border-[#e4e4e7] dark:[&_.tab-trigger]:border-[#27272a]",
-      "dark:[&_.tab-trigger.active-tab]:bg-[#27272a] dark:[&_.tab-trigger.active-tab]:text-[#FAFAFA]",
-      "dark:[&_.tab-trigger.active-tab]:border-[#27272a] ",
-      "dark:hover:[&_.tab-trigger]:text-[#FAFAFA] dark:hover:[&_.tab-trigger]:border-[#27272a]",
-      "hover:[&_.tab-trigger]:bg-[#e4e4e7] dark:hover:[&_.tab-trigger]:bg-[#27272a]",
-      "dark:[&_.tab-trigger-list]:border-[#27272A] [&_.tab-trigger-list]:border-[#e4e4e7]"
+      "[&_.tab-trigger.active-tab]:bg-base-border-light [&_.tab-trigger.active-tab]:text-base-text-light",
+      "[&_.tab-trigger.active-tab]:border-base-border-light",
+      "hover:[&_.tab-trigger]:text-base-text-light hover:[&_.tab-trigger]:border-base-border-light",
+      "[&_.tab-trigger]:border-base-border-light dark:[&_.tab-trigger]:border-base-border-dark",
+      "dark:[&_.tab-trigger.active-tab]:bg-base-border-dark dark:[&_.tab-trigger.active-tab]:text-base-text-dark",
+      "dark:[&_.tab-trigger.active-tab]:border-base-border-dark",
+      "dark:hover:[&_.tab-trigger]:text-base-text-dark dark:hover:[&_.tab-trigger]:border-base-border-dark",
+      "hover:[&_.tab-trigger]:bg-base-border-light dark:hover:[&_.tab-trigger]:bg-base-border-dark",
+      "dark:[&_.tab-trigger-list]:border-base-border-dark [&_.tab-trigger-list]:border-base-border-light"
     ]
   end
   <% end %>
@@ -551,100 +551,109 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("default", "natural") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#282828] [&_.tab-trigger.active-tab]:border-[#282828]",
-      "hover:[&_.tab-trigger]:text-[#282828] hover:[&_.tab-trigger]:border-[#282828]",
+      "[&_.tab-trigger.active-tab]:text-natural-hover-light [&_.tab-trigger.active-tab]:border-natural-hover-light",
+      "hover:[&_.tab-trigger]:text-natural-hover-light hover:[&_.tab-trigger]:border-natural-hover-light",
       "dark:[&_.tab-trigger.active-tab]:text-white dark:[&_.tab-trigger.active-tab]:border-white ",
       "dark:hover:[&_.tab-trigger]:text-white dark:hover:[&_.tab-trigger]:border-white",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("default", "primary") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#016974] [&_.tab-trigger.active-tab]:border-[#016974]",
-      "hover:[&_.tab-trigger]:text-[#016974] hover:[&_.tab-trigger]:border-[#016974]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#77D5E3] dark:[&_.tab-trigger.active-tab]:border-[#77D5E3]",
-      "dark:hover:[&_.tab-trigger]:text-[#77D5E3] dark:hover:[&_.tab-trigger]:border-[#77D5E3]",
+      "[&_.tab-trigger.active-tab]:text-primary-hover-light [&_.tab-trigger.active-tab]:border-primary-hover-light",
+      "hover:[&_.tab-trigger]:text-primary-hover-light hover:[&_.tab-trigger]:border-primary-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-primary-hover-dark dark:[&_.tab-trigger.active-tab]:border-primary-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-primary-hover-dark dark:hover:[&_.tab-trigger]:border-primary-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("default", "secondary") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#175BCC] [&_.tab-trigger.active-tab]:border-[#175BCC]",
-      "hover:[&_.tab-trigger]:text-[#175BCC] hover:[&_.tab-trigger]:border-[#175BCC]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#A9C9FF] dark:[&_.tab-trigger.active-tab]:border-[#A9C9FF]",
-      "dark:hover:[&_.tab-trigger]:text-[#A9C9FF] dark:hover:[&_.tab-trigger]:border-[#A9C9FF]",
+      "[&_.tab-trigger.active-tab]:text-secondary-hover-light [&_.tab-trigger.active-tab]:border-secondary-hover-light",
+      "hover:[&_.tab-trigger]:text-secondary-hover-light hover:[&_.tab-trigger]:border-secondary-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-secondary-hover-dark dark:[&_.tab-trigger.active-tab]:border-secondary-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-secondary-hover-dark dark:hover:[&_.tab-trigger]:border-secondary-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("default", "success") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#166C3B] [&_.tab-trigger.active-tab]:border-[#166C3B]",
-      "hover:[&_.tab-trigger]:text-[#166C3B] hover:[&_.tab-trigger]:border-[#166C3B]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#7FD99A] dark:[&_.tab-trigger.active-tab]:border-[#7FD99A]",
-      "dark:hover:[&_.tab-trigger]:text-[#7FD99A] dark:hover:[&_.tab-trigger]:border-[#7FD99A]",
+      "[&_.tab-trigger.active-tab]:text-success-hover-light [&_.tab-trigger.active-tab]:border-success-hover-light",
+      "hover:[&_.tab-trigger]:text-success-hover-light hover:[&_.tab-trigger]:border-success-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-success-hover-dark dark:[&_.tab-trigger.active-tab]:border-success-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-success-hover-dark dark:hover:[&_.tab-trigger]:border-success-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("default", "warning") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#976A01] [&_.tab-trigger.active-tab]:border-[#976A01]",
-      "hover:[&_.tab-trigger]:text-[#976A01] hover:[&_.tab-trigger]:border-[#976A01]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#FDD067] dark:[&_.tab-trigger.active-tab]:border-[#FDD067]",
-      "dark:hover:[&_.tab-trigger]:text-[#FDD067] dark:hover:[&_.tab-trigger]:border-[#FDD067]",
+      "[&_.tab-trigger.active-tab]:text-warning-hover-light [&_.tab-trigger.active-tab]:border-warning-hover-light",
+      "hover:[&_.tab-trigger]:text-warning-hover-light hover:[&_.tab-trigger]:border-warning-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-warning-hover-dark dark:[&_.tab-trigger.active-tab]:border-warning-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-warning-hover-dark dark:hover:[&_.tab-trigger]:border-warning-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("default", "danger") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#BB032A] [&_.tab-trigger.active-tab]:border-[#BB032A]",
-      "hover:[&_.tab-trigger]:text-[#BB032A] hover:[&_.tab-trigger]:border-[#BB032A]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#FFB2AB] dark:[&_.tab-trigger.active-tab]:border-[#FFB2AB]",
-      "dark:hover:[&_.tab-trigger]:text-[#FFB2AB] dark:hover:[&_.tab-trigger]:border-[#FFB2AB]",
+      "[&_.tab-trigger.active-tab]:text-danger-hover-light [&_.tab-trigger.active-tab]:border-danger-hover-light",
+      "hover:[&_.tab-trigger]:text-danger-hover-light hover:[&_.tab-trigger]:border-danger-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-danger-hover-dark dark:[&_.tab-trigger.active-tab]:border-danger-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-danger-hover-dark dark:hover:[&_.tab-trigger]:border-danger-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("default", "info") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#08638C] [&_.tab-trigger.active-tab]:border-[#08638C]",
-      "hover:[&_.tab-trigger]:text-[#08638C] hover:[&_.tab-trigger]:border-[#08638C]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#6EC9F2] dark:[&_.tab-trigger.active-tab]:border-[#6EC9F2]",
-      "dark:hover:[&_.tab-trigger]:text-[#6EC9F2] dark:hover:[&_.tab-trigger]:border-[#6EC9F2]",
+      "[&_.tab-trigger.active-tab]:text-info-hover-light [&_.tab-trigger.active-tab]:border-info-hover-light",
+      "hover:[&_.tab-trigger]:text-info-hover-light hover:[&_.tab-trigger]:border-info-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-info-hover-dark dark:[&_.tab-trigger.active-tab]:border-info-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-info-hover-dark dark:hover:[&_.tab-trigger]:border-info-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_variant("default", "misc") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#653C94] [&_.tab-trigger.active-tab]:border-[#653C94]",
-      "hover:[&_.tab-trigger]:text-[#653C94] hover:[&_.tab-trigger]:border-[#653C94]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#CBA2FA] dark:[&_.tab-trigger.active-tab]:border-[#CBA2FA]",
-      "dark:hover:[&_.tab-trigger]:text-[#CBA2FA] dark:hover:[&_.tab-trigger]:border-[#CBA2FA]",
+      "[&_.tab-trigger.active-tab]:text-misc-hover-light [&_.tab-trigger.active-tab]:border-misc-hover-light",
+      "hover:[&_.tab-trigger]:text-misc-hover-light hover:[&_.tab-trigger]:border-misc-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-misc-hover-dark dark:[&_.tab-trigger.active-tab]:border-misc-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-misc-hover-dark dark:hover:[&_.tab-trigger]:border-misc-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_variant("default", "dawn") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#7E4B2A] [&_.tab-trigger.active-tab]:border-[#7E4B2A]",
-      "hover:[&_.tab-trigger]:text-[#7E4B2A] hover:[&_.tab-trigger]:border-[#7E4B2A]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#E4B190] dark:[&_.tab-trigger.active-tab]:border-[#E4B190]",
-      "dark:hover:[&_.tab-trigger]:text-[#E4B190] dark:hover:[&_.tab-trigger]:border-[#E4B190]",
+      "[&_.tab-trigger.active-tab]:text-dawn-hover-light [&_.tab-trigger.active-tab]:border-dawn-hover-light",
+      "hover:[&_.tab-trigger]:text-dawn-hover-light hover:[&_.tab-trigger]:border-dawn-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-dawn-hover-dark dark:[&_.tab-trigger.active-tab]:border-dawn-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-dawn-hover-dark dark:hover:[&_.tab-trigger]:border-dawn-hover-dark",
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_variant("default", "silver") do
     [
-      "[&_.tab-trigger.active-tab]:text-[#727272] [&_.tab-trigger.active-tab]:border-[#727272]",
-      "hover:[&_.tab-trigger]:text-[#727272] hover:[&_.tab-trigger]:border-[#727272]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#BBBBBB] dark:[&_.tab-trigger.active-tab]:border-[#BBBBBB]",
-      "dark:hover:[&_.tab-trigger]:text-[#BBBBBB] dark:hover:[&_.tab-trigger]:border-[#BBBBBB]",
+      "[&_.tab-trigger.active-tab]:text-silver-hover-light [&_.tab-trigger.active-tab]:border-silver-hover-light",
+      "hover:[&_.tab-trigger]:text-silver-hover-light hover:[&_.tab-trigger]:border-silver-hover-light",
+      "dark:[&_.tab-trigger.active-tab]:text-silver-hover-dark dark:[&_.tab-trigger.active-tab]:border-silver-hover-dark",
+      "dark:hover:[&_.tab-trigger]:text-silver-hover-dark dark:hover:[&_.tab-trigger]:border-silver-hover-dark",
     ]
   end
   <% end %>
@@ -653,100 +662,109 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("pills", "natural") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#282828]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#4B4B4B]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#E8E8E8]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#DDDDDD]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-natural-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-natural-bg-dark",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-natural-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-natural-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("pills", "primary") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#016974]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#007F8C]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#77D5E3]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#01B8CA]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-primary-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-primary-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-primary-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-primary-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("pills", "secondary") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#175BCC]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#266EF1]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#A9C9FF]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#6DAAFB]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-secondary-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-secondary-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-secondary-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-secondary-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("pills", "success") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#166C3B]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#0E8345]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#7FD99A]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#06C167]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-success-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-success-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-success-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-success-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("pills", "warning") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#976A01]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#CA8D01]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#FDD067]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#FDC034]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-warning-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-warning-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-warning-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-warning-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("pills", "danger") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#BB032A]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#DE1135]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#FFB2AB]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#FC7F79]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-danger-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-danger-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-danger-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-danger-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("pills", "info") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#08638C]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#0B84BA]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#6EC9F2]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#3EB7ED]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-info-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-info-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-info-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-info-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_variant("pills", "misc") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#653C94]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#8750C5]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#CBA2FA]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#BA83F9]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-misc-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-misc-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-misc-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-misc-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_variant("pills", "dawn") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#7E4B2A]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#A86438]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#E4B190]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#DB976B]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-dawn-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-dawn-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-dawn-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-dawn-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_variant("pills", "silver") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#727272]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#868686]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#BBBBBB]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#A6A6A6]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-silver-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-silver-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-silver-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-silver-dark"
     ]
   end
   <% end %>
@@ -755,110 +773,120 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "base" in @color do %>
   defp color_variant("nav_pills", "base") do
     [
-      "hover:[&_.tab-trigger]:text-[#09090b] hover:[&_.tab-trigger]:bg-[#e4e4e7]",
-      "[&_.tab-trigger.active-tab]:text-[#09090b] [&_.tab-trigger.active-tab]:bg-white",
-      "dark:hover:[&_.tab-trigger]:text-[#FAFAFA] dark:hover:[&_.tab-trigger]:bg-[#18181B]",
-      "dark:[&_.tab-trigger.active-tab]:text-[#FAFAFA] dark:[&_.tab-trigger.active-tab]:bg-[#18181B]"
+      "hover:[&_.tab-trigger]:text-base-text-light hover:[&_.tab-trigger]:bg-base-border-light",
+      "[&_.tab-trigger.active-tab]:text-base-text-light [&_.tab-trigger.active-tab]:bg-white",
+      "dark:hover:[&_.tab-trigger]:text-base-text-dark dark:hover:[&_.tab-trigger]:bg-base-bg-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-base-text-dark dark:[&_.tab-trigger.active-tab]:bg-base-bg-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("nav_pills", "natural") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#282828]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#4B4B4B]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#E8E8E8]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#DDDDDD]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-natural-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-natural-bg-dark",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-natural-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-natural-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("nav_pills", "primary") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#016974]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#007F8C]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#77D5E3]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#01B8CA]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-primary-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-primary-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-primary-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-primary-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("nav_pills", "secondary") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#175BCC]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#266EF1]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#A9C9FF]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#6DAAFB]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-secondary-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-secondary-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-secondary-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-secondary-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("nav_pills", "success") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#166C3B]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#0E8345]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#7FD99A]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#06C167]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-success-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-success-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-success-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-success-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("nav_pills", "warning") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#976A01]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#CA8D01]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#FDD067]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#FDC034]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-warning-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-warning-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-warning-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-warning-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("nav_pills", "danger") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#BB032A]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#DE1135]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#FFB2AB]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#FC7F79]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-danger-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-danger-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-danger-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-danger-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("nav_pills", "info") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#08638C]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#0B84BA]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#6EC9F2]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#3EB7ED]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-info-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-info-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-info-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-info-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_variant("nav_pills", "misc") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#653C94]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#8750C5]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#CBA2FA]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#BA83F9]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-misc-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-misc-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-misc-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-misc-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_variant("nav_pills", "dawn") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#7E4B2A]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#A86438]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#E4B190]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#DB976B]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-dawn-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-dawn-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-dawn-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-dawn-dark"
     ]
   end
   <% end %>
+
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_variant("nav_pills", "silver") do
     [
-      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-[#727272]",
-      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-[#868686]",
-      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-[#BBBBBB]",
-      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-[#A6A6A6]"
+      "hover:[&_.tab-trigger]:text-white hover:[&_.tab-trigger]:bg-silver-hover-light",
+      "[&_.tab-trigger.active-tab]:text-white [&_.tab-trigger.active-tab]:bg-silver-light",
+      "dark:hover:[&_.tab-trigger]:text-black dark:hover:[&_.tab-trigger]:bg-silver-hover-dark",
+      "dark:[&_.tab-trigger.active-tab]:text-black dark:[&_.tab-trigger.active-tab]:bg-silver-dark"
     ]
   end
   <% end %>
