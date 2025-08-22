@@ -282,4 +282,10 @@
   --dawn-border-dark: #EDCBB5;
   --silver-border-light: #5E5E5E;
   --silver-border-dark: #DDDDDD;
+
+  --base-form-border-light: #8B8B8D;
+   --base-form-border-dark: #818182;
+   --base-form-focus-dark: #696969;
+   --form-white-text: #3E3E3E;
+   --form-white-focus: #DADADA;
 }

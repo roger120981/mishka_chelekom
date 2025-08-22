@@ -495,9 +495,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "white" in @color do %>
   defp color_variant("default", "white", floating) do
     [
-      "[&_.textarea-field-wrapper]:bg-white text-zinc-700",
+      "[&_.textarea-field-wrapper]:bg-white text-form-white-text",
       "[&_.textarea-field-wrapper.textarea-field-error]:border-rose-700",
-      "[&_.textarea-field-wrapper>input]:placeholder:text-zinc-700 focus-within:[&_.textarea-field-wrapper]:ring-zinc-300",
+      "[&_.textarea-field-wrapper>input]:placeholder:text-form-white-text focus-within:[&_.textarea-field-wrapper]:ring-form-white-focus",
       floating == "outer" && "[&_.textarea-field-wrapper_.floating-label]:bg-white"
     ]
   end
@@ -657,8 +657,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "white" in @color do %>
   defp color_variant("bordered", "white", floating) do
     [
-      "[&_.textarea-field-wrapper]:bg-white [&_.textarea-field-wrapper]:border-transparent text-zinc-700",
-      "[&_.textarea-field-wrapper>input]:placeholder:text-zinc-700",
+      "[&_.textarea-field-wrapper]:bg-white [&_.textarea-field-wrapper]:border-transparent text-form-white-text",
+      "[&_.textarea-field-wrapper>input]:placeholder:text-form-white-text",
       floating == "outer" && "[&_.textarea-field-wrapper_.floating-label]:bg-white"
     ]
   end

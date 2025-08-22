@@ -283,4 +283,10 @@
   --color-dawn-border-dark: var(--dawn-border-dark);
   --color-silver-border-light: var(--silver-border-light);
   --color-silver-border-dark: var(--silver-border-dark);
+
+  --color-base-form-border-light: var(--base-form-border-light);
+   --color-base-form-border-dark: var(--base-form-border-dark);
+   --color-base-form-focus-dark: var(--base-form-focus-dark);
+   --color-form-white-text: var(--form-white-text);
+   --color-form-white-focus: var(--form-white-focus);
 }
