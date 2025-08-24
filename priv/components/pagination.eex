@@ -166,7 +166,7 @@ defmodule <%= @module %> do
 
       <.item_button
         :if={@rest[:show_edges]}
-        on_action={{"first", @on_next}}
+        on_action={{"first", @on_first}}
         page={{nil, @active}}
         params={@params}
         label={@first_label}
