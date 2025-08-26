@@ -1,6 +1,13 @@
 defmodule Mix.Tasks.Mishka.Ui.AddTest do
   use ExUnit.Case
+  import Igniter.Test
   alias Mix.Tasks.Mishka.Ui.Add
+
+  setup do
+    # Ensure Owl application is started
+    Application.ensure_all_started(:owl)
+    :ok
+  end
 
   # Real community JSON structure for testing
   @valid_component_json %{
@@ -39,6 +46,232 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       }
     ]
   }
+
+  describe "mix task integration tests" do
+    test "processes local JSON file with real community data" do
+      # Create a temporary JSON file with real community data
+      tmp_dir = System.tmp_dir()
+      json_path = Path.join(tmp_dir, "component_alert_001.json")
+      File.write!(json_path, Jason.encode!(@valid_component_json))
+      on_exit(fn -> File.rm!(json_path) end)
+
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+
+      # Verify component files were created
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
+
+      # Check the content of created files
+      eex_source = igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.eex"]
+      assert eex_source
+      eex_content = Rewrite.Source.get(eex_source, :content)
+      assert eex_content =~ "defmodule <%= @module %> do"
+      assert eex_content =~ "community_alert_001"
+
+      exs_source = igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.exs"]
+      assert exs_source
+      exs_content = Rewrite.Source.get(exs_source, :content)
+      assert exs_content =~ "component_alert_001:"
+      assert exs_content =~ ~s(name: "component_alert_001")
+      assert exs_content =~ ~s(necessary: ["alert"])
+    end
+
+    test "processes preset JSON file" do
+      preset_json = %{
+        "name" => "preset_button_001",
+        "type" => "preset", 
+        "files" => [
+          %{
+            "name" => "button_preset",
+            "type" => "preset",
+            "content" => Base.encode64("# Preset button content"),
+            "args" => %{"helpers" => %{}},
+            "optional" => [],
+            "necessary" => ["button"],
+            "scripts" => []
+          }
+        ]
+      }
+
+      tmp_dir = System.tmp_dir()
+      json_path = Path.join(tmp_dir, "preset_button.json")
+      File.write!(json_path, Jason.encode!(preset_json))
+      on_exit(fn -> File.rm!(json_path) end)
+
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+
+      assert_creates(igniter, "priv/mishka_chelekom/presets/button_preset.eex")
+      assert_creates(igniter, "priv/mishka_chelekom/presets/button_preset.exs")
+
+      eex_source = igniter.rewrite.sources["priv/mishka_chelekom/presets/button_preset.eex"]
+      assert eex_source
+      eex_content = Rewrite.Source.get(eex_source, :content)
+      assert eex_content == "# Preset button content"
+    end
+
+    test "processes template JSON file" do
+      template_json = %{
+        "name" => "template_form_001",
+        "type" => "template",
+        "files" => [
+          %{
+            "name" => "form_template",
+            "type" => "template",
+            "content" => Base.encode64("# Template form content"),
+            "args" => %{"helpers" => %{}},
+            "optional" => [],
+            "necessary" => ["form"],
+            "scripts" => []
+          }
+        ]
+      }
+
+      tmp_dir = System.tmp_dir()
+      json_path = Path.join(tmp_dir, "template_form.json")
+      File.write!(json_path, Jason.encode!(template_json))
+      on_exit(fn -> File.rm!(json_path) end)
+
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+
+      assert_creates(igniter, "priv/mishka_chelekom/templates/form_template.eex")
+      assert_creates(igniter, "priv/mishka_chelekom/templates/form_template.exs")
+    end
+
+    test "processes JavaScript JSON file" do
+      js_json = %{
+        "name" => "js_component",
+        "type" => "component",
+        "files" => [
+          %{
+            "name" => "dropdown_script",
+            "type" => "javascript",
+            "content" => Base.encode64("console.log('Hello from dropdown');")
+          }
+        ]
+      }
+
+      tmp_dir = System.tmp_dir()
+      json_path = Path.join(tmp_dir, "js_component.json")
+      File.write!(json_path, Jason.encode!(js_json))
+      on_exit(fn -> File.rm!(json_path) end)
+
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+
+      # JavaScript files create only .js files
+      assert_creates(igniter, "priv/mishka_chelekom/javascripts/dropdown_script.js")
+
+      js_source = igniter.rewrite.sources["priv/mishka_chelekom/javascripts/dropdown_script.js"]
+      assert js_source
+      js_content = Rewrite.Source.get(js_source, :content)
+      assert js_content == "console.log('Hello from dropdown');"
+    end
+
+    test "processes multiple files in single JSON" do
+      multi_file_json = %{
+        "name" => "multi_component",
+        "type" => "component",
+        "files" => [
+          %{
+            "name" => "component_one",
+            "type" => "component",
+            "content" => Base.encode64("# Component one content"),
+            "args" => %{"helpers" => %{}},
+            "optional" => [],
+            "necessary" => [],
+            "scripts" => []
+          },
+          %{
+            "name" => "component_two",
+            "type" => "component",
+            "content" => Base.encode64("# Component two content"),
+            "args" => %{"helpers" => %{}},
+            "optional" => [],
+            "necessary" => [],
+            "scripts" => []
+          }
+        ]
+      }
+
+      tmp_dir = System.tmp_dir()
+      json_path = Path.join(tmp_dir, "multi_component.json")
+      File.write!(json_path, Jason.encode!(multi_file_json))
+      on_exit(fn -> File.rm!(json_path) end)
+
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_one.eex")
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_one.exs")
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_two.eex")
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_two.exs")
+    end
+
+    test "handles invalid JSON file" do
+      tmp_dir = System.tmp_dir()
+      json_path = Path.join(tmp_dir, "invalid.json")
+      File.write!(json_path, "invalid json content")
+      on_exit(fn -> File.rm!(json_path) end)
+
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+
+      assert Enum.any?(igniter.issues, fn issue ->
+        is_binary(issue) && String.contains?(issue, "problem reading the JSON file")
+      end)
+    end
+
+    test "handles non-existent file" do
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", ["/path/that/does/not/exist.json", "--test"])
+
+      assert Enum.any?(igniter.issues, fn issue ->
+        is_binary(issue) && String.contains?(issue, "file cannot be accessed")
+      end)
+    end
+
+    @tag :real_download  
+    test "download from actual community URL - component_alert_001" do
+      # This test will actually download from the real URL
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", ["component_alert_001", "--test"])
+
+      # If this passes, it means we successfully downloaded and processed the component
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex") 
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
+
+      # Verify actual content was created
+      eex_source = igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.eex"]
+      assert eex_source
+      eex_content = Rewrite.Source.get(eex_source, :content)
+      assert eex_content =~ "use Phoenix.Component"
+    end
+
+    @tag :real_download
+    test "download from actual GitHub raw URL" do
+      # This test downloads the actual component_alert_001.json from GitHub
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [
+          "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
+          "--test"
+        ])
+
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
+    end
+  end
 
   describe "GuardedStruct validation" do
     test "validates valid component JSON structure" do
