@@ -56,6 +56,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   def igniter(igniter) do
     # Based on https://github.com/fuelen/owl/issues/27
     Application.ensure_all_started(:owl)
+    # Ensure igniter_css application is started (which handles Pythonx initialization)
+    Application.ensure_all_started(:igniter_css)
     # extract positional arguments according to `positional` above
     %Igniter.Mix.Task.Args{positional: %{components: components}} = igniter.args
 
@@ -87,6 +89,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
         |> Igniter.compose_task("mishka.ui.gen.component", [item, "--no-deps", "--sub", "--yes"])
       end)
       |> create_import_macro(list, options[:import] || false, options[:helpers], options[:global])
+      |> Component.setup_css_files([])
 
     if Map.get(igniter, :issues, []) == [],
       do: Owl.Spinner.stop(id: :my_spinner, resolution: :ok, label: "Done"),

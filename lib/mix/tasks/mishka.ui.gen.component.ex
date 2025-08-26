@@ -586,7 +586,11 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   def convert_options(value), do: Enum.map(value, &String.trim/1)
 
-  defp setup_css_files(igniter, options) do
+  @doc """
+  Sets up CSS files for Mishka components.
+  Can be called externally when generating multiple components.
+  """
+  def setup_css_files(igniter, options \\ []) do
     if !options[:sub] do
       vendor_css_path = "assets/vendor/mishka_chelekom.css"
       app_css_path = "assets/css/app.css"
@@ -599,7 +603,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end
   end
 
-  defp create_mishka_css(igniter, vendor_css_path) do
+  @doc false
+  def create_mishka_css(igniter, vendor_css_path) do
     mishka_css_content =
       "deps/mishka_chelekom/priv/assets/css/mishka_chelekom.css"
       |> File.read!()
@@ -610,7 +615,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end)
   end
 
-  defp import_and_setup_theme(igniter, app_css_path) do
+  @doc false
+  def import_and_setup_theme(igniter, app_css_path) do
     case File.read(app_css_path) do
       {:ok, content} ->
         igniter
