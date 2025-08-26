@@ -139,9 +139,9 @@ defmodule Mix.Tasks.Mishka.Ui.Export do
   @impl Igniter.Mix.Task
   def igniter(igniter) do
     # extract positional arguments according to `positional` above
-    %Igniter.Mix.Task.Args{positional: %{dir: dir}, argv: argv} = igniter.args
+    %Igniter.Mix.Task.Args{positional: %{dir: dir}} = igniter.args
 
-    options = options!(argv)
+    options = igniter.args.options
 
     msg =
       """

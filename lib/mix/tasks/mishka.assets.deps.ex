@@ -69,8 +69,8 @@ if Code.ensure_loaded?(Igniter) do
 
     @impl Igniter.Mix.Task
     def igniter(igniter) do
-      %Igniter.Mix.Task.Args{positional: %{deps: deps}, argv: argv} = igniter.args
-      options = options!(argv)
+      %Igniter.Mix.Task.Args{positional: %{deps: deps}} = igniter.args
+      options = igniter.args.options
 
       package_manager =
         cond do
