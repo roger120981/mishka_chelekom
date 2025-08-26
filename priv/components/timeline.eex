@@ -201,10 +201,6 @@ defmodule <%= @module %> do
   attr :icon_class, :string, default: nil, doc: "Custom CSS class for additional styling icon"
   attr :line_class, :string, default: nil, doc: "Custom CSS class for additional styling lines"
 
-  attr :bullet_wrapper_class,
-    :string, default: nil,
-    doc: "Custom CSS class for additional styling icon"
-
   attr :bullet_class, :string,
     default: nil,
     doc: "Custom CSS class for additional styling bullets"
