@@ -164,9 +164,9 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
     Application.ensure_all_started(:req)
     Application.ensure_all_started(:owl)
     # extract positional arguments according to `positional` above
-    %Igniter.Mix.Task.Args{positional: %{repo: repo}, argv: argv} = igniter.args
+    %Igniter.Mix.Task.Args{positional: %{repo: repo}} = igniter.args
 
-    options = options!(argv)
+    options = igniter.args.options
 
     msg =
       """

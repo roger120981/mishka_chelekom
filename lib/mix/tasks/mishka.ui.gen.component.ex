@@ -1,7 +1,8 @@
 defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   use Igniter.Mix.Task
   alias Igniter.Project.Application, as: IAPP
-  alias IgniterJs.Parsers.Javascript.{Parser, Formatter}
+  alias IgniterJs.Parsers.Javascript.Parser, as: JsParser
+  alias IgniterJs.Parsers.Javascript.Formatter, as: JsFormatter
 
   @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
@@ -89,9 +90,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   def igniter(igniter) do
     # extract positional arguments according to `positional` above
-    %Igniter.Mix.Task.Args{positional: %{component: component}, argv: argv} = igniter.args
+    %Igniter.Mix.Task.Args{positional: %{component: component}} = igniter.args
 
-    options = options!(argv)
+    options = igniter.args.options
 
     if !options[:sub] do
       msg =
@@ -385,7 +386,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
                 [item, "--sub"] ++ commands
             end
 
-          templ_options = options!(args)
+          templ_options = igniter.args.options
 
           component_acc =
             if !is_nil(templ_options[:module]) do
@@ -510,14 +511,14 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
               fn source ->
                 with original_content <- Rewrite.Source.get(source, :content),
                      {:ok, _, imported} <-
-                       Parser.insert_imports(original_content, "#{item.imports}"),
+                       JsParser.insert_imports(original_content, "#{item.imports}"),
                      {:ok, _, extended} <-
-                       Parser.extend_var_object_by_object_names(
+                       JsParser.extend_var_object_by_object_names(
                          imported,
                          "Components",
                          "#{item.module}"
                        ),
-                     {:ok, _, formatted} <- Formatter.format(extended) do
+                     {:ok, _, formatted} <- JsFormatter.format(extended) do
                   Rewrite.Source.update(source, :content, formatted)
                 else
                   {:error, _, error} ->
@@ -549,11 +550,10 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
             import MishkaComponents from "../vendor/mishka_components.js";
             """
 
-
             with original_content <- Rewrite.Source.get(source, :content),
-                 {:ok, _, imported} <- Parser.insert_imports(original_content, imports),
-                 {:ok, _, output} <- Parser.extend_hook_object(imported, "...MishkaComponents"),
-                 {:ok, _, formatted} <- Formatter.format(output) do
+                 {:ok, _, imported} <- JsParser.insert_imports(original_content, imports),
+                 {:ok, _, output} <- JsParser.extend_hook_object(imported, "...MishkaComponents"),
+                 {:ok, _, formatted} <- JsFormatter.format(output) do
               Rewrite.Source.update(source, :content, formatted)
             else
               {:error, _, error} ->

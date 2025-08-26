@@ -57,9 +57,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     # Based on https://github.com/fuelen/owl/issues/27
     Application.ensure_all_started(:owl)
     # extract positional arguments according to `positional` above
-    %Igniter.Mix.Task.Args{positional: %{components: components}, argv: argv} = igniter.args
+    %Igniter.Mix.Task.Args{positional: %{components: components}} = igniter.args
 
-    options = options!(argv)
+    options = igniter.args.options
 
     msg =
       """
