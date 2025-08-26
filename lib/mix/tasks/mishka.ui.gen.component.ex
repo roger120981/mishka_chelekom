@@ -175,7 +175,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
           igniter
           |> Igniter.Project.Application.config_path()
           |> then(&Path.join(Path.dirname(&1), "config.exs"))
-          |> then(&Config.Reader.read!(&1)[:tailwind])
+          |> then(&Config.Reader.read!(&1, env: :dev)[:tailwind])
           |> Keyword.get(:version)
 
         if version && !valid_tailwind_version?(version) do
