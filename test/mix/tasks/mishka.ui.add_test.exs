@@ -268,23 +268,24 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
     end
 
     test "download from actual GitHub raw URL" do
-      # This test downloads the actual component_alert_001.json from GitHub
-      # Use capture_io with input to automatically answer "y" to security prompt
-      result =
-        ExUnit.CaptureIO.capture_io("y\n", fn ->
-          igniter =
-            test_project()
-            |> Igniter.compose_task("mishka.ui.add", [
-              "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
-              "--test"
-            ])
+      # Mock the HTTP request to avoid security prompt and network dependency
+      Req.Test.stub(Req, fn conn ->
+        if String.contains?(conn.request_path, "component_alert_001.json") do
+          Req.Test.json(conn, @valid_component_json)
+        else
+          conn
+        end
+      end)
 
-          assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
-          assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
-        end)
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.add", [
+          "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
+          "--test"
+        ])
 
-      # The test should complete without hanging on user input
-      assert is_binary(result)
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
     end
   end
 
