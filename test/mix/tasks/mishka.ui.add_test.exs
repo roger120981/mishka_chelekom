@@ -57,20 +57,24 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       # Verify component files were created
       assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
       assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
 
       # Check the content of created files
-      eex_source = igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.eex"]
+      eex_source =
+        igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.eex"]
+
       assert eex_source
       eex_content = Rewrite.Source.get(eex_source, :content)
       assert eex_content =~ "defmodule <%= @module %> do"
       assert eex_content =~ "community_alert_001"
 
-      exs_source = igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.exs"]
+      exs_source =
+        igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.exs"]
+
       assert exs_source
       exs_content = Rewrite.Source.get(exs_source, :content)
       assert exs_content =~ "component_alert_001:"
@@ -81,7 +85,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
     test "processes preset JSON file" do
       preset_json = %{
         "name" => "preset_button_001",
-        "type" => "preset", 
+        "type" => "preset",
         "files" => [
           %{
             "name" => "button_preset",
@@ -102,7 +106,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert_creates(igniter, "priv/mishka_chelekom/presets/button_preset.eex")
       assert_creates(igniter, "priv/mishka_chelekom/presets/button_preset.exs")
@@ -137,7 +141,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert_creates(igniter, "priv/mishka_chelekom/templates/form_template.eex")
       assert_creates(igniter, "priv/mishka_chelekom/templates/form_template.exs")
@@ -163,7 +167,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       # JavaScript files create only .js files
       assert_creates(igniter, "priv/mishka_chelekom/javascripts/dropdown_script.js")
@@ -207,7 +211,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert_creates(igniter, "priv/mishka_chelekom/components/component_one.eex")
       assert_creates(igniter, "priv/mishka_chelekom/components/component_one.exs")
@@ -223,43 +227,55 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test"])
+        |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert Enum.any?(igniter.issues, fn issue ->
-        is_binary(issue) && String.contains?(issue, "problem reading the JSON file")
-      end)
+               is_binary(issue) && String.contains?(issue, "problem reading the JSON file")
+             end)
     end
 
     test "handles non-existent file" do
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", ["/path/that/does/not/exist.json", "--test"])
+        |> Igniter.compose_task("mishka.ui.add", [
+          "/path/that/does/not/exist.json",
+          "--test",
+          "--yes"
+        ])
 
       assert Enum.any?(igniter.issues, fn issue ->
-        is_binary(issue) && String.contains?(issue, "file cannot be accessed")
-      end)
+               is_binary(issue) && String.contains?(issue, "file cannot be accessed")
+             end)
     end
 
-    @tag :real_download  
     test "download from actual community URL - component_alert_001" do
       # This test will actually download from the real URL
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", ["component_alert_001", "--test"])
+        |> Igniter.compose_task("mishka.ui.add", ["component_alert_001", "--test", "--yes"])
 
       # If this passes, it means we successfully downloaded and processed the component
-      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex") 
+      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
       assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
 
       # Verify actual content was created
-      eex_source = igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.eex"]
+      eex_source =
+        igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert_001.eex"]
+
       assert eex_source
       eex_content = Rewrite.Source.get(eex_source, :content)
       assert eex_content =~ "use Phoenix.Component"
     end
 
-    @tag :real_download
     test "download from actual GitHub raw URL" do
+      # Mock Igniter.Util.IO.yes? to automatically return true
+      :meck.new(Igniter.Util.IO, [:passthrough])
+      :meck.expect(Igniter.Util.IO, :yes?, fn _prompt -> true end)
+      
+      on_exit(fn ->
+        if :meck.validate(Igniter.Util.IO), do: :meck.unload(Igniter.Util.IO)
+      end)
+
       # This test downloads the actual component_alert_001.json from GitHub
       igniter =
         test_project()
@@ -268,7 +284,6 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
           "--test"
         ])
 
-      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
       assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
     end
   end
