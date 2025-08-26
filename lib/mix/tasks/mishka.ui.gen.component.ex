@@ -598,10 +598,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   defp create_mishka_css(igniter, vendor_css_path) do
     mishka_css_content =
-      Path.join(
-        IAPP.priv_dir(igniter, ["mishka_chelekom", "assets", "css"]),
-        "mishka_chelekom.css"
-      )
+      "deps/mishka_chelekom/priv/assets/css/mishka_chelekom.css"
       |> File.read!()
 
     igniter
@@ -619,7 +616,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
           with {:ok, _, content_with_import} <-
                  CssParser.add_import(original_content, "../vendor/mishka_chelekom.css", false),
-               updated_content <- ensure_theme_exists(igniter, content_with_import) do
+               updated_content <- ensure_theme_exists(content_with_import) do
             Rewrite.Source.update(source, :content, updated_content)
           else
             {:error, _, error} ->
@@ -646,8 +643,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end
   end
 
-  defp ensure_theme_exists(igniter, css_content) do
-    theme_content = get_theme_content(igniter)
+  defp ensure_theme_exists(css_content) do
+    theme_content = get_theme_content()
 
     if String.contains?(css_content, "@theme") do
       css_content
@@ -657,8 +654,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end
   end
 
-  defp get_theme_content(igniter) do
-    Path.join(IAPP.priv_dir(igniter, ["mishka_chelekom", "assets", "css"]), "theme.css")
+  defp get_theme_content() do
+    "deps/mishka_chelekom/priv/assets/css/theme.css"
     |> File.read!()
   end
 end
