@@ -3,6 +3,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   alias Igniter.Project.Application, as: IAPP
   alias IgniterJs.Parsers.Javascript.Parser, as: JsParser
   alias IgniterJs.Parsers.Javascript.Formatter, as: JsFormatter
+  alias IgniterCss.Parsers.Parser, as: CssParser
+  alias IgniterCss.CSS.CssProcessor
 
   @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
@@ -113,6 +115,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     |> update_eex_assign(options)
     |> create_or_update_component()
     |> create_or_update_scripts()
+    |> setup_css_files(options)
   end
 
   def supports_umbrella?(), do: false
@@ -580,4 +583,86 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     do: String.trim(value) |> String.split(",") |> Enum.map(&String.trim/1)
 
   def convert_options(value), do: Enum.map(value, &String.trim/1)
+
+  defp setup_css_files(igniter, options) do
+    if !options[:sub] do
+      vendor_css_path = "assets/vendor/mishka_chelekom.css"
+      app_css_path = "assets/css/app.css"
+
+      igniter
+      |> create_mishka_css(vendor_css_path)
+      |> import_and_setup_theme(app_css_path)
+    else
+      igniter
+    end
+  end
+
+  defp create_mishka_css(igniter, vendor_css_path) do
+    mishka_css_content =
+      Path.join(
+        IAPP.priv_dir(igniter, ["mishka_chelekom", "assets", "css"]),
+        "mishka_chelekom.css"
+      )
+      |> File.read!()
+
+    igniter
+    |> Igniter.create_or_update_file(vendor_css_path, mishka_css_content, fn source ->
+      Rewrite.Source.update(source, :content, mishka_css_content)
+    end)
+  end
+
+  defp import_and_setup_theme(igniter, app_css_path) do
+    case File.read(app_css_path) do
+      {:ok, content} ->
+        igniter
+        |> Igniter.create_or_update_file(app_css_path, content, fn source ->
+          original_content = Rewrite.Source.get(source, :content)
+
+          with {:ok, _, content_with_import} <-
+                 CssParser.add_import(original_content, "../vendor/mishka_chelekom.css", false),
+               updated_content <- ensure_theme_exists(content_with_import) do
+            Rewrite.Source.update(source, :content, updated_content)
+          else
+            {:error, _, error} ->
+              msg = """
+              Error updating CSS file: #{inspect(error)}
+              """
+
+              Rewrite.Source.add_issue(source, msg)
+          end
+        end)
+
+      {:error, :enoent} ->
+        msg = """
+        The app.css file does not exist at #{app_css_path}.
+        Please ensure your Phoenix application has been properly set up with assets.
+        """
+        
+        igniter
+        |> Igniter.add_issue(msg)
+
+      {:error, reason} ->
+        igniter
+        |> Igniter.add_issue("Error reading app.css file: #{inspect(reason)}")
+    end
+  end
+
+  defp ensure_theme_exists(css_content) do
+    theme_content = get_theme_content()
+    
+    if String.contains?(css_content, "@theme") do
+      css_content
+      |> String.replace(~r/@theme\s*\{[^}]*\}/s, theme_content)
+    else
+      css_content <> "\n\n" <> theme_content <> "\n"
+    end
+  end
+  
+  defp get_theme_content() do
+    Path.join(
+      IAPP.priv_dir(Igniter.new(), ["mishka_chelekom", "assets", "css"]),
+      "theme.css"
+    )
+    |> File.read!()
+  end
 end
