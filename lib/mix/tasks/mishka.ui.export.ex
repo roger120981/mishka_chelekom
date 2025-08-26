@@ -143,16 +143,18 @@ defmodule Mix.Tasks.Mishka.Ui.Export do
 
     options = igniter.args.options
 
-    msg =
-      """
-            .-.
-           /'v'\\
-          (/   \\)
-          =="="==
-        Mishka.tools
-      """
+    if !options[:test] do
+      msg =
+        """
+              .-.
+             /'v'\\
+            (/   \\)
+            =="="==
+          Mishka.tools
+        """
 
-    IO.puts(IO.ANSI.yellow() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+      IO.puts(IO.ANSI.yellow() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+    end
 
     name = Keyword.get(options, :name, "template")
     org = Keyword.get(options, :org, "component")

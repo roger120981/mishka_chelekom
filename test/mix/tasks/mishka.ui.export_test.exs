@@ -10,7 +10,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--template"])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--template", "--test"])
 
       # Find the template file - it might have a relative path key
       template_file_key =
@@ -43,7 +43,13 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--template", "--name", "custom"])
+        |> Igniter.compose_task("mishka.ui.export", [
+          test_dir,
+          "--template",
+          "--name",
+          "custom",
+          "--test"
+        ])
 
       # Find the custom file
       custom_file_key =
@@ -66,7 +72,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [non_existent_dir])
+        |> Igniter.compose_task("mishka.ui.export", [non_existent_dir, "--test"])
 
       # Issues in igniter are strings
       assert Enum.any?(igniter.issues, fn issue ->
@@ -95,7 +101,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--test"])
 
       template_file_key =
         Enum.find_value(igniter.rewrite.sources, fn {key, _} ->
@@ -134,7 +140,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--base64"])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--base64", "--test"])
 
       template_file_key =
         Enum.find_value(igniter.rewrite.sources, fn {key, _} ->
@@ -166,7 +172,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--test"])
 
       # Should have validation error about missing .exs file
       assert Enum.any?(igniter.issues, fn issue ->
@@ -194,7 +200,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--test"])
 
       # Should create JSON file successfully
       template_file_key =
@@ -233,7 +239,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--name", "my_export"])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--name", "my_export", "--test"])
 
       my_export_file_key =
         Enum.find_value(igniter.rewrite.sources, fn {key, _} ->
@@ -265,7 +271,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--org", "preset"])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--org", "preset", "--test"])
 
       template_file_key =
         Enum.find_value(igniter.rewrite.sources, fn {key, _} ->
@@ -297,7 +303,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
 
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--org", "invalid_type"])
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--org", "invalid_type", "--test"])
 
       template_file_key =
         Enum.find_value(igniter.rewrite.sources, fn {key, _} ->
@@ -310,6 +316,86 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       json = Jason.decode!(content)
 
       assert json["type"] == "component"
+    end
+  end
+
+  describe "real community component export" do
+    test "exports community alert component with Base64 encoding" do
+      test_dir = Path.join(System.tmp_dir!(), "test_community_#{:rand.uniform(100_000)}")
+      File.mkdir_p!(test_dir)
+      on_exit(fn -> File.rm_rf!(test_dir) end)
+
+      # Simpler version of community component content
+      component_eex_content = """
+      defmodule <%= @module %> do
+        use Phoenix.Component
+
+        attr(:class, :string, default: nil)
+
+        def community_alert_001(assigns) do
+          ~H\"\"\"
+          <div class={@class}>
+            <p>Attention needed</p>
+            <p class="text-xs">Lorem ipsum dolor sit amet.</p>
+          </div>
+          \"\"\"
+        end
+      end
+      """
+
+      component_exs_content = """
+      [
+        component_alert_001: [
+          name: "component_alert_001",
+          args: [
+            only: ["community_alert_001"],
+            helpers: [],
+            module: ""
+          ],
+          optional: [],
+          necessary: ["alert"]
+        ]
+      ]
+      """
+
+      File.write!(Path.join(test_dir, "component_alert_001.eex"), component_eex_content)
+      File.write!(Path.join(test_dir, "component_alert_001.exs"), component_exs_content)
+
+      igniter =
+        test_project()
+        |> Igniter.compose_task("mishka.ui.export", [test_dir, "--base64", "--test"])
+
+      template_file_key =
+        Enum.find_value(igniter.rewrite.sources, fn {key, _} ->
+          if String.ends_with?(key, "template.json"), do: key
+        end)
+
+      assert template_file_key
+      source = igniter.rewrite.sources[template_file_key]
+      content = Rewrite.Source.get(source, :content)
+      json = Jason.decode!(content)
+
+      # Verify the structure
+      assert json["name"] == "template"
+      assert json["type"] == "component"
+      assert length(json["files"]) == 1
+
+      file = List.first(json["files"])
+      assert file["type"] == "component"
+      assert file["name"] == "component_alert_001"
+
+      # Verify the content is Base64 encoded
+      encoded_content = file["content"]
+      refute encoded_content == component_eex_content
+      decoded_content = Base.decode64!(encoded_content)
+      assert decoded_content == component_eex_content
+
+      # Verify args structure
+      assert file["args"]["only"] == ["community_alert_001"]
+      assert file["args"]["helpers"] == %{}
+      assert file["args"]["module"] == ""
+      assert file["optional"] == []
+      assert file["necessary"] == ["alert"]
     end
   end
 end
