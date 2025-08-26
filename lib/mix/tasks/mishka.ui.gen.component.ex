@@ -107,8 +107,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
       IO.puts(IO.ANSI.green() <> String.trim_trailing(msg) <> IO.ANSI.reset())
       
-      # Start pythonx application for CSS processing
-      Application.ensure_all_started(:pythonx)
+      # Ensure igniter_css application is started (which handles Pythonx initialization)
+      Application.ensure_all_started(:igniter_css)
     end
 
     igniter
