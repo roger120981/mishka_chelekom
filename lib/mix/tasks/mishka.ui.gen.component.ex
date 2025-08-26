@@ -3,6 +3,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   alias Igniter.Project.Application, as: IAPP
   alias IgniterJs.Parsers.Javascript.Parser, as: JsParser
   alias IgniterJs.Parsers.Javascript.Formatter, as: JsFormatter
+  alias IgniterCss.Parsers.Formatter, as: CssFormatter
   alias IgniterCss.Parsers.Parser, as: CssParser
 
   @example "mix mishka.ui.gen.component component --example arg"
@@ -106,7 +107,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
         """
 
       IO.puts(IO.ANSI.green() <> String.trim_trailing(msg) <> IO.ANSI.reset())
-      
+
       # Ensure igniter_css application is started (which handles Pythonx initialization)
       Application.ensure_all_started(:igniter_css)
     end
@@ -619,8 +620,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
           with {:ok, _, content_with_import} <-
                  CssParser.add_import(original_content, "../vendor/mishka_chelekom.css", false),
-               updated_content <- ensure_theme_exists(content_with_import) do
-            Rewrite.Source.update(source, :content, updated_content)
+               updated_content <- ensure_theme_exists(content_with_import),
+               {:ok, _, formatted} <- CssFormatter.format(updated_content) do
+            Rewrite.Source.update(source, :content, formatted)
           else
             {:error, _, error} ->
               msg = """
