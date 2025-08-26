@@ -42,7 +42,8 @@ defmodule MishkaChelekom.MixProject do
       {:igniter_js, "~> 0.4.6"},
       {:igniter_css, "~> 0.1.0"},
       {:owl, "~> 0.12.2"},
-      {:ex_doc, "~> 0.38.3", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.38.3", only: :dev, runtime: false},
+      {:plug, "~> 1.18", only: :test}
     ]
   end
 

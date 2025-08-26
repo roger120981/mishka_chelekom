@@ -188,10 +188,12 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
       Keyword.get(options, :no_github, false)
       |> then(&repo_url(String.trim(repo), igniter, &1))
 
+    http_client = if options[:test], do: Req.new(plug: {Req.Test, Req}), else: Req.new()
+
     final_igniter =
       if url != "none_url_error" do
         resp =
-          Req.new()
+          http_client
           |> Req.Request.prepend_response_steps(
             noop: fn {req, res} ->
               is_text_plain? = res.headers["content-type"] == ["text/plain; charset=utf-8"]

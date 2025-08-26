@@ -2,6 +2,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
   use ExUnit.Case
   import Igniter.Test
   alias Mix.Tasks.Mishka.Ui.Add
+  import Plug.Conn
 
   setup do
     # Ensure Owl application is started
@@ -249,10 +250,32 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
     end
 
     test "download from actual community URL - component_alert_001" do
-      # This test will actually download from the real URL
+      # Mock the GitHub API request for community components
+      Req.Test.stub(Req, fn conn ->
+        cond do
+          conn.host == "api.github.com" and
+              String.contains?(
+                conn.request_path,
+                "/repos/mishka-group/mishka_chelekom_community/contents/components/component_alert_001.json"
+              ) ->
+            # GitHub API returns content wrapped in a JSON object with base64 encoded content
+            github_response = %{
+              "content" => Base.encode64(Jason.encode!(@valid_component_json)),
+              "encoding" => "base64"
+            }
+
+            conn
+            |> put_resp_header("content-type", "application/json")
+            |> resp(200, Jason.encode!(github_response))
+
+          true ->
+            resp(conn, 404, "Not found")
+        end
+      end)
+
       igniter =
         test_project()
-        |> Igniter.compose_task("mishka.ui.add", ["component_alert_001", "--test", "--yes"])
+        |> Igniter.compose_task("mishka.ui.add", ["component_alert_001", "--test"])
 
       # If this passes, it means we successfully downloaded and processed the component
       assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
@@ -264,16 +287,26 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
       assert eex_source
       eex_content = Rewrite.Source.get(eex_source, :content)
-      assert eex_content =~ "use Phoenix.Component"
+      # The actual content should match what's in @valid_component_json
+      assert eex_content =~ "defmodule <%= @module %> do"
+      assert eex_content =~ "community_alert_001"
     end
 
     test "download from actual GitHub raw URL" do
       # Mock the HTTP request to avoid network dependency
       Req.Test.stub(Req, fn conn ->
-        if String.contains?(conn.request_path, "component_alert_001.json") do
-          Req.Test.json(conn, @valid_component_json)
-        else
-          conn
+        # The stub receives a Plug.Conn struct
+        cond do
+          conn.host == "raw.githubusercontent.com" and
+              String.contains?(conn.request_path, "component_alert_001.json") ->
+            # Return the mock response with proper headers
+            conn
+            |> put_resp_header("content-type", "text/plain; charset=utf-8")
+            |> resp(200, Jason.encode!(@valid_component_json))
+
+          true ->
+            # Return 404 for any other requests
+            resp(conn, 404, "Not found")
         end
       end)
 
@@ -283,6 +316,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
           test_project()
           |> Igniter.compose_task("mishka.ui.add", [
             "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
+            # This flag ensures the test adapter is used
             "--test"
           ])
 
