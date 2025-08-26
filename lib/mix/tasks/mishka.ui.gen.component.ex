@@ -112,6 +112,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end
 
     igniter
+    |> check_dependencies_versions()
     |> get_component_template(component)
     |> converted_components_path(Keyword.get(options, :module))
     |> update_eex_assign(options)
@@ -121,6 +122,115 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   end
 
   def supports_umbrella?(), do: false
+
+  @doc false
+  def check_dependencies_versions(igniter) do
+    case Igniter.Project.Deps.get_dep(igniter, :phoenix) do
+      {:ok, nil} ->
+        igniter
+        |> Igniter.add_issue("""
+        Phoenix is not installed in your project.
+        Mishka Chelekom requires Phoenix 1.8.0 or higher.
+        Please add {:phoenix, "~> 1.8"} to your dependencies.
+        """)
+
+      {:ok, dep} ->
+        version_req =
+          case {is_binary(dep), Regex.run(~r/"([^"]+)"/, dep)} do
+            {true, [_, version]} -> version
+            _ -> nil
+          end
+
+        if version_req && !valid_phoenix_version?(version_req) do
+          igniter
+          |> Igniter.add_issue("""
+          Phoenix version requirement #{inspect(version_req)} is not compatible.
+          Mishka Chelekom requires Phoenix 1.8.0 or higher.
+          Please update your Phoenix dependency to "~> 1.8" or higher.
+          """)
+        else
+          igniter
+        end
+
+      {:error, _} ->
+        igniter
+    end
+    |> check_tailwind_version()
+  end
+
+  defp check_tailwind_version(igniter) do
+    cond do
+      !Igniter.Project.Config.configures_key?(igniter, "config.exs", :tailwind, :version) ->
+        igniter
+        |> Igniter.add_issue("""
+        Tailwind version is not specified in your configuration.
+        Mishka Chelekom requires Tailwind CSS 4.0 or higher.
+        Please add version to your Tailwind configuration:
+
+        config :tailwind, version: "4.0.0"
+        """)
+
+      true ->
+        version =
+          igniter
+          |> Igniter.Project.Application.config_path()
+          |> then(&Path.join(Path.dirname(&1), "config.exs"))
+          |> then(&Config.Reader.read!(&1)[:tailwind])
+          |> Keyword.get(:version)
+
+        if version && !valid_tailwind_version?(version) do
+          igniter
+          |> Igniter.add_issue("""
+          Tailwind version #{inspect(version)} is not compatible.
+          Mishka Chelekom requires Tailwind CSS 4.0 or higher.
+          Please update your Tailwind configuration to use version "4.0.0" or higher.
+          """)
+        else
+          igniter
+        end
+    end
+  end
+
+  defp valid_phoenix_version?(requirement) when is_binary(requirement) do
+    base_version =
+      requirement
+      |> String.replace(~r/^[~>>=<= ]+/, "")
+      |> String.trim()
+
+    case Version.parse(base_version) do
+      {:ok, version} ->
+        case Version.compare(version, Version.parse!("1.8.0")) do
+          :lt -> false
+          _ -> true
+        end
+
+      :error ->
+        # If we can't parse, assume it's okay (could be git dependency, etc)
+        true
+    end
+  end
+
+  defp valid_phoenix_version?(_), do: true
+
+  defp valid_tailwind_version?(version) when is_binary(version) do
+    # Remove any alpha/beta/rc suffixes for comparison
+    base_version = version |> String.split("-") |> List.first() |> String.trim()
+
+    case Version.parse(base_version) do
+      {:ok, version} ->
+        # Check if the version is >= 4.0.0
+        case Version.compare(version, Version.parse!("4.0.0")) do
+          :lt -> false
+          _ -> true
+        end
+
+      :error ->
+        # If we can't parse, check if it starts with 4 or higher
+        String.starts_with?(version, ["4.", "5.", "6.", "7.", "8.", "9."])
+    end
+  end
+
+  defp valid_tailwind_version?(_), do: false
 
   @doc false
   def get_component_template(igniter, component) do
