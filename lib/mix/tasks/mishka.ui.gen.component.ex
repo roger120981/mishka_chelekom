@@ -4,7 +4,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   alias IgniterJs.Parsers.Javascript.Parser, as: JsParser
   alias IgniterJs.Parsers.Javascript.Formatter, as: JsFormatter
   alias IgniterCss.Parsers.Parser, as: CssParser
-  alias IgniterCss.CSS.CssProcessor
 
   @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
@@ -620,7 +619,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
           with {:ok, _, content_with_import} <-
                  CssParser.add_import(original_content, "../vendor/mishka_chelekom.css", false),
-               updated_content <- ensure_theme_exists(content_with_import) do
+               updated_content <- ensure_theme_exists(igniter, content_with_import) do
             Rewrite.Source.update(source, :content, updated_content)
           else
             {:error, _, error} ->
@@ -637,7 +636,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
         The app.css file does not exist at #{app_css_path}.
         Please ensure your Phoenix application has been properly set up with assets.
         """
-        
+
         igniter
         |> Igniter.add_issue(msg)
 
@@ -647,9 +646,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end
   end
 
-  defp ensure_theme_exists(css_content) do
-    theme_content = get_theme_content()
-    
+  defp ensure_theme_exists(igniter, css_content) do
+    theme_content = get_theme_content(igniter)
+
     if String.contains?(css_content, "@theme") do
       css_content
       |> String.replace(~r/@theme\s*\{[^}]*\}/s, theme_content)
@@ -657,12 +656,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       css_content <> "\n\n" <> theme_content <> "\n"
     end
   end
-  
-  defp get_theme_content() do
-    Path.join(
-      IAPP.priv_dir(Igniter.new(), ["mishka_chelekom", "assets", "css"]),
-      "theme.css"
-    )
+
+  defp get_theme_content(igniter) do
+    Path.join(IAPP.priv_dir(igniter, ["mishka_chelekom", "assets", "css"]), "theme.css")
     |> File.read!()
   end
 end
