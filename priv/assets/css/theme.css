@@ -289,4 +289,17 @@
    --color-base-form-focus-dark: var(--base-form-focus-dark);
    --color-form-white-text: var(--form-white-text);
    --color-form-white-focus: var(--form-white-focus);
+
+   /* Checkbox specific colors */
+   --color-checkbox-white-checked: var(--checkbox-white-checked);
+   --color-checkbox-dark-checked: var(--checkbox-dark-checked);
+   --color-checkbox-unchecked-dark: var(--checkbox-unchecked-dark);
+   --color-checkbox-primary-checked: var(--checkbox-primary-checked);
+   --color-checkbox-secondary-checked: var(--checkbox-secondary-checked);
+   --color-checkbox-success-checked: var(--checkbox-success-checked);
+   --color-checkbox-warning-checked: var(--checkbox-warning-checked);
+   --color-checkbox-danger-checked: var(--checkbox-danger-checked);
+   --color-checkbox-info-checked: var(--checkbox-info-checked);
+   --color-checkbox-misc-checked: var(--checkbox-misc-checked);
+   --color-checkbox-dawn-checked: var(--checkbox-dawn-checked);
 }

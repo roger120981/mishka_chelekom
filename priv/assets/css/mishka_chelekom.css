@@ -288,4 +288,17 @@
    --base-form-focus-dark: #696969;
    --form-white-text: #3E3E3E;
    --form-white-focus: #DADADA;
+
+   /* Checkbox specific colors */
+   --checkbox-unchecked-dark: #333333;
+   --checkbox-white-checked: #ede8e8;
+   --checkbox-dark-checked: #616060;
+   --checkbox-primary-checked: #0095A4;
+   --checkbox-secondary-checked: #068BEE;
+   --checkbox-success-checked: #009A51;
+   --checkbox-warning-checked: #FCB001;
+   --checkbox-danger-checked: #F83446;
+   --checkbox-info-checked: #0EA5E9;
+   --checkbox-misc-checked: #A964F7;
+   --checkbox-dawn-checked: #D27D46;
 }
