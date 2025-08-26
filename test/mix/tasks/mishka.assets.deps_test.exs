@@ -6,11 +6,11 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     test "creates package.json if it doesn't exist" do
       app_name = :test_app
 
-      igniter = 
+      igniter =
         test_project(app_name: app_name)
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes", "--test"])
         |> assert_creates("assets/package.json")
-      
+
       assert igniter.rewrite.sources["assets/package.json"]
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -26,10 +26,10 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
         "dependencies": {}
       })
 
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", existing_package_json)
-        |> Igniter.compose_task("mishka.assets.deps", ["axios", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["axios", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -41,13 +41,13 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
 
   describe "update_package_json_deps/3" do
     test "adds single dependency to package.json" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -56,13 +56,13 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     end
 
     test "adds multiple dependencies to package.json" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash,axios,moment", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash,axios,moment", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -73,13 +73,13 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     end
 
     test "adds dependency with specific version" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash@4.17.21", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash@4.17.21", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -88,13 +88,13 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     end
 
     test "adds scoped packages correctly" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["@babel/core@7.20.0", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["@babel/core@7.20.0", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -103,14 +103,14 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     end
 
     test "adds to devDependencies when --dev flag is used" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
           "dependencies": {},
           "devDependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["eslint", "--dev", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["eslint", "--dev", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -120,7 +120,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     end
 
     test "preserves existing dependencies when adding new ones" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
@@ -128,7 +128,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
             "react": "18.0.0"
           }
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -140,7 +140,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
 
   describe "remove_package_json_deps/3" do
     test "removes single dependency from package.json" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
@@ -149,7 +149,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
             "axios": "1.0.0"
           }
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--remove", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--remove", "--yes", "--test"])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -159,7 +159,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     end
 
     test "removes multiple dependencies from package.json" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
@@ -169,7 +169,12 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
             "moment": "2.29.0"
           }
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash,moment", "--remove", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", [
+          "lodash,moment",
+          "--remove",
+          "--yes",
+          "--test"
+        ])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -180,7 +185,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
     end
 
     test "removes from devDependencies when --dev flag is used" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("assets/package.json", ~s({
           "name": "test",
@@ -191,7 +196,13 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
             "eslint": "8.0.0"
           }
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["eslint", "--remove", "--dev", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", [
+          "eslint",
+          "--remove",
+          "--dev",
+          "--yes",
+          "--test"
+        ])
 
       source = igniter.rewrite.sources["assets/package.json"]
       content = Rewrite.Source.get(source, :content)
@@ -209,7 +220,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--npm", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--npm", "--yes", "--test"])
 
       assert igniter.assigns[:package_manager] == :npm
     end
@@ -221,7 +232,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--bun", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--bun", "--yes", "--test"])
 
       assert igniter.assigns[:package_manager] == :bun
     end
@@ -233,22 +244,27 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yarn", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yarn", "--yes", "--test"])
 
       # If yarn is not installed, it will fallback to bun mix dependency
       assert igniter.assigns[:package_manager] in [:yarn, :bun]
     end
 
     test "adds bun as mix dependency when --mix-bun flag is provided" do
-      igniter = 
+      igniter =
         test_project()
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--mix-bun", "--yes"])
-      
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--mix-bun", "--yes", "--test"])
+
       # Check that bun dependency was added
-      assert Enum.any?(igniter.rewrite.sources["mix.exs"] |> Rewrite.Source.get(:content) |> String.split("\n"), fn line ->
-        line =~ ":bun"
-      end)
-      
+      assert Enum.any?(
+               igniter.rewrite.sources["mix.exs"]
+               |> Rewrite.Source.get(:content)
+               |> String.split("\n"),
+               fn line ->
+                 line =~ ":bun"
+               end
+             )
+
       # Check config was added
       assert igniter.rewrite.sources["config/config.exs"]
       config_content = Rewrite.Source.get(igniter.rewrite.sources["config/config.exs"], :content)
@@ -264,7 +280,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--yes", "--test"])
 
       # It should either find a package manager or set up mix bun
       assert igniter.assigns[:package_manager] in [:npm, :bun, :yarn, nil] or
@@ -280,7 +296,7 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
           "name": "test",
           "dependencies": {}
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--npm", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--npm", "--yes", "--test"])
 
       # Check that the install task was added
       assert Enum.any?(igniter.tasks, fn {task_name, argv} ->
@@ -298,7 +314,13 @@ defmodule Mix.Tasks.Mishka.Assets.DepsTest do
             "lodash": "4.17.21"
           }
         }))
-        |> Igniter.compose_task("mishka.assets.deps", ["lodash", "--remove", "--npm", "--yes"])
+        |> Igniter.compose_task("mishka.assets.deps", [
+          "lodash",
+          "--remove",
+          "--npm",
+          "--yes",
+          "--test"
+        ])
 
       # Check that the install task was added with remove command
       assert Enum.any?(igniter.tasks, fn {task_name, argv} ->
