@@ -168,16 +168,18 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
 
     options = igniter.args.options
 
-    msg =
-      """
-            .-.
-           /'v'\\
-          (/   \\)
-          =="="==
-        Mishka.tools
-      """
+    if !options[:test] do
+      msg =
+        """
+              .-.
+             /'v'\\
+            (/   \\)
+            =="="==
+          Mishka.tools
+        """
 
-    IO.puts(IO.ANSI.blue() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+      IO.puts(IO.ANSI.blue() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+    end
 
     Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
 

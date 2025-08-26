@@ -98,7 +98,7 @@ defmodule Mix.Tasks.Mishka.Ui.Export do
       # This ensures your option schema includes options from nested tasks
       composes: [],
       # `OptionParser` schema
-      schema: [base64: :boolean, template: :boolean, name: :string, org: :string],
+      schema: [base64: :boolean, template: :boolean, name: :string, org: :string, test: :boolean],
       # Default values for the options in the `schema`
       defaults: [],
       # CLI aliases
