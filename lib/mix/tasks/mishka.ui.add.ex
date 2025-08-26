@@ -181,7 +181,8 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
       IO.puts(IO.ANSI.blue() <> String.trim_trailing(msg) <> IO.ANSI.reset())
     end
 
-    Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
+    if !options[:test],
+      do: Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
 
     {url, repo_action, igniter} =
       Keyword.get(options, :no_github, false)
@@ -245,9 +246,11 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
         end
       end
 
-    if Map.get(final_igniter, :issues, []) == [],
-      do: Owl.Spinner.stop(id: :my_spinner, resolution: :ok, label: "Done"),
-      else: Owl.Spinner.stop(id: :my_spinner, resolution: :error, label: "Error")
+    if !options[:test] do
+      if Map.get(final_igniter, :issues, []) == [],
+        do: Owl.Spinner.stop(id: :my_spinner, resolution: :ok, label: "Done"),
+        else: Owl.Spinner.stop(id: :my_spinner, resolution: :error, label: "Error")
+    end
 
     final_igniter
   rescue
@@ -400,15 +403,19 @@ defmodule Mix.Tasks.Mishka.Ui.Add do
   end
 
   defp convert_request_body(body, url, igniter) when url in @domain_types do
-    Owl.Spinner.stop(id: :my_spinner, resolution: :ok)
+    options = igniter.args.options
+    if !options[:test], do: Owl.Spinner.stop(id: :my_spinner, resolution: :ok)
 
     case Igniter.Util.IO.yes?(external_call_warning()) do
       false ->
-        Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
+        if !options[:test],
+          do: Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
+
         {:error, "The operation was stopped at your request."}
 
       true ->
-        Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
+        if !options[:test],
+          do: Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
 
         if url == :github,
           do: convert_request_body(body, :community, igniter),

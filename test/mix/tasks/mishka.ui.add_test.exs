@@ -268,7 +268,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
     end
 
     test "download from actual GitHub raw URL" do
-      # Mock the HTTP request to avoid security prompt and network dependency
+      # Mock the HTTP request to avoid network dependency
       Req.Test.stub(Req, fn conn ->
         if String.contains?(conn.request_path, "component_alert_001.json") do
           Req.Test.json(conn, @valid_component_json)
@@ -277,15 +277,18 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
         end
       end)
 
-      igniter =
-        test_project()
-        |> Igniter.compose_task("mishka.ui.add", [
-          "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
-          "--test"
-        ])
+      # Use capture_io with input to automatically answer "y" to security prompt
+      ExUnit.CaptureIO.capture_io("y\n", fn ->
+        igniter =
+          test_project()
+          |> Igniter.compose_task("mishka.ui.add", [
+            "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
+            "--test"
+          ])
 
-      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
-      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
+        assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
+        assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
+      end)
     end
   end
 
