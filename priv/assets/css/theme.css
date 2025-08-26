@@ -284,7 +284,7 @@
   --color-silver-border-light: var(--silver-border-light);
   --color-silver-border-dark: var(--silver-border-dark);
 
-  --color-base-form-border-light: var(--base-form-border-light);
+   --color-base-form-border-light: var(--base-form-border-light);
    --color-base-form-border-dark: var(--base-form-border-dark);
    --color-base-form-focus-dark: var(--base-form-focus-dark);
    --color-form-white-text: var(--form-white-text);
