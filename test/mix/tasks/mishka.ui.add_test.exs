@@ -268,23 +268,23 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
     end
 
     test "download from actual GitHub raw URL" do
-      # Mock Igniter.Util.IO.yes? to automatically return true
-      :meck.new(Igniter.Util.IO, [:passthrough])
-      :meck.expect(Igniter.Util.IO, :yes?, fn _prompt -> true end)
-      
-      on_exit(fn ->
-        if :meck.validate(Igniter.Util.IO), do: :meck.unload(Igniter.Util.IO)
-      end)
-
       # This test downloads the actual component_alert_001.json from GitHub
-      igniter =
-        test_project()
-        |> Igniter.compose_task("mishka.ui.add", [
-          "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
-          "--test"
-        ])
+      # Use capture_io with input to automatically answer "y" to security prompt
+      result =
+        ExUnit.CaptureIO.capture_io("y\n", fn ->
+          igniter =
+            test_project()
+            |> Igniter.compose_task("mishka.ui.add", [
+              "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
+              "--test"
+            ])
 
-      assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
+          assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.exs")
+          assert_creates(igniter, "priv/mishka_chelekom/components/component_alert_001.eex")
+        end)
+
+      # The test should complete without hanging on user input
+      assert is_binary(result)
     end
   end
 
