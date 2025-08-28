@@ -130,7 +130,7 @@ defmodule <%= @module %> do
           ]}>
           </div>
           <div class={[
-            "bg-[#F4F4F4] dark:bg-[#4B4B4B] transition-all ease-in-out duration-500 toggle-field-base",
+            "bg-default-light-gray dark:bg-natural-light transition-all ease-in-out duration-500 toggle-field-base",
             color_class(@color),
             @toggle_base_class
           ]}>

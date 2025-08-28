@@ -149,11 +149,11 @@ defmodule <%= @module %> do
         role="tablist"
         tabindex="0"
         class={[
-          "tab-trigger-list flex flex-col shrink-0 text-[#4B4B4B] dark:text-[#DDDDDD]",
+          "tab-trigger-list flex flex-col shrink-0 text-natural-light dark:text-natural-dark",
           @variant == "default" &&
-            "border-[#e8e8e8] dark:border-[#5e5e5e] [&:not(.active-tab)_.tab-trigger]:border-[#e8e8e8] dark:[&:not(.active-tab)_.tab-trigger]:border-[#5e5e5e]",
+            "border-natural-hover-dark dark:border-silver-indicator-alt-light [&:not(.active-tab)_.tab-trigger]:border-natural-hover-dark dark:[&:not(.active-tab)_.tab-trigger]:border-silver-indicator-alt-light",
           @variant == "base" &&
-            "border-[#e4e4e7] dark:border-[#27272A] [&:not(.active-tab)_.tab-trigger]:border-[#e4e4e7] dark:[&:not(.active-tab)_.tab-trigger]:border-[#27272a]"
+            "border-base-border-light dark:border-base-border-dark [&:not(.active-tab)_.tab-trigger]:border-base-border-light dark:[&:not(.active-tab)_.tab-trigger]:border-base-border-dark"
         ]}
       >
         <button
@@ -249,7 +249,7 @@ defmodule <%= @module %> do
         tabindex="0"
         class={[
           "tab-trigger-list flex flex-wrap flex-wrap",
-          @variant == "nav_pills" && "tab-nav-pills bg-[#F4F4F5] dark:bg-[#27272A]",
+          @variant == "nav_pills" && "tab-nav-pills bg-base-tab-bg-light dark:bg-base-border-dark",
           @variant == "nav_pills" && !@full_width_tab && "w-fit"
         ]}
       >
