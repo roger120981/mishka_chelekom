@@ -934,32 +934,32 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("shadow", "natural", floating) do
     [
-      "text-black dark:text-white [&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-[#4B4B4B]",
-      "dark:[&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-[#DDDDDD]",
+      "text-black dark:text-white [&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-natural-light",
+      "dark:[&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-natural-dark",
       "[&_.date-time-field-wrapper.date-time-field-error]:bg-rose-700",
       "[&_.date-time-field-wrapper>input]:placeholder:text-white dark:[&_.date-time-field-wrapper>input]:placeholder:text-black",
       "[&_.date-time-field-wrapper>input]:text-white dark:[&_.date-time-field-wrapper>input]:text-black",
-      "focus-within:[&_.date-time-field-wrapper]:ring-[#4B4B4B] dark:focus-within:[&_.date-time-field-wrapper]:ring-[#DDDDDD]",
-      "[&_.date-time-field-wrapper]:shadow-[0px_4px_6px_-4px_rgba(134,134,134,0.5)] [&_.date-time-field-wrapper]:shadow-[0px_10px_15px_-3px_rgba(134,134,134,0.5)]",
+      "focus-within:[&_.date-time-field-wrapper]:ring-natural-light dark:focus-within:[&_.date-time-field-wrapper]:ring-natural-dark",
+      "[&_.date-time-field-wrapper]:shadow-[0px_4px_6px_-4px_var(--color-shadow-natural)] [&_.date-time-field-wrapper]:shadow-[0px_10px_15px_-3px_var(--color-shadow-natural)]",
       "dark:[&_.date-time-field-wrapper]:shadow-none",
       floating == "outer" &&
-        "[&_.date-time-field-wrapper_.floating-label]:bg-[#4B4B4B] dark:[&_.date-time-field-wrapper_.floating-label]:bg-[#DDDDDD]"
+        "[&_.date-time-field-wrapper_.floating-label]:bg-natural-light dark:[&_.date-time-field-wrapper_.floating-label]:bg-natural-dark"
     ]
   end
   <% end %>
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("shadow", "primary", floating) do
     [
-      "text-black dark:text-white [&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-[#007F8C]",
-      "dark:[&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-[#01B8CA]",
+      "text-black dark:text-white [&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-primary-light",
+      "dark:[&_.date-time-field-wrapper:not(:has(.date-time-field-error))]:bg-primary-dark",
       "[&_.date-time-field-wrapper.date-time-field-error]:bg-rose-700",
       "[&_.date-time-field-wrapper>input]:placeholder:text-white dark:[&_.date-time-field-wrapper>input]:placeholder:text-black",
       "[&_.date-time-field-wrapper>input]:text-white dark:[&_.date-time-field-wrapper>input]:text-black",
-      "focus-within:[&_.date-time-field-wrapper]:ring-[#007F8C] dark:focus-within:[&_.date-time-field-wrapper]:ring-[#01B8CA]",
-      "[&_.date-time-field-wrapper]:shadow-[0px_4px_6px_-4px_rgba(0,149,164,0.5)] [&_.date-time-field-wrapper]:shadow-[0px_10px_15px_-3px_rgba(0,149,164,0.5)]",
+      "focus-within:[&_.date-time-field-wrapper]:ring-primary-light dark:focus-within:[&_.date-time-field-wrapper]:ring-primary-dark",
+      "[&_.date-time-field-wrapper]:shadow-[0px_4px_6px_-4px_var(--color-shadow-primary)] [&_.date-time-field-wrapper]:shadow-[0px_10px_15px_-3px_var(--color-shadow-primary)]",
       "dark:[&_.date-time-field-wrapper]:shadow-none",
       floating == "outer" &&
-        "[&_.date-time-field-wrapper_.floating-label]:bg-[#007F8C] dark:[&_.date-time-field-wrapper_.floating-label]:bg-[#01B8CA]"
+        "[&_.date-time-field-wrapper_.floating-label]:bg-primary-light dark:[&_.date-time-field-wrapper_.floating-label]:bg-primary-dark"
     ]
   end
   <% end %>
@@ -1103,8 +1103,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("transparent", "natural", _) do
     [
-      "text-[#4B4B4B] dark:text-[#DDDDDD]",
-      "[&_.date-time-field-wrapper>input]:placeholder:text-[#4B4B4B]",
+      "text-natural-light dark:text-natural-dark",
+      "[&_.date-time-field-wrapper>input]:placeholder:text-natural-light",
       "dark:[&_.date-time-field-wrapper>input]:placeholder:text-natural-dark",
       "focus-within:[&_.date-time-field-wrapper]:ring-transparent",
     ]
@@ -1113,9 +1113,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("transparent", "primary", _) do
     [
-      "text-[#007F8C] dark:text-[#01B8CA]",
-      "[&_.date-time-field-wrapper>input]:placeholder:text-[#007F8C]",
-      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-[#01B8CA]",
+      "text-primary-light dark:text-primary-dark",
+      "[&_.date-time-field-wrapper>input]:placeholder:text-primary-light",
+      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-primary-dark",
       "focus-within:[&_.date-time-field-wrapper]:ring-transparent",
     ]
   end
@@ -1123,9 +1123,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("transparent", "secondary", _) do
     [
-      "text-[#266EF1] dark:text-[#6DAAFB]",
-      "[&_.date-time-field-wrapper>input]:placeholder:text-[#266EF1]",
-      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-[#6DAAFB]",
+      "text-secondary-light dark:text-secondary-dark",
+      "[&_.date-time-field-wrapper>input]:placeholder:text-secondary-light",
+      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-secondary-dark",
       "focus-within:[&_.date-time-field-wrapper]:ring-transparent",
     ]
   end
@@ -1133,9 +1133,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("transparent", "success", _) do
     [
-      "text-[#0E8345] dark:text-[#06C167]",
-      "[&_.date-time-field-wrapper>input]:placeholder:text-[#0E8345]",
-      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-[#06C167]",
+      "text-success-light dark:text-success-dark",
+      "[&_.date-time-field-wrapper>input]:placeholder:text-success-light",
+      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-success-dark",
       "focus-within:[&_.date-time-field-wrapper]:ring-transparent",
     ]
   end
@@ -1143,9 +1143,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("transparent", "warning", _) do
     [
-      "text-[#CA8D01] dark:text-[#FDC034]",
-      "[&_.date-time-field-wrapper>input]:placeholder:text-[#CA8D01]",
-      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-[#FDC034]",
+      "text-warning-light dark:text-warning-dark",
+      "[&_.date-time-field-wrapper>input]:placeholder:text-warning-light",
+      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-warning-dark",
       "focus-within:[&_.date-time-field-wrapper]:ring-transparent",
     ]
   end
@@ -1153,9 +1153,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("transparent", "danger", _) do
     [
-      "text-[#DE1135] dark:text-[#FC7F79]",
-      "[&_.date-time-field-wrapper>input]:placeholder:text-[#DE1135]",
-      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-[#FC7F79]",
+      "text-danger-light dark:text-danger-dark",
+      "[&_.date-time-field-wrapper>input]:placeholder:text-danger-light",
+      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-danger-dark",
       "focus-within:[&_.date-time-field-wrapper]:ring-transparent",
     ]
   end

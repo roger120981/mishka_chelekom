@@ -120,7 +120,7 @@ defmodule <%= @module %> do
           value={@value}
           checked={@checked}
           class={[
-            "bg-white dark:bg-[#18181B] radio-input rounded-full",
+            "bg-white dark:bg-base-bg-dark radio-input rounded-full",
             @radio_class
           ]}
           {@rest}
@@ -242,7 +242,7 @@ defmodule <%= @module %> do
             id={"#{@id}-#{index}"}
             value={radio[:value]}
             checked={radio[:checked]}
-            class={["bg-white dark:bg-[#18181B] radio-input rounded-full", @radio_class]}
+            class={["bg-white dark:bg-base-bg-dark radio-input rounded-full", @radio_class]}
             {@rest}
           />
           <span class={@label_class}>{render_slot(radio)}</span>

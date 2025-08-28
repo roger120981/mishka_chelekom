@@ -125,7 +125,7 @@ defmodule <%= @module %> do
           value={@value}
           id={@id}
           checked={@checked}
-          class={["bg-white dark:bg-[#18181B] checkbox-input", @checkbox_class]}
+          class={["bg-white dark:bg-base-bg-dark checkbox-input", @checkbox_class]}
           {@rest}
         />
         <span :if={@label} class={@label_class}>{@label}</span>
@@ -250,7 +250,7 @@ defmodule <%= @module %> do
             id={"#{@id}-#{index}"}
             value={checkbox[:value]}
             checked={checkbox[:checked]}
-            class={["bg-white dark:bg-[#18181B] checkbox-input", @checkbox_class]}
+            class={["bg-white dark:bg-base-bg-dark checkbox-input", @checkbox_class]}
             {@rest}
           />
           <span class={@label_class}>{render_slot(checkbox)}</span>

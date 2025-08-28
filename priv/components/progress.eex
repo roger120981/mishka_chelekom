@@ -92,7 +92,7 @@ defmodule <%= @module %> do
       role="progressbar"
       aria-valuenow={@value}
       class={[
-        "bg-[#F4F4F4] dark:bg-[#B6B6B6] overflow-hidden",
+        "bg-default-light-gray dark:bg-default-gray overflow-hidden",
         @variation == "vertical" && "flex items-end vertical-progress overflow-y-hidden",
         size_class(@size, @variation),
         rounded_size(@rounded)
@@ -176,7 +176,7 @@ defmodule <%= @module %> do
           cy={@coordinate}
           r={@radius}
           fill="none"
-          class="semi-circle-progress-base stroke-[#f4f4f4] dark:stroke-[#b6b6b6]"
+          class="semi-circle-progress-base stroke-default-light-gray dark:stroke-default-gray"
           stroke-width={@thickness}
           stroke-dasharray={@circumference}
           stroke-dashoffset={@circumference}
@@ -293,7 +293,7 @@ defmodule <%= @module %> do
           cx={@size / 2}
           cy={@size / 2}
           r={@radius}
-          class="semi-circle-progress-base stroke-[#F4F4F4] dark:stroke-[#B6B6B6]"
+          class="semi-circle-progress-base stroke-default-light-gray dark:stroke-default-gray"
           stroke-width={@thickness}
           fill="none"
         />
@@ -453,7 +453,7 @@ defmodule <%= @module %> do
           id={"#{@id}-tooltip"}
           class={[
             "absolute z-50 transition-all ease-in-out delay-100 duration-200 w-fit max-w-52",
-            "progress-tooltip p-1 text-center bg-[#4B4B4B] text-white dark:bg-[#DDDDDD] dark:text-black rounded",
+            "progress-tooltip p-1 text-center bg-natural-light text-white dark:bg-natural-disabled-light dark:text-black rounded",
             tooltip[:class]
           ]}
         >
