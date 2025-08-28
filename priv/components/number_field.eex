@@ -685,10 +685,10 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dark" in @color do %>
     defp color_variant("default", "dark", floating) do
       [
-        "[&_.number-field-wrapper]:bg-[#1E1E1E] text-[#1E1E1E] [&_.number-field-wrapper]:text-white",
+        "[&_.number-field-wrapper]:bg-base-bg-dark text-base-bg-dark [&_.number-field-wrapper]:text-base-text-dark",
         "[&_.number-field-wrapper.text-field-error]:border-rose-700",
-        "[&_.number-field-wrapper>input]:placeholder:text-white focus-within:[&_.number-field-wrapper]:ring-[#050404]",
-        floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-[#1E1E1E]"
+        "[&_.number-field-wrapper>input]:placeholder:text-base-text-dark focus-within:[&_.number-field-wrapper]:ring-gray-950",
+        floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-base-bg-dark"
       ]
     end
   <% end %>
@@ -857,9 +857,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dark" in @color do %>
     defp color_variant("bordered", "dark", floating) do
       [
-        "[&_.number-field-wrapper]:bg-[#1E1E1E] text-[#1E1E1E] [&_.number-field-wrapper]:border-transparent text-white",
-        "[&_.number-field-wrapper>input]:placeholder:text-white",
-        floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-[#1E1E1E]"
+        "[&_.number-field-wrapper]:bg-base-bg-dark text-base-bg-dark [&_.number-field-wrapper]:border-transparent text-base-text-dark",
+        "[&_.number-field-wrapper>input]:placeholder:text-base-text-dark",
+        floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-base-bg-dark"
       ]
     end
   <% end %>
@@ -1022,7 +1022,7 @@ defmodule <%= @module %> do
     [
       "text-natural-light dark:text-natural-dark",
       "[&_.number-field-wrapper>input]:placeholder:text-natural-light",
-      "dark:[&_.number-field-wrapper>input]:placeholder:text-secondary-light",
+      "dark:[&_.number-field-wrapper>input]:placeholder:text-natural-dark",
       "focus-within:[&_.number-field-wrapper]:ring-transparent",
     ]
   end

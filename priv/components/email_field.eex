@@ -1065,7 +1065,7 @@ defmodule <%= @module %>  do
     [
       "text-natural-light dark:text-natural-dark",
       "[&_.email-field-wrapper>input]:placeholder:text-natural-light",
-      "dark:[&_.email-field-wrapper>input]:placeholder:text-[#4363EC]",
+      "dark:[&_.email-field-wrapper>input]:placeholder:text-natural-dark",
       "focus-within:[&_.email-field-wrapper]:ring-transparent",
     ]
   end

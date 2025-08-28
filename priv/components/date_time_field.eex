@@ -1105,7 +1105,7 @@ defmodule <%= @module %> do
     [
       "text-[#4B4B4B] dark:text-[#DDDDDD]",
       "[&_.date-time-field-wrapper>input]:placeholder:text-[#4B4B4B]",
-      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-[#4363EC]",
+      "dark:[&_.date-time-field-wrapper>input]:placeholder:text-natural-dark",
       "focus-within:[&_.date-time-field-wrapper]:ring-transparent",
     ]
   end

@@ -386,12 +386,12 @@ defmodule <%= @module %> do
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "border-[#e4e4e7] [&.grouped-pagination_.pagination-button]:border-[#e4e4e7]",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#e4e4e7]",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#e4e4e7]",
-      "dark:border-[#27272a] dark:[&.grouped-pagination_.pagination-button]:border-[#27272a]",
-      "dark:[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#27272a]",
-      "dark:[&.grouped-pagination_.pagination-seperator]:border-[#27272a]"
+      "border-base-border-light [&.grouped-pagination_.pagination-button]:border-base-border-light",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-base-border-light",
+      "[&.grouped-pagination_.pagination-seperator]:border-base-border-light",
+      "dark:border-base-border-dark dark:[&.grouped-pagination_.pagination-button]:border-base-border-dark",
+      "dark:[&.grouped-pagination_.pagination-control:not(:last-child)]:border-base-border-dark",
+      "dark:[&.grouped-pagination_.pagination-seperator]:border-base-border-dark"
     ]
   end
   <% end %>
@@ -399,11 +399,11 @@ defmodule <%= @module %> do
   defp border_class("natural") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#DADADA] [&.grouped-pagination_.pagination-button]:border-[#DADADA]",
+      "border-natural-dark [&.grouped-pagination_.pagination-button]:border-natural-dark",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#DADADA]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-natural-dark",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#DADADA]"
+      "[&.grouped-pagination_.pagination-seperator]:border-natural-dark"
     ]
   end
   <% end %>
@@ -411,11 +411,11 @@ defmodule <%= @module %> do
   defp border_class("primary") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#4363EC] [&.grouped-pagination_.pagination-button]:border-[#2441de]",
+      "border-[var(--color-secondary-light)] [&.grouped-pagination_.pagination-button]:border-[var(--color-secondary-hover-light)]",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#2441de]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[var(--color-secondary-hover-light)]",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#2441de]"
+      "[&.grouped-pagination_.pagination-seperator]:border-[var(--color-secondary-hover-light)]"
     ]
   end
   <% end %>
@@ -423,11 +423,11 @@ defmodule <%= @module %> do
   defp border_class("secondary") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#6B6E7C] [&.grouped-pagination_.pagination-button]:border-[#3d3f49]",
+      "border-slate-500 [&.grouped-pagination_.pagination-button]:border-slate-700",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#3d3f49]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-slate-700",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#3d3f49]"
+      "[&.grouped-pagination_.pagination-seperator]:border-slate-700"
     ]
   end
   <% end %>
@@ -435,11 +435,11 @@ defmodule <%= @module %> do
   defp border_class("success") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#227A52] [&.grouped-pagination_.pagination-button]:border-[#227A52]",
+      "border-emerald-700 [&.grouped-pagination_.pagination-button]:border-emerald-700",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#227A52]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-emerald-700",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#227A52]"
+      "[&.grouped-pagination_.pagination-seperator]:border-emerald-700"
     ]
   end
   <% end %>
@@ -447,11 +447,11 @@ defmodule <%= @module %> do
   defp border_class("warning") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#FF8B08] [&.grouped-pagination_.pagination-button]:border-[#FF8B08]",
+      "border-warning-indicator-light [&.grouped-pagination_.pagination-button]:border-warning-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#FF8B08]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-warning-indicator-light",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#FF8B08]"
+      "[&.grouped-pagination_.pagination-seperator]:border-warning-indicator-light"
     ]
   end
   <% end %>
@@ -459,11 +459,11 @@ defmodule <%= @module %> do
   defp border_class("danger") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#E73B3B] [&.grouped-pagination_.pagination-button]:border-[#E73B3B]",
+      "border-danger-indicator-light [&.grouped-pagination_.pagination-button]:border-danger-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#E73B3B]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-danger-indicator-light",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#E73B3B]"
+      "[&.grouped-pagination_.pagination-seperator]:border-danger-indicator-light"
     ]
   end
   <% end %>
@@ -471,11 +471,11 @@ defmodule <%= @module %> do
   defp border_class("info") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#004FC4] [&.grouped-pagination_.pagination-button]:border-[#004FC4]",
+      "border-info-indicator-light [&.grouped-pagination_.pagination-button]:border-info-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#004FC4]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-info-indicator-light",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#004FC4]"
+      "[&.grouped-pagination_.pagination-seperator]:border-info-indicator-light"
     ]
   end
   <% end %>
@@ -483,11 +483,11 @@ defmodule <%= @module %> do
   defp border_class("misc") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#52059C] [&.grouped-pagination_.pagination-button]:border-[#52059C]",
+      "border-misc-indicator-light [&.grouped-pagination_.pagination-button]:border-misc-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#52059C]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-misc-indicator-light",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#52059C]"
+      "[&.grouped-pagination_.pagination-seperator]:border-misc-indicator-light"
     ]
   end
   <% end %>
@@ -495,11 +495,11 @@ defmodule <%= @module %> do
   defp border_class("dawn") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#4D4137] [&.grouped-pagination_.pagination-button]:border-[#4D4137]",
+      "border-dawn-indicator-light [&.grouped-pagination_.pagination-button]:border-dawn-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#4D4137]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-dawn-indicator-light",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#4D4137]"
+      "[&.grouped-pagination_.pagination-seperator]:border-dawn-indicator-light"
     ]
   end
   <% end %>
@@ -507,24 +507,24 @@ defmodule <%= @module %> do
   defp border_class("silver") do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#707483] [&.grouped-pagination_.pagination-button]:border-[#707483]",
+      "border-silver-indicator-light [&.grouped-pagination_.pagination-button]:border-silver-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#707483]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-silver-indicator-light",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#707483]"
+      "[&.grouped-pagination_.pagination-seperator]:border-silver-indicator-light"
     ]
   end
   <% end %>
   <%= if is_nil(@color) or "dark" in @color do %>
   defp border_class("dark") do
     [
-      "[&.grouped-pagination]:bg-[#282828] [&.grouped-pagination]:text-white",
+      "[&.grouped-pagination]:bg-default-dark-bg [&.grouped-pagination]:text-base-text-dark",
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
-      "border-[#1E1E1E] [&.grouped-pagination_.pagination-button]:border-[#727272]",
+      "border-base-bg-dark [&.grouped-pagination_.pagination-button]:border-bordered-dark-border",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[#727272]",
+      "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-bordered-dark-border",
       "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[#727272]"
+      "[&.grouped-pagination_.pagination-seperator]:border-bordered-dark-border"
     ]
   end
   <% end %>

@@ -68,7 +68,7 @@ defmodule <%= @module %> do
       id={@id}
       role="radiogroup"
       class={[
-        "flex flex-nowrap text-[#F4F4F4] dark:text-[#4B4B4B]",
+        "flex flex-nowrap text-default-light-gray dark:text-natural-light",
         gap_class(@gap),
         size_class(@size),
         color_class(@color),

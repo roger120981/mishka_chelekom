@@ -639,8 +639,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dark" in @color do %>
     defp color_variant("bordered", "dark") do
       [
-        "[&_.select-field]:bg-default-dark-bg text-default-dark-bg [&_.select-field]:border-silver-hover-light text-white",
-        "focus-within:[&_.select-field]:ring-[#050404]",
+        "[&_.select-field]:bg-default-dark-bg text-default-dark-bg [&_.select-field]:border-silver-hover-light text-base-text-dark",
+        "focus-within:[&_.select-field]:ring-ring-dark",
       ]
     end
   <% end %>
