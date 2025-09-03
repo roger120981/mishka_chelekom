@@ -227,8 +227,8 @@ defmodule <%= @module %> do
   defp color_class("base") do
     [
       "[&_.rated]:text-base-border-light dark:[&_.rated]:text-base-border-dark",
-      "hover:[&_.rating-button]:text-base-border-light [&_.rating-button:has(~.rating-button:hover)]:text-base-border-light",
-      "dark:hover:[&_.rating-button]:text-base-border-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-base-border-dark"
+      "[&_.rating-button]:hover:text-base-border-light [&_.rating-button:has(~.rating-button:hover)]:text-base-border-light",
+      "dark:[&_.rating-button]:hover:text-base-border-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-base-border-dark"
     ]
   end
   <% end %>
@@ -236,7 +236,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "white" in @color do %>
   defp color_class("white") do
     [
-      "[&_.rated]:text-white hover:[&_.rating-button]:text-white",
+      "[&_.rated]:text-white [&_.rating-button]:hover:text-white",
       "[&_.rating-button:has(~.rating-button:hover)]:text-white"
     ]
   end
@@ -246,8 +246,8 @@ defmodule <%= @module %> do
   defp color_class("natural") do
     [
       "[&_.rated]:text-natural-light dark:[&_.rated]:text-natural-dark",
-      "hover:[&_.rating-button]:text-natural-light [&_.rating-button:has(~.rating-button:hover)]:text-natural-light",
-      "dark:hover:[&_.rating-button]:text-natural-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-natural-dark",
+      "[&_.rating-button]:hover:text-natural-light [&_.rating-button:has(~.rating-button:hover)]:text-natural-light",
+      "dark:[&_.rating-button]:hover:text-natural-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-natural-dark",
     ]
   end
   <% end %>
@@ -256,8 +256,8 @@ defmodule <%= @module %> do
   defp color_class("primary") do
     [
       "[&_.rated]:text-primary-light dark:[&_.rated]:text-primary-dark",
-      "hover:[&_.rating-button]:text-primary-light [&_.rating-button:has(~.rating-button:hover)]:text-primary-light",
-      "dark:hover:[&_.rating-button]:text-primary-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-primary-dark",
+      "[&_.rating-button]:hover:text-primary-light [&_.rating-button:has(~.rating-button:hover)]:text-primary-light",
+      "dark:[&_.rating-button]:hover:text-primary-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-primary-dark",
     ]
   end
   <% end %>
@@ -266,8 +266,8 @@ defmodule <%= @module %> do
   defp color_class("secondary") do
     [
       "[&_.rated]:text-secondary-light dark:[&_.rated]:text-secondary-dark",
-      "hover:[&_.rating-button]:text-secondary-light [&_.rating-button:has(~.rating-button:hover)]:text-secondary-light",
-      "dark:hover:[&_.rating-button]:text-secondary-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-secondary-dark",
+      "[&_.rating-button]:hover:text-secondary-light [&_.rating-button:has(~.rating-button:hover)]:text-secondary-light",
+      "dark:[&_.rating-button]:hover:text-secondary-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-secondary-dark",
     ]
   end
   <% end %>
@@ -276,8 +276,8 @@ defmodule <%= @module %> do
   defp color_class("success") do
     [
       "[&_.rated]:text-success-light dark:[&_.rated]:text-success-dark",
-      "hover:[&_.rating-button]:text-success-light [&_.rating-button:has(~.rating-button:hover)]:text-success-light",
-      "dark:hover:[&_.rating-button]:text-success-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-success-dark",
+      "[&_.rating-button]:hover:text-success-light [&_.rating-button:has(~.rating-button:hover)]:text-success-light",
+      "dark:[&_.rating-button]:hover:text-success-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-success-dark",
     ]
   end
   <% end %>
@@ -286,8 +286,8 @@ defmodule <%= @module %> do
   defp color_class("warning") do
     [
       "[&_.rated]:text-warning-light dark:[&_.rated]:text-warning-dark",
-      "hover:[&_.rating-button]:text-warning-light [&_.rating-button:has(~.rating-button:hover)]:text-warning-light",
-      "dark:hover:[&_.rating-button]:text-warning-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-warning-dark",
+      "[&_.rating-button]:hover:text-warning-light [&_.rating-button:has(~.rating-button:hover)]:text-warning-light",
+      "dark:[&_.rating-button]:hover:text-warning-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-warning-dark",
     ]
   end
   <% end %>
@@ -296,8 +296,8 @@ defmodule <%= @module %> do
   defp color_class("danger") do
     [
       "[&_.rated]:text-danger-light dark:[&_.rated]:text-danger-dark",
-      "hover:[&_.rating-button]:text-danger-light [&_.rating-button:has(~.rating-button:hover)]:text-danger-light",
-      "dark:hover:[&_.rating-button]:text-danger-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-danger-dark",
+      "[&_.rating-button]:hover:text-danger-light [&_.rating-button:has(~.rating-button:hover)]:text-danger-light",
+      "dark:[&_.rating-button]:hover:text-danger-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-danger-dark",
     ]
   end
   <% end %>
@@ -306,8 +306,8 @@ defmodule <%= @module %> do
   defp color_class("info") do
     [
       "[&_.rated]:text-info-light dark:[&_.rated]:text-info-dark",
-      "hover:[&_.rating-button]:text-info-light [&_.rating-button:has(~.rating-button:hover)]:text-info-light",
-      "dark:hover:[&_.rating-button]:text-info-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-info-dark",
+      "[&_.rating-button]:hover:text-info-light [&_.rating-button:has(~.rating-button:hover)]:text-info-light",
+      "dark:[&_.rating-button]:hover:text-info-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-info-dark",
     ]
   end
   <% end %>
@@ -316,8 +316,8 @@ defmodule <%= @module %> do
   defp color_class("misc") do
     [
       "[&_.rated]:text-misc-light dark:[&_.rated]:text-misc-dark",
-      "hover:[&_.rating-button]:text-misc-light [&_.rating-button:has(~.rating-button:hover)]:text-misc-light",
-      "dark:hover:[&_.rating-button]:text-misc-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-misc-dark",
+      "[&_.rating-button]:hover:text-misc-light [&_.rating-button:has(~.rating-button:hover)]:text-misc-light",
+      "dark:[&_.rating-button]:hover:text-misc-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-misc-dark",
     ]
   end
   <% end %>
@@ -326,8 +326,8 @@ defmodule <%= @module %> do
   defp color_class("dawn") do
     [
       "[&_.rated]:text-dawn-light dark:[&_.rated]:text-dawn-dark",
-      "hover:[&_.rating-button]:text-dawn-light [&_.rating-button:has(~.rating-button:hover)]:text-dawn-light",
-      "dark:hover:[&_.rating-button]:text-dawn-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-dawn-dark",
+      "[&_.rating-button]:hover:text-dawn-light [&_.rating-button:has(~.rating-button:hover)]:text-dawn-light",
+      "dark:[&_.rating-button]:hover:text-dawn-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-dawn-dark",
     ]
   end
   <% end %>
@@ -336,8 +336,8 @@ defmodule <%= @module %> do
   defp color_class("silver") do
     [
       "[&_.rated]:text-silver-light dark:[&_.rated]:text-silver-dark",
-      "hover:[&_.rating-button]:text-silver-light [&_.rating-button:has(~.rating-button:hover)]:text-silver-light",
-      "dark:hover:[&_.rating-button]:text-silver-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-silver-dark",
+      "[&_.rating-button]:hover:text-silver-light [&_.rating-button:has(~.rating-button:hover)]:text-silver-light",
+      "dark:[&_.rating-button]:hover:text-silver-dark dark:[&_.rating-button:has(~.rating-button:hover)]:text-silver-dark",
     ]
   end
   <% end %>
@@ -346,7 +346,7 @@ defmodule <%= @module %> do
   defp color_class("dark") do
     [
       "[&_.rated]:text-default-dark-bg",
-      "hover:[&_.rating-button]:text-default-dark-bg [&_.rating-button:has(~.rating-button:hover)]:text-default-dark-bg"
+      "[&_.rating-button]:hover:text-default-dark-bg [&_.rating-button:has(~.rating-button:hover)]:text-default-dark-bg"
     ]
   end
   <% end %>
