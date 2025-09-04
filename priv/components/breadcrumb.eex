@@ -128,8 +128,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "base" in @color do %>
   defp color_class("base") do
     [
-      "text-base-text-light hover:[&>li_a]:text-base-text-hover-light",
-      "dark:text-base-text-dark dark:hover:[&>li_a]:text-base-text-hover-dark"
+      "text-base-text-light [&>li_a]:hover:text-base-text-hover-light",
+      "dark:text-base-text-dark dark:[&>li_a]:hover:text-base-text-hover-dark"
     ]
   end
   <% end %>
@@ -137,7 +137,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "white" in @color do %>
   defp color_class("white") do
     [
-      "text-white hover:[&>li_a]:text-natural-disabled-light",
+      "text-white [&>li_a]:hover:text-natural-disabled-light",
     ]
   end
   <% end %>
@@ -145,7 +145,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dark" in @color do %>
   defp color_class("dark") do
     [
-      "text-bordered-dark-bg hover:[&>li_a]:text-natural-disabled-dark",
+      "text-bordered-dark-bg [&>li_a]:hover:text-natural-disabled-dark",
     ]
   end
   <% end %>
@@ -153,8 +153,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_class("natural") do
     [
-      "text-natural-light hover:[&>li_a]:text-natural-hover-light",
-      "dark:text-natural-dark dark:hover:[&>li_a]:text-natural-hover-dark"
+      "text-natural-light [&>li_a]:hover:text-natural-hover-light",
+      "dark:text-natural-dark dark:[&>li_a]:hover:text-natural-hover-dark"
     ]
   end
   <% end %>
@@ -162,8 +162,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_class("primary") do
     [
-      "text-primary-light hover:[&>li_a]:text-primary-hover-light",
-      "dark:text-primary-dark dark:hover:[&>li_a]:text-primary-hover-dark"
+      "text-primary-light [&>li_a]:hover:text-primary-hover-light",
+      "dark:text-primary-dark dark:[&>li_a]:hover:text-primary-hover-dark"
     ]
   end
   <% end %>
@@ -171,8 +171,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_class("secondary") do
     [
-      "text-secondary-light hover:[&>li_a]:text-secondary-hover-light",
-      "dark:text-secondary-dark dark:hover:[&>li_a]:text-secondary-hover-dark"
+      "text-secondary-light [&>li_a]:hover:text-secondary-hover-light",
+      "dark:text-secondary-dark dark:[&>li_a]:hover:text-secondary-hover-dark"
     ]
   end
   <% end %>
@@ -180,8 +180,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_class("success") do
     [
-      "text-success-light hover:[&>li_a]:text-success-hover-light",
-      "dark:text-success-dark dark:hover:[&>li_a]:text-success-hover-dark"
+      "text-success-light [&>li_a]:hover:text-success-hover-light",
+      "dark:text-success-dark dark:[&>li_a]:hover:text-success-hover-dark"
     ]
   end
   <% end %>
@@ -189,8 +189,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_class("warning") do
     [
-      "text-warning-light hover:[&>li_a]:text-warning-light",
-      "dark:text-warning-dark dark:hover:[&>li_a]:text-warning-hover-dark"
+      "text-warning-light [&>li_a]:hover:text-warning-light",
+      "dark:text-warning-dark dark:[&>li_a]:hover:text-warning-hover-dark"
     ]
   end
   <% end %>
@@ -198,8 +198,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_class("danger") do
     [
-      "text-danger-light hover:[&>li_a]:text-danger-hover-light",
-      "dark:text-danger-dark dark:hover:[&>li_a]:text-danger-hover-dark"
+      "text-danger-light [&>li_a]:hover:text-danger-hover-light",
+      "dark:text-danger-dark dark:[&>li_a]:hover:text-danger-hover-dark"
     ]
   end
   <% end %>
@@ -207,8 +207,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_class("info") do
     [
-      "text-info-light hover:[&>li_a]:text-info-hover-light",
-      "dark:text-info-dark dark:hover:[&>li_a]:text-info-hover-dark"
+      "text-info-light [&>li_a]:hover:text-info-hover-light",
+      "dark:text-info-dark dark:[&>li_a]:hover:text-info-hover-dark"
     ]
   end
   <% end %>
@@ -216,8 +216,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_class("misc") do
     [
-      "text-misc-light hover:[&>li_a]:text-misc-hover-light",
-      "dark:text-misc-dark dark:hover:[&>li_a]:text-misc-hover-dark"
+      "text-misc-light [&>li_a]:hover:text-misc-hover-light",
+      "dark:text-misc-dark dark:[&>li_a]:hover:text-misc-hover-dark"
     ]
   end
   <% end %>
@@ -225,8 +225,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_class("dawn") do
     [
-      "text-dawn-light hover:[&>li_a]:text-dawn-hover-light",
-      "dark:text-dawn-dark dark:hover:[&>li_a]:text-dawn-hover-dark"
+      "text-dawn-light [&>li_a]:hover:text-dawn-hover-light",
+      "dark:text-dawn-dark dark:[&>li_a]:hover:text-dawn-hover-dark"
     ]
   end
   <% end %>
@@ -234,8 +234,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_class("silver") do
     [
-      "text-silver-light hover:[&>li_a]:text-silver-hover-light",
-      "dark:text-silver-dark dark:hover:[&>li_a]:text-silver-hover-dark"
+      "text-silver-light [&>li_a]:hover:text-silver-hover-light",
+      "dark:text-silver-dark dark:[&>li_a]:hover:text-silver-hover-dark"
     ]
   end
   <% end %>

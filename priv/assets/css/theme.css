@@ -14,7 +14,7 @@
     --color-base-disabled-text-dark: var(--base-disabled-text-dark);
     --color-base-disabled-border-light: var(--base-disabled-border-light);
     --color-base-disabled-border-dark: var(--base-disabled-border-dark);
-    --color-base-tab-bg-light: var(--base-tab-bg);
+    --color-base-tab-bg-light: var(--base-tab-bg-light); 
 
     --color-default-dark-bg: var(--default-dark-bg);
     --color-ring-dark: var(--ring-dark);
