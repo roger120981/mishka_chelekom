@@ -749,7 +749,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
     defp color_variant("shadow", "success") do
       [
-        "[&_.dropzone-wrapper]:bg-success-light text-white hover:[&_.dropzone-wrapper]:bg-success-hover-light dark:[&_.dropzone-wrapper]:bg-success-dark dark:text-black",
+        "[&_.dropzone-wrapper]:bg-success-light text-white dark:[&_.dropzone-wrapper]:bg-success-dark dark:text-black",
         "[&_.dropzone-wrapper]:shadow-[0px_4px_6px_-4px_var(--color-shadow-success)] [&_.dropzone-wrapper]:shadow-[0px_10px_15px_-3px_var(--color-shadow-success)]",
         "dark:[&_.dropzone-wrapper]:shadow-none"
       ]

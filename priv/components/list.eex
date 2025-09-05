@@ -580,7 +580,7 @@ defmodule <%= @module %> do
       "bg-white text-base-text-light border-base-border-light shadow-sm",
       "dark:bg-base-bg-dark dark:text-base-text-dark dark:border-base-border-dark",
       "[&>li:not(:last-child)]:border-base-border-light dark:[&>li:not(:last-child)]:border-base-border-dark",
-      hoverable && "hover:[&_li]:bg-base-hover-light dark:hover:[&_li]:bg-base-hover-dark"
+      hoverable && "[&_li]:hover:bg-base-hover-light dark:[&_li]:hover:bg-base-hover-dark"
     ]
   end
   <% end %>
@@ -589,7 +589,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-base-text-light [&>li]:border-base-border-light [&>li]:bg-white",
       "dark:[&>li]:text-base-text-dark dark:[&>li]:border-base-border-dark dark:[&>li]:bg-base-bg-dark",
-      hoverable && "hover:[&_li]:bg-base-hover-light dark:hover:[&_li]:bg-base-hover-dark"
+      hoverable && "[&_li]:hover:bg-base-hover-light dark:[&_li]:hover:bg-base-hover-dark"
     ]
   end
   <% end %>
@@ -598,7 +598,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "white", hoverable) do
     [
       "bg-white text-black",
-      hoverable && "hover:[&_li]:bg-base-disabled-bg-light"
+      hoverable && "[&_li]:hover:bg-base-disabled-bg-light"
     ]
   end
   <% end %>
@@ -607,7 +607,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "dark", hoverable) do
     [
       "bg-default-dark-bg text-white",
-      hoverable && "hover:[&_li]:bg-natural-bg-dark"
+      hoverable && "[&_li]:hover:bg-natural-bg-dark"
     ]
   end
   <% end %>
@@ -616,7 +616,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "natural", hoverable) do
     [
       "bg-natural-light text-white dark:bg-natural-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -625,7 +625,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "primary", hoverable) do
     [
       "bg-primary-light text-white dark:bg-primary-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -634,7 +634,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "secondary", hoverable) do
     [
       "bg-secondary-light text-white dark:bg-secondary-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -643,7 +643,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "success", hoverable) do
     [
       "bg-success-light text-white dark:bg-success-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -652,7 +652,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "warning", hoverable) do
     [
       "bg-warning-light text-white dark:bg-warning-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -661,7 +661,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "danger", hoverable) do
     [
       "bg-danger-light text-white dark:bg-danger-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -670,7 +670,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "info", hoverable) do
     [
       "bg-info-light text-white dark:bg-info-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -679,7 +679,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "misc", hoverable) do
     [
       "bg-misc-light text-white dark:bg-misc-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -688,7 +688,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "dawn", hoverable) do
     [
       "bg-dawn-light text-white dark:bg-dawn-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -697,7 +697,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "silver", hoverable) do
     [
       "bg-silver-light text-white dark:bg-silver-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
@@ -708,7 +708,7 @@ defmodule <%= @module %> do
     [
       "text-natural-light border-natural-light dark:text-natural-dark dark:border-natural-dark",
       "[&>li:not(:last-child)]:border-natural-light dark:[&>li:not(:last-child)]:border-natural-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -718,7 +718,7 @@ defmodule <%= @module %> do
     [
       "text-primary-light border-primary-light dark:text-primary-dark dark:border-primary-dark",
       "[&>li:not(:last-child)]:border-primary-light dark:[&>li:not(:last-child)]:border-primary-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -728,7 +728,7 @@ defmodule <%= @module %> do
     [
       "text-secondary-light border-secondary-light dark:text-secondary-dark dark:border-secondary-dark",
       "[&>li:not(:last-child)]:border-secondary-light dark:[&>li:not(:last-child)]:border-secondary-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -738,7 +738,7 @@ defmodule <%= @module %> do
     [
       "text-success-light border-success-light dark:text-success-dark dark:border-success-dark",
       "[&>li:not(:last-child)]:border-success-light dark:[&>li:not(:last-child)]:border-success-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -748,7 +748,7 @@ defmodule <%= @module %> do
     [
       "text-warning-light border-warning-light dark:text-warning-dark dark:border-warning-dark",
       "[&>li:not(:last-child)]:border-warning-light dark:[&>li:not(:last-child)]:border-warning-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -758,7 +758,7 @@ defmodule <%= @module %> do
     [
       "text-danger-light border-danger-light dark:text-danger-dark dark:border-danger-dark",
       "[&>li:not(:last-child)]:border-danger-light dark:[&>li:not(:last-child)]:border-danger-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -768,7 +768,7 @@ defmodule <%= @module %> do
     [
       "text-info-light border-info-light dark:text-info-dark dark:border-info-dark",
       "[&>li:not(:last-child)]:border-info-light dark:[&>li:not(:last-child)]:border-info-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -778,7 +778,7 @@ defmodule <%= @module %> do
     [
       "text-misc-light border-misc-light dark:text-misc-dark dark:border-misc-dark",
       "[&>li:not(:last-child)]:border-misc-light dark:[&>li:not(:last-child)]:border-misc-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -788,7 +788,7 @@ defmodule <%= @module %> do
     [
       "text-dawn-light border-dawn-light dark:text-dawn-dark dark:border-dawn-dark",
       "[&>li:not(:last-child)]:border-dawn-light dark:[&>li:not(:last-child)]:border-dawn-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -798,7 +798,7 @@ defmodule <%= @module %> do
     [
       "text-silver-light border-silver-light dark:text-silver-dark dark:border-silver-dark",
       "[&>li:not(:last-child)]:border-silver-light dark:[&>li:not(:last-child)]:border-silver-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
@@ -809,7 +809,7 @@ defmodule <%= @module %> do
     [
       "bg-natural-light text-white dark:bg-natural-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-natural)] shadow-[0px_10px_15px_-3px_var(--color-shadow-natural)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -819,7 +819,7 @@ defmodule <%= @module %> do
     [
       "bg-primary-light text-white dark:bg-primary-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-primary)] shadow-[0px_10px_15px_-3px_var(--color-shadow-primary)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -829,7 +829,7 @@ defmodule <%= @module %> do
     [
       "bg-secondary-light text-white dark:bg-secondary-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-secondary)] shadow-[0px_10px_15px_-3px_var(--color-shadow-secondary)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -837,9 +837,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("shadow", "success", hoverable) do
     [
-      "bg-success-light text-white hover:bg-success-hover-light dark:bg-success-dark dark:text-black",
+      "bg-success-light text-white bg-success-hoverhover:-light dark:bg-success-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-success)] shadow-[0px_10px_15px_-3px_var(--color-shadow-success)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -849,7 +849,7 @@ defmodule <%= @module %> do
     [
       "bg-warning-light text-white dark:bg-warning-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-warning)] shadow-[0px_10px_15px_-3px_var(--color-shadow-warning)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -859,7 +859,7 @@ defmodule <%= @module %> do
     [
       "bg-danger-light text-white dark:bg-danger-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-danger)] shadow-[0px_10px_15px_-3px_var(--color-shadow-danger)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -869,7 +869,7 @@ defmodule <%= @module %> do
     [
       "bg-info-light text-white dark:bg-info-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-info)] shadow-[0px_10px_15px_-3px_var(--color-shadow-info)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -879,7 +879,7 @@ defmodule <%= @module %> do
     [
       "bg-misc-light text-white dark:bg-misc-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-misc)] shadow-[0px_10px_15px_-3px_var(--color-shadow-misc)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -889,7 +889,7 @@ defmodule <%= @module %> do
     [
       "bg-dawn-light text-white dark:bg-dawn-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-dawn)] shadow-[0px_10px_15px_-3px_var(--color-shadow-dawn)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -899,7 +899,7 @@ defmodule <%= @module %> do
     [
       "bg-silver-light text-white dark:bg-silver-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-silver)] shadow-[0px_10px_15px_-3px_var(--color-shadow-silver)] dark:shadow-none",
-      hoverable && "hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
@@ -910,7 +910,7 @@ defmodule <%= @module %> do
     [
       "bg-white text-black border-bordered-white-border",
       "[&>li:not(:last-child)]:border-bordered-white-border",
-      hoverable && "hover:[&_li]:text-black hover:[&_li]:bg-natural-bg-dark"
+      hoverable && "[&_li]:hover:text-black [&_li]:hover:bg-natural-bg-dark"
     ]
   end
   <% end %>
@@ -920,7 +920,7 @@ defmodule <%= @module %> do
     [
       "bg-bordered-dark-bg text-white border-bordered-dark-border",
       "[&>li:not(:last-child)]:border-bordered-dark-border",
-      hoverable && "hover:[&_li]:text-white hover:[&_li]:bg-natural-bg-dark"
+      hoverable && "[&_li]:hover:text-white [&_li]:hover:bg-natural-bg-dark"
     ]
   end
   <% end %>
@@ -931,7 +931,7 @@ defmodule <%= @module %> do
       "text-natural-bordered-text-light border-natural-border-light bg-natural-bordered-bg-light",
       "dark:text-natural-bordered-text-dark dark:border-natural-border-dark dark:bg-natural-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-natural-border-light dark:[&>li:not(:last-child)]:border-natural-border-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -942,7 +942,7 @@ defmodule <%= @module %> do
       "text-primary-bordered-text-light border-primary-bordered-text-light bg-primary-bordered-bg-light",
       "dark:text-primary-bordered-text-dark dark:border-primary-bordered-text-dark dark:bg-primary-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-primary-bordered-text-light dark:[&>li:not(:last-child)]:border-primary-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -953,7 +953,7 @@ defmodule <%= @module %> do
       "text-secondary-bordered-text-light border-secondary-bordered-text-light bg-secondary-bordered-bg-light",
       "dark:text-secondary-bordered-text-dark dark:border-secondary-bordered-text-dark dark:bg-secondary-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-secondary-bordered-text-light dark:[&>li:not(:last-child)]:border-secondary-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -964,7 +964,7 @@ defmodule <%= @module %> do
       "text-success-bordered-text-light border-success-bordered-text-light bg-success-bordered-bg-light",
       "dark:text-success-bordered-text-dark dark:border-success-bordered-text-dark dark:bg-success-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-success-bordered-text-light dark:[&>li:not(:last-child)]:border-success-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -975,7 +975,7 @@ defmodule <%= @module %> do
       "text-warning-bordered-text-light border-warning-bordered-text-light bg-warning-bordered-bg-light",
       "dark:text-warning-bordered-text-dark dark:border-warning-bordered-text-dark dark:bg-warning-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-warning-bordered-text-light dark:[&>li:not(:last-child)]:border-warning-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -986,7 +986,7 @@ defmodule <%= @module %> do
       "text-danger-bordered-text-light border-danger-bordered-text-light bg-danger-bordered-bg-light",
       "dark:text-danger-bordered-text-dark dark:border-danger-bordered-text-dark dark:bg-danger-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-danger-bordered-text-light dark:[&>li:not(:last-child)]:border-danger-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -997,7 +997,7 @@ defmodule <%= @module %> do
       "text-info-bordered-text-light border-info-bordered-text-light bg-info-bordered-bg-light",
       "dark:text-info-bordered-text-dark dark:border-info-bordered-text-dark dark:bg-info-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-info-bordered-text-light dark:[&>li:not(:last-child)]:border-info-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -1008,7 +1008,7 @@ defmodule <%= @module %> do
       "text-misc-bordered-text-light border-misc-bordered-text-light bg-misc-bordered-bg-light",
       "dark:text-misc-bordered-text-dark dark:border-misc-bordered-text-dark dark:bg-misc-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-misc-bordered-text-light dark:[&>li:not(:last-child)]:border-misc-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -1019,7 +1019,7 @@ defmodule <%= @module %> do
       "text-dawn-bordered-text-light border-dawn-bordered-text-light bg-dawn-bordered-bg-light",
       "dark:text-dawn-bordered-text-dark dark:border-dawn-bordered-text-dark dark:bg-dawn-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-dawn-bordered-text-light dark:[&>li:not(:last-child)]:border-dawn-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -1030,7 +1030,7 @@ defmodule <%= @module %> do
       "text-silver-bordered-text-light border-silver-bordered-text-light bg-silver-bordered-bg-light",
       "dark:text-silver-bordered-text-dark dark:border-silver-bordered-text-dark dark:bg-silver-bordered-bg-dark",
       "[&>li:not(:last-child)]:border-silver-bordered-text-light dark:[&>li:not(:last-child)]:border-silver-bordered-text-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
@@ -1040,7 +1040,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "natural", hoverable) do
     [
       "text-natural-light dark:text-natural-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -1049,7 +1049,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "primary", hoverable) do
     [
       "text-primary-light dark:text-primary-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -1058,7 +1058,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "secondary", hoverable) do
     [
       "text-secondary-light dark:text-secondary-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -1067,7 +1067,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "success", hoverable) do
     [
       "text-success-light dark:text-success-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -1076,7 +1076,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "warning", hoverable) do
     [
       "text-warning-light dark:text-warning-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -1085,7 +1085,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "danger", hoverable) do
     [
       "text-danger-light dark:text-danger-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -1094,7 +1094,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "info", hoverable) do
     [
       "text-info-light dark:text-info-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -1103,7 +1103,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "misc", hoverable) do
     [
       "text-misc-light dark:text-misc-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -1112,7 +1112,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "dawn", hoverable) do
     [
       "text-dawn-light dark:text-dawn-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -1121,7 +1121,7 @@ defmodule <%= @module %> do
   defp color_variant("transparent", "silver", hoverable) do
     [
       "text-silver-light dark:text-silver-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
@@ -1132,7 +1132,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-natural-from-light to-gradient-natural-to-light text-white",
       "dark:from-gradient-natural-from-dark dark:to-white dark:text-black",
-      hoverable && "hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -1142,7 +1142,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-primary-from-light to-gradient-primary-to-light text-white",
       "dark:from-gradient-primary-from-dark dark:to-gradient-primary-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -1152,7 +1152,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-secondary-from-light to-gradient-secondary-to-light text-white",
       "dark:from-gradient-secondary-from-dark dark:to-gradient-secondary-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -1162,7 +1162,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-success-from-light to-gradient-success-to-light text-white",
       "dark:from-gradient-success-from-dark dark:to-gradient-success-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -1172,7 +1172,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-warning-from-light to-gradient-warning-to-light text-white",
       "dark:from-gradient-warning-from-dark dark:to-gradient-warning-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -1182,7 +1182,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-danger-from-light to-gradient-danger-to-light text-white",
       "dark:from-gradient-danger-from-dark dark:to-gradient-danger-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -1192,7 +1192,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-info-from-light to-gradient-info-to-light text-white",
       "dark:from-gradient-info-from-dark dark:to-gradient-info-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -1202,7 +1202,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-misc-from-light to-gradient-misc-to-light text-white",
       "dark:from-gradient-misc-from-dark dark:to-gradient-misc-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -1212,7 +1212,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-dawn-from-light to-gradient-dawn-to-light text-white",
       "dark:from-gradient-dawn-from-dark dark:to-gradient-dawn-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -1222,7 +1222,7 @@ defmodule <%= @module %> do
     [
       "bg-gradient-to-br from-gradient-silver-from-light to-gradient-silver-to-light text-white",
       "dark:from-gradient-silver-from-dark dark:to-gradient-silver-to-dark dark:text-black",
-      hoverable && "hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
@@ -1233,7 +1233,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-natural-bordered-text-light [&>li]:border-natural-border-light [&>li]:bg-natural-bordered-bg-light",
       "dark:[&>li]:text-natural-bordered-text-dark dark:[&>li]:border-natural-border-dark dark:[&>li]:bg-natural-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -1243,7 +1243,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-primary-bordered-text-light [&>li]:border-primary-bordered-text-light [&>li]:bg-primary-bordered-bg-light",
       "dark:[&>li]:text-primary-bordered-text-dark dark:[&>li]:border-primary-bordered-text-dark dark:[&>li]:bg-primary-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -1253,7 +1253,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-secondary-bordered-text-light [&>li]:border-secondary-bordered-text-light [&>li]:bg-secondary-bordered-bg-light",
       "dark:[&>li]:text-secondary-bordered-text-dark dark:[&>li]:border-secondary-bordered-text-dark dark:[&>li]:bg-secondary-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -1263,7 +1263,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-success-bordered-text-light [&>li]:border-success-bordered-text-light [&>li]:bg-success-bordered-bg-light",
       "dark:[&>li]:text-success-bordered-text-dark dark:[&>li]:border-success-bordered-text-dark dark:[&>li]:bg-success-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -1273,7 +1273,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-warning-bordered-text-light [&>li]:border-warning-bordered-text-light [&>li]:bg-warning-bordered-bg-light",
       "dark:[&>li]:text-warning-bordered-text-dark dark:[&>li]:border-warning-bordered-text-dark dark:[&>li]:bg-warning-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -1283,7 +1283,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-danger-bordered-text-light [&>li]:border-danger-bordered-text-light [&>li]:bg-danger-bordered-bg-light",
       "dark:[&>li]:text-danger-bordered-text-dark dark:[&>li]:border-danger-bordered-text-dark dark:[&>li]:bg-danger-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -1293,7 +1293,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-info-bordered-text-light [&>li]:border-info-bordered-text-light [&>li]:bg-info-bordered-bg-light",
       "dark:[&>li]:text-info-bordered-text-dark dark:[&>li]:border-info-bordered-text-dark dark:[&>li]:bg-info-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -1303,7 +1303,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-misc-bordered-text-light [&>li]:border-misc-bordered-text-light [&>li]:bg-misc-bordered-bg-light",
       "dark:[&>li]:text-misc-bordered-text-dark dark:[&>li]:border-misc-bordered-text-dark dark:[&>li]:bg-misc-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -1313,7 +1313,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-dawn-bordered-text-light [&>li]:border-dawn-bordered-text-light [&>li]:bg-dawn-bordered-bg-light",
       "dark:[&>li]:text-dawn-bordered-text-dark dark:[&>li]:border-dawn-bordered-text-dark dark:[&>li]:bg-dawn-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -1323,7 +1323,7 @@ defmodule <%= @module %> do
     [
       "[&>li]:text-silver-bordered-text-light [&>li]:border-silver-bordered-text-light [&>li]:bg-silver-bordered-bg-light",
       "dark:[&>li]:text-silver-bordered-text-dark dark:[&>li]:border-silver-bordered-text-dark dark:[&>li]:bg-silver-bordered-bg-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
@@ -1333,7 +1333,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "natural", hoverable) do
     [
       "[&>li]:text-natural-light [&>li]:border-natural-light dark:[&>li]:text-natural-dark dark:[&>li]:border-natural-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-black dark:hover:[&_li]:bg-white"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
   <% end %>
@@ -1342,7 +1342,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "primary", hoverable) do
     [
       "[&>li]:text-primary-light [&>li]:border-primary-light dark:[&>li]:text-primary-dark dark:[&>li]:border-primary-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-primary-indicator-light dark:hover:[&_li]:bg-primary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-primary-indicator-light dark:[&_li]:hover:bg-primary-indicator-dark"
     ]
   end
   <% end %>
@@ -1351,7 +1351,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "secondary", hoverable) do
     [
       "[&>li]:text-secondary-light [&>li]:border-secondary-light dark:[&>li]:text-secondary-dark dark:[&>li]:border-secondary-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-secondary-indicator-light dark:hover:[&_li]:bg-secondary-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-secondary-indicator-light dark:[&_li]:hover:bg-secondary-indicator-dark"
     ]
   end
   <% end %>
@@ -1360,7 +1360,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "success", hoverable) do
     [
       "[&>li]:text-success-light [&>li]:border-success-light dark:[&>li]:text-success-dark dark:[&>li]:border-success-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-success-indicator-alt-light dark:hover:[&_li]:bg-success-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-success-indicator-alt-light dark:[&_li]:hover:bg-success-indicator-dark"
     ]
   end
   <% end %>
@@ -1369,7 +1369,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "warning", hoverable) do
     [
       "[&>li]:text-warning-light [&>li]:border-warning-light dark:[&>li]:text-warning-dark dark:[&>li]:border-warning-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-warning-indicator-alt-light dark:hover:[&_li]:bg-warning-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-warning-indicator-alt-light dark:[&_li]:hover:bg-warning-indicator-dark"
     ]
   end
   <% end %>
@@ -1378,7 +1378,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "danger", hoverable) do
     [
       "[&>li]:text-danger-light [&>li]:border-danger-light dark:[&>li]:text-danger-dark dark:[&>li]:border-danger-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-danger-indicator-alt-light dark:hover:[&_li]:bg-danger-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-danger-indicator-alt-light dark:[&_li]:hover:bg-danger-indicator-dark"
     ]
   end
   <% end %>
@@ -1387,7 +1387,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "info", hoverable) do
     [
       "[&>li]:text-info-light [&>li]:border-info-light dark:[&>li]:text-info-dark dark:[&>li]:border-info-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-info-indicator-alt-light dark:hover:[&_li]:bg-info-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-info-indicator-alt-light dark:[&_li]:hover:bg-info-indicator-dark"
     ]
   end
   <% end %>
@@ -1396,7 +1396,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "misc", hoverable) do
     [
       "[&>li]:text-misc-light [&>li]:border-misc-light dark:[&>li]:text-misc-dark dark:[&>li]:border-misc-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-misc-indicator-alt-light dark:hover:[&_li]:bg-misc-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-misc-indicator-alt-light dark:[&_li]:hover:bg-misc-indicator-dark"
     ]
   end
   <% end %>
@@ -1405,7 +1405,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "dawn", hoverable) do
     [
       "[&>li]:text-dawn-light [&>li]:border-dawn-light dark:[&>li]:text-dawn-dark dark:[&>li]:border-dawn-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-dawn-indicator-alt-light dark:hover:[&_li]:bg-dawn-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-dawn-indicator-alt-light dark:[&_li]:hover:bg-dawn-indicator-dark"
     ]
   end
   <% end %>
@@ -1414,7 +1414,7 @@ defmodule <%= @module %> do
   defp color_variant("outline_separated", "silver", hoverable) do
     [
       "[&>li]:text-silver-light [&>li]:border-silver-light dark:[&>li]:text-silver-dark dark:[&>li]:border-silver-dark",
-      hoverable && "hover:[&_li]:text-white dark:hover:[&_li]:text-black hover:[&_li]:bg-silver-indicator-alt-light dark:hover:[&_li]:bg-silver-indicator-dark"
+      hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-silver-indicator-alt-light dark:[&_li]:hover:bg-silver-indicator-dark"
     ]
   end
   <% end %>
