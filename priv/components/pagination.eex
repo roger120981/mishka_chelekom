@@ -637,7 +637,7 @@ defmodule <%= @module %> do
     [
       "bg-white dark:bg-base-bg-dark [&_.pagination-button]:border-base-border-light [&_.pagination-button]:text-base-text-light",
       "dark:[&_.pagination-button]:border-base-border-dark dark:[&_.pagination-button]:text-base-text-dark",
-      "hover:[&_.pagination-button]:bg-base-hover-light dark:hover:[&_.pagination-button]:bg-base-hover-dark",
+      "[&_.pagination-button]:hover:bg-base-hover-light dark:[&_.pagination-button]:hover:bg-base-hover-dark",
       "[&_.pagination-button.active-pagination-button]:bg-base-hover-light dark:[&_.pagination-button.active-pagination-button]:bg-base-hover-dark"
     ]
   end
@@ -647,7 +647,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "white") do
     [
       "[&_.pagination-button]:bg-white [&_.pagination-button]:text-form-white-text",
-      "hover:[&_.pagination-button]:bg-natural-hover-dark",
+      "[&_.pagination-button]:hover:bg-natural-hover-dark",
       "[&_.pagination-button.active-pagination-button]:bg-natural-hover-dark",
     ]
   end
@@ -657,7 +657,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "dark") do
     [
       "[&_.pagination-button]:bg-default-dark-bg [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-bordered-dark-border",
+      "[&_.pagination-button]:hover:bg-bordered-dark-border",
       "[&_.pagination-button.active-pagination-button]:bg-bordered-dark-border",
     ]
   end
@@ -667,10 +667,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "natural") do
     [
       "[&_.pagination-button]:bg-natural-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-natural-hover-light",
+      "[&_.pagination-button]:hover:bg-natural-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-natural-hover-light",
       "dark:[&_.pagination-button]:bg-natural-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-natural-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-natural-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-natural-hover-dark",
     ]
   end
@@ -680,10 +680,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "primary") do
     [
       "[&_.pagination-button]:bg-primary-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-primary-hover-light",
+      "[&_.pagination-button]:hover:bg-primary-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-primary-hover-light",
       "dark:[&_.pagination-button]:bg-primary-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-primary-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-primary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-primary-hover-dark",
     ]
   end
@@ -693,10 +693,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "secondary") do
     [
       "[&_.pagination-button]:bg-secondary-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-secondary-hover-light",
+      "[&_.pagination-button]:hover:bg-secondary-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-secondary-hover-light",
       "dark:[&_.pagination-button]:bg-secondary-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-secondary-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-secondary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-secondary-hover-dark",
     ]
   end
@@ -706,10 +706,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "success") do
     [
       "[&_.pagination-button]:bg-success-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-success-hover-light",
+      "[&_.pagination-button]:hover:bg-success-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-success-hover-light",
       "dark:[&_.pagination-button]:bg-success-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-success-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-success-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-success-hover-dark",
     ]
   end
@@ -719,10 +719,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "warning") do
     [
       "[&_.pagination-button]:bg-warning-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-warning-hover-light",
+      "[&_.pagination-button]:hover:bg-warning-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-warning-hover-light",
       "dark:[&_.pagination-button]:bg-warning-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-warning-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-warning-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-warning-hover-dark",
     ]
   end
@@ -732,10 +732,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "danger") do
     [
       "[&_.pagination-button]:bg-danger-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-danger-hover-light",
+      "[&_.pagination-button]:hover:bg-danger-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-danger-hover-light",
       "dark:[&_.pagination-button]:bg-danger-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-danger-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-danger-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-danger-hover-dark",
     ]
   end
@@ -745,10 +745,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "info") do
     [
       "[&_.pagination-button]:bg-info-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-info-hover-light",
+      "[&_.pagination-button]:hover:bg-info-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-info-hover-light",
       "dark:[&_.pagination-button]:bg-info-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-info-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-info-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-info-hover-dark",
     ]
   end
@@ -758,10 +758,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "misc") do
     [
       "[&_.pagination-button]:bg-misc-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-misc-hover-light",
+      "[&_.pagination-button]:hover:bg-misc-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-misc-hover-light",
       "dark:[&_.pagination-button]:bg-misc-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-misc-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-misc-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-misc-hover-dark",
     ]
   end
@@ -771,10 +771,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "dawn") do
     [
       "[&_.pagination-button]:bg-dawn-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-dawn-hover-light",
+      "[&_.pagination-button]:hover:bg-dawn-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-dawn-hover-light",
       "dark:[&_.pagination-button]:bg-dawn-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-dawn-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-dawn-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-dawn-hover-dark",
     ]
   end
@@ -784,10 +784,10 @@ defmodule <%= @module %> do
   defp color_variant("default", "silver") do
     [
       "[&_.pagination-button]:bg-silver-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-silver-hover-light",
+      "[&_.pagination-button]:hover:bg-silver-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-silver-hover-light",
       "dark:[&_.pagination-button]:bg-silver-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-silver-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-silver-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-silver-hover-dark",
     ]
   end
@@ -798,9 +798,9 @@ defmodule <%= @module %> do
   defp color_variant("outline", "natural") do
     [
       "[&_.pagination-button]:border-natural-light [&_.pagination-button]:text-natural-light",
-      "hover:[&_.pagination-button]:border-natural-hover-light hover:[&_.pagination-button]:text-natural-hover-light",
+      "[&_.pagination-button]:hover:border-natural-hover-light [&_.pagination-button]:hover:text-natural-hover-light",
       "dark:[&_.pagination-button]:border-natural-dark dark:[&_.pagination-button]:text-natural-dark",
-      "dark:hover:[&_.pagination-button]:border-natural-hover-dark dark:hover:[&_.pagination-button]:text-natural-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-natural-hover-dark dark:[&_.pagination-button]:hover:text-natural-hover-dark",
       "[&_.pagination-button.active-pagination-button]:border-natural-hover-light [&_.pagination-button.active-pagination-button]:text-natural-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:border-natural-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-natural-hover-dark",
     ]
@@ -811,10 +811,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "primary") do
     [
       "[&_.pagination-button]:border-primary-light [&_.pagination-button]:text-primary-light",
-      "hover:[&_.pagination-button]:border-primary-hover-light hover:[&_.pagination-button]:text-primary-hover-light",
+      "[&_.pagination-button]:hover:border-primary-hover-light [&_.pagination-button]:hover:text-primary-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-primary-hover-light [&_.pagination-button.active-pagination-button]:text-primary-hover-light",
       "dark:[&_.pagination-button]:border-primary-dark dark:[&_.pagination-button]:text-primary-dark",
-      "dark:hover:[&_.pagination-button]:border-primary-hover-dark dark:hover:[&_.pagination-button]:text-primary-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-primary-hover-dark dark:[&_.pagination-button]:hover:text-primary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-primary-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-primary-hover-dark",
     ]
   end
@@ -824,10 +824,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "secondary") do
     [
       "[&_.pagination-button]:border-secondary-light [&_.pagination-button]:text-secondary-light",
-      "hover:[&_.pagination-button]:border-secondary-hover-light hover:[&_.pagination-button]:text-secondary-hover-light",
+      "[&_.pagination-button]:hover:border-secondary-hover-light [&_.pagination-button]:hover:text-secondary-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-secondary-hover-light [&_.pagination-button.active-pagination-button]:text-secondary-hover-light",
       "dark:[&_.pagination-button]:border-secondary-dark dark:[&_.pagination-button]:text-secondary-dark",
-      "dark:hover:[&_.pagination-button]:border-secondary-hover-dark dark:hover:[&_.pagination-button]:text-secondary-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-secondary-hover-dark dark:[&_.pagination-button]:hover:text-secondary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-secondary-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-secondary-hover-dark",
     ]
   end
@@ -837,10 +837,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "success") do
     [
       "[&_.pagination-button]:border-success-light [&_.pagination-button]:text-success-light",
-      "hover:[&_.pagination-button]:border-success-hover-light hover:[&_.pagination-button]:text-success-hover-light",
+      "[&_.pagination-button]:hover:border-success-hover-light [&_.pagination-button]:hover:text-success-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-success-hover-light [&_.pagination-button.active-pagination-button]:text-success-hover-light",
       "dark:[&_.pagination-button]:border-success-dark dark:[&_.pagination-button]:text-success-dark",
-      "dark:hover:[&_.pagination-button]:border-success-hover-dark dark:hover:[&_.pagination-button]:text-success-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-success-hover-dark dark:[&_.pagination-button]:hover:text-success-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-success-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-success-hover-dark",
     ]
   end
@@ -850,10 +850,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "warning") do
     [
       "[&_.pagination-button]:border-warning-light [&_.pagination-button]:text-warning-light",
-      "hover:[&_.pagination-button]:border-warning-hover-light hover:[&_.pagination-button]:text-warning-hover-light",
+      "[&_.pagination-button]:hover:border-warning-hover-light [&_.pagination-button]:hover:text-warning-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-warning-hover-light [&_.pagination-button.active-pagination-button]:text-warning-hover-light",
       "dark:[&_.pagination-button]:border-warning-dark dark:[&_.pagination-button]:text-warning-dark",
-      "dark:hover:[&_.pagination-button]:border-warning-hover-dark dark:hover:[&_.pagination-button]:text-warning-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-warning-hover-dark dark:[&_.pagination-button]:hover:text-warning-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-warning-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-warning-hover-dark",
     ]
   end
@@ -863,10 +863,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "danger") do
     [
       "[&_.pagination-button]:border-danger-light [&_.pagination-button]:text-danger-light",
-      "hover:[&_.pagination-button]:border-danger-hover-light hover:[&_.pagination-button]:text-danger-hover-light",
+      "[&_.pagination-button]:hover:border-danger-hover-light [&_.pagination-button]:hover:text-danger-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-danger-hover-light [&_.pagination-button.active-pagination-button]:text-danger-hover-light",
       "dark:[&_.pagination-button]:border-danger-dark dark:[&_.pagination-button]:text-danger-dark",
-      "dark:hover:[&_.pagination-button]:border-danger-hover-dark dark:hover:[&_.pagination-button]:text-danger-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-danger-hover-dark dark:[&_.pagination-button]:hover:text-danger-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-danger-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-danger-hover-dark",
     ]
   end
@@ -876,10 +876,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "info") do
     [
       "[&_.pagination-button]:border-info-light [&_.pagination-button]:text-info-light",
-      "hover:[&_.pagination-button]:border-info-hover-light hover:[&_.pagination-button]:text-info-hover-light",
+      "[&_.pagination-button]:hover:border-info-hover-light [&_.pagination-button]:hover:text-info-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-info-hover-light [&_.pagination-button.active-pagination-button]:text-info-hover-light",
       "dark:[&_.pagination-button]:border-info-dark dark:[&_.pagination-button]:text-info-dark",
-      "dark:hover:[&_.pagination-button]:border-info-hover-dark dark:hover:[&_.pagination-button]:text-info-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-info-hover-dark dark:[&_.pagination-button]:hover:text-info-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-info-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-info-hover-dark",
     ]
   end
@@ -889,10 +889,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "misc") do
     [
       "[&_.pagination-button]:border-misc-light [&_.pagination-button]:text-misc-light",
-      "hover:[&_.pagination-button]:border-misc-hover-light hover:[&_.pagination-button]:text-misc-hover-light",
+      "[&_.pagination-button]:hover:border-misc-hover-light [&_.pagination-button]:hover:text-misc-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-misc-hover-light [&_.pagination-button.active-pagination-button]:text-misc-hover-light",
       "dark:[&_.pagination-button]:border-misc-dark dark:[&_.pagination-button]:text-misc-dark",
-      "dark:hover:[&_.pagination-button]:border-misc-hover-dark dark:hover:[&_.pagination-button]:text-misc-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-misc-hover-dark dark:[&_.pagination-button]:hover:text-misc-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-misc-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-misc-hover-dark",
     ]
   end
@@ -902,10 +902,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "dawn") do
     [
       "[&_.pagination-button]:border-dawn-light [&_.pagination-button]:text-dawn-light",
-      "hover:[&_.pagination-button]:border-dawn-hover-light hover:[&_.pagination-button]:text-dawn-hover-light",
+      "[&_.pagination-button]:hover:border-dawn-hover-light [&_.pagination-button]:hover:text-dawn-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-dawn-hover-light [&_.pagination-button.active-pagination-button]:text-dawn-hover-light",
       "dark:[&_.pagination-button]:border-dawn-dark dark:[&_.pagination-button]:text-dawn-dark",
-      "dark:hover:[&_.pagination-button]:border-dawn-hover-dark dark:hover:[&_.pagination-button]:text-dawn-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-dawn-hover-dark dark:[&_.pagination-button]:hover:text-dawn-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-dawn-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-dawn-hover-dark",
     ]
   end
@@ -915,10 +915,10 @@ defmodule <%= @module %> do
   defp color_variant("outline", "silver") do
     [
       "[&_.pagination-button]:border-silver-light [&_.pagination-button]:text-silver-light",
-      "hover:[&_.pagination-button]:border-silver-hover-light hover:[&_.pagination-button]:text-silver-hover-light",
+      "[&_.pagination-button]:hover:border-silver-hover-light [&_.pagination-button]:hover:text-silver-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-silver-hover-light [&_.pagination-button.active-pagination-button]:text-silver-hover-light",
       "dark:[&_.pagination-button]:border-silver-dark dark:[&_.pagination-button]:text-silver-dark",
-      "dark:hover:[&_.pagination-button]:border-silver-hover-dark dark:hover:[&_.pagination-button]:text-silver-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-silver-hover-dark dark:[&_.pagination-button]:hover:text-silver-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-silver-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-silver-hover-dark",
     ]
   end
@@ -929,9 +929,9 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "natural") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-natural-light [&_.pagination-button]:text-natural-light",
-      "hover:[&_.pagination-button]:border-natural-hover-light hover:[&_.pagination-button]:text-natural-hover-light",
+      "[&_.pagination-button]:hover:border-natural-hover-light [&_.pagination-button]:hover:text-natural-hover-light",
       "dark:[&_.pagination-button]:border-natural-dark dark:[&_.pagination-button]:text-natural-dark",
-      "dark:hover:[&_.pagination-button]:border-natural-hover-dark dark:hover:[&_.pagination-button]:text-natural-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-natural-hover-dark dark:[&_.pagination-button]:hover:text-natural-hover-dark",
       "[&_.pagination-button.active-pagination-button]:border-natural-hover-light [&_.pagination-button.active-pagination-button]:text-natural-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:border-natural-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-natural-hover-dark",
     ]
@@ -942,10 +942,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "primary") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-primary-light [&_.pagination-button]:text-primary-light",
-      "hover:[&_.pagination-button]:border-primary-hover-light hover:[&_.pagination-button]:text-primary-hover-light",
+      "[&_.pagination-button]:hover:border-primary-hover-light [&_.pagination-button]:hover:text-primary-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-primary-hover-light [&_.pagination-button.active-pagination-button]:text-primary-hover-light",
       "dark:[&_.pagination-button]:border-primary-dark dark:[&_.pagination-button]:text-primary-dark",
-      "dark:hover:[&_.pagination-button]:border-primary-hover-dark dark:hover:[&_.pagination-button]:text-primary-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-primary-hover-dark dark:[&_.pagination-button]:hover:text-primary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-primary-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-primary-hover-dark",
     ]
   end
@@ -955,10 +955,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "secondary") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-secondary-light [&_.pagination-button]:text-secondary-light",
-      "hover:[&_.pagination-button]:border-secondary-hover-light hover:[&_.pagination-button]:text-secondary-hover-light",
+      "[&_.pagination-button]:hover:border-secondary-hover-light [&_.pagination-button]:hover:text-secondary-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-secondary-hover-light [&_.pagination-button.active-pagination-button]:text-secondary-hover-light",
       "dark:[&_.pagination-button]:border-secondary-dark dark:[&_.pagination-button]:text-secondary-dark",
-      "dark:hover:[&_.pagination-button]:border-secondary-hover-dark dark:hover:[&_.pagination-button]:text-secondary-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-secondary-hover-dark dark:[&_.pagination-button]:hover:text-secondary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-secondary-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-secondary-hover-dark",
     ]
   end
@@ -968,10 +968,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "success") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-success-light [&_.pagination-button]:text-success-light",
-      "hover:[&_.pagination-button]:border-success-hover-light hover:[&_.pagination-button]:text-success-hover-light",
+      "[&_.pagination-button]:hover:border-success-hover-light [&_.pagination-button]:hover:text-success-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-success-hover-light [&_.pagination-button.active-pagination-button]:text-success-hover-light",
       "dark:[&_.pagination-button]:border-success-dark dark:[&_.pagination-button]:text-success-dark",
-      "dark:hover:[&_.pagination-button]:border-success-hover-dark dark:hover:[&_.pagination-button]:text-success-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-success-hover-dark dark:[&_.pagination-button]:hover:text-success-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-success-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-success-hover-dark",
     ]
   end
@@ -981,10 +981,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "warning") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-warning-light [&_.pagination-button]:text-warning-light",
-      "hover:[&_.pagination-button]:border-warning-hover-light hover:[&_.pagination-button]:text-warning-hover-light",
+      "[&_.pagination-button]:hover:border-warning-hover-light [&_.pagination-button]:hover:text-warning-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-warning-hover-light [&_.pagination-button.active-pagination-button]:text-warning-hover-light",
       "dark:[&_.pagination-button]:border-warning-dark dark:[&_.pagination-button]:text-warning-dark",
-      "dark:hover:[&_.pagination-button]:border-warning-hover-dark dark:hover:[&_.pagination-button]:text-warning-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-warning-hover-dark dark:[&_.pagination-button]:hover:text-warning-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-warning-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-warning-hover-dark",
     ]
   end
@@ -994,10 +994,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "danger") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-danger-light [&_.pagination-button]:text-danger-light",
-      "hover:[&_.pagination-button]:border-danger-hover-light hover:[&_.pagination-button]:text-danger-hover-light",
+      "[&_.pagination-button]:hover:border-danger-hover-light [&_.pagination-button]:hover:text-danger-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-danger-hover-light [&_.pagination-button.active-pagination-button]:text-danger-hover-light",
       "dark:[&_.pagination-button]:border-danger-dark dark:[&_.pagination-button]:text-danger-dark",
-      "dark:hover:[&_.pagination-button]:border-danger-hover-dark dark:hover:[&_.pagination-button]:text-danger-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-danger-hover-dark dark:[&_.pagination-button]:hover:text-danger-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-danger-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-danger-hover-dark",
     ]
   end
@@ -1007,10 +1007,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "info") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-info-light [&_.pagination-button]:text-info-light",
-      "hover:[&_.pagination-button]:border-info-hover-light hover:[&_.pagination-button]:text-info-hover-light",
+      "[&_.pagination-button]:hover:border-info-hover-light [&_.pagination-button]:hover:text-info-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-info-hover-light [&_.pagination-button.active-pagination-button]:text-info-hover-light",
       "dark:[&_.pagination-button]:border-info-dark dark:[&_.pagination-button]:text-info-dark",
-      "dark:hover:[&_.pagination-button]:border-info-hover-dark dark:hover:[&_.pagination-button]:text-info-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-info-hover-dark dark:[&_.pagination-button]:hover:text-info-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-info-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-info-hover-dark",
     ]
   end
@@ -1020,10 +1020,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "misc") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-misc-light [&_.pagination-button]:text-misc-light",
-      "hover:[&_.pagination-button]:border-misc-hover-light hover:[&_.pagination-button]:text-misc-hover-light",
+      "[&_.pagination-button]:hover:border-misc-hover-light [&_.pagination-button]:hover:text-misc-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-misc-hover-light [&_.pagination-button.active-pagination-button]:text-misc-hover-light",
       "dark:[&_.pagination-button]:border-misc-dark dark:[&_.pagination-button]:text-misc-dark",
-      "dark:hover:[&_.pagination-button]:border-misc-hover-dark dark:hover:[&_.pagination-button]:text-misc-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-misc-hover-dark dark:[&_.pagination-button]:hover:text-misc-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-misc-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-misc-hover-dark",
     ]
   end
@@ -1033,10 +1033,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "dawn") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-dawn-light [&_.pagination-button]:text-dawn-light",
-      "hover:[&_.pagination-button]:border-dawn-hover-light hover:[&_.pagination-button]:text-dawn-hover-light",
+      "[&_.pagination-button]:hover:border-dawn-hover-light [&_.pagination-button]:hover:text-dawn-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-dawn-hover-light [&_.pagination-button.active-pagination-button]:text-dawn-hover-light",
       "dark:[&_.pagination-button]:border-dawn-dark dark:[&_.pagination-button]:text-dawn-dark",
-      "dark:hover:[&_.pagination-button]:border-dawn-hover-dark dark:hover:[&_.pagination-button]:text-dawn-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-dawn-hover-dark dark:[&_.pagination-button]:hover:text-dawn-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-dawn-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-dawn-hover-dark",
     ]
   end
@@ -1046,10 +1046,10 @@ defmodule <%= @module %> do
   defp color_variant("bordered", "silver") do
     [
       "bg-white dark:bg-default-dark-bg [&_.pagination-button]:border-silver-light [&_.pagination-button]:text-silver-light",
-      "hover:[&_.pagination-button]:border-silver-hover-light hover:[&_.pagination-button]:text-silver-hover-light",
+      "[&_.pagination-button]:hover:border-silver-hover-light [&_.pagination-button]:hover:text-silver-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-silver-hover-light [&_.pagination-button.active-pagination-button]:text-silver-hover-light",
       "dark:[&_.pagination-button]:border-silver-dark dark:[&_.pagination-button]:text-silver-dark",
-      "dark:hover:[&_.pagination-button]:border-silver-hover-dark dark:hover:[&_.pagination-button]:text-silver-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-silver-hover-dark dark:[&_.pagination-button]:hover:text-silver-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-silver-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-silver-hover-dark",
     ]
   end
@@ -1059,8 +1059,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("transparent", "natural") do
     [
-      "[&_.pagination-button]:text-natural-light hover:[&_.pagination-button]:text-natural-hover-light",
-      "dark:[&_.pagination-button]:text-natural-dark dark:hover:[&_.pagination-button]:text-natural-hover-dark",
+      "[&_.pagination-button]:text-natural-light [&_.pagination-button]:hover:text-natural-hover-light",
+      "dark:[&_.pagination-button]:text-natural-dark dark:[&_.pagination-button]:hover:text-natural-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-natural-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-natural-hover-dark"
     ]
@@ -1070,8 +1070,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("transparent", "primary") do
     [
-      "[&_.pagination-button]:text-primary-light hover:[&_.pagination-button]:text-primary-hover-light",
-      "dark:[&_.pagination-button]:text-primary-dark dark:hover:[&_.pagination-button]:text-primary-hover-dark",
+      "[&_.pagination-button]:text-primary-light [&_.pagination-button]:hover:text-primary-hover-light",
+      "dark:[&_.pagination-button]:text-primary-dark dark:[&_.pagination-button]:hover:text-primary-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-primary-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-primary-hover-dark"
     ]
@@ -1081,8 +1081,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("transparent", "secondary") do
     [
-      "[&_.pagination-button]:text-secondary-light hover:[&_.pagination-button]:text-secondary-hover-light",
-      "dark:[&_.pagination-button]:text-secondary-dark dark:hover:[&_.pagination-button]:text-secondary-hover-dark",
+      "[&_.pagination-button]:text-secondary-light [&_.pagination-button]:hover:text-secondary-hover-light",
+      "dark:[&_.pagination-button]:text-secondary-dark dark:[&_.pagination-button]:hover:text-secondary-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-secondary-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-secondary-hover-dark"
     ]
@@ -1092,8 +1092,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("transparent", "success") do
     [
-      "[&_.pagination-button]:text-success-light hover:[&_.pagination-button]:text-success-hover-light",
-      "dark:[&_.pagination-button]:text-success-dark dark:hover:[&_.pagination-button]:text-success-hover-dark",
+      "[&_.pagination-button]:text-success-light [&_.pagination-button]:hover:text-success-hover-light",
+      "dark:[&_.pagination-button]:text-success-dark dark:[&_.pagination-button]:hover:text-success-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-success-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-success-hover-dark"
     ]
@@ -1103,8 +1103,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("transparent", "warning") do
     [
-      "[&_.pagination-button]:text-warning-light hover:[&_.pagination-button]:text-warning-hover-light",
-      "dark:[&_.pagination-button]:text-warning-dark dark:hover:[&_.pagination-button]:text-warning-hover-dark",
+      "[&_.pagination-button]:text-warning-light [&_.pagination-button]:hover:text-warning-hover-light",
+      "dark:[&_.pagination-button]:text-warning-dark dark:[&_.pagination-button]:hover:text-warning-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-warning-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-warning-hover-dark"
     ]
@@ -1114,8 +1114,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("transparent", "danger") do
     [
-      "[&_.pagination-button]:text-danger-light hover:[&_.pagination-button]:text-danger-hover-light",
-      "dark:[&_.pagination-button]:text-danger-dark dark:hover:[&_.pagination-button]:text-danger-hover-dark",
+      "[&_.pagination-button]:text-danger-light [&_.pagination-button]:hover:text-danger-hover-light",
+      "dark:[&_.pagination-button]:text-danger-dark dark:[&_.pagination-button]:hover:text-danger-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-danger-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-danger-hover-dark"
     ]
@@ -1125,8 +1125,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("transparent", "info") do
     [
-      "[&_.pagination-button]:text-info-light hover:[&_.pagination-button]:text-info-hover-light",
-      "dark:[&_.pagination-button]:text-info-dark dark:hover:[&_.pagination-button]:text-info-hover-dark",
+      "[&_.pagination-button]:text-info-light [&_.pagination-button]:hover:text-info-hover-light",
+      "dark:[&_.pagination-button]:text-info-dark dark:[&_.pagination-button]:hover:text-info-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-info-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-info-hover-dark"
     ]
@@ -1136,8 +1136,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_variant("transparent", "misc") do
     [
-      "[&_.pagination-button]:text-misc-light hover:[&_.pagination-button]:text-misc-hover-light",
-      "dark:[&_.pagination-button]:text-misc-dark dark:hover:[&_.pagination-button]:text-misc-hover-dark",
+      "[&_.pagination-button]:text-misc-light [&_.pagination-button]:hover:text-misc-hover-light",
+      "dark:[&_.pagination-button]:text-misc-dark dark:[&_.pagination-button]:hover:text-misc-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-misc-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-misc-hover-dark"
     ]
@@ -1147,8 +1147,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_variant("transparent", "dawn") do
     [
-      "[&_.pagination-button]:text-dawn-light hover:[&_.pagination-button]:text-dawn-hover-light",
-      "dark:[&_.pagination-button]:text-dawn-dark dark:hover:[&_.pagination-button]:text-dawn-hover-dark",
+      "[&_.pagination-button]:text-dawn-light [&_.pagination-button]:hover:text-dawn-hover-light",
+      "dark:[&_.pagination-button]:text-dawn-dark dark:[&_.pagination-button]:hover:text-dawn-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-dawn-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-dawn-hover-dark"
     ]
@@ -1158,8 +1158,8 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_variant("transparent", "silver") do
     [
-      "[&_.pagination-button]:text-silver-light hover:[&_.pagination-button]:text-silver-hover-light",
-      "dark:[&_.pagination-button]:text-silver-dark dark:hover:[&_.pagination-button]:text-silver-hover-dark",
+      "[&_.pagination-button]:text-silver-light [&_.pagination-button]:hover:text-silver-hover-light",
+      "dark:[&_.pagination-button]:text-silver-dark dark:[&_.pagination-button]:hover:text-silver-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-silver-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-silver-hover-dark"
     ]
@@ -1170,11 +1170,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("subtle", "natural") do
     [
-      "[&_.pagination-button]:text-natural-light hover:[&_.pagination-button]:text-natural-hover-light",
-      "dark:[&_.pagination-button]:text-natural-dark dark:hover:[&_.pagination-button]:text-natural-hover-dark",
+      "[&_.pagination-button]:text-natural-light [&_.pagination-button]:hover:text-natural-hover-light",
+      "dark:[&_.pagination-button]:text-natural-dark dark:[&_.pagination-button]:hover:text-natural-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-natural-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-natural-hover-dark",
-      "hover:[&_.pagination-button]:bg-natural-bg-light dark:hover:[&_.pagination-button]:bg-natural-bg-dark",
+      "[&_.pagination-button]:hover:bg-natural-bg-light dark:[&_.pagination-button]:hover:bg-natural-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-natural-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-natural-bg-dark"
     ]
@@ -1184,11 +1184,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("subtle", "primary") do
     [
-      "[&_.pagination-button]:text-primary-light hover:[&_.pagination-button]:text-primary-hover-light",
-      "dark:[&_.pagination-button]:text-primary-dark dark:hover:[&_.pagination-button]:text-primary-hover-dark",
+      "[&_.pagination-button]:text-primary-light [&_.pagination-button]:hover:text-primary-hover-light",
+      "dark:[&_.pagination-button]:text-primary-dark dark:[&_.pagination-button]:hover:text-primary-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-primary-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-primary-hover-dark",
-      "hover:[&_.pagination-button]:bg-primary-bordered-bg-light dark:hover:[&_.pagination-button]:bg-primary-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-primary-bordered-bg-light dark:[&_.pagination-button]:hover:bg-primary-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-primary-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-primary-bordered-bg-dark"
     ]
@@ -1198,11 +1198,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("subtle", "secondary") do
     [
-      "[&_.pagination-button]:text-secondary-light hover:[&_.pagination-button]:text-secondary-hover-light",
-      "dark:[&_.pagination-button]:text-secondary-dark dark:hover:[&_.pagination-button]:text-secondary-hover-dark",
+      "[&_.pagination-button]:text-secondary-light [&_.pagination-button]:hover:text-secondary-hover-light",
+      "dark:[&_.pagination-button]:text-secondary-dark dark:[&_.pagination-button]:hover:text-secondary-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-secondary-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-secondary-hover-dark",
-      "hover:[&_.pagination-button]:bg-secondary-bordered-bg-light dark:hover:[&_.pagination-button]:bg-secondary-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-secondary-bordered-bg-light dark:[&_.pagination-button]:hover:bg-secondary-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-secondary-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-secondary-bordered-bg-dark"
     ]
@@ -1212,11 +1212,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("subtle", "success") do
     [
-      "[&_.pagination-button]:text-success-light hover:[&_.pagination-button]:text-success-hover-light",
-      "dark:[&_.pagination-button]:text-success-dark dark:hover:[&_.pagination-button]:text-success-hover-dark",
+      "[&_.pagination-button]:text-success-light [&_.pagination-button]:hover:text-success-hover-light",
+      "dark:[&_.pagination-button]:text-success-dark dark:[&_.pagination-button]:hover:text-success-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-success-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-success-hover-dark",
-      "hover:[&_.pagination-button]:bg-success-bordered-bg-light dark:hover:[&_.pagination-button]:bg-success-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-success-bordered-bg-light dark:[&_.pagination-button]:hover:bg-success-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-success-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-success-bordered-bg-dark"
     ]
@@ -1226,11 +1226,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("subtle", "warning") do
     [
-      "[&_.pagination-button]:text-warning-light hover:[&_.pagination-button]:text-warning-hover-light",
-      "dark:[&_.pagination-button]:text-warning-dark dark:hover:[&_.pagination-button]:text-warning-hover-dark",
+      "[&_.pagination-button]:text-warning-light [&_.pagination-button]:hover:text-warning-hover-light",
+      "dark:[&_.pagination-button]:text-warning-dark dark:[&_.pagination-button]:hover:text-warning-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-warning-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-warning-hover-dark",
-      "hover:[&_.pagination-button]:bg-warning-bordered-bg-light dark:hover:[&_.pagination-button]:bg-warning-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-warning-bordered-bg-light dark:[&_.pagination-button]:hover:bg-warning-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-warning-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-warning-bordered-bg-dark"
     ]
@@ -1240,11 +1240,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("subtle", "danger") do
     [
-      "[&_.pagination-button]:text-danger-light hover:[&_.pagination-button]:text-danger-hover-light",
-      "dark:[&_.pagination-button]:text-danger-dark dark:hover:[&_.pagination-button]:text-danger-hover-dark",
+      "[&_.pagination-button]:text-danger-light [&_.pagination-button]:hover:text-danger-hover-light",
+      "dark:[&_.pagination-button]:text-danger-dark dark:[&_.pagination-button]:hover:text-danger-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-danger-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-danger-hover-dark",
-      "hover:[&_.pagination-button]:bg-danger-bordered-bg-light dark:hover:[&_.pagination-button]:bg-danger-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-danger-bordered-bg-light dark:[&_.pagination-button]:hover:bg-danger-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-danger-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-danger-bordered-bg-dark"
     ]
@@ -1254,11 +1254,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("subtle", "info") do
     [
-      "[&_.pagination-button]:text-info-light hover:[&_.pagination-button]:text-info-hover-light",
-      "dark:[&_.pagination-button]:text-info-dark dark:hover:[&_.pagination-button]:text-info-hover-dark",
+      "[&_.pagination-button]:text-info-light [&_.pagination-button]:hover:text-info-hover-light",
+      "dark:[&_.pagination-button]:text-info-dark dark:[&_.pagination-button]:hover:text-info-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-info-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-info-hover-dark",
-      "hover:[&_.pagination-button]:bg-info-bordered-bg-light dark:hover:[&_.pagination-button]:bg-info-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-info-bordered-bg-light dark:[&_.pagination-button]:hover:bg-info-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-info-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-info-bordered-bg-dark"
     ]
@@ -1268,11 +1268,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_variant("subtle", "misc") do
     [
-      "[&_.pagination-button]:text-misc-light hover:[&_.pagination-button]:text-misc-hover-light",
-      "dark:[&_.pagination-button]:text-misc-dark dark:hover:[&_.pagination-button]:text-misc-hover-dark",
+      "[&_.pagination-button]:text-misc-light [&_.pagination-button]:hover:text-misc-hover-light",
+      "dark:[&_.pagination-button]:text-misc-dark dark:[&_.pagination-button]:hover:text-misc-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-misc-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-misc-hover-dark",
-      "hover:[&_.pagination-button]:bg-misc-bordered-bg-light dark:hover:[&_.pagination-button]:bg-misc-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-misc-bordered-bg-light dark:[&_.pagination-button]:hover:bg-misc-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-misc-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-misc-bordered-bg-dark"
     ]
@@ -1282,11 +1282,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_variant("subtle", "dawn") do
     [
-      "[&_.pagination-button]:text-dawn-light hover:[&_.pagination-button]:text-dawn-hover-light",
-      "dark:[&_.pagination-button]:text-dawn-dark dark:hover:[&_.pagination-button]:text-dawn-hover-dark",
+      "[&_.pagination-button]:text-dawn-light [&_.pagination-button]:hover:text-dawn-hover-light",
+      "dark:[&_.pagination-button]:text-dawn-dark dark:[&_.pagination-button]:hover:text-dawn-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-dawn-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-dawn-hover-dark",
-      "hover:[&_.pagination-button]:bg-dawn-bordered-bg-light dark:hover:[&_.pagination-button]:bg-dawn-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-dawn-bordered-bg-light dark:[&_.pagination-button]:hover:bg-dawn-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-dawn-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-dawn-bordered-bg-dark"
     ]
@@ -1296,11 +1296,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_variant("subtle", "silver") do
     [
-      "[&_.pagination-button]:text-silver-light hover:[&_.pagination-button]:text-silver-hover-light",
-      "dark:[&_.pagination-button]:text-silver-dark dark:hover:[&_.pagination-button]:text-silver-hover-dark",
+      "[&_.pagination-button]:text-silver-light [&_.pagination-button]:hover:text-silver-hover-light",
+      "dark:[&_.pagination-button]:text-silver-dark dark:[&_.pagination-button]:hover:text-silver-hover-dark",
       "[&_.pagination-button.active-pagination-button]:text-silver-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:text-silver-hover-dark",
-      "hover:[&_.pagination-button]:bg-silver-bordered-bg-light dark:hover:[&_.pagination-button]:bg-silver-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-silver-bordered-bg-light dark:[&_.pagination-button]:hover:bg-silver-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-silver-bordered-bg-light",
       "dark:[&_.pagination-button.active-pagination-button]:bg-silver-bordered-bg-dark"
     ]
@@ -1312,10 +1312,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "natural") do
     [
       "[&_.pagination-button]:bg-natural-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-natural-hover-light",
+      "[&_.pagination-button]:hover:bg-natural-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-natural-hover-light",
       "dark:[&_.pagination-button]:bg-natural-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-natural-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-natural-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-natural-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-natural)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-natural)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1327,10 +1327,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "primary") do
     [
       "[&_.pagination-button]:bg-primary-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-primary-hover-light",
+      "[&_.pagination-button]:hover:bg-primary-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-primary-hover-light",
       "dark:[&_.pagination-button]:bg-primary-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-primary-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-primary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-primary-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-primary)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-primary)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1342,10 +1342,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "secondary") do
     [
       "[&_.pagination-button]:bg-secondary-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-secondary-hover-light",
+      "[&_.pagination-button]:hover:bg-secondary-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-secondary-hover-light",
       "dark:[&_.pagination-button]:bg-secondary-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-secondary-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-secondary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-secondary-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-secondary)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-secondary)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1357,10 +1357,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "success") do
     [
       "[&_.pagination-button]:bg-success-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-success-hover-light",
+      "[&_.pagination-button]:hover:bg-success-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-success-hover-light",
       "dark:[&_.pagination-button]:bg-success-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-success-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-success-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-success-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-success)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-success)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1372,10 +1372,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "warning") do
     [
       "[&_.pagination-button]:bg-warning-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-warning-hover-light",
+      "[&_.pagination-button]:hover:bg-warning-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-warning-hover-light",
       "dark:[&_.pagination-button]:bg-warning-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-warning-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-warning-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-warning-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-warning)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-warning)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1387,10 +1387,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "danger") do
     [
       "[&_.pagination-button]:bg-danger-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-danger-hover-light",
+      "[&_.pagination-button]:hover:bg-danger-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-danger-hover-light",
       "dark:[&_.pagination-button]:bg-danger-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-danger-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-danger-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-danger-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-danger)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-danger)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1402,10 +1402,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "info") do
     [
       "[&_.pagination-button]:bg-info-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-info-hover-light",
+      "[&_.pagination-button]:hover:bg-info-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-info-hover-light",
       "dark:[&_.pagination-button]:bg-info-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-info-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-info-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-info-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-info)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-info)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1417,10 +1417,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "misc") do
     [
       "[&_.pagination-button]:bg-misc-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-misc-hover-light",
+      "[&_.pagination-button]:hover:bg-misc-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-misc-hover-light",
       "dark:[&_.pagination-button]:bg-misc-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-misc-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-misc-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-misc-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-misc)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-misc)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1432,10 +1432,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "dawn") do
     [
       "[&_.pagination-button]:bg-dawn-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-dawn-hover-light",
+      "[&_.pagination-button]:hover:bg-dawn-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-dawn-hover-light",
       "dark:[&_.pagination-button]:bg-dawn-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-dawn-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-dawn-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-dawn-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-dawn)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-dawn)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1447,10 +1447,10 @@ defmodule <%= @module %> do
   defp color_variant("shadow", "silver") do
     [
       "[&_.pagination-button]:bg-silver-light [&_.pagination-button]:text-white",
-      "hover:[&_.pagination-button]:bg-silver-hover-light",
+      "[&_.pagination-button]:hover:bg-silver-hover-light",
       "[&_.pagination-button.active-pagination-button]:bg-silver-hover-light",
       "dark:[&_.pagination-button]:bg-silver-dark dark:[&_.pagination-button]:text-black",
-      "dark:hover:[&_.pagination-button]:bg-silver-hover-dark",
+      "dark:[&_.pagination-button]:hover:bg-silver-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:bg-silver-hover-dark",
       "[&_.pagination-button]:shadow-[0px_4px_6px_-4px_var(--color-shadow-silver)] [&_.pagination-button]:shadow-[0px_10px_15px_-3px_var(--color-shadow-silver)]",
       "dark:[&_.pagination-button]:shadow-none"
@@ -1463,12 +1463,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "natural") do
     [
       "[&_.pagination-button]:border-natural-light [&_.pagination-button]:text-natural-light",
-      "hover:[&_.pagination-button]:border-natural-hover-light hover:[&_.pagination-button]:text-natural-hover-light",
+      "[&_.pagination-button]:hover:border-natural-hover-light [&_.pagination-button]:hover:text-natural-hover-light",
       "dark:[&_.pagination-button]:border-natural-dark dark:[&_.pagination-button]:text-natural-dark",
-      "dark:hover:[&_.pagination-button]:border-natural-hover-dark dark:hover:[&_.pagination-button]:text-natural-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-natural-hover-dark dark:[&_.pagination-button]:hover:text-natural-hover-dark",
       "[&_.pagination-button.active-pagination-button]:border-natural-hover-light [&_.pagination-button.active-pagination-button]:text-natural-hover-light",
       "dark:[&_.pagination-button.active-pagination-button]:border-natural-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-natural-hover-dark",
-      "hover:[&_.pagination-button]:bg-natural-bg-light dark:hover:[&_.pagination-button]:bg-natural-bg-dark",
+      "[&_.pagination-button]:hover:bg-natural-bg-light dark:[&_.pagination-button]:hover:bg-natural-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-natural-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-natural-bg-dark"
     ]
   end
@@ -1478,12 +1478,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "primary") do
     [
       "[&_.pagination-button]:border-primary-light [&_.pagination-button]:text-primary-light",
-      "hover:[&_.pagination-button]:border-primary-hover-light hover:[&_.pagination-button]:text-primary-hover-light",
+      "[&_.pagination-button]:hover:border-primary-hover-light [&_.pagination-button]:hover:text-primary-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-primary-hover-light [&_.pagination-button.active-pagination-button]:text-primary-hover-light",
       "dark:[&_.pagination-button]:border-primary-dark dark:[&_.pagination-button]:text-primary-dark",
-      "dark:hover:[&_.pagination-button]:border-primary-hover-dark dark:hover:[&_.pagination-button]:text-primary-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-primary-hover-dark dark:[&_.pagination-button]:hover:text-primary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-primary-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-primary-hover-dark",
-      "hover:[&_.pagination-button]:bg-primary-bordered-bg-light dark:hover:[&_.pagination-button]:bg-primary-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-primary-bordered-bg-light dark:[&_.pagination-button]:hover:bg-primary-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-primary-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-primary-bordered-bg-dark"
     ]
   end
@@ -1493,12 +1493,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "secondary") do
     [
       "[&_.pagination-button]:border-secondary-light [&_.pagination-button]:text-secondary-light",
-      "hover:[&_.pagination-button]:border-secondary-hover-light hover:[&_.pagination-button]:text-secondary-hover-light",
+      "[&_.pagination-button]:hover:border-secondary-hover-light [&_.pagination-button]:hover:text-secondary-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-secondary-hover-light [&_.pagination-button.active-pagination-button]:text-secondary-hover-light",
       "dark:[&_.pagination-button]:border-secondary-dark dark:[&_.pagination-button]:text-secondary-dark",
-      "dark:hover:[&_.pagination-button]:border-secondary-hover-dark dark:hover:[&_.pagination-button]:text-secondary-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-secondary-hover-dark dark:[&_.pagination-button]:hover:text-secondary-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-secondary-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-secondary-hover-dark",
-      "hover:[&_.pagination-button]:bg-secondary-bordered-bg-light dark:hover:[&_.pagination-button]:bg-secondary-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-secondary-bordered-bg-light dark:[&_.pagination-button]:hover:bg-secondary-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-secondary-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-secondary-bordered-bg-dark"
     ]
   end
@@ -1508,12 +1508,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "success") do
     [
       "[&_.pagination-button]:border-success-light [&_.pagination-button]:text-success-light",
-      "hover:[&_.pagination-button]:border-success-hover-light hover:[&_.pagination-button]:text-success-hover-light",
+      "[&_.pagination-button]:hover:border-success-hover-light [&_.pagination-button]:hover:text-success-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-success-hover-light [&_.pagination-button.active-pagination-button]:text-success-hover-light",
       "dark:[&_.pagination-button]:border-success-dark dark:[&_.pagination-button]:text-success-dark",
-      "dark:hover:[&_.pagination-button]:border-success-hover-dark dark:hover:[&_.pagination-button]:text-success-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-success-hover-dark dark:[&_.pagination-button]:hover:text-success-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-success-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-success-hover-dark",
-      "hover:[&_.pagination-button]:bg-success-bordered-bg-light dark:hover:[&_.pagination-button]:bg-success-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-success-bordered-bg-light dark:[&_.pagination-button]:hover:bg-success-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-success-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-success-bordered-bg-dark"
     ]
   end
@@ -1523,12 +1523,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "warning") do
     [
       "[&_.pagination-button]:border-warning-light [&_.pagination-button]:text-warning-light",
-      "hover:[&_.pagination-button]:border-warning-hover-light hover:[&_.pagination-button]:text-warning-hover-light",
+      "[&_.pagination-button]:hover:border-warning-hover-light [&_.pagination-button]:hover:text-warning-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-warning-hover-light [&_.pagination-button.active-pagination-button]:text-warning-hover-light",
       "dark:[&_.pagination-button]:border-warning-dark dark:[&_.pagination-button]:text-warning-dark",
-      "dark:hover:[&_.pagination-button]:border-warning-hover-dark dark:hover:[&_.pagination-button]:text-warning-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-warning-hover-dark dark:[&_.pagination-button]:hover:text-warning-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-warning-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-warning-hover-dark",
-      "hover:[&_.pagination-button]:bg-warning-bordered-bg-light dark:hover:[&_.pagination-button]:bg-warning-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-warning-bordered-bg-light dark:[&_.pagination-button]:hover:bg-warning-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-warning-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-warning-bordered-bg-dark"
     ]
   end
@@ -1538,12 +1538,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "danger") do
     [
       "[&_.pagination-button]:border-danger-light [&_.pagination-button]:text-danger-light",
-      "hover:[&_.pagination-button]:border-danger-hover-light hover:[&_.pagination-button]:text-danger-hover-light",
+      "[&_.pagination-button]:hover:border-danger-hover-light [&_.pagination-button]:hover:text-danger-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-danger-hover-light [&_.pagination-button.active-pagination-button]:text-danger-hover-light",
       "dark:[&_.pagination-button]:border-danger-dark dark:[&_.pagination-button]:text-danger-dark",
-      "dark:hover:[&_.pagination-button]:border-danger-hover-dark dark:hover:[&_.pagination-button]:text-danger-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-danger-hover-dark dark:[&_.pagination-button]:hover:text-danger-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-danger-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-danger-hover-dark",
-      "hover:[&_.pagination-button]:bg-danger-bordered-bg-light dark:hover:[&_.pagination-button]:bg-danger-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-danger-bordered-bg-light dark:[&_.pagination-button]:hover:bg-danger-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-danger-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-danger-bordered-bg-dark"
     ]
   end
@@ -1553,12 +1553,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "info") do
     [
       "[&_.pagination-button]:border-info-light [&_.pagination-button]:text-info-light",
-      "hover:[&_.pagination-button]:border-info-hover-light hover:[&_.pagination-button]:text-info-hover-light",
+      "[&_.pagination-button]:hover:border-info-hover-light [&_.pagination-button]:hover:text-info-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-info-hover-light [&_.pagination-button.active-pagination-button]:text-info-hover-light",
       "dark:[&_.pagination-button]:border-info-dark dark:[&_.pagination-button]:text-info-dark",
-      "dark:hover:[&_.pagination-button]:border-info-hover-dark dark:hover:[&_.pagination-button]:text-info-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-info-hover-dark dark:[&_.pagination-button]:hover:text-info-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-info-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-info-hover-dark",
-      "hover:[&_.pagination-button]:bg-info-bordered-bg-light dark:hover:[&_.pagination-button]:bg-info-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-info-bordered-bg-light dark:[&_.pagination-button]:hover:bg-info-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-info-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-info-bordered-bg-dark"
     ]
   end
@@ -1568,12 +1568,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "misc") do
     [
       "[&_.pagination-button]:border-misc-light [&_.pagination-button]:text-misc-light",
-      "hover:[&_.pagination-button]:border-misc-hover-light hover:[&_.pagination-button]:text-misc-hover-light",
+      "[&_.pagination-button]:hover:border-misc-hover-light [&_.pagination-button]:hover:text-misc-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-misc-hover-light [&_.pagination-button.active-pagination-button]:text-misc-hover-light",
       "dark:[&_.pagination-button]:border-misc-dark dark:[&_.pagination-button]:text-misc-dark",
-      "dark:hover:[&_.pagination-button]:border-misc-hover-dark dark:hover:[&_.pagination-button]:text-misc-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-misc-hover-dark dark:[&_.pagination-button]:hover:text-misc-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-misc-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-misc-hover-dark",
-      "hover:[&_.pagination-button]:bg-misc-bordered-bg-light dark:hover:[&_.pagination-button]:bg-misc-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-misc-bordered-bg-light dark:[&_.pagination-button]:hover:bg-misc-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-misc-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-misc-bordered-bg-dark"
     ]
   end
@@ -1583,12 +1583,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "dawn") do
     [
       "[&_.pagination-button]:border-dawn-light [&_.pagination-button]:text-dawn-light",
-      "hover:[&_.pagination-button]:border-dawn-hover-light hover:[&_.pagination-button]:text-dawn-hover-light",
+      "[&_.pagination-button]:hover:border-dawn-hover-light [&_.pagination-button]:hover:text-dawn-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-dawn-hover-light [&_.pagination-button.active-pagination-button]:text-dawn-hover-light",
       "dark:[&_.pagination-button]:border-dawn-dark dark:[&_.pagination-button]:text-dawn-dark",
-      "dark:hover:[&_.pagination-button]:border-dawn-hover-dark dark:hover:[&_.pagination-button]:text-dawn-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-dawn-hover-dark dark:[&_.pagination-button]:hover:text-dawn-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-dawn-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-dawn-hover-dark",
-      "hover:[&_.pagination-button]:bg-dawn-bordered-bg-light dark:hover:[&_.pagination-button]:bg-dawn-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-dawn-bordered-bg-light dark:[&_.pagination-button]:hover:bg-dawn-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-dawn-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-dawn-bordered-bg-dark"
     ]
   end
@@ -1598,12 +1598,12 @@ defmodule <%= @module %> do
   defp color_variant("inverted", "silver") do
     [
       "[&_.pagination-button]:border-silver-light [&_.pagination-button]:text-silver-light",
-      "hover:[&_.pagination-button]:border-silver-hover-light hover:[&_.pagination-button]:text-silver-hover-light",
+      "[&_.pagination-button]:hover:border-silver-hover-light [&_.pagination-button]:hover:text-silver-hover-light",
       "[&_.pagination-button.active-pagination-button]:border-silver-hover-light [&_.pagination-button.active-pagination-button]:text-silver-hover-light",
       "dark:[&_.pagination-button]:border-silver-dark dark:[&_.pagination-button]:text-silver-dark",
-      "dark:hover:[&_.pagination-button]:border-silver-hover-dark dark:hover:[&_.pagination-button]:text-silver-hover-dark",
+      "dark:[&_.pagination-button]:hover:border-silver-hover-dark dark:[&_.pagination-button]:hover:text-silver-hover-dark",
       "dark:[&_.pagination-button.active-pagination-button]:border-silver-hover-dark dark:[&_.pagination-button.active-pagination-button]:text-silver-hover-dark",
-      "hover:[&_.pagination-button]:bg-silver-bordered-bg-light dark:hover:[&_.pagination-button]:bg-silver-bordered-bg-dark",
+      "[&_.pagination-button]:hover:bg-silver-bordered-bg-light dark:[&_.pagination-button]:hover:bg-silver-bordered-bg-dark",
       "[&_.pagination-button.active-pagination-button]:bg-silver-bordered-bg-light dark:[&_.pagination-button.active-pagination-button]:bg-silver-bordered-bg-dark"
     ]
   end
@@ -1613,7 +1613,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("gradient", "natural") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-natural-from-light to-gradient-natural-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-natural-from-dark dark:to-white dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1624,7 +1624,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("gradient", "primary") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-primary-from-light to-gradient-primary-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-primary-from-dark dark:to-gradient-primary-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1635,7 +1635,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("gradient", "secondary") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-secondary-from-light to-gradient-secondary-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-secondary-from-dark dark:to-gradient-secondary-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1646,7 +1646,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("gradient", "success") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-success-from-light to-gradient-success-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-success-from-dark dark:to-gradient-success-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1657,7 +1657,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("gradient", "warning") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-warning-from-light to-gradient-warning-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-warning-from-dark dark:to-gradient-warning-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1668,7 +1668,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("gradient", "danger") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-danger-from-light to-gradient-danger-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-danger-from-dark dark:to-gradient-danger-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1679,7 +1679,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("gradient", "info") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-info-from-light to-gradient-info-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-info-from-dark dark:to-gradient-info-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1690,7 +1690,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_variant("gradient", "misc") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-misc-from-light to-gradient-misc-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-misc-from-dark dark:to-gradient-misc-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1701,7 +1701,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_variant("gradient", "dawn") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-dawn-from-light to-gradient-dawn-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-dawn-from-dark dark:to-gradient-dawn-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
@@ -1712,7 +1712,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_variant("gradient", "silver") do
     [
-      "[&_.pagination-button]:bg-gradient-to-br hover:[&_.pagination-button]:bg-gradient-to-bl",
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
       "from-gradient-silver-from-light to-gradient-silver-to-light [&_.pagination-button]:text-white",
       "dark:from-gradient-silver-from-dark dark:to-gradient-silver-to-dark dark:[&_.pagination-button]:text-black",
       "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
