@@ -128,7 +128,7 @@ defmodule <%= @module %> do
         "inline-block relative w-fit",
         "[&_.popover-content]:invisible [&_.popover-content]:opacity-0",
         "[&_.popover-content.show-popover]:visible [&_.popover-content.show-popover]:opacity-100",
-        !@clickable && tirgger_popover(),
+        !@clickable && trigger_popover(),
         @class
       ]}
       {@rest}
@@ -189,7 +189,7 @@ defmodule <%= @module %> do
         "relative w-fit",
         "[&_.popover-content]:invisible [&_.popover-content]:opacity-0",
         "[&_.popover-content.show-popover]:visible [&_.popover-content.show-popover]:opacity-100",
-        !@clickable && tirgger_popover(),
+        !@clickable && trigger_popover(),
         @class
       ]}
       {@rest}
@@ -473,7 +473,7 @@ defmodule <%= @module %> do
     |> JS.set_attribute({"aria-expanded", "false"}, to: "##{id}-trigger")
   end
 
-  defp tirgger_popover(),
+  defp trigger_popover(),
     do: "[&_.popover-content]:hover:visible [&_.popover-content]:hover:opacity-100"
 
 
