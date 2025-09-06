@@ -372,10 +372,10 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_class("natural") do
     [
-      "text-natural-border-light dark:text-natural-border-dark",
-      "checked:[&_.radio-field-wrapper_.radio-input]:text-natural-border-light",
-      "dark:checked:[&_.radio-field-wrapper_.radio-input]:text-natural-border-dark",
-      "[&_.radio-field-wrapper_.radio-input]:border-natural-border-light",
+      "text-natural-hover-light dark:text-natural-border-dark",
+      "checked:[&_.radio-field-wrapper_.radio-input]:text-natural-hover-light",
+      "dark:checked:[&_.radio-field-wrapper_.radio-input]:text-natural-hover-dark",
+      "[&_.radio-field-wrapper_.radio-input]:border-natural-hover-light",
       "dark:[&_.radio-field-wrapper_.radio-input]:border-silver-light",
       "focus-within:[&_.radio-field-wrapper_.radio-input]:ring-natural-light dark:focus-within:[&_.radio-field-wrapper_.radio-input]:ring-natural-dark"
     ]
@@ -444,10 +444,10 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_class("info") do
     [
-      "text-info-light dark:text-info-hover-dark",
-      "checked:[&_.radio-field-wrapper_.radio-input]:text-info-light",
+      "text-info-hover-light dark:text-info-hover-dark",
+      "checked:[&_.radio-field-wrapper_.radio-input]:text-info-hover-light",
       "dark:checked:[&_.radio-field-wrapper_.radio-input]:text-info-hover-dark",
-      "[&_.radio-field-wrapper_.radio-input]:border-info-light",
+      "[&_.radio-field-wrapper_.radio-input]:border-info-hover-light",
       "dark:[&_.radio-field-wrapper_.radio-input]:border-info-hover-dark",
       "focus-within:[&_.radio-field-wrapper_.radio-input]:ring-info-light dark:focus-within:[&_.radio-field-wrapper_.radio-input]:ring-info-dark",
     ]

@@ -791,11 +791,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("bordered", "natural") do
     [
-      "text-natural-bordered-text-light border-natural-border-light bg-natural-bordered-bg-light",
-      "dark:text-natural-bordered-text-dark dark:border-natural-border-dark dark:bg-natural-bordered-bg-dark",
+      "text-natural-bordered-text-light border-natural-bordered-text-light bg-natural-bordered-bg-light",
+      "dark:text-natural-bordered-text-dark dark:border-natural-bordered-text-dark dark:bg-natural-bordered-bg-dark",
       "checked:[&_.radio-card-input]:text-black",
       "dark:checked:[&_.radio-card-input]:text-white",
-      "[&_.radio-card-input]:border-natural-border-light dark:[&_.radio-card-input]:border-natural-border-dark",
+      "[&_.radio-card-input]:border-natural-bordered-text-light dark:[&_.radio-card-input]:border-natural-bordered-text-dark",
       "has-[:checked]:border-black dark:has-[:checked]:border-white",
       "has-[:checked]:bg-natural-hover-dark dark:has-[:checked]:bg-silver-light"
     ]
@@ -869,11 +869,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("bordered", "info") do
     [
-      "text-info-light border-info-light bg-info-bordered-bg-light",
+      "text-info-bordered-text-light border-info-bordered-text-light bg-info-bordered-bg-light",
       "dark:text-info-hover-dark dark:border-info-hover-dark dark:bg-info-bordered-bg-dark",
-      "checked:[&_.radio-card-input]:text-info-light",
-      "dark:checked:[&_.radio-card-input]:text-info-hover-dark",
-      "[&_.radio-card-input]:border-info-light dark:[&_.radio-card-input]:border-info-hover-dark",
+      "checked:[&_.radio-card-input]:text-info-bordered-text-light",
+      "dark:checked:[&_.radio-card-input]:text-info--bordered-text-dark",
+      "[&_.radio-card-input]:border-info-bordered-text-light dark:[&_.radio-card-input]:border-info-bordered-text-dark",
       "has-[:checked]:border-info-indicator-alt-light dark:has-[:checked]:border-info-indicator-dark",
       "has-[:checked]:bg-[var(--color-info-gradient-indicator-dark)] dark:has-[:checked]:bg-info-indicator-alt-light"
     ]

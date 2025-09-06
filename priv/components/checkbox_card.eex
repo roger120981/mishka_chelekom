@@ -694,7 +694,7 @@ defmodule <%= @module %> do
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-primary)] shadow-[0px_10px_15px_-3px_var(--color-shadow-primary)] dark:shadow-none",
       "checked:[&_.checkbox-card-input]:text-checkbox-primary-checked",
       "[&_.checkbox-card-input]:border-checkbox-primary-checked",
-      "has-[:checked]:bg-primary-hover-dark dark:has-[:checked]:bg-primary-hover-light"
+      "has-[:checked]:bg-primary-hover-light dark:has-[:checked]:bg-primary-hover-dark"
     ]
   end
   <% end %>

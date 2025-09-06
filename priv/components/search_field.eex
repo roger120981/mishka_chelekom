@@ -713,7 +713,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("bordered", "natural", floating) do
     [
-      "text-natural-bordered-text-light dark:text-natural-bordered-text-dark [&_.search-field-wrapper:not(:has(.search-field-error))]:border-natural-border-light",
+      "text-natural-bordered-text-light dark:text-natural-bordered-text-dark [&_.search-field-wrapper:not(:has(.search-field-error))]:border-natural-bordered-text-light",
       "[&_.search-field-wrapper:not(:has(.search-field-error))]:bg-natural-bordered-bg-light",
       "dark:[&_.search-field-wrapper:not(:has(.search-field-error))]:bg-natural-bordered-bg-dark",
       "dark:[&_.search-field-wrapper:not(:has(.search-field-error))]:border-silver-light",

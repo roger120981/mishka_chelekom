@@ -706,12 +706,12 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("bordered", "natural", floating) do
     [
-      "text-natural-border-light dark:text-natural-hover-dark [&_.tel-field-wrapper:not(:has(.tel-field-error))]:border-natural-border-light",
+      "text-natural-bordered-text-light dark:text-natural-hover-dark [&_.tel-field-wrapper:not(:has(.tel-field-error))]:border-natural-bordered-text-light",
       "[&_.tel-field-wrapper:not(:has(.tel-field-error))]:bg-natural-bordered-bg-light",
       "dark:[&_.tel-field-wrapper:not(:has(.tel-field-error))]:bg-natural-bordered-bg-dark",
       "dark:[&_.tel-field-wrapper:not(:has(.tel-field-error))]:border-silver-light",
       "[&_.tel-field-wrapper.tel-field-error]:bg-rose-700",
-      "[&_.tel-field-wrapper>input]:placeholder:text-natural-border-light dark:[&_.tel-field-wrapper>input]:placeholder:text-natural-hover-dark",
+      "[&_.tel-field-wrapper>input]:placeholder:text-natural-bordered-text-light dark:[&_.tel-field-wrapper>input]:placeholder:text-natural-hover-dark",
       "focus-within:[&_.tel-field-wrapper]:ring-natural-light dark:focus-within:[&_.tel-field-wrapper]:ring-natural-dark",
       floating == "outer" &&
         "[&_.tel-field-wrapper_.floating-label]:bg-silver-light dark:[&_.tel-field-wrapper_.floating-label]:bg-silver-dark"
@@ -796,13 +796,13 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("bordered", "info", floating) do
     [
-      "text-info-light dark:text-info-hover-dark [&_.tel-field-wrapper:not(:has(.tel-field-error))]:border-info-light",
+      "text-info-bordered-text-light dark:text-info-hover-dark [&_.tel-field-wrapper:not(:has(.tel-field-error))]:border-info-bordered-text-light",
       "[&_.tel-field-wrapper:not(:has(.tel-field-error))]:bg-info-bordered-bg-light",
       "dark:[&_.tel-field-wrapper:not(:has(.tel-field-error))]:bg-info-bordered-bg-dark",
       "dark:[&_.tel-field-wrapper:not(:has(.tel-field-error))]:border-info-hover-dark",
       "[&_.tel-field-wrapper.tel-field-error]:bg-rose-700",
-      "[&_.tel-field-wrapper>input]:placeholder:text-info-light dark:[&_.tel-field-wrapper>input]:placeholder:text-info-hover-dark",
-      "focus-within:[&_.tel-field-wrapper]:ring-info-light dark:focus-within:[&_.tel-field-wrapper]:ring-info-dark",
+      "[&_.tel-field-wrapper>input]:placeholder:text-info-bordered-text-light dark:[&_.tel-field-wrapper>input]:placeholder:text-info-hover-dark",
+      "focus-within:[&_.tel-field-wrapper]:ring-info-bordered-text-light dark:focus-within:[&_.tel-field-wrapper]:ring-info-dark",
       floating == "outer" &&
         "[&_.tel-field-wrapper_.floating-label]:bg-silver-light dark:[&_.tel-field-wrapper_.floating-label]:bg-silver-dark"
     ]

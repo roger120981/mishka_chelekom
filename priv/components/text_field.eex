@@ -709,12 +709,12 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("bordered", "natural", floating) do
     [
-      "text-natural-border-light dark:text-natural-hover-dark [&_.text-field-wrapper:not(:has(.text-field-error))]:border-natural-border-light",
+      "text-natural-bordered-text-light dark:text-natural-hover-dark [&_.text-field-wrapper:not(:has(.text-field-error))]:bordered-text-natural-bordered-text-light",
       "[&_.text-field-wrapper:not(:has(.text-field-error))]:bg-natural-bordered-bg-light",
       "dark:[&_.text-field-wrapper:not(:has(.text-field-error))]:bg-natural-bordered-bg-dark",
       "dark:[&_.text-field-wrapper:not(:has(.text-field-error))]:border-silver-light",
       "[&_.text-field-wrapper.text-field-error]:bg-rose-700",
-      "[&_.text-field-wrapper>input]:placeholder:text-natural-border-light dark:[&_.text-field-wrapper>input]:placeholder:text-natural-hover-dark",
+      "[&_.text-field-wrapper>input]:placeholder:text-natural-bordered-text-light dark:[&_.text-field-wrapper>input]:placeholder:text-natural-hover-dark",
       "focus-within:[&_.text-field-wrapper]:ring-natural-light dark:focus-within:[&_.text-field-wrapper]:ring-natural-dark",
       floating == "outer" &&
         "[&_.text-field-wrapper_.floating-label]:bg-silver-light dark:[&_.text-field-wrapper_.floating-label]:bg-silver-dark"
