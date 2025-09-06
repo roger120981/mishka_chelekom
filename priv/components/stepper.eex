@@ -46,7 +46,7 @@ defmodule <%= @module %> do
 
   attr :margin, :string, default: "medium", doc: "Determines the element margin"
   attr :color, :string, default: "natural", doc: "Determines color theme"
-  attr :space, :string, default: "", doc: "Space between items"
+  attr :space, :string, default: "", doc: "Space between stepper items in vertical layout"
   attr :border, :string, default: "extra_small", doc: "Determines border style"
 
   attr :font_weight, :string,
@@ -58,8 +58,8 @@ defmodule <%= @module %> do
   attr :variant, :string, default: "base", doc: "Determines the style"
   attr :vertical, :boolean, default: false, doc: "Determines whether element is vertical"
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :col_step, :boolean, default: false, doc: "Custom CSS class for additional styling"
-  attr :col_step_position, :string, default: "start", doc: "Custom CSS class for additional styling"
+  attr :col_step, :boolean, default: false, doc: "Enables column layout for stepper steps"
+  attr :col_step_position, :string, default: "start", doc: "Determines column step position alignment (start, end, center)"
 
   attr :rest, :global,
     doc:
@@ -149,11 +149,11 @@ defmodule <%= @module %> do
 
   attr :icon_wrapper_class, :string,
     default: nil,
-    doc: "Custom CSS class for additional styling to separator"
+    doc: "Custom CSS class for additional styling to icon wrapper"
 
   attr :number_wrapper_class, :string,
     default: nil,
-    doc: "Custom CSS class for additional styling to separator"
+    doc: "Custom CSS class for additional styling to number wrapper"
 
   attr :content_class, :string,
     default: nil,
@@ -187,7 +187,7 @@ defmodule <%= @module %> do
     doc: "Determines if the element can be activated on click"
 
   attr :reverse, :boolean, default: false, doc: "Switches the order of the element and label"
-  attr :space, :string, default: "small", doc: "Switches the order of the element and label"
+  attr :space, :string, default: "small", doc: "Space between step icon and content"
   attr :border, :string, default: "", doc: "Determines border style"
   attr :rest, :global,
     doc:
