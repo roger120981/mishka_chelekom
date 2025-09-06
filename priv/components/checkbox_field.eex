@@ -408,7 +408,7 @@ defmodule <%= @module %> do
     [
       "[&_.checkbox-field-wrapper_.checkbox-input]:text-white text-natural-dark",
       "[&_.checkbox-field-wrapper_.checkbox-input]:border-natural-dark",
-      "focus-within:[&_.checkbox-field-wrapper_.checkbox-input_.radio-input]:ring-natural-dark"
+      "focus-within:[&_.checkbox-field-wrapper_.checkbox-input]:ring-natural-dark"
     ]
   end
   <% end %>

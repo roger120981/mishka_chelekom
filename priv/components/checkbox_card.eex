@@ -449,7 +449,7 @@ defmodule <%= @module %> do
       "bg-primary-light text-white dark:bg-primary-dark dark:text-black",
       "checked:[&_.checkbox-card-input]:text-checkbox-primary-checked",
       "[&_.checkbox-card-input]:border-checkbox-primary-checked",
-      "has-[:checked]:bg-primary-hover-dark dark:has-[:checked]:bg-primary-hover-light"
+      "has-[:checked]:bg-primary-hover-light dark:has-[:checked]:bg-primary-hover-dark"
     ]
   end
   <% end %>
@@ -460,7 +460,7 @@ defmodule <%= @module %> do
       "bg-secondary-light text-white dark:bg-secondary-dark dark:text-black",
       "checked:[&_.checkbox-card-input]:text-checkbox-secondary-checked",
       "[&_.checkbox-card-input]:border-checkbox-secondary-checked",
-      "has-[:checked]:bg-secondary-hover-light dark:has-[:checked]:bg-primary-hover-light"
+      "has-[:checked]:bg-secondary-hover-light dark:has-[:checked]:bg-primary-hover-dark"
     ]
   end
   <% end %>
@@ -706,7 +706,7 @@ defmodule <%= @module %> do
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-secondary)] shadow-[0px_10px_15px_-3px_var(--color-shadow-secondary)] dark:shadow-none",
       "checked:[&_.checkbox-card-input]:text-checkbox-secondary-checked",
       "[&_.checkbox-card-input]:border-checkbox-secondary-checked",
-      "has-[:checked]:bg-secondary-hover-light dark:has-[:checked]:bg-primary-hover-light"
+      "has-[:checked]:bg-secondary-hover-light dark:has-[:checked]:bg-primary-hover-dark"
     ]
   end
   <% end %>
