@@ -289,7 +289,7 @@ defmodule <%= @module %> do
   defp color_class("secondary") do
     [
       "[&_.mock-base]:bg-secondary-light [&_.mock-darker-base]:bg-secondary-indicator-light [&_.mock-base]:border-secondary-bordered-text-light",
-      "dark:[&_.mock-base]:bg-secondary-dark dark:[&_.mock-darker-base]:bg-secondary-indicator-dark dark:[&_.mock-base]:border-secondary-dark"
+      "dark:[&_.mock-base]:bg-secondary-dark dark:[&_.mock-darker-base]:bg-secondary-indicator-dark dark:[&_.mock-base]:border-secondary-bordered-text-dark"
     ]
   end
   <% end %>
