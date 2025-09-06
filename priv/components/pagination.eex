@@ -255,7 +255,7 @@ defmodule <%= @module %> do
       }
       aria-disabled={elem(@page, 0) == elem(@page, 1)}
       class={[
-        "pagination-button",
+        "pagination-button cursor-pointer",
         elem(@page, 1) == elem(@page, 0) && "active-pagination-button",
         @class
       ]}
@@ -273,7 +273,7 @@ defmodule <%= @module %> do
   defp item_button(assigns) do
     ~H"""
     <button
-      class={["pagination-control flex items-center justify-center", @class]}
+      class={["pagination-control flex items-center justify-center cursor-pointer", @class]}
       aria-disabled={@disabled}
       aria-label={@aria_label}
       phx-click={
@@ -1611,114 +1611,114 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@variant) or "gradient" in @variant do %>
   <%= if is_nil(@color) or "natural" in @color do %>
-defp color_variant("gradient", "natural") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-natural-from-light)] [&_.pagination-button]:to-[var(--gradient-natural-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-natural-from-dark)] dark:[&_.pagination-button]:to-white dark:[&_.pagination-button]:text-black",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  defp color_variant("gradient", "natural") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-natural-from-light)] [&_.pagination-button]:to-[var(--gradient-natural-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-natural-from-dark)] dark:[&_.pagination-button]:to-white dark:[&_.pagination-button]:text-black",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "primary" in @color do %>
-defp color_variant("gradient", "primary") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-primary-from-light)] [&_.pagination-button]:to-[var(--gradient-primary-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-primary-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-primary-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "primary" in @color do %>
+  defp color_variant("gradient", "primary") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-primary-from-light)] [&_.pagination-button]:to-[var(--gradient-primary-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-primary-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-primary-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "secondary" in @color do %>
-defp color_variant("gradient", "secondary") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-secondary-from-light)] [&_.pagination-button]:to-[var(--gradient-secondary-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-secondary-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-secondary-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "secondary" in @color do %>
+  defp color_variant("gradient", "secondary") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-secondary-from-light)] [&_.pagination-button]:to-[var(--gradient-secondary-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-secondary-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-secondary-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "success" in @color do %>
-defp color_variant("gradient", "success") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-success-from-light)] [&_.pagination-button]:to-[var(--gradient-success-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-success-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-success-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "success" in @color do %>
+  defp color_variant("gradient", "success") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-success-from-light)] [&_.pagination-button]:to-[var(--gradient-success-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-success-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-success-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "warning" in @color do %>
-defp color_variant("gradient", "warning") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-warning-from-light)] [&_.pagination-button]:to-[var(--gradient-warning-to-light)] [&_.pagination-button]:text-black",
-    "dark:[&_.pagination-button]:from-[var(--gradient-warning-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-warning-to-dark)] dark:[&_.pagination-button]:text-black",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "warning" in @color do %>
+  defp color_variant("gradient", "warning") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-warning-from-light)] [&_.pagination-button]:to-[var(--gradient-warning-to-light)] [&_.pagination-button]:text-black",
+      "dark:[&_.pagination-button]:from-[var(--gradient-warning-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-warning-to-dark)] dark:[&_.pagination-button]:text-black",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "danger" in @color do %>
-defp color_variant("gradient", "danger") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-danger-from-light)] [&_.pagination-button]:to-[var(--gradient-danger-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-danger-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-danger-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "danger" in @color do %>
+  defp color_variant("gradient", "danger") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-danger-from-light)] [&_.pagination-button]:to-[var(--gradient-danger-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-danger-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-danger-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "info" in @color do %>
-defp color_variant("gradient", "info") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-info-from-light)] [&_.pagination-button]:to-[var(--gradient-info-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-info-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-info-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "info" in @color do %>
+  defp color_variant("gradient", "info") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-info-from-light)] [&_.pagination-button]:to-[var(--gradient-info-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-info-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-info-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "misc" in @color do %>
-defp color_variant("gradient", "misc") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-misc-from-light)] [&_.pagination-button]:to-[var(--gradient-misc-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-misc-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-misc-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "misc" in @color do %>
+  defp color_variant("gradient", "misc") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-misc-from-light)] [&_.pagination-button]:to-[var(--gradient-misc-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-misc-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-misc-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "dawn" in @color do %>
-defp color_variant("gradient", "dawn") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-dawn-from-light)] [&_.pagination-button]:to-[var(--gradient-dawn-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-dawn-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-dawn-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "dawn" in @color do %>
+  defp color_variant("gradient", "dawn") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-dawn-from-light)] [&_.pagination-button]:to-[var(--gradient-dawn-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-dawn-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-dawn-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
 
-<%= if is_nil(@color) or "silver" in @color do %>
-defp color_variant("gradient", "silver") do
-  [
-    "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
-    "[&_.pagination-button]:from-[var(--gradient-silver-from-light)] [&_.pagination-button]:to-[var(--gradient-silver-to-light)] [&_.pagination-button]:text-white",
-    "dark:[&_.pagination-button]:from-[var(--gradient-silver-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-silver-to-dark)] dark:[&_.pagination-button]:text-white",
-    "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
-  ]
-end
-<% end %>
+  <%= if is_nil(@color) or "silver" in @color do %>
+  defp color_variant("gradient", "silver") do
+    [
+      "[&_.pagination-button]:bg-gradient-to-br [&_.pagination-button]:hover:bg-gradient-to-bl",
+      "[&_.pagination-button]:from-[var(--gradient-silver-from-light)] [&_.pagination-button]:to-[var(--gradient-silver-to-light)] [&_.pagination-button]:text-white",
+      "dark:[&_.pagination-button]:from-[var(--gradient-silver-from-dark)] dark:[&_.pagination-button]:to-[var(--gradient-silver-to-dark)] dark:[&_.pagination-button]:text-white",
+      "[&_.pagination-button.active-pagination-button]:bg-gradient-to-bl"
+    ]
+  end
+  <% end %>
   <% end %>
   defp color_variant(params, _) when is_binary(params), do: params
 
