@@ -51,11 +51,11 @@ defmodule <%= @module %> do
 
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
   attr :color, :string, default: "base", doc: "Determines color theme"
-  attr :height, :string, default: "extra_small", doc: "Determines the element width"
+  attr :height, :string, default: "extra_small", doc: "Determines the element height"
   attr :width, :string, default: "full", doc: "Determines the element width"
   attr :rounded, :string, default: "small", doc: "Determines the border radius"
 
-  attr :visible, :boolean, default: true, doc: ""
+  attr :visible, :boolean, default: true, doc: "Controls whether the skeleton is visible or hidden"
 
   attr :rest, :global,
     include: ~w(animated),
