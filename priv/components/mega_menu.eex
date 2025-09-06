@@ -251,11 +251,11 @@ defmodule <%= @module %> do
   defp border_class("none", _), do: "[&>.mega-menu-content]:border-0"
   defp border_class("extra_small", _), do: "[&>.mega-menu-content]:border"
   defp border_class("small", _), do: "[&>.mega-menu-content]:border-2"
-  defp border_class("medium", _), do: "[&>.mega-menu-content]:[&>.mega-menu-content]:border-[3px]"
+  defp border_class("medium", _), do: "[&>.mega-menu-content]:border-[3px]"
   defp border_class("large", _), do: "[&>.mega-menu-content]:border-4"
 
   defp border_class("extra_large", _),
-    do: "[&>.mega-menu-content]:[&>.mega-menu-content]:border-[5px]"
+    do: "[&>.mega-menu-content]:border-[5px]"
 
   defp border_class(params, _) when is_binary(params), do: params
 
@@ -623,7 +623,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("bordered", "natural") do
     [
-      "text-natural-bordered-text-light [&>.mega-menu-content]:border-natural-border-light [&>.mega-menu-content]:bg-natural-bordered-bg-light",
+      "text-natural-bordered-text-light [&>.mega-menu-content]:border-natural-bordered-text-light [&>.mega-menu-content]:bg-natural-bordered-bg-light",
       "dark:text-natural-bordered-text-dark dark:[&>.mega-menu-content]:border-natural-border-dark dark:[&>.mega-menu-content]:bg-natural-bordered-bg-dark"
     ]
   end
