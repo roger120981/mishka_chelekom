@@ -61,7 +61,7 @@ defmodule <%= @module %> do
     default: nil,
     doc: "A unique identifier is used to manage state and interaction"
 
-  attr :value, :integer, default: nil, doc: "Value of inout"
+  attr :value, :integer, default: nil, doc: "Value of input"
 
   attr :variation, :string,
     values: ["horizontal", "vertical"],
@@ -204,7 +204,7 @@ defmodule <%= @module %> do
         class={[
           "z-10 absolute left-1/2 transform -translate-x-1/2 font-medium",
           @orientation == "up" && "top-1/2",
-          @orientation == "down" && "top-0  translate-y-1/2"
+          @orientation == "down" && "top-0 translate-y-1/2"
         ]}
       >
         {@label || "#{@value}%"}
@@ -346,7 +346,7 @@ defmodule <%= @module %> do
   ```
   """
   @doc type: :component
-  attr :value, :integer, default: 0, doc: ""
+  attr :value, :integer, default: 0, doc: "Progress value (0 to 100)"
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
   attr :variation, :string,
@@ -617,7 +617,7 @@ defmodule <%= @module %> do
   defp size_class("triple_large", "vertical"), do: "text-xl w-7 h-[11rem]"
   <% end %>
   <%= if is_nil(@size) or "quadruple_large" in @size do %>
-  defp size_class("quadruple_large", "vertical"), do: "text-xl w-8  h-[12rem]"
+  defp size_class("quadruple_large", "vertical"), do: "text-xl w-8 h-[12rem]"
   <% end %>
 
   defp size_class(params, _) when is_binary(params), do: params
