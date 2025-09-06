@@ -321,7 +321,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("outline", "primary") do
     [
-      "text-primary-light border-primary-light  dark:text-primary-dark dark:border-primary-dark"
+      "text-primary-light border-primary-light dark:text-primary-dark dark:border-primary-dark"
     ]
   end
   <% end %>
