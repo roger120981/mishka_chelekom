@@ -75,7 +75,6 @@ defmodule <%= @module %> do
 
   attr :size, :string,
     default: "small",
-    doc: "",
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
 
@@ -88,9 +87,9 @@ defmodule <%= @module %> do
 
   attr :padding, :string, default: "extra_small", doc: "Determines padding for items"
   attr :content_padding, :string, default: "extra_small", doc: "Determines padding for items"
-  attr :triggers_position, :string, default: "extra_small", doc: ""
+  attr :triggers_position, :string, default: "extra_small", doc: "Determines the positioning of tab triggers"
   attr :vertical, :boolean, default: false, doc: "Determines whether element is vertical"
-  attr :placement, :string, default: "start", doc: ""
+  attr :placement, :string, default: "start", doc: "Determines placement of vertical tabs (start, end)"
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
   attr :rest, :global,
@@ -110,7 +109,7 @@ defmodule <%= @module %> do
     attr :badge_color, :string, doc: "badge color"
     attr :badge_position, :string, doc: "badge position"
     attr :badge_size, :string, doc: "badge size"
-    attr :badge_variant, :string, doc: "badge color varinat"
+    attr :badge_variant, :string, doc: "badge color variant"
     attr :on_select, :any, doc: "Custom JS module for on_select action"
   end
 
@@ -248,7 +247,7 @@ defmodule <%= @module %> do
         role="tablist"
         tabindex="0"
         class={[
-          "tab-trigger-list flex flex-wrap flex-wrap",
+          "tab-trigger-list flex flex-wrap",
           @variant == "nav_pills" && "tab-nav-pills bg-base-tab-bg-light dark:bg-base-border-dark",
           @variant == "nav_pills" && !@full_width_tab && "w-fit"
         ]}
@@ -462,7 +461,7 @@ defmodule <%= @module %> do
 
   defp tab_border("medium", false) do
     [
-      "[&_.tab-trigger]:border-b-[3px]  [&_.tab-trigger]:-mb-1",
+      "[&_.tab-trigger]:border-b-[3px] [&_.tab-trigger]:-mb-1",
       "[&:not(.no-border-tabs-list)_.tab-trigger-list]:border-b-[3px]"
     ]
   end
