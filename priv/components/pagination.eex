@@ -111,23 +111,23 @@ defmodule <%= @module %> do
 
   attr :prev_label_class, :string,
     default: nil,
-    doc: "Custom CSS class for additional styling to prveious button"
+    doc: "Custom CSS class for additional styling to previous button"
 
   attr :pages_label_class, :string,
     default: nil,
     doc: "Custom CSS class for additional styling to pages buttons"
 
-  attr :seperator_class, :string,
+  attr :separator_class, :string,
     default: nil,
     doc: "Custom CSS class for additional styling to pages buttons"
 
   attr :separator_icon_class, :string,
     default: nil,
-    doc: "Custom CSS class for additional styling to icon of seperator"
+    doc: "Custom CSS class for additional styling to icon of separator"
 
   attr :separator_text_class, :string,
     default: nil,
-    doc: "Custom CSS class for additional styling to text of seperator"
+    doc: "Custom CSS class for additional styling to text of separator"
 
   attr :params, :map,
     default: %{},
@@ -190,7 +190,7 @@ defmodule <%= @module %> do
         <%%= if is_integer(range) do %>
           <.item_button on_action={{"select", @on_select}} page={{range, @active}} params={@params} class={@pages_label_class} />
         <%% else %>
-          <div class={["pagination-seperator flex justify-center items-center", @seperator_class]} aria-hidden="true">
+          <div class={["pagination-separator flex justify-center items-center", @separator_class]} aria-hidden="true">
             <.icon
                 :if={Map.get(@separator, :type) == :icon}
                 name={@separator.value}
@@ -240,7 +240,7 @@ defmodule <%= @module %> do
   attr :label, :string, required: false, doc: "Icon displayed alongside of an item"
   attr :disabled, :boolean, required: false, doc: "Specifies whether the element is disabled"
   attr :aria_label, :string, default: nil, doc: "Accessible label for screen readers"
-  attr :class, :string, default: nil, doc: "Custom class for addition styling"
+  attr :class, :string, default: nil, doc: "Custom class for additional styling"
 
   defp item_button(%{on_action: {"select", _on_action}} = assigns) do
     ~H"""
@@ -385,13 +385,13 @@ defmodule <%= @module %> do
     [
       "[&.grouped-pagination]:border [&.grouped-pagination_.pagination-button]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-r",
       "border-base-border-light [&.grouped-pagination_.pagination-button]:border-base-border-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-base-border-light",
-      "[&.grouped-pagination_.pagination-seperator]:border-base-border-light",
+      "[&.grouped-pagination_.pagination-separator]:border-base-border-light",
       "dark:border-base-border-dark dark:[&.grouped-pagination_.pagination-button]:border-base-border-dark",
       "dark:[&.grouped-pagination_.pagination-control:not(:last-child)]:border-base-border-dark",
-      "dark:[&.grouped-pagination_.pagination-seperator]:border-base-border-dark"
+      "dark:[&.grouped-pagination_.pagination-separator]:border-base-border-dark"
     ]
   end
   <% end %>
@@ -402,8 +402,8 @@ defmodule <%= @module %> do
       "border-natural-dark [&.grouped-pagination_.pagination-button]:border-natural-dark",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-natural-dark",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-natural-dark"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-natural-dark"
     ]
   end
   <% end %>
@@ -414,8 +414,8 @@ defmodule <%= @module %> do
       "border-[var(--color-secondary-light)] [&.grouped-pagination_.pagination-button]:border-[var(--color-secondary-hover-light)]",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-[var(--color-secondary-hover-light)]",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-[var(--color-secondary-hover-light)]"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-[var(--color-secondary-hover-light)]"
     ]
   end
   <% end %>
@@ -426,8 +426,8 @@ defmodule <%= @module %> do
       "border-slate-500 [&.grouped-pagination_.pagination-button]:border-slate-700",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-slate-700",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-slate-700"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-slate-700"
     ]
   end
   <% end %>
@@ -438,8 +438,8 @@ defmodule <%= @module %> do
       "border-emerald-700 [&.grouped-pagination_.pagination-button]:border-emerald-700",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-emerald-700",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-emerald-700"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-emerald-700"
     ]
   end
   <% end %>
@@ -450,8 +450,8 @@ defmodule <%= @module %> do
       "border-warning-indicator-light [&.grouped-pagination_.pagination-button]:border-warning-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-warning-indicator-light",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-warning-indicator-light"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-warning-indicator-light"
     ]
   end
   <% end %>
@@ -462,8 +462,8 @@ defmodule <%= @module %> do
       "border-danger-indicator-light [&.grouped-pagination_.pagination-button]:border-danger-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-danger-indicator-light",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-danger-indicator-light"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-danger-indicator-light"
     ]
   end
   <% end %>
@@ -474,8 +474,8 @@ defmodule <%= @module %> do
       "border-info-indicator-light [&.grouped-pagination_.pagination-button]:border-info-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-info-indicator-light",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-info-indicator-light"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-info-indicator-light"
     ]
   end
   <% end %>
@@ -486,8 +486,8 @@ defmodule <%= @module %> do
       "border-misc-indicator-light [&.grouped-pagination_.pagination-button]:border-misc-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-misc-indicator-light",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-misc-indicator-light"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-misc-indicator-light"
     ]
   end
   <% end %>
@@ -498,8 +498,8 @@ defmodule <%= @module %> do
       "border-dawn-indicator-light [&.grouped-pagination_.pagination-button]:border-dawn-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-dawn-indicator-light",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-dawn-indicator-light"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-dawn-indicator-light"
     ]
   end
   <% end %>
@@ -510,8 +510,8 @@ defmodule <%= @module %> do
       "border-silver-indicator-light [&.grouped-pagination_.pagination-button]:border-silver-indicator-light",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-silver-indicator-light",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-silver-indicator-light"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-silver-indicator-light"
     ]
   end
   <% end %>
@@ -523,8 +523,8 @@ defmodule <%= @module %> do
       "border-base-bg-dark [&.grouped-pagination_.pagination-button]:border-bordered-dark-border",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-r",
       "[&.grouped-pagination_.pagination-control:not(:last-child)]:border-bordered-dark-border",
-      "[&.grouped-pagination_.pagination-seperator]:border-r",
-      "[&.grouped-pagination_.pagination-seperator]:border-bordered-dark-border"
+      "[&.grouped-pagination_.pagination-separator]:border-r",
+      "[&.grouped-pagination_.pagination-separator]:border-bordered-dark-border"
     ]
   end
   <% end %>
@@ -573,8 +573,8 @@ defmodule <%= @module %> do
       "[&.grouped-pagination_.pagination-button]:min-w-6 [&.grouped-pagination_.pagination-control]:min-w-6",
       "[&_.pagination-button]:h-6 [&_.pagination-control>.pagination-icon]:h-6",
       "[&_.pagination-control]:px-2",
-      "[&_.pagination-seperator]:h-6 text-xs",
-      "[&_:not(.pagination-seperator)>.pagination-icon]:size-3.5"
+      "[&_.pagination-separator]:h-6 text-xs",
+      "[&_:not(.pagination-separator)>.pagination-icon]:size-3.5"
     ]
   end
   <% end %>
@@ -586,8 +586,8 @@ defmodule <%= @module %> do
       "[&.grouped-pagination_.pagination-button]:min-w-7 [&.grouped-pagination_.pagination-control]:min-w-7",
       "[&_.pagination-button]:h-7 [&_.pagination-control>.pagination-icon]:h-7",
       "[&_.pagination-control]:px-2",
-      "[&_.pagination-seperator]:w-full [&_.pagination-seperator]:h-7 text-sm",
-      "[&_:not(.pagination-seperator)>.pagination-icon]:size-4"
+      "[&_.pagination-separator]:w-full [&_.pagination-separator]:h-7 text-sm",
+      "[&_:not(.pagination-separator)>.pagination-icon]:size-4"
     ]
   end
   <% end %>
@@ -599,8 +599,8 @@ defmodule <%= @module %> do
       "[&.grouped-pagination_.pagination-button]:min-w-8 [&.grouped-pagination_.pagination-control]:min-w-8",
       "[&_.pagination-control]:px-2",
       "[&_.pagination-button]:h-8 [&_.pagination-control>.pagination-icon]:h-8",
-      "[&_.pagination-seperator]:w-full [&_.pagination-seperator]:h-8 text-base",
-      "[&_:not(.pagination-seperator)>.pagination-icon]:size-5"
+      "[&_.pagination-separator]:w-full [&_.pagination-separator]:h-8 text-base",
+      "[&_:not(.pagination-separator)>.pagination-icon]:size-5"
     ]
   end
   <% end %>
@@ -612,8 +612,8 @@ defmodule <%= @module %> do
       "[&.grouped-pagination_.pagination-button]:min-w-9 [&.grouped-pagination_.pagination-control]:min-w-9",
       "[&_.pagination-control]:px-2",
       "[&_.pagination-button]:h-9 [&_.pagination-control>.pagination-icon]:h-9",
-      "[&_.pagination-seperator]:w-full [&_.pagination-seperator]:h-9 text-lg",
-      "[&_:not(.pagination-seperator)>.pagination-icon]:size-6"
+      "[&_.pagination-separator]:w-full [&_.pagination-separator]:h-9 text-lg",
+      "[&_:not(.pagination-separator)>.pagination-icon]:size-6"
     ]
   end
   <% end %>
@@ -625,8 +625,8 @@ defmodule <%= @module %> do
       "[&.grouped-pagination_.pagination-button]:min-w-10 [&.grouped-pagination_.pagination-control]:min-w-10",
       "[&_.pagination-control]:px-2",
       "[&_.pagination-button]:h-10 [&_.pagination-control>.pagination-icon]:h-10",
-      "[&_.pagination-seperator]:w-full [&_.pagination-seperator]:h-10 text-xl",
-      "[&_:not(.pagination-seperator)>.pagination-icon]:size-7"
+      "[&_.pagination-separator]:w-full [&_.pagination-separator]:h-10 text-xl",
+      "[&_:not(.pagination-separator)>.pagination-icon]:size-7"
     ]
   end
   <% end %>
