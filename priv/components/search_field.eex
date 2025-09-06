@@ -225,7 +225,7 @@ defmodule <%= @module %> do
 
       <div class={[
         "search-field-wrapper overflow-hidden transition-all ease-in-out duration-200 flex items-center flex-nowrap",
-        @errors != [] && "text-field-error",
+        @errors != [] && "search-field-error",
         @field_wrapper_class
       ]}>
         <div
