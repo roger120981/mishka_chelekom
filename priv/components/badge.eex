@@ -87,7 +87,7 @@ defmodule <%= @module %> do
     default: nil,
     doc: "Custom CSS class for additional styling of dismiss button"
 
-  attr :badge_position, :string, default: "", doc: "poistion of badge"
+  attr :badge_position, :string, default: "", doc: "position of badge"
 
   attr :indicator_class, :string,
     default: nil,
@@ -184,7 +184,7 @@ defmodule <%= @module %> do
     ~H"""
     <button
       type={@type}
-      class={["dismmiss-button inline-flex justify-center items-center w-fit shrink-0", @class]}
+      class={["dismiss-button inline-flex justify-center items-center w-fit shrink-0", @class]}
       aria-label={gettext("close")}
       phx-click={JS.push("dismiss", value: Map.merge(%{id: @id}, @params)) |> hide_badge("##{@id}")}
     >
