@@ -9,7 +9,7 @@ defmodule <%= @module %> do
   ## Features
 
   - **Customizable Appearance:** Supports various size, color, and style options, including
-  `default`, `outline`,`shadow`, and `unbordered` variants. Users can control the
+  `default`, `outline`, `shadow`, and `unbordered` variants. Users can control the
   overall size, border radius, padding, and spacing between elements to fit different design requirements.
   - **Action Configuration:** The `SpeedDial` component can hold multiple action items,
   each with individual icons, colors, and navigation paths. Items can link to different parts
@@ -64,9 +64,9 @@ defmodule <%= @module %> do
     default: nil,
     doc: "Custom CSS class for additional styling to button"
 
-  attr :action_position, :string, default: "bottom-end", doc: ""
-  attr :position_size, :string, default: "large", doc: ""
-  attr :wrapper_position, :string, default: "top", doc: ""
+  attr :action_position, :string, default: "bottom-end", doc: "Controls the position of the action items relative to the trigger button"
+  attr :position_size, :string, default: "large", doc: "Controls the distance from the edge of the screen for positioning"
+  attr :wrapper_position, :string, default: "top", doc: "Determines the position of the wrapper content (top, bottom, left, right)"
   attr :rounded, :string, default: "full", doc: "Determines the border radius"
 
   attr :size, :string,
