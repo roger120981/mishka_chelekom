@@ -54,8 +54,8 @@ defmodule <%= @module %> do
   attr :type, :string, values: ["default", "masonry", "featured"], default: "default", doc: ""
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
   attr :cols, :string, default: "", doc: "Determines cols of elements"
-  attr :gap, :string, default: "", doc: "Determines gap between elements"
-  attr :animation, :string, default: "", doc: "Determines gap between elements"
+  attr :gap, :string, default: "", doc: "Determines animation type for gallery items"
+  attr :animation, :string, default: "", doc: "Determines animation intensity/size"
   attr :animation_size, :string, default: "extra_small", doc: "Determines gap between elements"
 
   attr :rest, :global,
@@ -151,11 +151,11 @@ defmodule <%= @module %> do
   attr :media, :list, default: [], doc: "List of media items with :src, :alt, and :category"
   attr :cols, :string, default: "three", doc: "Determines cols of elements"
   attr :gap, :string, default: "small", doc: "Determines gap between elements"
-  attr :class, :string, default: nil, doc: "Add custom classe"
+  attr :class, :string, default: nil, doc: "Add custom class"
   attr :default_filter, :string, default: "All", doc: "Default Button to show all images"
   slot :filter, required: false, doc: "Slot for rendering each filter button with let={filter}"
-  attr :animation, :string, default: "", doc: "Determines gap between elements"
-  attr :animation_size, :string, default: "extra_small", doc: "Determines gap between elements"
+  attr :animation, :string, default: "", doc: "Determines animation type for gallery items"
+  attr :animation_size, :string, default: "extra_small", doc: "Determines animation intensity/size"
   attr :content_class, :string, default: nil, doc: "Add custom classe to content wrapper"
 
   attr :filters_wrapper_class, :string,
