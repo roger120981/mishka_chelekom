@@ -781,7 +781,7 @@ defmodule <%= @module %> do
     [
       "[&:not(.progress-vertical)]:bg-gradient-to-r rtl:[&:not(.progress-vertical)]:bg-gradient-to-l",
       "[&:not(.progress-vertical)]:from-gradient-warning-from-light [&:not(.progress-vertical)]:via-gradient-warning-to-light [&:not(.progress-vertical)]:to-progress-bg text-white",
-      "[&.progress-vertical]:bg-gradient-to-b [&.progress-vertical]:from-progress-bg [&.progress-vertical]:to-gradient-warning-from-light [&.progress-vertical]:via-gradient-warning-from-light",
+      "[&.progress-vertical]:bg-gradient-to-b [&.progress-vertical]:from-progress-bg [&.progress-vertical]:to-gradient-warning-to-light [&.progress-vertical]:via-gradient-warning-from-light",
       "dark:[&:not(.progress-vertical)]:from-gradient-warning-from-dark dark:[&:not(.progress-vertical)]:via-gradient-warning-to-dark dark:[&:not(.progress-vertical)]:to-progress-bg text-black",
       "dark:[&.progress-vertical]:to-gradient-warning-to-dark dark:[&.progress-vertical]:via-gradient-warning-to-dark dark:[&.progress-vertical]:from-progress-bg"
     ]
@@ -841,7 +841,7 @@ defmodule <%= @module %> do
     [
       "[&:not(.progress-vertical)]:bg-gradient-to-r rtl:[&:not(.progress-vertical)]:bg-gradient-to-l",
       "[&:not(.progress-vertical)]:from-gradient-silver-from-light [&:not(.progress-vertical)]:via-gradient-silver-to-light [&:not(.progress-vertical)]:to-progress-bg text-white",
-      "[&.progress-vertical]:bg-gradient-to-b [&.progress-vertical]:from-progress-bg [&.progress-vertical]:to-gradient-silver-from-light [&.progress-vertical]:via-gradient-silver-from-light",
+      "[&.progress-vertical]:bg-gradient-to-b [&.progress-vertical]:from-progress-bg [&.progress-vertical]:to-gradient-silver-to-light [&.progress-vertical]:via-gradient-silver-from-light",
       "dark:[&:not(.progress-vertical)]:from-gradient-silver-from-dark dark:[&:not(.progress-vertical)]:via-gradient-silver-to-dark dark:[&:not(.progress-vertical)]:to-progress-bg text-black",
       "dark:[&.progress-vertical]:to-gradient-silver-to-dark dark:[&.progress-vertical]:via-gradient-silver-to-dark dark:[&.progress-vertical]:from-progress-bg"
     ]
