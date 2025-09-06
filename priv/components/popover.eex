@@ -733,7 +733,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("shadow", "success") do
     [
-      "bg-success-light text-white hover:bg-success-bordered-text-light dark:bg-success-dark dark:text-black",
+      "bg-success-light text-white dark:bg-success-dark dark:text-black",
       "shadow-[0px_4px_6px_-4px_var(--color-shadow-success)] shadow-[0px_10px_15px_-3px_var(--color-shadow-success)] dark:shadow-none"
     ]
   end

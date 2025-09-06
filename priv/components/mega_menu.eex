@@ -543,7 +543,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("shadow", "success") do
     [
-      "[&>.mega-menu-content]:bg-success-light text-white hover:[&>.mega-menu-content]:bg-success-hover-light dark:[&>.mega-menu-content]:bg-success-dark dark:text-black",
+      "[&>.mega-menu-content]:bg-success-light text-white dark:[&>.mega-menu-content]:bg-success-dark dark:text-black",
       "[&>.mega-menu-content]:shadow-[0px_4px_6px_-4px_var(--color-shadow-success)] [&>.mega-menu-content]:shadow-[0px_10px_15px_-3px_var(--color-shadow-success)] dark:[&>.mega-menu-content]:shadow-none"
     ]
   end

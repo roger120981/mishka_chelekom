@@ -691,7 +691,7 @@ defmodule <%= @module %> do
   defp color_variant("base_hoverable", _) do
     [
       "[&_table]:bg-white [&_table]:text-base-text-light dark:[&_table]:bg-base-bg-dark dark:[&_table]:text-base-text-dark",
-      "hover:[&_table_tbody_tr]:bg-base-border-light dark:hover:[&_table_tbody_tr]:bg-base-border-dark",
+      "[&_table_tbody_tr]:hover:bg-base-border-light dark:[&_table_tbody_tr]:hover:bg-base-border-dark",
       "border-base-border-light dark:border-base-border-dark",
       "[&_*]:divide-base-border-light [&_td]:border-base-border-light [&_th]:border-base-border-light",
       "dark:[&_*]:divide-base-border-dark dark:[&_td]:border-base-border-dark dark:[&_th]:border-base-border-dark"
@@ -1182,7 +1182,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "white" in @color do %>
   defp color_variant("hoverable", "white") do
     [
-      "[&_table]:bg-white hover:[&_table_tbody_tr]:bg-table-white-border text-table-white-text"
+      "[&_table]:bg-white [&_table_tbody_tr]:hover:bg-table-white-border text-table-white-text"
     ]
   end
   <% end %>
@@ -1191,7 +1191,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "natural") do
     [
       "[&_table]:bg-natural-light [&_table]:text-white dark:[&_table]:bg-natural-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-natural-hover-light dark:hover:[&_table_tbody_tr]:bg-natural-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-natural-hover-light dark:[&_table_tbody_tr]:hover:bg-natural-hover-dark"
     ]
   end
   <% end %>
@@ -1200,7 +1200,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "primary") do
     [
       "[&_table]:bg-primary-light [&_table]:text-white dark:[&_table]:bg-primary-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-primary-hover-light dark:hover:[&_table_tbody_tr]:bg-primary-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-primary-hover-light dark:[&_table_tbody_tr]:hover:bg-primary-hover-dark"
     ]
   end
   <% end %>
@@ -1209,7 +1209,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "secondary") do
     [
       "[&_table]:bg-secondary-light [&_table]:text-white dark:[&_table]:bg-secondary-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-secondary-hover-light dark:hover:[&_table_tbody_tr]:bg-secondary-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-secondary-hover-light dark:[&_table_tbody_tr]:hover:bg-secondary-hover-dark"
     ]
   end
   <% end %>
@@ -1218,7 +1218,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "success") do
     [
       "[&_table]:bg-success-light [&_table]:text-white dark:[&_table]:bg-success-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-success-dark dark:hover:[&_table_tbody_tr]:bg-success-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-success-dark dark:[&_table_tbody_tr]:hover:bg-success-hover-dark"
     ]
   end
   <% end %>
@@ -1227,7 +1227,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "warning") do
     [
       "[&_table]:bg-warning-light [&_table]:text-white dark:[&_table]:bg-warning-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-warning-hover-light dark:hover:[&_table_tbody_tr]:bg-warning-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-warning-hover-light dark:[&_table_tbody_tr]:hover:bg-warning-hover-dark"
     ]
   end
   <% end %>
@@ -1236,7 +1236,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "danger") do
     [
       "[&_table]:bg-danger-light [&_table]:text-white dark:[&_table]:bg-danger-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-danger-hover-light dark:hover:[&_table_tbody_tr]:bg-danger-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-danger-hover-light dark:[&_table_tbody_tr]:hover:bg-danger-hover-dark"
     ]
   end
   <% end %>
@@ -1245,7 +1245,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "info") do
     [
       "[&_table]:bg-info-light [&_table]:text-white dark:[&_table]:bg-info-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-info-hover-light dark:hover:[&_table_tbody_tr]:bg-info-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-info-hover-light dark:[&_table_tbody_tr]:hover:bg-info-hover-dark"
     ]
   end
   <% end %>
@@ -1254,7 +1254,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "misc") do
     [
       "[&_table]:bg-misc-light [&_table]:text-white dark:[&_table]:bg-misc-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-misc-hover-light dark:hover:[&_table_tbody_tr]:bg-misc-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-misc-hover-light dark:[&_table_tbody_tr]:hover:bg-misc-hover-dark"
     ]
   end
   <% end %>
@@ -1263,7 +1263,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "dawn") do
     [
       "[&_table]:bg-dawn-light [&_table]:text-white dark:[&_table]:bg-dawn-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-dawn-hover-light dark:hover:[&_table_tbody_tr]:bg-dawn-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-dawn-hover-light dark:[&_table_tbody_tr]:hover:bg-dawn-hover-dark"
     ]
   end
   <% end %>
@@ -1272,7 +1272,7 @@ defmodule <%= @module %> do
   defp color_variant("hoverable", "silver") do
     [
       "[&_table]:bg-silver-light [&_table]:text-white dark:[&_table]:bg-silver-dark dark:[&_table]:text-black",
-      "hover:[&_table_tbody_tr]:bg-silver-hover-light dark:hover:[&_table_tbody_tr]:bg-silver-hover-dark"
+      "[&_table_tbody_tr]:hover:bg-silver-hover-light dark:[&_table_tbody_tr]:hover:bg-silver-hover-dark"
     ]
   end
   <% end %>
@@ -1280,7 +1280,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dark" in @color do %>
   defp color_variant("hoverable", "dark") do
     [
-      "[&_table]:bg-default-dark-bg [&_table]:text-white hover:[&_table_tbody_tr]:bg-black",
+      "[&_table]:bg-default-dark-bg [&_table]:text-white [&_table_tbody_tr]:hover:bg-black",
     ]
   end
   <% end %>
