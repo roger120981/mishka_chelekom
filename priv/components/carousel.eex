@@ -67,7 +67,7 @@ defmodule <%= @module %> do
       "Determines the overall size of the elements, including padding, font size, and other items"
 
   attr :padding, :string, default: "medium", doc: "Determines padding for items"
-  attr :text_position, :string, default: "center", doc: "Determines the element' text position"
+  attr :text_position, :string, default: "center", doc: "Determines the element's text position"
 
   attr :rest, :global,
     doc:
@@ -119,7 +119,7 @@ defmodule <%= @module %> do
     assigns =
       assigns
       |> assign_new(:id, fn -> "carousel-#{random_id()}" end)
-      |> assign_new(:actived_carousel, fn ->
+      |> assign_new(:activated_carousel, fn ->
         Enum.find_index(assigns.slide, &(Map.get(&1, :active) == true)) || 0
       end)
 
@@ -166,7 +166,7 @@ defmodule <%= @module %> do
         :for={{slide, index} <- Enum.with_index(@slide, 1)}
         id={"#{@id}-carousel-slide-#{index}"}
         class={["slide h-full", slide[:class]]}
-        aria-hidden={@actived_carousel + 1 != index}
+        aria-hidden={@activated_carousel + 1 != index}
       >
         <div class="relative w-full h-full">
           <.slide_image id={@id} index={index} {slide}>
