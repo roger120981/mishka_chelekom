@@ -283,7 +283,7 @@ defmodule <%= @module %> do
   <% end %>
   defp space_class(params) when is_binary(params), do: params
 
-  defp maximum_width("extra_small"), do: "[&_.nav-wrapper]:max-w-3xl	[&_.nav-wrapper]:mx-auto"
+  defp maximum_width("extra_small"), do: "[&_.nav-wrapper]:max-w-3xl [&_.nav-wrapper]:mx-auto"
   defp maximum_width("small"), do: "[&_.nav-wrapper]:max-w-4xl [&_.nav-wrapper]:mx-auto"
   defp maximum_width("medium"), do: "[&_.nav-wrapper]:max-w-5xl [&_.nav-wrapper]:mx-auto"
   defp maximum_width("large"), do: "[&_.nav-wrapper]:max-w-6xl [&_.nav-wrapper]:mx-auto"
