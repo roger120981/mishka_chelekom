@@ -538,10 +538,10 @@ defmodule <%= @module %> do
   defp space_class(params) when is_binary(params), do: params
 
   defp wrapper_width("extra_small"), do: "max-w-1/4"
-  defp wrapper_width("small"), do: "max-w-2/4"
-  defp wrapper_width("medium"), do: "max-w-3/4"
-  defp wrapper_width("large"), do: "max-w-11/12"
-  defp wrapper_width("extra_large"), do: "max-"
+  defp wrapper_width("small"), do: "max-w-1/3"
+  defp wrapper_width("medium"), do: "max-w-1/2"
+  defp wrapper_width("large"), do: "max-w-8/12"
+  defp wrapper_width("extra_large"), do: "max-w-10/12"
   defp wrapper_width(params) when is_binary(params), do: params
 
   <%= if is_nil(@size) or "extra_small" in @size do %>
