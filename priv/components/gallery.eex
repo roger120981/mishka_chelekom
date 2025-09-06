@@ -263,56 +263,56 @@ defmodule <%= @module %> do
   defp shadow_class("none"), do: "shadow-none"
   defp shadow_class(params) when is_binary(params), do: params
 
-  defp animation("scale-down", "extra_small"), do: "hover:[&_.gallery-media-img]:scale-[0.99]"
-  defp animation("scale-down", "small"), do: "hover:[&_.gallery-media-img]:scale-[0.97]"
-  defp animation("scale-down", "medium"), do: "hover:[&_.gallery-media-img]:scale-[0.95]"
-  defp animation("scale-down", "large"), do: "hover:[&_.gallery-media-img]:scale-[0.93]"
-  defp animation("scale-down", "extra_large"), do: "hover:[&_.gallery-media-img]:scale-[0.91]"
+  defp animation("scale-down", "extra_small"), do: "[&_.gallery-media-img]:hover:scale-[0.99]"
+  defp animation("scale-down", "small"), do: "[&_.gallery-media-img]:hover:scale-[0.97]"
+  defp animation("scale-down", "medium"), do: "[&_.gallery-media-img]:hover:scale-[0.95]"
+  defp animation("scale-down", "large"), do: "[&_.gallery-media-img]:hover:scale-[0.93]"
+  defp animation("scale-down", "extra_large"), do: "[&_.gallery-media-img]:hover:scale-[0.91]"
 
-  defp animation("scale-up", "extra_small"), do: "hover:[&_.gallery-media-img]:scale-[1.02]"
-  defp animation("scale-up", "small"), do: "hover:[&_.gallery-media-img]:scale-[1.04]"
-  defp animation("scale-up", "medium"), do: "hover:[&_.gallery-media-img]:scale-[1.06]"
-  defp animation("scale-up", "large"), do: "hover:[&_.gallery-media-img]:scale-[1.08]"
-  defp animation("scale-up", "extra_large"), do: "hover:[&_.gallery-media-img]:scale-[1.1]"
+  defp animation("scale-up", "extra_small"), do: "[&_.gallery-media-img]:hover:scale-[1.02]"
+  defp animation("scale-up", "small"), do: "[&_.gallery-media-img]:hover:scale-[1.04]"
+  defp animation("scale-up", "medium"), do: "[&_.gallery-media-img]:hover:scale-[1.06]"
+  defp animation("scale-up", "large"), do: "[&_.gallery-media-img]:hover:scale-[1.08]"
+  defp animation("scale-up", "extra_large"), do: "[&_.gallery-media-img]:hover:scale-[1.1]"
 
-  defp animation("blur", "extra_small"), do: "hover:[&_.gallery-media-img]:blur-[0.05rem]"
-  defp animation("blur", "small"), do: "hover:[&_.gallery-media-img]:blur-[0.07rem]"
-  defp animation("blur", "medium"), do: "hover:[&_.gallery-media-img]:blur-[0.09rem]"
-  defp animation("blur", "large"), do: "hover:[&_.gallery-media-img]:blur-[0.1rem]"
-  defp animation("blur", "extra_large"), do: "hover:[&_.gallery-media-img]:blur-[0.12rem]"
+  defp animation("blur", "extra_small"), do: "[&_.gallery-media-img]:hover:blur-[0.05rem]"
+  defp animation("blur", "small"), do: "[&_.gallery-media-img]:hover:blur-[0.07rem]"
+  defp animation("blur", "medium"), do: "[&_.gallery-media-img]:hover:blur-[0.09rem]"
+  defp animation("blur", "large"), do: "[&_.gallery-media-img]:hover:blur-[0.1rem]"
+  defp animation("blur", "extra_large"), do: "[&_.gallery-media-img]:hover:blur-[0.12rem]"
 
   defp animation("backdrop", "extra_small") do
     [
-      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
-      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.02rem]"
+      "[&_.gallery-media]:hover:after:bg-natural-light/30 dark:[&_.gallery-media]:hover:after:bg-natural-dark/30",
+      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 [&_.gallery-media]:hover:after:backdrop-blur-[0.02rem]"
     ]
   end
 
   defp animation("backdrop", "small") do
     [
-      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
-      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.04rem]"
+      "[&_.gallery-media]:hover:after:bg-natural-light/30 dark:[&_.gallery-media]:hover:after:bg-natural-dark/30",
+      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 [&_.gallery-media]:hover:after:backdrop-blur-[0.04rem]"
     ]
   end
 
   defp animation("backdrop", "medium") do
     [
-      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
-      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.06rem]"
+      "[&_.gallery-media]:hover:after:bg-natural-light/30 dark:[&_.gallery-media]:hover:after:bg-natural-dark/30",
+      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 [&_.gallery-media]:hover:after:backdrop-blur-[0.06rem]"
     ]
   end
 
   defp animation("backdrop", "large") do
     [
-      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
-      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.08rem]"
+      "[&_.gallery-media]:hover:after:bg-natural-light/30 dark:[&_.gallery-media]:hover:after:bg-natural-dark/30",
+      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 [&_.gallery-media]:hover:after:backdrop-blur-[0.08rem]"
     ]
   end
 
   defp animation("backdrop", "extra_large") do
     [
-      "hover:[&_.gallery-media]:after:bg-natural-light/30 dark:hover:[&_.gallery-media]:after:bg-natural-dark/30",
-      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 hover:[&_.gallery-media]:after:backdrop-blur-[0.1rem]"
+      "[&_.gallery-media]:hover:after:bg-natural-light/30 dark:[&_.gallery-media]:hover:after:bg-natural-dark/30",
+      "[&_.gallery-media]:after:absolute [&_.gallery-media]:after:inset-0 [&_.gallery-media]:hover:after:backdrop-blur-[0.1rem]"
     ]
   end
 
