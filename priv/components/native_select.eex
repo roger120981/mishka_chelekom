@@ -217,7 +217,6 @@ defmodule <%= @module %> do
         {render_slot(option)}
       </option>
     </optgroup>
-    <hr />
     """
   end
   <% end %>
@@ -587,7 +586,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("bordered", "info") do
       [
-        "text-info-light dark:text-info-hover-dark [&_.select-field:not(:has(.select-field-error))]:border-info-light",
+        "text-info-bordered-text-light dark:text-info-hover-dark [&_.select-field:not(:has(.select-field-error))]:border-info-bordered-text-light",
         "[&_.select-field:not(:has(.select-field-error))]:bg-info-bordered-bg-light",
         "dark:[&_.select-field:not(:has(.select-field-error))]:bg-info-bordered-bg-dark",
         "dark:[&_.select-field:not(:has(.select-field-error))]:border-info-hover-dark",
