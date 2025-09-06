@@ -12,7 +12,7 @@ defmodule <%= @module %> do
   - **Customizable:** Allows customization of border style, size, border radius,
   and padding to fit various design needs.
   - **Interactive:** Integrated with `Phoenix.LiveView.JS` for show/hide functionality and
-  nteraction management.
+  interaction management.
   - **Slots Support:** Includes slots for adding a custom header and inner content,
   with full HEEx support for dynamic rendering.
   """
@@ -77,7 +77,7 @@ defmodule <%= @module %> do
   attr :overlay_class, :string,
     default: nil,
     doc: "Custom CSS class for additional styling to overlay"
-    
+
   attr :on_hide, JS, default: %JS{}, doc: "Custom JS module for on_hide action"
   attr :on_show, JS, default: %JS{}, doc: "Custom JS module for on_show action"
   attr :on_hide_away, JS, default: %JS{}, doc: "Custom JS module for on_hide_away action"
