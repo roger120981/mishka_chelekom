@@ -426,7 +426,7 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@rounded) or "full" in @rounded do %>
   defp rounded_size("full"),
-    do: "[&:not(.list-items-gap)]:rounded-full [&.list-items-gap>li]:rounded:full"
+    do: "[&:not(.list-items-gap)]:rounded-full [&.list-items-gap>li]:rounded-full"
   <% end %>
   <%= if is_nil(@rounded) or "none" in @rounded do %>
   defp rounded_size("none"),
@@ -928,9 +928,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("bordered", "natural", hoverable) do
     [
-      "text-natural-bordered-text-light border-natural-border-light bg-natural-bordered-bg-light",
-      "dark:text-natural-bordered-text-dark dark:border-natural-border-dark dark:bg-natural-bordered-bg-dark",
-      "[&>li:not(:last-child)]:border-natural-border-light dark:[&>li:not(:last-child)]:border-natural-border-dark",
+      "text-natural-bordered-text-light border-natural-bordered-text-light bg-natural-bordered-bg-light",
+      "dark:text-natural-bordered-text-dark dark:border-natural-bordered-text-dark dark:bg-natural-bordered-bg-dark",
+      "[&>li:not(:last-child)]:border-natural-bordered-text-light dark:[&>li:not(:last-child)]:border-natural-bordered-text-dark",
       hoverable && "[&_li]:hover:text-white dark:[&_li]:hover:text-black [&_li]:hover:bg-black dark:[&_li]:hover:bg-white"
     ]
   end
