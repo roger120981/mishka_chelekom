@@ -350,91 +350,91 @@ defmodule <%= @module %> do
 
   defp rounded_size("extra_small", "separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-sm [&_.border-separate_tr_td:first-child]:rounded-s-sm",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-sm [&_.border-separate_tr_td:last-child]:rounded-e-sm",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-sm [&_.border-separate_tr_th:first-child]:rounded-s-sm",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-sm [&_.border-separate_tr_th:last-child]:rounded-e-sm"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-sm",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-sm",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-sm",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-sm"
     ]
   end
 
   defp rounded_size("small", "separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s [&_.border-separate_tr_td:first-child]:rounded-s",
-      "[&_.border-separate_tr_td:last-child]:rounded-e [&_.border-separate_tr_td:last-child]:rounded-e",
-      "[&_.border-separate_tr_th:first-child]:rounded-s [&_.border-separate_tr_th:first-child]:rounded-s",
-      "[&_.border-separate_tr_th:last-child]:rounded-e [&_.border-separate_tr_th:last-child]:rounded-e"
+      "[&_.border-separate_tr_td:first-child]:rounded-s",
+      "[&_.border-separate_tr_td:last-child]:rounded-e",
+      "[&_.border-separate_tr_th:first-child]:rounded-s",
+      "[&_.border-separate_tr_th:last-child]:rounded-e"
     ]
   end
 
   defp rounded_size("medium", "separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-md [&_.border-separate_tr_td:first-child]:rounded-s-md",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-md [&_.border-separate_tr_td:last-child]:rounded-e-md",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-md [&_.border-separate_tr_th:first-child]:rounded-s-md",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-md [&_.border-separate_tr_th:last-child]:rounded-e-md"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-md",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-md",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-md",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-md"
     ]
   end
 
   defp rounded_size("large", "separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-lg [&_.border-separate_tr_td:first-child]:rounded-s-lg",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-lg [&_.border-separate_tr_td:last-child]:rounded-e-lg",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-lg [&_.border-separate_tr_th:first-child]:rounded-s-lg",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-lg [&_.border-separate_tr_th:last-child]:rounded-e-lg"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-lg",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-lg",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-lg",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-lg"
     ]
   end
 
   defp rounded_size("extra_large", "separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-xl [&_.border-separate_tr_td:first-child]:rounded-s-xl",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-xl [&_.border-separate_tr_td:last-child]:rounded-e-xl",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-xl [&_.border-separate_tr_th:first-child]:rounded-s-xl",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-xl [&_.border-separate_tr_th:last-child]:rounded-e-xl"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-xl",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-xl",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-xl",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-xl"
     ]
   end
 
   defp rounded_size("extra_small", "base_separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-sm [&_.border-separate_tr_td:first-child]:rounded-s-sm",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-sm [&_.border-separate_tr_td:last-child]:rounded-e-sm",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-sm [&_.border-separate_tr_th:first-child]:rounded-s-sm",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-sm [&_.border-separate_tr_th:last-child]:rounded-e-sm"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-sm",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-sm",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-sm",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-sm"
     ]
   end
 
   defp rounded_size("small", "base_separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s [&_.border-separate_tr_td:first-child]:rounded-s",
-      "[&_.border-separate_tr_td:last-child]:rounded-e [&_.border-separate_tr_td:last-child]:rounded-e",
-      "[&_.border-separate_tr_th:first-child]:rounded-s [&_.border-separate_tr_th:first-child]:rounded-s",
-      "[&_.border-separate_tr_th:last-child]:rounded-e [&_.border-separate_tr_th:last-child]:rounded-e"
+      "[&_.border-separate_tr_td:first-child]:rounded-s",
+      "[&_.border-separate_tr_td:last-child]:rounded-e",
+      "[&_.border-separate_tr_th:first-child]:rounded-s",
+      "[&_.border-separate_tr_th:last-child]:rounded-e"
     ]
   end
 
   defp rounded_size("medium", "base_separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-md [&_.border-separate_tr_td:first-child]:rounded-s-md",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-md [&_.border-separate_tr_td:last-child]:rounded-e-md",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-md [&_.border-separate_tr_th:first-child]:rounded-s-md",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-md [&_.border-separate_tr_th:last-child]:rounded-e-md"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-md",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-md",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-md",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-md"
     ]
   end
 
   defp rounded_size("large", "base_separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-lg [&_.border-separate_tr_td:first-child]:rounded-s-lg",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-lg [&_.border-separate_tr_td:last-child]:rounded-e-lg",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-lg [&_.border-separate_tr_th:first-child]:rounded-s-lg",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-lg [&_.border-separate_tr_th:last-child]:rounded-e-lg"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-lg",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-lg",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-lg",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-lg"
     ]
   end
 
   defp rounded_size("extra_large", "base_separated") do
     [
-      "[&_.border-separate_tr_td:first-child]:rounded-s-xl [&_.border-separate_tr_td:first-child]:rounded-s-xl",
-      "[&_.border-separate_tr_td:last-child]:rounded-e-xl [&_.border-separate_tr_td:last-child]:rounded-e-xl",
-      "[&_.border-separate_tr_th:first-child]:rounded-s-xl [&_.border-separate_tr_th:first-child]:rounded-s-xl",
-      "[&_.border-separate_tr_th:last-child]:rounded-e-xl [&_.border-separate_tr_th:last-child]:rounded-e-xl"
+      "[&_.border-separate_tr_td:first-child]:rounded-s-xl",
+      "[&_.border-separate_tr_td:last-child]:rounded-e-xl",
+      "[&_.border-separate_tr_th:first-child]:rounded-s-xl",
+      "[&_.border-separate_tr_th:last-child]:rounded-e-xl"
     ]
   end
 
