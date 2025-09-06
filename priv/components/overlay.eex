@@ -37,8 +37,8 @@ defmodule <%= @module %> do
     doc: "A unique identifier is used to manage state and interaction"
 
   attr :color, :string, default: "base", doc: "Determines color theme"
-  attr :opacity, :string, default: "", doc: ""
-  attr :backdrop, :string, default: "", doc: ""
+  attr :opacity, :string, default: "", doc: "Determines the opacity level of the overlay"
+  attr :backdrop, :string, default: "", doc: "Determines backdrop effects for the overlay"
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
   attr :z_index, :string,
@@ -187,27 +187,27 @@ defmodule <%= @module %> do
 
   <%= if is_nil(@size) or "extra_small" in @size do %>
   defp backdrop_class("extra_small") do
-    "backdrop-backdrop-[1px]"
+    "backdrop-blur-[1px]"
   end
   <% end %>
   <%= if is_nil(@size) or "small" in @size do %>
   defp backdrop_class("small") do
-    "backdrop-backdrop-[2px]"
+    "backdrop-blur-[2px]"
   end
   <% end %>
   <%= if is_nil(@size) or "medium" in @size do %>
   defp backdrop_class("medium") do
-    "backdrop-backdrop-[3px]"
+    "backdrop-blur-[3px]"
   end
   <% end %>
   <%= if is_nil(@size) or "large" in @size do %>
   defp backdrop_class("large") do
-    "backdrop-backdrop-[4px]"
+    "backdrop-blur-[4px]"
   end
   <% end %>
   <%= if is_nil(@size) or "extra_large" in @size do %>
   defp backdrop_class("extra_large") do
-    "backdrop-backdrop-[5px]"
+    "backdrop-blur-[5px]"
   end
   <% end %>
 
