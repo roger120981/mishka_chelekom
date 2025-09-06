@@ -613,7 +613,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("bordered", "info") do
       [
-        "text-info-light [&_.fieldset-field]:border-info-light [&_.fieldset-field]:bg-info-bordered-bg-light",
+        "text-info-bordered-text-light [&_.fieldset-field]:border-info-bordered-text-light [&_.fieldset-field]:bg-info-bordered-bg-light",
         "dark:text-info-hover-dark dark:[&_.fieldset-field]:border-info-hover-dark dark:[&_.fieldset-field]:bg-info-bordered-bg-dark",
         "[&_.fieldset-legend]:bg-info-bordered-bg-light dark:[&_.fieldset-legend]:bg-info-bordered-bg-dark"
       ]
