@@ -295,7 +295,7 @@ defmodule <%= @module %> do
 
   <%= if is_nil(@color) or "misc" in @color do %>
   defp image_color("misc") do
-    "border-misc-hover-light dark:border-misc-hover-light"
+    "border-misc-hover-light dark:border-misc-hover-dark"
   end
   <% end %>
 
