@@ -403,9 +403,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("outline", "natural", floating) do
     [
-      "text-natural-light dark:text-natural-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-natural-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-natural-dark",
-      "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+      "text-natural-light dark:text-natural-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-natural-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-natural-dark",
+      "[&_.number-field-wrapper.number-field-error]:border-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-natural-light dark:[&_.number-field-wrapper>input]:placeholder:text-natural-dark",
       "focus-within:[&_.number-field-wrapper]:ring-white",
       floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -416,9 +416,9 @@ defmodule <%= @module %> do
 <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("outline", "primary", floating) do
     [
-      "text-primary-light dark:text-primary-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-primary-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-primary-dark",
-      "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+      "text-primary-light dark:text-primary-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-primary-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-primary-dark",
+      "[&_.number-field-wrapper.number-field-error]:border-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-primary-light dark:[&_.number-field-wrapper>input]:placeholder:text-primary-dark",
       "focus-within:[&_.number-field-wrapper]:ring-white",
       floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -429,9 +429,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
     defp color_variant("outline", "secondary", floating) do
       [
-        "text-secondary-light dark:text-secondary-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-secondary-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-secondary-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-secondary-light dark:text-secondary-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-secondary-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-secondary-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-secondary-light dark:[&_.number-field-wrapper>input]:placeholder:text-secondary-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -442,9 +442,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
     defp color_variant("outline", "success", floating) do
       [
-        "text-success-light dark:text-success-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-success-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-success-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-success-light dark:text-success-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-success-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-success-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-success-light dark:[&_.number-field-wrapper>input]:placeholder:text-success-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -455,9 +455,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
     defp color_variant("outline", "warning", floating) do
       [
-        "text-warning-light dark:text-warning-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-warning-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-warning-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-warning-light dark:text-warning-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-warning-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-warning-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-warning-light dark:[&_.number-field-wrapper>input]:placeholder:text-warning-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -468,9 +468,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
     defp color_variant("outline", "danger", floating) do
       [
-        "text-warning-light dark:text-danger-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-warning-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-danger-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-warning-light dark:text-danger-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-warning-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-danger-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-warning-light dark:[&_.number-field-wrapper>input]:placeholder:text-danger-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -481,9 +481,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("outline", "info", floating) do
       [
-        "text-info-light dark:text-info-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-info-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-info-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-info-light dark:text-info-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-info-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-info-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-info-light dark:[&_.number-field-wrapper>input]:placeholder:text-info-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -494,9 +494,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
     defp color_variant("outline", "misc", floating) do
       [
-        "text-misc-light dark:text-misc-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-misc-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-misc-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-misc-light dark:text-misc-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-misc-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-misc-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-misc-light dark:[&_.number-field-wrapper>input]:placeholder:text-misc-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -507,9 +507,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
     defp color_variant("outline", "dawn", floating) do
       [
-        "text-dawn-light dark:text-dawn-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-dawn-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-dawn-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-dawn-light dark:text-dawn-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-dawn-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-dawn-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-dawn-light dark:[&_.number-field-wrapper>input]:placeholder:text-dawn-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -520,9 +520,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
     defp color_variant("outline", "silver", floating) do
       [
-        "text-silver-light dark:text-silver-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-silver-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-silver-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "text-silver-light dark:text-silver-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-silver-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-silver-dark",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-silver-light dark:[&_.number-field-wrapper>input]:placeholder:text-silver-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
@@ -535,7 +535,7 @@ defmodule <%= @module %> do
   defp color_variant("default", "white", floating) do
     [
       "[&_.number-field-wrapper]:bg-white text-form-white-text",
-      "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+      "[&_.number-field-wrapper.number-field-error]:border-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-form-white-text focus-within:[&_.number-field-wrapper]:ring-form-white-focus",
       floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white"
     ]
@@ -545,9 +545,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
     defp color_variant("default", "natural", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-natural-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-natural-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-natural-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-natural-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-natural-light dark:focus-within:[&_.number-field-wrapper]:ring-natural-dark",
@@ -559,9 +559,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
     defp color_variant("default", "primary", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-primary-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-primary-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-primary-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-primary-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-primary-light dark:focus-within:[&_.number-field-wrapper]:ring-primary-dark",
@@ -573,9 +573,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
     defp color_variant("default", "secondary", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-secondary-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-secondary-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-secondary-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-secondary-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-secondary-light dark:focus-within:[&_.number-field-wrapper]:ring-secondary-dark",
@@ -587,9 +587,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
     defp color_variant("default", "success", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-success-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-success-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-success-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-success-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-success-light dark:focus-within:[&_.number-field-wrapper]:ring-success-dark",
@@ -601,9 +601,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
     defp color_variant("default", "warning", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-warning-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-warning-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-warning-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-warning-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-warning-light dark:focus-within:[&_.number-field-wrapper]:ring-warning-dark",
@@ -615,9 +615,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
     defp color_variant("default", "danger", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-danger-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-danger-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-danger-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-danger-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-danger-light dark:focus-within:[&_.number-field-wrapper]:ring-danger-dark",
@@ -629,9 +629,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("default", "info", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-info-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-info-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-info-light dark:focus-within:[&_.number-field-wrapper]:ring-info-dark",
@@ -643,9 +643,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
     defp color_variant("default", "misc", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-misc-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-misc-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-misc-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-misc-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-misc-light dark:focus-within:[&_.number-field-wrapper]:ring-misc-dark",
@@ -657,9 +657,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
     defp color_variant("default", "dawn", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-dawn-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-dawn-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-dawn-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-dawn-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-dawn-light dark:focus-within:[&_.number-field-wrapper]:ring-dawn-dark",
@@ -671,9 +671,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
     defp color_variant("default", "silver", floating) do
       [
-        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-silver-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-silver-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-silver-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-silver-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
         "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
         "focus-within:[&_.number-field-wrapper]:ring-silver-light dark:focus-within:[&_.number-field-wrapper]:ring-silver-dark",
@@ -686,7 +686,7 @@ defmodule <%= @module %> do
     defp color_variant("default", "dark", floating) do
       [
         "[&_.number-field-wrapper]:bg-base-bg-dark text-base-bg-dark [&_.number-field-wrapper]:text-base-text-dark",
-        "[&_.number-field-wrapper.text-field-error]:border-rose-700",
+        "[&_.number-field-wrapper.number-field-error]:border-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-base-text-dark focus-within:[&_.number-field-wrapper]:ring-gray-950",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-base-bg-dark"
       ]
@@ -707,11 +707,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
     defp color_variant("bordered", "natural", floating) do
       [
-        "text-natural-bordered-text-light dark:text-natural-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-natural-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-natural-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-natural-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-silver-light",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-natural-bordered-text-light dark:text-natural-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-natural-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-natural-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-natural-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-silver-light",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-natural-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-natural-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -722,11 +722,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
     defp color_variant("bordered", "primary", floating) do
       [
-        "text-primary-bordered-text-light dark:text-primary-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-primary-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-primary-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-natural-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-primary-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-primary-bordered-text-light dark:text-primary-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-primary-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-primary-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-natural-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-primary-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-primary-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-primary-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -737,11 +737,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
     defp color_variant("bordered", "secondary", floating) do
       [
-        "text-secondary-bordered-text-light dark:text-secondary-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-secondary-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-secondary-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-secondary-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-secondary-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-secondary-bordered-text-light dark:text-secondary-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-secondary-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-secondary-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-secondary-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-secondary-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-secondary-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-secondary-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -752,11 +752,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
     defp color_variant("bordered", "success", floating) do
       [
-        "text-success-bordered-text-light dark:text-success-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-success-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-success-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-success-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-success-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-success-bordered-text-light dark:text-success-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-success-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-success-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-success-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-success-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-success-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-success-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -767,11 +767,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
     defp color_variant("bordered", "warning", floating) do
       [
-        "text-warning-bordered-text-light dark:text-warning-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-warning-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-warning-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-warning-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-warning-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-warning-bordered-text-light dark:text-warning-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-warning-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-warning-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-warning-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-warning-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-warning-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-warning-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -782,11 +782,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
     defp color_variant("bordered", "danger", floating) do
       [
-        "text-danger-bordered-text-light dark:text-danger-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-danger-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-danger-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-danger-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-danger-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-danger-bordered-text-light dark:text-danger-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-danger-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-danger-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-danger-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-danger-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-danger-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-danger-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -797,11 +797,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("bordered", "info", floating) do
       [
-        "text-info-light dark:text-info-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-info-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-info-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-info-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-info-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-info-light dark:text-info-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-info-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-info-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-info-light dark:[&_.number-field-wrapper>input]:placeholder:text-info-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -812,11 +812,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
     defp color_variant("bordered", "misc", floating) do
       [
-        "text-misc-bordered-text-light dark:text-misc-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-misc-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-misc-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-misc-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-misc-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-misc-bordered-text-light dark:text-misc-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-misc-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-misc-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-misc-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-misc-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-misc-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-misc-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -827,11 +827,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
     defp color_variant("bordered", "dawn", floating) do
       [
-        "text-dawn-bordered-text-light dark:text-dawn-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-dawn-bordered-text-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-dawn-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-dawn-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-dawn-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-dawn-bordered-text-light dark:text-dawn-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-dawn-bordered-text-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-dawn-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-dawn-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-dawn-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-dawn-bordered-text-light dark:[&_.number-field-wrapper>input]:placeholder:text-dawn-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -842,11 +842,11 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
     defp color_variant("bordered", "silver", floating) do
       [
-        "text-silver-hover-light dark:text-silver-hover-dark [&_.number-field-wrapper:not(:has(.text-field-error))]:border-silver-hover-light",
-        "[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-silver-bordered-bg-light",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-silver-bordered-bg-dark",
-        "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:border-silver-hover-dark",
-        "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+        "text-silver-hover-light dark:text-silver-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-silver-hover-light",
+        "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-silver-bordered-bg-light",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-silver-bordered-bg-dark",
+        "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-silver-hover-dark",
+        "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
         "[&_.number-field-wrapper>input]:placeholder:text-silver-hover-light dark:[&_.number-field-wrapper>input]:placeholder:text-silver-hover-dark",
         "focus-within:[&_.number-field-wrapper]:ring-black dark:focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-silver-light dark:[&_.number-field-wrapper_.floating-label]:bg-silver-dark"
@@ -868,9 +868,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "natural" in @color do %>
   defp color_variant("shadow", "natural", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-natural-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-natural-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-natural-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-natural-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-natural-light dark:focus-within:[&_.number-field-wrapper]:ring-natural-dark",
@@ -883,9 +883,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "primary" in @color do %>
   defp color_variant("shadow", "primary", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-primary-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-primary-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-primary-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-primary-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-primary-light dark:focus-within:[&_.number-field-wrapper]:ring-primary-dark",
@@ -898,9 +898,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "secondary" in @color do %>
   defp color_variant("shadow", "secondary", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-secondary-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-secondary-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-secondary-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-secondary-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-secondary-light dark:focus-within:[&_.number-field-wrapper]:ring-secondary-dark",
@@ -913,9 +913,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "success" in @color do %>
   defp color_variant("shadow", "success", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-success-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-success-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-success-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-success-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-success-light dark:focus-within:[&_.number-field-wrapper]:ring-success-dark",
@@ -928,9 +928,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("shadow", "warning", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-warning-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-warning-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-warning-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-warning-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-warning-light dark:focus-within:[&_.number-field-wrapper]:ring-warning-dark",
@@ -943,9 +943,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
   defp color_variant("shadow", "danger", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-danger-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-danger-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-danger-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-danger-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-danger-light dark:focus-within:[&_.number-field-wrapper]:ring-danger-dark",
@@ -958,9 +958,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("shadow", "info", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-info-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-info-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-info-light dark:focus-within:[&_.number-field-wrapper]:ring-info-dark",
@@ -973,9 +973,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "misc" in @color do %>
   defp color_variant("shadow", "misc", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-misc-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-misc-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-misc-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-misc-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-misc-light dark:focus-within:[&_.number-field-wrapper]:ring-misc-dark",
@@ -988,9 +988,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "dawn" in @color do %>
   defp color_variant("shadow", "dawn", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-dawn-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-dawn-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-dawn-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-dawn-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-dawn-light dark:focus-within:[&_.number-field-wrapper]:ring-dawn-dark",
@@ -1003,9 +1003,9 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "silver" in @color do %>
   defp color_variant("shadow", "silver", floating) do
     [
-      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.text-field-error))]:bg-silver-light",
-      "dark:[&_.number-field-wrapper:not(:has(.text-field-error))]:bg-silver-dark",
-      "[&_.number-field-wrapper.text-field-error]:bg-rose-700",
+      "text-black dark:text-white [&_.number-field-wrapper:not(:has(.number-field-error))]:bg-silver-light",
+      "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-silver-dark",
+      "[&_.number-field-wrapper.number-field-error]:bg-rose-700",
       "[&_.number-field-wrapper>input]:placeholder:text-white dark:[&_.number-field-wrapper>input]:placeholder:text-black",
       "[&_.number-field-wrapper>input]:text-white dark:[&_.number-field-wrapper>input]:text-black",
       "focus-within:[&_.number-field-wrapper]:ring-silver-light dark:focus-within:[&_.number-field-wrapper]:ring-silver-dark",
