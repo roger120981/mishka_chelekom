@@ -84,7 +84,7 @@ defmodule <%= @module %> do
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
 
-  slot :item, required: true, doc: "Specifies item slot of a accordion" do
+  slot :item, required: true, doc: "Specifies item slot of an accordion" do
     attr :title, :string, required: true, doc: "Specifies the title of the element"
     attr :description, :string, doc: "Determines a short description"
     attr :icon, :string, doc: "Icon displayed alongside of an item"
@@ -248,7 +248,7 @@ defmodule <%= @module %> do
 
   attr :chevron_class, :string, default: nil, doc: "Determines the icon for the chevron"
 
-  slot :item, required: true, doc: "Specifies item slot of a accordion" do
+  slot :item, required: true, doc: "Specifies item slot of an accordion" do
     attr :title, :string, required: true, doc: "Specifies the title of the element"
     attr :description, :string, doc: "Determines a short description"
     attr :icon, :string, doc: "Icon displayed alongside of an item"
