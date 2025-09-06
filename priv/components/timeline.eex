@@ -95,8 +95,8 @@ defmodule <%= @module %> do
     doc: "A unique identifier is used to manage state and interaction"
 
   attr :color, :string, default: "base", doc: "Determines color theme"
-  attr :hide_last_line, :boolean, default: false, doc: ""
-  attr :gapped_sections, :boolean, default: false, doc: ""
+  attr :hide_last_line, :boolean, default: false, doc: "Hides the line for the last timeline section"
+  attr :gapped_sections, :boolean, default: false, doc: "Adds gaps between timeline sections"
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
 
   attr :rest, :global,
