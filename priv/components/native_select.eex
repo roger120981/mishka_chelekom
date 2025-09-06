@@ -100,7 +100,7 @@ defmodule <%= @module %> do
 
   slot :option, required: false do
     attr :value, :string, doc: "Value of each select option"
-    attr :selected, :boolean, required: false, doc: "Specifies this option is seleted"
+    attr :selected, :boolean, required: false, doc: "Specifies this option is selected"
     attr :disabled, :string, required: false, doc: "Specifies this option is disabled"
   end
 
@@ -200,7 +200,7 @@ defmodule <%= @module %> do
 
   slot :option, required: false, doc: "Option slot for select" do
     attr :value, :string, doc: "Value of each select option"
-    attr :selected, :boolean, required: false, doc: "Specifies this option is seleted"
+    attr :selected, :boolean, required: false, doc: "Specifies this option is selected"
     attr :disabled, :string, required: false, doc: "Specifies this option is disabled"
   end
 
