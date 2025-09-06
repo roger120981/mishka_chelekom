@@ -488,7 +488,7 @@ defmodule <%= @module %> do
   defp action_position("large", "top-end"), do: "top-7 end-7"
   defp action_position("extra_large", "top-end"), do: "top-8 end-8"
 
-  defp action_position("none", "[&_.speed-dial-content]:start"), do: "bottom-0 start-0"
+  defp action_position("none", "bottom-start"), do: "bottom-0 start-0"
   defp action_position("extra_small", "bottom-start"), do: "bottom-4 start-4"
   defp action_position("small", "bottom-start"), do: "bottom-5 start-5"
   defp action_position("medium", "bottom-start"), do: "bottom-6 start-6"
