@@ -111,11 +111,11 @@ defmodule <%= @module %> do
   attr :variant, :string, default: "base", doc: "Determines variant theme"
   attr :border, :string, default: "extra_small", doc: "Determines border style"
   attr :rounded, :string, default: "medium", doc: "Radius size"
-  attr :space, :string, default: "extra_small", doc: "Radius size"
+  attr :space, :string, default: "extra_small", doc: "Space between elements"
   attr :padding, :string, default: "small", doc: "Padding size"
   attr :height, :string, default: "h-fit max-h-40", doc: "Dropdown height"
   attr :description, :string, default: nil, doc: "Determines a short description"
-  attr :searchable, :boolean, default: false, doc: "Determines a short description"
+  attr :searchable, :boolean, default: false, doc: "Enables search functionality in the combobox"
   attr :multiple, :boolean, default: false, doc: "Multiple selections in the combobox"
 
   slot :start_section, required: false, doc: "Renders heex content in start of an element" do
@@ -562,7 +562,7 @@ defmodule <%= @module %> do
     """
   end
 
-  attr :id, :string, default: nil, doc: "Unique identifire"
+  attr :id, :string, default: nil, doc: "Unique identifier"
   attr :for, :string, default: nil, doc: "Specifies the form which is associated with"
   attr :class, :any, default: nil, doc: "Custom CSS class for additional styling"
   slot :inner_block, required: true, doc: "Inner block that renders HEEx content"
