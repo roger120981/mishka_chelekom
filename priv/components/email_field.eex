@@ -467,10 +467,10 @@ defmodule <%= @module %>  do
   <%= if is_nil(@color) or "danger" in @color do %>
     defp color_variant("outline", "danger", floating) do
       [
-        "text-warning-light dark:text-danger-dark [&_.email-field-wrapper:not(:has(.email-field-error))]:border-warning-light",
+        "text-danger-light dark:text-danger-dark [&_.email-field-wrapper:not(:has(.email-field-error))]:border-danger-light",
         "dark:[&_.email-field-wrapper:not(:has(.email-field-error))]:border-danger-dark",
         "[&_.email-field-wrapper.email-field-error]:border-rose-700",
-        "[&_.email-field-wrapper>input]:placeholder:text-warning-light dark:[&_.email-field-wrapper>input]:placeholder:text-danger-dark",
+        "[&_.email-field-wrapper>input]:placeholder:text-danger-light dark:[&_.email-field-wrapper>input]:placeholder:text-danger-dark",
         "focus-within:[&_.email-field-wrapper]:ring-danger-light dark:focus-within:[&_.email-field-wrapper]:ring-danger-dark",
         floating == "outer" &&
           "[&_.email-field-wrapper_.floating-label]:bg-white dark:[&_.email-field-wrapper_.floating-label]:bg-default-dark-bg"

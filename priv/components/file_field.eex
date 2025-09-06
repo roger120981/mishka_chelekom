@@ -890,7 +890,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("bordered", "info") do
       [
-        "text-info-light [&_.dropzone-wrapper]:border-info-light [&_.dropzone-wrapper]:bg-info-bordered-bg-light",
+        "text-info-bordered-text-light [&_.dropzone-wrapper]:border-info-bordered-text-light [&_.dropzone-wrapper]:bg-info-bordered-bg-light",
         "dark:text-info-hover-dark dark:[&_.dropzone-wrapper]:border-info-hover-dark dark:[&_.dropzone-wrapper]:bg-info-bordered-bg-dark"
       ]
     end
