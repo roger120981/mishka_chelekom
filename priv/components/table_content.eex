@@ -120,7 +120,7 @@ defmodule <%= @module %> do
       ]}
       {@rest}
     >
-    <h5 class={["font-semibold text-sm leading-6", @title_class]}  id={@title&& @id && "#{@id}-title"}>{@title}</h5>
+    <h5 :if={@title} class={["font-semibold text-sm leading-6", @title_class]} id={@title && @id && "#{@id}-title"}>{@title}</h5>
 
     <div
       :for={item <- @item}
@@ -240,7 +240,7 @@ defmodule <%= @module %> do
 
   attr :wrapper_content_class, :string,
     default: nil,
-    doc: "Custom CSS class for additional styling content wrapper"
+    doc: "Custom CSS class for additional styling to content wrapper"
 
   attr :content_class, :string,
     default: nil,
