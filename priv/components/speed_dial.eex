@@ -142,7 +142,7 @@ defmodule <%= @module %> do
       <div
         class={[
           "speed-dial-content flex items-center",
-          "absolute z-10 w-full transition-all ease-in-out delay-100 duratio-500",
+          "absolute z-10 w-full transition-all ease-in-out delay-100 duration-500",
           (@wrapper_position == "top" || @wrapper_position == "bottom") && "flex-col",
           @wrapper_content_class
         ]}
