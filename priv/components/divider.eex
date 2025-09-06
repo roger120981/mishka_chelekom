@@ -261,7 +261,7 @@ defmodule <%= @module %> do
       <div
         :for={icon <- @icon}
         class={[
-          "flex item-center justify-center absolute p-2",
+          "flex items-center justify-center absolute p-2",
           "-translate-x-1/2 whitespace-nowrap",
           icon[:size] || size_class(@size, :icon, ""),
           icon[:color] || color_class(@color, @position),
@@ -275,7 +275,7 @@ defmodule <%= @module %> do
       <div
         :for={text <- @text}
         class={[
-          "flex item-center justify-center absolute p-2",
+          "flex items-center justify-center absolute p-2",
           "-translate-x-1/2 whitespace-nowrap",
           text[:color] || color_class(@color, @position),
           text[:class] || "bg-white",
@@ -293,9 +293,9 @@ defmodule <%= @module %> do
   defp size_class("extra_small", :horizontal, position) do
     [
       "[&:not(:has(.divider-content))]:border-t text-xs my-2",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-t",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-t has-[.divider-content.devider-middle]:after:border-t",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-t"
+      position == "left" && "has-[.divider-content.divider-left]:after:border-t",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-t has-[.divider-content.divider-middle]:after:border-t",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-t"
     ]
   end
   <% end %>
@@ -303,9 +303,9 @@ defmodule <%= @module %> do
   defp size_class("small", :horizontal, position) do
     [
       "[&:not(:has(.divider-content))]:border-t-2 text-[13px] my-3",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-t-2",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-t-2 has-[.divider-content.devider-middle]:after:border-t-2",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-t-2"
+      position == "left" && "has-[.divider-content.divider-left]:after:border-t-2",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-t-2 has-[.divider-content.divider-middle]:after:border-t-2",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-t-2"
     ]
   end
   <% end %>
@@ -313,9 +313,9 @@ defmodule <%= @module %> do
   defp size_class("medium", :horizontal, position) do
     [
       "[&:not(:has(.divider-content))]:border-t-[3px] text-[14px] my-4",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-t-[3px]",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-t-[3px] has-[.divider-content.devider-middle]:after:border-t-[3px]",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-t-[3px]"
+      position == "left" && "has-[.divider-content.divider-left]:after:border-t-[3px]",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-t-[3px] has-[.divider-content.divider-middle]:after:border-t-[3px]",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-t-[3px]"
     ]
   end
   <% end %>
@@ -323,9 +323,9 @@ defmodule <%= @module %> do
   defp size_class("large", :horizontal, position) do
     [
       "[&:not(:has(.divider-content))]:border-t-4 text-[16px] my-5",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-t-4",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-t-4 has-[.divider-content.devider-middle]:after:border-t-4",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-t-4"
+      position == "left" && "has-[.divider-content.divider-left]:after:border-t-4",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-t-4 has-[.divider-content.divider-middle]:after:border-t-4",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-t-4"
     ]
   end
   <% end %>
@@ -333,9 +333,9 @@ defmodule <%= @module %> do
   defp size_class("extra_large", :horizontal, position) do
     [
       "[&:not(:has(.divider-content))]:border-t-[5px] text-[17px] my-6",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-t-[5px]",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-t-[5px] has-[.divider-content.devider-middle]:after:border-t-[5px]",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-t-[5px]"
+      position == "left" && "has-[.divider-content.divider-left]:after:border-t-[5px]",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-t-[5px] has-[.divider-content.divider-middle]:after:border-t-[5px]",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-t-[5px]"
     ]
   end
   <% end %>
@@ -438,9 +438,9 @@ defmodule <%= @module %> do
   defp color_class("base", position) do
     [
       "text-base-text-light border-base-border-light dark:text-base-text-dark dark:border-base-border-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-base-border-light dark:has-[.divider-content.devider-right]:before:border-base-border-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-base-border-light dark:has-[.divider-content.devider-left]:after:border-base-border-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-base-border-light has-[.divider-content.devider-middle]:after:border-base-border-light dark:has-[.divider-content.devider-middle]:before:border-base-border-dark dark:has-[.divider-content.devider-middle]:after:border-base-border-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-base-border-light dark:has-[.divider-content.divider-right]:before:border-base-border-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-base-border-light dark:has-[.divider-content.divider-left]:after:border-base-border-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-base-border-light has-[.divider-content.divider-middle]:after:border-base-border-light dark:has-[.divider-content.divider-middle]:before:border-base-border-dark dark:has-[.divider-content.divider-middle]:after:border-base-border-dark"
     ]
   end
   <% end %>
@@ -448,9 +448,9 @@ defmodule <%= @module %> do
   defp color_class("white", position) do
     [
       "text-white border-white",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-white dark:has-[.divider-content.devider-right]:before:border-white",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-white dark:has-[.divider-content.devider-left]:after:border-white",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-white has-[.divider-content.devider-middle]:after:border-white dark:has-[.divider-content.devider-middle]:before:border-white dark:has-[.divider-content.devider-middle]:after:border-white"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-white dark:has-[.divider-content.divider-right]:before:border-white",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-white dark:has-[.divider-content.divider-left]:after:border-white",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-white has-[.divider-content.divider-middle]:after:border-white dark:has-[.divider-content.divider-middle]:before:border-white dark:has-[.divider-content.divider-middle]:after:border-white"
     ]
   end
   <% end %>
@@ -458,9 +458,9 @@ defmodule <%= @module %> do
   defp color_class("dark", position) do
     [
       "text-default-dark-bg border-default-dark-bg",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-default-dark-bg dark:has-[.divider-content.devider-right]:before:border-default-dark-bg",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-default-dark-bg dark:has-[.divider-content.devider-left]:after:border-default-dark-bg",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-default-dark-bg has-[.divider-content.devider-middle]:after:border-default-dark-bg dark:has-[.divider-content.devider-middle]:before:border-default-dark-bg dark:has-[.divider-content.devider-middle]:after:border-default-dark-bg"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-default-dark-bg dark:has-[.divider-content.divider-right]:before:border-default-dark-bg",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-default-dark-bg dark:has-[.divider-content.divider-left]:after:border-default-dark-bg",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-default-dark-bg has-[.divider-content.divider-middle]:after:border-default-dark-bg dark:has-[.divider-content.divider-middle]:before:border-default-dark-bg dark:has-[.divider-content.divider-middle]:after:border-default-dark-bg"
     ]
   end
   <% end %>
@@ -468,9 +468,9 @@ defmodule <%= @module %> do
   defp color_class("natural", position) do
     [
       "text-natural-light border-natural-light dark:text-natural-dark dark:border-natural-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-natural-light dark:has-[.divider-content.devider-right]:before:border-natural-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-natural-light dark:has-[.divider-content.devider-left]:after:border-natural-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-natural-light has-[.divider-content.devider-middle]:after:border-natural-light dark:has-[.divider-content.devider-middle]:before:border-natural-dark dark:has-[.divider-content.devider-middle]:after:border-natural-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-natural-light dark:has-[.divider-content.divider-right]:before:border-natural-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-natural-light dark:has-[.divider-content.divider-left]:after:border-natural-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-natural-light has-[.divider-content.divider-middle]:after:border-natural-light dark:has-[.divider-content.divider-middle]:before:border-natural-dark dark:has-[.divider-content.divider-middle]:after:border-natural-dark"
     ]
   end
   <% end %>
@@ -478,9 +478,9 @@ defmodule <%= @module %> do
   defp color_class("primary", position) do
     [
       "text-primary-light border-primary-light dark:text-primary-dark dark:border-primary-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-primary-light dark:has-[.divider-content.devider-right]:before:border-primary-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-primary-light dark:has-[.divider-content.devider-left]:after:border-primary-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-primary-light has-[.divider-content.devider-middle]:after:border-primary-light dark:has-[.divider-content.devider-middle]:before:border-primary-dark dark:has-[.divider-content.devider-middle]:after:border-primary-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-primary-light dark:has-[.divider-content.divider-right]:before:border-primary-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-primary-light dark:has-[.divider-content.divider-left]:after:border-primary-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-primary-light has-[.divider-content.divider-middle]:after:border-primary-light dark:has-[.divider-content.divider-middle]:before:border-primary-dark dark:has-[.divider-content.divider-middle]:after:border-primary-dark"
     ]
   end
   <% end %>
@@ -488,9 +488,9 @@ defmodule <%= @module %> do
   defp color_class("secondary", position) do
     [
       "text-secondary-light border-secondary-light dark:text-secondary-dark dark:border-secondary-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-secondary-light dark:has-[.divider-content.devider-right]:before:border-secondary-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-secondary-light dark:has-[.divider-content.devider-left]:after:border-secondary-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-secondary-light has-[.divider-content.devider-middle]:after:border-secondary-light dark:has-[.divider-content.devider-middle]:before:border-secondary-dark dark:has-[.divider-content.devider-middle]:after:border-secondary-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-secondary-light dark:has-[.divider-content.divider-right]:before:border-secondary-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-secondary-light dark:has-[.divider-content.divider-left]:after:border-secondary-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-secondary-light has-[.divider-content.divider-middle]:after:border-secondary-light dark:has-[.divider-content.divider-middle]:before:border-secondary-dark dark:has-[.divider-content.divider-middle]:after:border-secondary-dark"
     ]
   end
   <% end %>
@@ -498,9 +498,9 @@ defmodule <%= @module %> do
   defp color_class("success", position) do
     [
       "text-success-light border-success-light dark:text-success-dark dark:border-success-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-success-light dark:has-[.divider-content.devider-right]:before:border-success-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-success-light dark:has-[.divider-content.devider-left]:after:border-success-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-success-light has-[.divider-content.devider-middle]:after:border-success-light dark:has-[.divider-content.devider-middle]:before:border-success-dark dark:has-[.divider-content.devider-middle]:after:border-success-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-success-light dark:has-[.divider-content.divider-right]:before:border-success-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-success-light dark:has-[.divider-content.divider-left]:after:border-success-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-success-light has-[.divider-content.divider-middle]:after:border-success-light dark:has-[.divider-content.divider-middle]:before:border-success-dark dark:has-[.divider-content.divider-middle]:after:border-success-dark"
     ]
   end
   <% end %>
@@ -508,9 +508,9 @@ defmodule <%= @module %> do
   defp color_class("warning", position) do
     [
       "text-warning-light border-warning-light dark:text-warning-dark dark:border-warning-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-warning-light dark:has-[.divider-content.devider-right]:before:border-warning-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-warning-light dark:has-[.divider-content.devider-left]:after:border-warning-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-warning-light has-[.divider-content.devider-middle]:after:border-warning-light dark:has-[.divider-content.devider-middle]:before:border-warning-dark dark:has-[.divider-content.devider-middle]:after:border-warning-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-warning-light dark:has-[.divider-content.divider-right]:before:border-warning-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-warning-light dark:has-[.divider-content.divider-left]:after:border-warning-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-warning-light has-[.divider-content.divider-middle]:after:border-warning-light dark:has-[.divider-content.divider-middle]:before:border-warning-dark dark:has-[.divider-content.divider-middle]:after:border-warning-dark"
     ]
   end
   <% end %>
@@ -518,9 +518,9 @@ defmodule <%= @module %> do
   defp color_class("danger", position) do
     [
       "text-danger-light border-danger-light dark:text-danger-dark dark:border-danger-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-danger-light dark:has-[.divider-content.devider-right]:before:border-danger-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-danger-light dark:has-[.divider-content.devider-left]:after:border-danger-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-danger-light has-[.divider-content.devider-middle]:after:border-danger-light dark:has-[.divider-content.devider-middle]:before:border-danger-dark dark:has-[.divider-content.devider-middle]:after:border-danger-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-danger-light dark:has-[.divider-content.divider-right]:before:border-danger-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-danger-light dark:has-[.divider-content.divider-left]:after:border-danger-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-danger-light has-[.divider-content.divider-middle]:after:border-danger-light dark:has-[.divider-content.divider-middle]:before:border-danger-dark dark:has-[.divider-content.divider-middle]:after:border-danger-dark"
     ]
   end
   <% end %>
@@ -528,9 +528,9 @@ defmodule <%= @module %> do
   defp color_class("info", position) do
     [
       "text-info-light border-info-light dark:text-info-dark dark:border-info-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-info-light dark:has-[.divider-content.devider-right]:before:border-info-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-info-light dark:has-[.divider-content.devider-left]:after:border-info-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-info-light has-[.divider-content.devider-middle]:after:border-info-light dark:has-[.divider-content.devider-middle]:before:border-info-dark dark:has-[.divider-content.devider-middle]:after:border-info-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-info-light dark:has-[.divider-content.divider-right]:before:border-info-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-info-light dark:has-[.divider-content.divider-left]:after:border-info-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-info-light has-[.divider-content.divider-middle]:after:border-info-light dark:has-[.divider-content.divider-middle]:before:border-info-dark dark:has-[.divider-content.divider-middle]:after:border-info-dark"
     ]
   end
   <% end %>
@@ -538,9 +538,9 @@ defmodule <%= @module %> do
   defp color_class("misc", position) do
     [
       "text-misc-light border-misc-light dark:text-misc-dark dark:border-misc-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-misc-light dark:has-[.divider-content.devider-right]:before:border-misc-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-misc-light dark:has-[.divider-content.devider-left]:after:border-misc-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-misc-light has-[.divider-content.devider-middle]:after:border-misc-light dark:has-[.divider-content.devider-middle]:before:border-misc-dark dark:has-[.divider-content.devider-middle]:after:border-misc-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-misc-light dark:has-[.divider-content.divider-right]:before:border-misc-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-misc-light dark:has-[.divider-content.divider-left]:after:border-misc-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-misc-light has-[.divider-content.divider-middle]:after:border-misc-light dark:has-[.divider-content.divider-middle]:before:border-misc-dark dark:has-[.divider-content.divider-middle]:after:border-misc-dark"
     ]
   end
   <% end %>
@@ -548,9 +548,9 @@ defmodule <%= @module %> do
   defp color_class("dawn", position) do
     [
       "text-dawn-light border-dawn-light dark:text-dawn-dark dark:border-dawn-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-dawn-light dark:has-[.divider-content.devider-right]:before:border-dawn-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-dawn-light dark:has-[.divider-content.devider-left]:after:border-dawn-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-dawn-light has-[.divider-content.devider-middle]:after:border-dawn-light dark:has-[.divider-content.devider-middle]:before:border-dawn-dark dark:has-[.divider-content.devider-middle]:after:border-dawn-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-dawn-light dark:has-[.divider-content.divider-right]:before:border-dawn-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-dawn-light dark:has-[.divider-content.divider-left]:after:border-dawn-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-dawn-light has-[.divider-content.divider-middle]:after:border-dawn-light dark:has-[.divider-content.divider-middle]:before:border-dawn-dark dark:has-[.divider-content.divider-middle]:after:border-dawn-dark"
     ]
   end
   <% end %>
@@ -558,9 +558,9 @@ defmodule <%= @module %> do
   defp color_class("silver", position) do
     [
       "text-silver-light border-silver-light dark:text-silver-dark dark:border-silver-dark",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-silver-light dark:has-[.divider-content.devider-right]:before:border-silver-dark",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-silver-light dark:has-[.divider-content.devider-left]:after:border-silver-dark",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-silver-light has-[.divider-content.devider-middle]:after:border-silver-light dark:has-[.divider-content.devider-middle]:before:border-silver-dark dark:has-[.divider-content.devider-middle]:after:border-silver-dark"
+      position == "right" && "has-[.divider-content.divider-right]:before:border-silver-light dark:has-[.divider-content.divider-right]:before:border-silver-dark",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-silver-light dark:has-[.divider-content.divider-left]:after:border-silver-dark",
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-silver-light has-[.divider-content.divider-middle]:after:border-silver-light dark:has-[.divider-content.divider-middle]:before:border-silver-dark dark:has-[.divider-content.divider-middle]:after:border-silver-dark"
     ]
   end
   <% end %>
@@ -568,27 +568,27 @@ defmodule <%= @module %> do
   defp border_type_class("dashed", :horizontal, position) do
     [
       "border-dashed",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-dashed has-[.divider-content.devider-middle]:after:border-dashed",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-dashed",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-dashed"
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-dashed has-[.divider-content.divider-middle]:after:border-dashed",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-dashed",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-dashed"
     ]
   end
 
   defp border_type_class("dotted", :horizontal, position) do
     [
       "border-dotted",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-dotted has-[.divider-content.devider-middle]:after:border-dotted",
-      position == "rigth" && "has-[.divider-content.devider-right]:before:border-dotted",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-dotted"
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-dotted has-[.divider-content.divider-middle]:after:border-dotted",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-dotted",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-dotted"
     ]
   end
 
   defp border_type_class("solid", :horizontal, position) do
     [
       "border-solid",
-      position == "middle" && "has-[.divider-content.devider-middle]:before:border-solid has-[.divider-content.devider-middle]:after:border-solid",
-      position == "right" && "has-[.divider-content.devider-right]:before:border-solid",
-      position == "left" && "has-[.divider-content.devider-left]:after:border-solid"
+      position == "middle" && "has-[.divider-content.divider-middle]:before:border-solid has-[.divider-content.divider-middle]:after:border-solid",
+      position == "right" && "has-[.divider-content.divider-right]:before:border-solid",
+      position == "left" && "has-[.divider-content.divider-left]:after:border-solid"
     ]
   end
 
@@ -613,15 +613,15 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@type) or "divider" in @type do %>
   defp text_position(:divider, "right") do
-    "devider-right"
+    "divider-right"
   end
 
   defp text_position(:divider, "left") do
-    "devider-left"
+    "divider-left"
   end
 
   defp text_position(:divider, "middle") do
-    "devider-middle"
+    "divider-middle"
   end
   <% end %>
 
@@ -639,24 +639,24 @@ defmodule <%= @module %> do
   end
 
   defp position_classes("middle"), do: [
-    "has-[.divider-content.devider-middle]:before:content-['']",
-    "has-[.divider-content.devider-middle]:before:block",
-    "has-[.divider-content.devider-middle]:before:w-full",
-    "has-[.divider-content.devider-middle]:after:content-['']",
-    "has-[.divider-content.devider-middle]:after:block",
-    "has-[.divider-content.devider-middle]:after:w-full"
+    "has-[.divider-content.divider-middle]:before:content-['']",
+    "has-[.divider-content.divider-middle]:before:block",
+    "has-[.divider-content.divider-middle]:before:w-full",
+    "has-[.divider-content.divider-middle]:after:content-['']",
+    "has-[.divider-content.divider-middle]:after:block",
+    "has-[.divider-content.divider-middle]:after:w-full"
   ]
 
   defp position_classes("right"), do: [
-    "has-[.divider-content.devider-right]:before:content-['']",
-    "has-[.divider-content.devider-right]:before:block",
-    "has-[.divider-content.devider-right]:before:w-full"
+    "has-[.divider-content.divider-right]:before:content-['']",
+    "has-[.divider-content.divider-right]:before:block",
+    "has-[.divider-content.divider-right]:before:w-full"
   ]
 
   defp position_classes("left"), do: [
-    "has-[.divider-content.devider-left]:after:content-['']",
-    "has-[.divider-content.devider-left]:after:block",
-    "has-[.divider-content.devider-left]:after:w-full"
+    "has-[.divider-content.divider-left]:after:content-['']",
+    "has-[.divider-content.divider-left]:after:block",
+    "has-[.divider-content.divider-left]:after:w-full"
   ]
 
   defp position_classes(_), do: []
