@@ -40,11 +40,11 @@ defmodule <%= @module %> do
   ## Examples
 
   ```elixir
-  <.flash kind={:info} title="This is info titlee" width="full" size="large">
+  <.flash kind={:info} title="This is info title" width="full" size="large">
     <p>This is info Description</p>
   </.flash>
 
-  <.flash kind={:error} title="This is misc titlee" width="large" size="large" flash={@flash} />
+  <.flash kind={:error} title="This is misc title" width="large" size="large" flash={@flash} />
 
   <.flash_group flash={@flash} />
 
@@ -86,15 +86,15 @@ defmodule <%= @module %> do
 
   attr :content_class, :string,
     default: nil,
-    doc: "Custom CSS class for additional styling for contnet"
+    doc: "Custom CSS class for additional styling for content"
 
   attr :title_class, :string,
     default: "flex items-center gap-1.5 leading-6 font-semibold mb-1",
-    doc: "Custom CSS class for additional styling to tile"
+    doc: "Custom CSS class for additional styling to title"
 
   attr :button_class, :string,
     default: "p-2",
-    doc: "Custom CSS class for additional styling to tile"
+    doc: "Custom CSS class for additional styling to title"
 
   slot :inner_block, doc: "Inner block that renders HEEx content"
 
@@ -127,14 +127,14 @@ defmodule <%= @module %> do
       <div class="flex items-center justify-between gap-2">
         <div>
           <div :if={@title} class={@title_class} id={@id && "#{@id}-title"}>
-            <.icon :if={!is_nil(@icon)} name={@icon} class="aler-icon" aria-hidden="true" /> {@title}
+            <.icon :if={!is_nil(@icon)} name={@icon} class="alert-icon" aria-hidden="true" /> {@title}
           </div>
 
           <div class={@content_class}>{msg}</div>
         </div>
 
         <button type="button" class={["group shrink-0", @button_class]} aria-label={gettext("close")}>
-          <.icon name="hero-x-mark-solid" class="aler-icon opacity-40 group-hover:opacity-70" />
+          <.icon name="hero-x-mark-solid" class="alert-icon opacity-40 group-hover:opacity-70" />
         </button>
       </div>
     </div>
@@ -225,11 +225,11 @@ defmodule <%= @module %> do
   ## Examples
 
   ```elixir
-  <.alert kind={:info} title="This is info titlee" width="full" size="large">
+  <.alert kind={:info} title="This is info title" width="full" size="large">
     <p>This is info Description</p>
   </.alert>
 
-  <.alert kind={:misc} title="This is misc titlee" width="full" />
+  <.alert kind={:misc} title="This is misc title" width="full" />
 
   <.alert kind={:danger} title="This is title" width="large" size="extra_small" rounded="extra_large">
     This is Danger
@@ -275,7 +275,7 @@ defmodule <%= @module %> do
 
   attr :title_class, :string,
     default: "flex items-center gap-1.5 leading-6 font-semibold mb-1",
-    doc: "Custom CSS class for additional styling to tile"
+    doc: "Custom CSS class for additional styling to title"
 
   attr :icon_class, :string,
     default: nil,
@@ -313,7 +313,7 @@ defmodule <%= @module %> do
         <.icon
           :if={!is_nil(@icon)}
           name={@icon}
-          class={["aler-icon", @icon_class]}
+          class={["alert-icon", @icon_class]}
           aria-hidden="true"
         /> {@title}
       </div>
@@ -377,19 +377,19 @@ defmodule <%= @module %> do
   defp width_class(params) when is_binary(params), do: params
 
   <%= if is_nil(@size) or "extra_small" in @size do %>
-  defp content_size("extra_small"), do: "text-[12px] [&_.aler-icon]:size-3.5"
+  defp content_size("extra_small"), do: "text-[12px] [&_.alert-icon]:size-3.5"
   <% end %>
   <%= if is_nil(@size) or "small" in @size do %>
-  defp content_size("small"), do: "text-[13px] [&_.aler-icon]:size-4"
+  defp content_size("small"), do: "text-[13px] [&_.alert-icon]:size-4"
   <% end %>
   <%= if is_nil(@size) or "medium" in @size do %>
-  defp content_size("medium"), do: "text-[14px] [&_.aler-icon]:size-5"
+  defp content_size("medium"), do: "text-[14px] [&_.alert-icon]:size-5"
   <% end %>
   <%= if is_nil(@size) or "large" in @size do %>
-  defp content_size("large"), do: "text-[15px] [&_.aler-icon]:size-6"
+  defp content_size("large"), do: "text-[15px] [&_.alert-icon]:size-6"
   <% end %>
   <%= if is_nil(@size) or "extra_large" in @size do %>
-  defp content_size("extra_large"), do: "text-[16px] [&_.aler-icon]:size-7"
+  defp content_size("extra_large"), do: "text-[16px] [&_.alert-icon]:size-7"
   <% end %>
   defp content_size(params) when is_binary(params), do: params
 
