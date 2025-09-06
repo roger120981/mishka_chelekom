@@ -51,13 +51,13 @@ defmodule <%= @module %> do
 
   attr :toggle_base_class, :string, default: nil, doc: "Determines the toggle base"
   attr :toggle_circle_class, :string, default: nil, doc: "Determines the toggle circle"
-  
+
   attr :size, :string,
     default: "medium",
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
 
-  attr :checked, :boolean, doc: ""
+  attr :checked, :boolean, doc: "Determines if the toggle is initially checked"
 
   attr :ring, :boolean,
     default: true,
@@ -104,7 +104,7 @@ defmodule <%= @module %> do
       @class
     ]}>
       <div class={@label_wrapper_class}>
-        <.label for={@id} class={@label_class}>{@label}</.label>
+        <.label :if={@label} for={@id} class={@label_class}>{@label}</.label>
         <div :if={!is_nil(@description)} class={@description_class}>
           {@description}
         </div>
