@@ -190,7 +190,7 @@ defmodule <%= @module %> do
           >
             {tab[:badge]}
           </.badge>
-          <span class="block tab-button_contnet">
+          <span class="block tab-button_content">
             {render_slot(tab)}
           </span>
         </button>
@@ -285,7 +285,7 @@ defmodule <%= @module %> do
           >
             {tab[:badge]}
           </.badge>
-          <span class="block tab-button_contnet">
+          <span class="block tab-button_content">
             {render_slot(tab)}
           </span>
         </button>
