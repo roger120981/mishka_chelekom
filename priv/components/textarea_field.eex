@@ -84,7 +84,7 @@ defmodule <%= @module %> do
     doc:
       "Determines the overall size of the elements, including padding, font size, and other items"
 
-  attr :disable_resize, :boolean, default: false, doc: ""
+  attr :disable_resize, :boolean, default: false, doc: "Disables the resize functionality for the textarea"
   attr :rows, :string, default: nil, doc: "Determines count of textarea rows"
 
   attr :ring, :boolean,
@@ -114,7 +114,7 @@ defmodule <%= @module %> do
 
   attr :rest, :global,
     include:
-      ~w(disabled form maxlength minlength placeholder readonly required spellcheck inputmode title autofocus wrap dirname),
+      ~w(disabled form maxlength minlength placeholder readonly required spellcheck title autofocus wrap dirname),
     doc:
       "Global attributes can define defaults which are merged with attributes provided by the caller"
 
