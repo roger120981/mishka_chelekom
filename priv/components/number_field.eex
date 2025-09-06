@@ -468,10 +468,10 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "danger" in @color do %>
     defp color_variant("outline", "danger", floating) do
       [
-        "text-warning-light dark:text-danger-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-warning-light",
+        "text-danger-light dark:text-danger-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-danger-light",
         "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-danger-dark",
         "[&_.number-field-wrapper.number-field-error]:border-rose-700",
-        "[&_.number-field-wrapper>input]:placeholder:text-warning-light dark:[&_.number-field-wrapper>input]:placeholder:text-danger-dark",
+        "[&_.number-field-wrapper>input]:placeholder:text-danger-light dark:[&_.number-field-wrapper>input]:placeholder:text-danger-dark",
         "focus-within:[&_.number-field-wrapper]:ring-white",
         floating == "outer" && "[&_.number-field-wrapper_.floating-label]:bg-white dark:[&_.number-field-wrapper_.floating-label]:bg-default-dark-bg"
       ]
@@ -797,7 +797,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("bordered", "info", floating) do
       [
-        "text-info-light dark:text-info-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-info-light",
+        "text-info-bordered-text-light dark:text-info-hover-dark [&_.number-field-wrapper:not(:has(.number-field-error))]:border-info-bordered-text-light",
         "[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-bordered-bg-light",
         "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:bg-info-bordered-bg-dark",
         "dark:[&_.number-field-wrapper:not(:has(.number-field-error))]:border-info-hover-dark",
