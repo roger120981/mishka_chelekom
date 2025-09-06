@@ -1008,7 +1008,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("transparent", "warning", indicator) do
     [
-      "bg-transparent text-warning-light hover:text-warning-light",
+      "bg-transparent text-warning-light hover:text-warning-hover-light",
       "dark:text-warning-dark dark:hover:text-warning-hover-dark",
       "disabled:text-natural-disabled-light dark:disabled:text-natural-disabled-dark",
       indicator && "[&>.indicator]:bg-warning-indicator-alt-light dark:[&>.indicator]:bg-warning-indicator-dark",
@@ -1123,7 +1123,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_variant("subtle", "warning", indicator) do
     [
-      "bg-transparent text-warning-light hover:text-warning-light hover:bg-warning-bordered-bg-light",
+      "bg-transparent text-warning-light hover:text-warning-hover-light hover:bg-warning-bordered-bg-light",
       "dark:text-warning-dark dark:hover:text-warning-hover-dark dark:hover:bg-warning-bordered-bg-dark",
       "disabled:text-natural-disabled-light dark:disabled:text-natural-disabled-dark",
       "disabled:hover:bg-transparent dark:disabled:hover:bg-transparent",
@@ -1268,7 +1268,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("bordered", "info", indicator) do
     [
-      "bg-white dark:bg-bordered-dark-bg text-info-light border-info-light hover:text-info-light",
+      "bg-white dark:bg-bordered-dark-bg text-info-light border-info-light hover:text-info-hover-light",
       "hover:border-info-light dark:text-info-dark dark:border-info-dark",
       "dark:hover:text-info-hover-dark dark:hover:border-info-hover-dark disabled:text-natural-disabled-light",
       "disabled:border-natural-disabled-light dark:disabled:text-natural-disabled-dark dark:disabled:border-natural-disabled-dark",
@@ -1522,7 +1522,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
   defp color_variant("inverted", "info", indicator) do
     [
-      "bg-transparent text-info-light border-info-light hover:text-info-light",
+      "bg-transparent text-info-light border-info-light hover:text-info-hover-light",
       "hover:border-info-light hover:bg-info-bordered-bg-light",
       "dark:text-info-dark dark:border-info-dark dark:hover:text-info-hover-dark",
       "dark:hover:border-info-hover-dark dark:hover:bg-info-bordered-bg-dark disabled:text-natural-disabled-light",

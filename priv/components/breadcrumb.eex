@@ -189,7 +189,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "warning" in @color do %>
   defp color_class("warning") do
     [
-      "text-warning-light [&>li_a]:hover:text-warning-light",
+      "text-warning-light [&>li_a]:hover:text-warning-hover-light",
       "dark:text-warning-dark dark:[&>li_a]:hover:text-warning-hover-dark"
     ]
   end
