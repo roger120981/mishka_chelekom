@@ -554,7 +554,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "info" in @color do %>
     defp color_variant("bordered", "info") do
       [
-        "text-info-light border-info-light bg-info-bordered-bg-light",
+        "text-info-bordered-text-light border-info-bordered-text-light bg-info-bordered-bg-light",
         "dark:text-info-hover-dark dark:border-info-hover-dark dark:bg-info-bordered-bg-dark"
       ]
     end
