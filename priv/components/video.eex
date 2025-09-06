@@ -240,7 +240,7 @@ defmodule <%= @module %> do
   end
 
   defp caption_opacity("translucent") do
-    "bg-opacity-20"
+    "[&::cue]:bg-opacity-20"
   end
 
   defp caption_opacity("semi_transparent") do
