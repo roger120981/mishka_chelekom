@@ -99,7 +99,7 @@ defmodule <%= @module %> do
       class={[
         indicator_size(@size),
         color_class(@color),
-        "indicator block rounded-full absolute -translate-y-1/2 translate-x-1/2 left-auto top-0 right-0  indicator-top-right",
+        "indicator block rounded-full absolute -translate-y-1/2 translate-x-1/2 left-auto top-0 right-0 indicator-top-right",
         !is_nil(@rest[:pinging]) && "animate-ping",
         @class
       ]}
@@ -147,7 +147,7 @@ defmodule <%= @module %> do
       class={[
         indicator_size(@size),
         color_class(@color),
-        "indicator block rounded-full absolute translate-y-1/2 -translate-x-1/2 right-auto bottom-0 left-0  indicator-bottom-left",
+        "indicator block rounded-full absolute translate-y-1/2 -translate-x-1/2 right-auto bottom-0 left-0 indicator-bottom-left",
         !is_nil(@rest[:pinging]) && "animate-ping",
         @class
       ]}
@@ -179,7 +179,7 @@ defmodule <%= @module %> do
       class={[
         indicator_size(@size),
         color_class(@color),
-        "indicator block rounded-full absolute translate-y-1/2 translate-x-1/2 left-auto bottom-0 right-0  indicator-bottom-right",
+        "indicator block rounded-full absolute translate-y-1/2 translate-x-1/2 left-auto bottom-0 right-0 indicator-bottom-right",
         !is_nil(@rest[:pinging]) && "animate-ping",
         @class
       ]}
