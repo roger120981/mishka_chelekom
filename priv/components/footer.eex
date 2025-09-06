@@ -60,7 +60,7 @@ defmodule <%= @module %> do
   attr :variant, :string, default: "base", doc: "Determines the style"
   attr :color, :string, default: "natural", doc: "Determines color theme"
   attr :border, :string, default: "extra_small", doc: "Determines border style"
-  attr :text_position, :string, default: "", doc: "Determines the element' text position"
+  attr :text_position, :string, default: "", doc: "Determines the element's text position"
   attr :rounded, :string, default: "", doc: "Determines the border radius"
   attr :max_width, :string, default: "", doc: "Determines the style of element max width"
   attr :space, :string, default: "", doc: "Space between items"
@@ -123,7 +123,7 @@ defmodule <%= @module %> do
     default: "font-normal",
     doc: "Determines custom class for the font weight"
 
-  attr :text_position, :string, default: "", doc: "Determines the element' text position"
+  attr :text_position, :string, default: "", doc: "Determines the element's text position"
   attr :space, :string, default: "", doc: "Space between items"
   attr :padding, :string, default: "", doc: "Determines padding for items"
   slot :inner_block, required: false, doc: "Inner block that renders HEEx content"

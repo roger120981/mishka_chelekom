@@ -97,7 +97,7 @@ defmodule <%= @module %> do
 
   attr :space, :string, default: "", doc: "Space between items"
   attr :width, :string, default: "extra_large", doc: "Determines the element width"
-  attr :text_position, :string, default: "start", doc: "Determines the element' text position"
+  attr :text_position, :string, default: "start", doc: "Determines the element's text position"
 
   attr :font_weight, :string,
     default: "font-normal",
@@ -377,7 +377,7 @@ defmodule <%= @module %> do
 
   attr :space, :string, default: "", doc: "Space between items"
   attr :width, :string, default: "extra_large", doc: "Determines the element width"
-  attr :text_position, :string, default: "start", doc: "Determines the element' text position"
+  attr :text_position, :string, default: "start", doc: "Determines the element's text position"
 
   attr :font_weight, :string,
     default: "font-normal",
