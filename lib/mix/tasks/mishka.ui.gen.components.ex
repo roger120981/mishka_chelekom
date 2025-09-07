@@ -56,8 +56,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   def igniter(igniter) do
     # Based on https://github.com/fuelen/owl/issues/27
     Application.ensure_all_started(:owl)
-    # Ensure igniter_css application is started (which handles Pythonx initialization)
-    Application.ensure_all_started(:igniter_css)
     # extract positional arguments according to `positional` above
     %Igniter.Mix.Task.Args{positional: %{components: components}} = igniter.args
 
