@@ -724,54 +724,32 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   @doc false
   def import_and_setup_theme(igniter, app_css_path) do
-    case File.read(app_css_path) do
-      {:ok, content} ->
-        igniter
-        |> Igniter.create_or_update_file(app_css_path, content, fn source ->
-          original_content = Rewrite.Source.get(source, :content)
-
-          with {:ok, _, content_with_import} <-
-                 SimpleCSSUtilities.add_import(original_content, "../vendor/mishka_chelekom.css", false),
-               updated_content <- ensure_theme_exists(content_with_import) do
-            Rewrite.Source.update(source, :content, updated_content)
-          else
-            {:error, _, error} ->
-              msg = """
-              Error updating CSS file: #{inspect(error)}
-              """
-
-              Rewrite.Source.add_issue(source, msg)
-          end
-        end)
-
+    theme_path = "deps/mishka_chelekom/priv/assets/css/theme.css"
+    
+    with {:ok, css_content} <- File.read(app_css_path),
+         {:ok, theme_content} <- SimpleCSSUtilities.read_theme_content(theme_path),
+         {:ok, updated_content} <- SimpleCSSUtilities.add_import_and_theme(
+           css_content, 
+           "../vendor/mishka_chelekom.css", 
+           theme_content
+         ) do
+      igniter
+      |> Igniter.create_or_update_file(app_css_path, updated_content, fn source ->
+        Rewrite.Source.update(source, :content, updated_content)
+      end)
+    else
       {:error, :enoent} ->
         msg = """
         The app.css file does not exist at #{app_css_path}.
         Please ensure your Phoenix application has been properly set up with assets.
         """
-
+        
         igniter
         |> Igniter.add_issue(msg)
-
+        
       {:error, reason} ->
         igniter
-        |> Igniter.add_issue("Error reading app.css file: #{inspect(reason)}")
+        |> Igniter.add_issue("Error processing CSS file: #{inspect(reason)}")
     end
-  end
-
-  defp ensure_theme_exists(css_content) do
-    theme_content = get_theme_content()
-
-    if String.contains?(css_content, "@theme") do
-      css_content
-      |> String.replace(~r/@theme\s*\{[^}]*\}/s, theme_content)
-    else
-      css_content <> "\n\n" <> theme_content <> "\n"
-    end
-  end
-
-  defp get_theme_content() do
-    "deps/mishka_chelekom/priv/assets/css/theme.css"
-    |> File.read!()
   end
 end

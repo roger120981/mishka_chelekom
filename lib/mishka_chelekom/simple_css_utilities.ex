@@ -196,4 +196,58 @@ defmodule MishkaChelekom.SimpleCSSUtilities do
     |> String.replace("\\", "/")
     |> String.replace(~r/\/+/, "/")
   end
+
+  @doc """
+  Adds import and theme to CSS content.
+  Returns the updated CSS content with the import statement and theme.
+  
+  ## Examples
+  
+      iex> css_content = "@import 'tailwindcss';"
+      iex> theme_content = "@theme { --color-primary: blue; }"
+      iex> {:ok, updated} = MishkaChelekom.SimpleCSSUtilities.add_import_and_theme(css_content, "../vendor/mishka.css", theme_content)
+      {:ok, "@import 'tailwindcss';\n@import \"../vendor/mishka.css\";\n\n@theme { --color-primary: blue; }\n"}
+  """
+  def add_import_and_theme(css_content, import_path, theme_content) do
+    with {:ok, _, content_with_import} <- add_import(css_content, import_path, false) do
+      updated_content = ensure_theme_exists(content_with_import, theme_content)
+      {:ok, updated_content}
+    end
+  end
+
+  @doc """
+  Ensures theme content exists in the CSS.
+  If @theme already exists, it replaces it. Otherwise, appends it.
+  
+  ## Examples
+  
+      iex> css_content = "@import 'tailwindcss';"
+      iex> theme_content = "@theme { --color-primary: blue; }"
+      iex> MishkaChelekom.SimpleCSSUtilities.ensure_theme_exists(css_content, theme_content)
+      "@import 'tailwindcss';\n\n@theme { --color-primary: blue; }\n"
+  """
+  def ensure_theme_exists(css_content, theme_content) do
+    if String.contains?(css_content, "@theme") do
+      css_content
+      |> String.replace(~r/@theme\s*\{[^}]*\}/s, theme_content)
+    else
+      css_content <> "\n\n" <> theme_content <> "\n"
+    end
+  end
+
+  @doc """
+  Reads theme content from a file path.
+  Returns {:ok, content} or {:error, reason}.
+  
+  ## Examples
+  
+      iex> MishkaChelekom.SimpleCSSUtilities.read_theme_content("path/to/theme.css")
+      {:ok, "@theme { --color-primary: blue; }"}
+  """
+  def read_theme_content(theme_path) do
+    case File.read(theme_path) do
+      {:ok, content} -> {:ok, content}
+      {:error, reason} -> {:error, reason}
+    end
+  end
 end
