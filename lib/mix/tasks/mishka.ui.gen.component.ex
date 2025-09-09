@@ -96,7 +96,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
     options = igniter.args.options
 
-    if !options[:sub] do
+    if !options[:sub] and Mix.env() != :test do
       msg =
         """
               .-.
@@ -434,7 +434,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     igniter =
       if Keyword.get(template_config, :necessary, []) != [] and Igniter.changed?(igniter) do
         if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
-             !options[:no_sub_config] do
+             !options[:no_sub_config] and Mix.env() != :test do
           IO.puts("#{IO.ANSI.bright() <> "Note:\n" <> IO.ANSI.reset()}")
 
           msg = """
@@ -447,26 +447,31 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
           Components: #{Enum.join(template_config[:necessary], " - ")}
           """
 
-          Mix.Shell.IO.info(IO.ANSI.cyan() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+          if Mix.env() != :test do
+            Mix.Shell.IO.info(IO.ANSI.cyan() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+          end
 
           msg =
             "\nNote: \nIf approved, dependent components will be created without restrictions and you can change them manually."
 
-          IO.puts("#{IO.ANSI.blue() <> msg <> IO.ANSI.reset()}")
+          if Mix.env() != :test do
+            IO.puts("#{IO.ANSI.blue() <> msg <> IO.ANSI.reset()}")
 
-          IO.puts(
-            "#{IO.ANSI.cyan() <> "\nYou can run before generating this component:" <> IO.ANSI.reset()}"
-          )
+            IO.puts(
+              "#{IO.ANSI.cyan() <> "\nYou can run before generating this component:" <> IO.ANSI.reset()}"
+            )
+          end
         end
 
-        if template_config[:necessary] != [] and !options[:yes] and !options[:no_sub_config] do
+        if template_config[:necessary] != [] and !options[:yes] and !options[:no_sub_config] and
+             Mix.env() != :test do
           IO.puts(
             "#{IO.ANSI.yellow() <> "#{Enum.map(template_config[:necessary], &"\n   * mix mishka.ui.gen.component #{&1}\n")}" <> IO.ANSI.reset()}"
           )
         end
 
         if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
-             !options[:no_sub_config] do
+             !options[:no_sub_config] and Mix.env() != :test do
           Mix.Shell.IO.error("""
 
           In this section you can set your custom args for each dependent component.
@@ -476,7 +481,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
         Enum.reduce(template_config[:necessary], {[], igniter}, fn item, {module_coms, acc} ->
           commands =
-            if !options[:yes] and !options[:no_sub_config] do
+            if !options[:yes] and !options[:no_sub_config] and Mix.env() != :test do
               Mix.Shell.IO.prompt("* Component #{String.capitalize(item)}: Enter your args:")
               |> String.trim()
               |> String.split(" ", trim: true)
