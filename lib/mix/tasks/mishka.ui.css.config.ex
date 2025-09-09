@@ -85,7 +85,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
 
       true ->
         igniter
-        |> Igniter.add_notice("""
+        |> Igniter.add_warning("""
         Please specify an action:
 
         --init       Create a sample configuration file
