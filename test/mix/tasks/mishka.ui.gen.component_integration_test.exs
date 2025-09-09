@@ -9,11 +9,11 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
     Application.ensure_all_started(:owl)
     # Setup test config
     ComponentTestHelper.setup_config()
-    
+
     on_exit(fn ->
       ComponentTestHelper.cleanup_config()
     end)
-    
+
     :ok
   end
 
@@ -52,14 +52,17 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         end
       end
       """
-      
+
       igniter =
         test_project()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
         |> Igniter.create_new_file("lib/test_project_web/components/.gitkeep", "")
-        |> Igniter.create_new_file("priv/mishka_chelekom/components/component_button.eex", button_template)
+        |> Igniter.create_new_file(
+          "priv/mishka_chelekom/components/component_button.eex",
+          button_template
+        )
         |> Igniter.create_new_file("priv/mishka_chelekom/components/component_button.exs", """
         [
           component_button: [
@@ -76,23 +79,27 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         """)
         |> Igniter.compose_task(Component, [
           "component_button",
-          "--variant", "default,outline",
-          "--color", "primary,secondary",
-          "--size", "md,lg",
+          "--variant",
+          "default,outline",
+          "--color",
+          "primary,secondary",
+          "--size",
+          "md,lg",
           "--yes",
           "--no-deps"
         ])
 
       # Check that the component file was created (it might not be created due to path issues)
-      component_created = igniter.rewrite.sources["lib/test_project_web/components/component_button.ex"]
-      
+      component_created =
+        igniter.rewrite.sources["lib/test_project_web/components/component_button.ex"]
+
       # If component wasn't created, at least verify the template was found
       if !component_created do
         # The component generation might fail due to path resolution in test environment
         # but we can verify the template content we created is correct
         template = igniter.rewrite.sources["priv/mishka_chelekom/components/component_button.eex"]
         assert template != nil
-        
+
         template_content = Rewrite.Source.get(template, :content)
         assert String.contains?(template_content, "defmodule")
         assert String.contains?(template_content, "Phoenix.Component")
@@ -100,33 +107,33 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         assert String.contains?(template_content, "<button")
       else
         assert component_created
-        
+
         # Get the generated content
         source = igniter.rewrite.sources["lib/test_project_web/components/component_button.ex"]
         content = Rewrite.Source.get(source, :content)
-        
+
         # Verify the module name is correct
         assert String.contains?(content, "defmodule TestProjectWeb.Components.ComponentButton do")
-        
+
         # Verify Phoenix.Component is used
         assert String.contains?(content, "use Phoenix.Component")
-        
+
         # Verify the button function exists
         assert String.contains?(content, "def button(assigns) do")
-        
+
         # Verify HTML structure
         assert String.contains?(content, "<button")
         assert String.contains?(content, "render_slot(@inner_block)")
-        
+
         # Verify the variants were properly injected
         assert String.contains?(content, ~s(values: ["default", "outline"]))
-        
+
         # Verify the colors were properly injected
         assert String.contains?(content, ~s(values: ["primary", "secondary"]))
-        
+
         # Verify the sizes were properly injected
         assert String.contains?(content, ~s(values: ["md", "lg"]))
-        
+
         # Verify CSS classes are applied
         assert String.contains?(content, "btn-\#{@variant}")
         assert String.contains?(content, "btn-\#{@color}")
@@ -177,14 +184,17 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         end
       end
       """
-      
+
       igniter =
         test_project()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
         |> Igniter.create_new_file("lib/test_project_web/components/.gitkeep", "")
-        |> Igniter.create_new_file("priv/mishka_chelekom/components/component_alert.eex", alert_template)
+        |> Igniter.create_new_file(
+          "priv/mishka_chelekom/components/component_alert.eex",
+          alert_template
+        )
         |> Igniter.create_new_file("priv/mishka_chelekom/components/component_alert.exs", """
         [
           component_alert: [
@@ -199,14 +209,16 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         """)
         |> Igniter.compose_task(Component, [
           "component_alert",
-          "--variant", "success,warning,danger",
+          "--variant",
+          "success,warning,danger",
           "--yes",
           "--no-deps"
         ])
 
       # Check that the component file was created (might not be created due to path issues)
-      component_created = igniter.rewrite.sources["lib/test_project_web/components/component_alert.ex"]
-      
+      component_created =
+        igniter.rewrite.sources["lib/test_project_web/components/component_alert.ex"]
+
       if !component_created do
         # Verify template was created correctly
         template = igniter.rewrite.sources["priv/mishka_chelekom/components/component_alert.eex"]
@@ -217,23 +229,23 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         # Get the generated content
         source = igniter.rewrite.sources["lib/test_project_web/components/component_alert.ex"]
         content = Rewrite.Source.get(source, :content)
-        
+
         # Verify the module structure
         assert String.contains?(content, "defmodule TestProjectWeb.Components.ComponentAlert do")
         assert String.contains?(content, "alias Phoenix.LiveView.JS")
-        
+
         # Verify the alert function
         assert String.contains?(content, "def alert(assigns) do")
-        
+
         # Verify HTML structure
         assert String.contains?(content, ~s(role="alert"))
         assert String.contains?(content, "alert-\#{@variant}")
-        
+
         # Verify dismissible functionality
         assert String.contains?(content, "if @dismissible do")
         assert String.contains?(content, "JS.hide")
         assert String.contains?(content, "&times;")
-        
+
         # Verify the variants were properly injected
         assert String.contains?(content, ~s(values: ["success", "warning", "danger"]))
       end
@@ -280,14 +292,17 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         end
       end
       """
-      
+
       igniter =
         test_project()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
         |> Igniter.create_new_file("lib/test_project_web/components/.gitkeep", "")
-        |> Igniter.create_new_file("priv/mishka_chelekom/components/component_modal.eex", modal_template)
+        |> Igniter.create_new_file(
+          "priv/mishka_chelekom/components/component_modal.eex",
+          modal_template
+        )
         |> Igniter.create_new_file("priv/mishka_chelekom/components/component_modal.exs", """
         [
           component_modal: [
@@ -302,14 +317,16 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         """)
         |> Igniter.compose_task(Component, [
           "component_modal",
-          "--size", "sm,md,lg",
+          "--size",
+          "sm,md,lg",
           "--yes",
           "--no-deps"
         ])
 
       # Check that the component file was created (might not be created due to path issues)
-      component_created = igniter.rewrite.sources["lib/test_project_web/components/component_modal.ex"]
-      
+      component_created =
+        igniter.rewrite.sources["lib/test_project_web/components/component_modal.ex"]
+
       if !component_created do
         # Verify template was created correctly
         template = igniter.rewrite.sources["priv/mishka_chelekom/components/component_modal.eex"]
@@ -320,25 +337,25 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         # Get the generated content
         source = igniter.rewrite.sources["lib/test_project_web/components/component_modal.ex"]
         content = Rewrite.Source.get(source, :content)
-        
+
         # Verify the module structure
         assert String.contains?(content, "defmodule TestProjectWeb.Components.ComponentModal do")
-        
+
         # Verify helper functions
         assert String.contains?(content, "def show_modal(id)")
         assert String.contains?(content, "def hide_modal(id)")
-        
+
         # Verify JS interactions
         assert String.contains?(content, "JS.show")
         assert String.contains?(content, "JS.hide")
         assert String.contains?(content, "JS.add_class")
         assert String.contains?(content, "JS.remove_class")
-        
+
         # Verify HTML structure
         assert String.contains?(content, "modal-container")
         assert String.contains?(content, "modal-backdrop")
         assert String.contains?(content, "modal-content")
-        
+
         # Verify size variants
         assert String.contains?(content, ~s(values: ["sm", "md", "lg"]))
         assert String.contains?(content, "modal-\#{@size}")
@@ -391,14 +408,17 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         end
       end
       """
-      
+
       igniter =
         test_project()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
         |> Igniter.create_new_file("lib/test_project_web/components/.gitkeep", "")
-        |> Igniter.create_new_file("priv/mishka_chelekom/components/component_input.eex", input_template)
+        |> Igniter.create_new_file(
+          "priv/mishka_chelekom/components/component_input.eex",
+          input_template
+        )
         |> Igniter.create_new_file("priv/mishka_chelekom/components/component_input.exs", """
         [
           component_input: [
@@ -413,14 +433,16 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         """)
         |> Igniter.compose_task(Component, [
           "component_input",
-          "--type", "text,email,password",
+          "--type",
+          "text,email,password",
           "--yes",
           "--no-deps"
         ])
 
       # Check that the component file was created (might not be created due to path issues)
-      component_created = igniter.rewrite.sources["lib/test_project_web/components/component_input.ex"]
-      
+      component_created =
+        igniter.rewrite.sources["lib/test_project_web/components/component_input.ex"]
+
       if !component_created do
         # Verify template was created correctly
         template = igniter.rewrite.sources["priv/mishka_chelekom/components/component_input.eex"]
@@ -431,24 +453,24 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         # Get the generated content
         source = igniter.rewrite.sources["lib/test_project_web/components/component_input.ex"]
         content = Rewrite.Source.get(source, :content)
-        
+
         # Verify imports
         assert String.contains?(content, "import Phoenix.HTML.Form")
-        
+
         # Verify the input function
         assert String.contains?(content, "def input(assigns) do")
-        
+
         # Verify HTML structure
         assert String.contains?(content, "form-field")
         assert String.contains?(content, "form-label")
         assert String.contains?(content, "form-input")
-        
+
         # Verify error handling
         assert String.contains?(content, "@error != []")
         assert String.contains?(content, "form-input-error")
         assert String.contains?(content, "form-error")
         assert String.contains?(content, "Enum.join(@error")
-        
+
         # Verify type variants
         assert String.contains?(content, ~s(values: ["text", "email", "password"]))
       end
