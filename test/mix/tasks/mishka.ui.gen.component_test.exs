@@ -9,11 +9,11 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
     Application.ensure_all_started(:owl)
     # Setup test config
     ComponentTestHelper.setup_config()
-    
+
     on_exit(fn ->
       ComponentTestHelper.cleanup_config()
     end)
-    
+
     :ok
   end
 
@@ -36,7 +36,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
       import Config
       config :tailwind, version: "3.4.0"
       """)
-      
+
       igniter =
         test_project()
         |> Igniter.create_new_file(".formatter.exs", """
@@ -71,15 +71,16 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
         """)
         |> Igniter.compose_task(Component, [
           "component_button",
-          "--variant", "invalid_variant",
+          "--variant",
+          "invalid_variant",
           "--yes",
           "--no-deps"
         ])
 
       issues_text = Enum.join(igniter.issues, " ")
       # Component doesn't exist in test environment
-      assert String.contains?(issues_text, "does not exist") || 
-             String.contains?(issues_text, "arguments you sent were incorrect")
+      assert String.contains?(issues_text, "does not exist") ||
+               String.contains?(issues_text, "arguments you sent were incorrect")
     end
 
     test "handles missing components directory" do
@@ -93,14 +94,16 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
       issues_text = Enum.join(igniter.issues, " ")
       # When components directory is missing, it shows path error
       assert String.contains?(issues_text, "components folder") ||
-             String.contains?(issues_text, "does not exist") ||
-             String.contains?(issues_text, "Phoenix")
+               String.contains?(issues_text, "does not exist") ||
+               String.contains?(issues_text, "Phoenix")
     end
   end
 
   describe "helper functions" do
     test "atom_to_module converts strings to module names" do
-      assert Component.atom_to_module("test_project_web.components.button") == :"TestProjectWeb.Components.Button"
+      assert Component.atom_to_module("test_project_web.components.button") ==
+               :"TestProjectWeb.Components.Button"
+
       assert Component.atom_to_module("my_app.ui.component") == :"MyApp.Ui.Component"
     end
 
@@ -142,28 +145,34 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
           --color-primary: blue;
         }
         """)
-        |> Igniter.create_new_file("deps/mishka_chelekom/priv/components/component_button.eex", """
-        defmodule <%= @web_module %>.Components.<%= @module %> do
-          use Phoenix.Component
-          def button(assigns), do: ~H"<button>Button</button>"
-        end
-        """)
-        |> Igniter.create_new_file("deps/mishka_chelekom/priv/components/component_button.exs", """
-        [
-          component_button: [
-            args: [],
-            necessary: [],
-            optional: [],
-            scripts: []
+        |> Igniter.create_new_file(
+          "deps/mishka_chelekom/priv/components/component_button.eex",
+          """
+          defmodule <%= @web_module %>.Components.<%= @module %> do
+            use Phoenix.Component
+            def button(assigns), do: ~H"<button>Button</button>"
+          end
+          """
+        )
+        |> Igniter.create_new_file(
+          "deps/mishka_chelekom/priv/components/component_button.exs",
+          """
+          [
+            component_button: [
+              args: [],
+              necessary: [],
+              optional: [],
+              scripts: []
+            ]
           ]
-        ]
-        """)
+          """
+        )
 
       igniter_after = Component.setup_css_files(igniter, [])
 
       # Should create mishka_chelekom.css
       assert igniter_after.rewrite.sources["assets/vendor/mishka_chelekom.css"]
-      
+
       # Should attempt to update app.css but may have issues if theme file not found
       # Check that at least the vendor CSS was created
       vendor_css = igniter_after.rewrite.sources["assets/vendor/mishka_chelekom.css"]
@@ -199,7 +208,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
 
       # Should create sample config
       assert igniter_after.rewrite.sources["priv/mishka_chelekom/config.exs"]
-      
+
       # Should add notice about config creation
       notices_text = Enum.join(igniter_after.notices, " ")
       assert String.contains?(notices_text, "sample configuration file")
@@ -216,11 +225,12 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
         """)
 
       result = Component.get_component_template(igniter, "component_button")
-      
+
       case result do
         %{component: component, path: path} ->
           assert component == "component_button"
           assert String.ends_with?(path, "component_button.eex")
+
         {:error, :no_component, _, _} ->
           # In test environment, the path resolution might fail
           assert true
@@ -236,11 +246,12 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
         """)
 
       result = Component.get_component_template(igniter, "preset_form")
-      
+
       case result do
         %{component: component, path: path} ->
           assert component == "preset_form"
           assert String.ends_with?(path, "preset_form.eex")
+
         {:error, :no_component, _, _} ->
           # In test environment, the path resolution might fail
           assert true
@@ -256,11 +267,12 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
         """)
 
       result = Component.get_component_template(igniter, "template_layout")
-      
+
       case result do
         %{component: component, path: path} ->
           assert component == "template_layout"
           assert String.ends_with?(path, "template_layout.eex")
+
         {:error, :no_component, _, _} ->
           # In test environment, the path resolution might fail
           assert true
@@ -270,7 +282,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
     test "returns error for non-existent component" do
       igniter = test_project()
       result = Component.get_component_template(igniter, "non_existent")
-      
+
       assert {:error, :no_component, msg, _igniter} = result
       assert String.contains?(msg, "does not exist")
     end

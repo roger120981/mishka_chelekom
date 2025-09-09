@@ -20,7 +20,7 @@ defmodule MishkaChelekom.ComponentTestHelper do
     import Config
 
     config :tailwind, version: "4.0.0"
-    
+
     config :test_project, TestProjectWeb.Endpoint,
       url: [host: "localhost"],
       secret_key_base: "test"
@@ -41,6 +41,7 @@ defmodule MishkaChelekom.ComponentTestHelper do
 
   def with_config(fun) do
     setup_config()
+
     try do
       fun.()
     after
