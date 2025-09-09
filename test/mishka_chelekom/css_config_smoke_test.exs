@@ -75,21 +75,5 @@ defmodule MishkaChelekom.CSSConfigSmokeTest do
       assert config.css_merge_strategy == :merge
     end
 
-    test "CSS variable name transformation" do
-      # Test that underscores are converted to dashes
-      _igniter = test_project()
-      
-      # Create a minimal config in memory
-      overrides = %{
-        primary_hover_light: "#test",
-        base_border_dark: "#test2"
-      }
-      
-      # The actual transformation happens in apply_css_overrides
-      # We can't test the full flow without files, but we can verify
-      # the config structure is correct
-      assert Map.has_key?(overrides, :primary_hover_light)
-      assert Map.has_key?(overrides, :base_border_dark)
-    end
   end
 end
