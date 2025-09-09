@@ -7,10 +7,6 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
     # Ensure Owl is started
     Application.ensure_all_started(:owl)
 
-    # DO NOT DELETE REAL LIBRARY FILES!
-    # Tests should only clean up test-specific directories
-    # The test_project() creates an isolated test environment
-
     :ok
   end
 
