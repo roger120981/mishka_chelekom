@@ -195,10 +195,10 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
         test_project()
         |> Igniter.compose_task(Config, [])
 
-      notices_text = Enum.join(igniter.notices, " ")
-      assert String.contains?(notices_text, "Please specify an action")
-      assert String.contains?(notices_text, "--init")
-      assert String.contains?(notices_text, "--regenerate")
+      warnings_text = Enum.join(igniter.warnings, " ")
+      assert String.contains?(warnings_text, "Please specify an action")
+      assert String.contains?(warnings_text, "--init")
+      assert String.contains?(warnings_text, "--regenerate")
     end
   end
 end

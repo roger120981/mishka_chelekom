@@ -39,14 +39,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-mix-${{ matrix.elixir }}-${{ matrix.otp }}-
 
-      - name: Install dependencies
+      - name: Install Hex and Rebar
         run: |
           mix local.hex --force
           mix local.rebar --force
-          mix deps.get
+      
+      - name: Install dependencies
+        run: mix deps.get
 
-      - name: Check compilation errors
-        run: mix compile
+      - name: Compile project
+        run: mix compile --warnings-as-errors
 
       - name: Check formatting
         run: mix format --check-formatted
@@ -56,6 +58,6 @@ jobs:
           echo '[inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]' > /tmp/.formatter.exs
 
       - name: Run tests
-        run: |
-          export MIX_ENV=test
-          mix test
+        env:
+          MIX_ENV: test
+        run: mix test --trace
