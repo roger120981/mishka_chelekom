@@ -4,6 +4,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   alias IgniterJs.Parsers.Javascript.Parser, as: JsParser
   alias IgniterJs.Parsers.Javascript.Formatter, as: JsFormatter
   alias MishkaChelekom.SimpleCSSUtilities
+  alias MishkaChelekom.CSSConfig
 
   @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
@@ -712,27 +713,29 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   @doc false
   def create_mishka_css(igniter, vendor_css_path) do
-    mishka_css_content =
-      "deps/mishka_chelekom/priv/assets/css/mishka_chelekom.css"
-      |> File.read!()
+    # Generate CSS content with user overrides if they exist
+    mishka_css_content = CSSConfig.generate_css_content(igniter)
 
     igniter
     |> Igniter.create_or_update_file(vendor_css_path, mishka_css_content, fn source ->
       Rewrite.Source.update(source, :content, mishka_css_content)
     end)
+    |> maybe_create_sample_config()
   end
 
   @doc false
   def import_and_setup_theme(igniter, app_css_path) do
+    # Always use the original theme.css without modifications
     theme_path = "deps/mishka_chelekom/priv/assets/css/theme.css"
-    
+
     with {:ok, css_content} <- File.read(app_css_path),
          {:ok, theme_content} <- SimpleCSSUtilities.read_theme_content(theme_path),
-         {:ok, updated_content} <- SimpleCSSUtilities.add_import_and_theme(
-           css_content, 
-           "../vendor/mishka_chelekom.css", 
-           theme_content
-         ) do
+         {:ok, updated_content} <-
+           SimpleCSSUtilities.add_import_and_theme(
+             css_content,
+             "../vendor/mishka_chelekom.css",
+             theme_content
+           ) do
       igniter
       |> Igniter.create_or_update_file(app_css_path, updated_content, fn source ->
         Rewrite.Source.update(source, :content, updated_content)
@@ -743,13 +746,39 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
         The app.css file does not exist at #{app_css_path}.
         Please ensure your Phoenix application has been properly set up with assets.
         """
-        
+
         igniter
         |> Igniter.add_issue(msg)
-        
+
       {:error, reason} ->
         igniter
         |> Igniter.add_issue("Error processing CSS file: #{inspect(reason)}")
+    end
+  end
+
+  defp maybe_create_sample_config(igniter) do
+    # Use the actual project's priv directory, not the build directory
+    config_path = Path.join(["priv", "mishka_chelekom", "config.exs"])
+
+    if !File.exists?(config_path) do
+      {igniter, path, content} = CSSConfig.create_sample_config(igniter)
+
+      igniter
+      |> Igniter.create_or_update_file(path, content, fn source ->
+        Rewrite.Source.update(source, :content, content)
+      end)
+      |> Igniter.add_notice("""
+      Created a sample configuration file at #{path}
+
+      You can customize CSS variables by editing this file.
+      The configuration supports:
+      - Overriding specific CSS variables
+      - Using a completely custom CSS file
+
+      Your customizations will be applied when generating components.
+      """)
+    else
+      igniter
     end
   end
 end

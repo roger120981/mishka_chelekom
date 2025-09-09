@@ -200,9 +200,9 @@ defmodule MishkaChelekom.SimpleCSSUtilities do
   @doc """
   Adds import and theme to CSS content.
   Returns the updated CSS content with the import statement and theme.
-  
+
   ## Examples
-  
+
       iex> css_content = "@import 'tailwindcss';"
       iex> theme_content = "@theme { --color-primary: blue; }"
       iex> {:ok, updated} = MishkaChelekom.SimpleCSSUtilities.add_import_and_theme(css_content, "../vendor/mishka.css", theme_content)
@@ -218,29 +218,36 @@ defmodule MishkaChelekom.SimpleCSSUtilities do
   @doc """
   Ensures theme content exists in the CSS.
   If @theme already exists, it replaces it. Otherwise, appends it.
-  
+
   ## Examples
-  
+
       iex> css_content = "@import 'tailwindcss';"
       iex> theme_content = "@theme { --color-primary: blue; }"
       iex> MishkaChelekom.SimpleCSSUtilities.ensure_theme_exists(css_content, theme_content)
       "@import 'tailwindcss';\n\n@theme { --color-primary: blue; }\n"
   """
   def ensure_theme_exists(css_content, theme_content) do
+    # Ensure theme_content is properly trimmed
+    cleaned_theme = 
+      theme_content
+      |> String.split("\n")
+      |> Enum.map(&String.trim_trailing/1)
+      |> Enum.join("\n")
+    
     if String.contains?(css_content, "@theme") do
       css_content
-      |> String.replace(~r/@theme\s*\{[^}]*\}/s, theme_content)
+      |> String.replace(~r/@theme\s*\{[^}]*\}/s, cleaned_theme)
     else
-      css_content <> "\n\n" <> theme_content <> "\n"
+      css_content <> "\n\n" <> cleaned_theme <> "\n"
     end
   end
 
   @doc """
   Reads theme content from a file path.
   Returns {:ok, content} or {:error, reason}.
-  
+
   ## Examples
-  
+
       iex> MishkaChelekom.SimpleCSSUtilities.read_theme_content("path/to/theme.css")
       {:ok, "@theme { --color-primary: blue; }"}
   """
