@@ -5,6 +5,7 @@
 - Update to Tailwind 4 phoenix 1.8 and new cli options for 0.0.8 [#439](https://github.com/mishka-group/mishka_chelekom/pull/439)
 - Update dependencies
 - Update IgniterJS source [#40](https://github.com/ash-project/igniter_js/pull/40)
+- Improve `floating.js` to accept update request and better UX
 
 ### Features:
 
@@ -28,6 +29,8 @@
 - Fix some bugs of `mix mishka.ui.add` and `mix mishka.ui.export`
 - Fix some problems of new changes of Phoenix and LiveView
 - Fix typos
+- Fix Owl error conflict version with Ash generator
+- Fix duplicated IDs in `dropdown` component
 
 ---
 
