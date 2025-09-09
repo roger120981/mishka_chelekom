@@ -83,11 +83,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
           "--no-deps"
         ])
 
-      # Check if there are any issues
-      if igniter.issues != [] do
-        IO.puts("Issues found: #{inspect(igniter.issues)}")
-      end
-      
       # Check that the component file was created (it might not be created due to path issues)
       component_created = igniter.rewrite.sources["lib/test_project_web/components/component_button.ex"]
       
