@@ -21,7 +21,9 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
         |> Igniter.compose_task(Config, ["--init"])
       
       # Should create the config file
-      assert_creates(igniter, "priv/mishka_chelekom/config.exs")
+      assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
+      source = igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
+      assert source.from == :string
       
       # Check notices contain expected text
       notices_text = Enum.join(igniter.notices, " ")
@@ -33,13 +35,16 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
       igniter = 
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", "# Existing")
-        |> Igniter.compose_task(Config, ["--init"])
       
-      # Should NOT overwrite
-      assert_unchanged(igniter, "priv/mishka_chelekom/config.exs")
+      igniter_after = Igniter.compose_task(igniter, Config, ["--init"])
+      
+      # Should NOT overwrite - content should remain the same
+      source = igniter_after.rewrite.sources["priv/mishka_chelekom/config.exs"]
+      content = Rewrite.Source.get(source, :content)
+      assert String.trim(content) == "# Existing"
       
       # Check notices
-      notices_text = Enum.join(igniter.notices, " ")
+      notices_text = Enum.join(igniter_after.notices, " ")
       assert String.contains?(notices_text, "already exists")
     end
 
@@ -49,9 +54,6 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", "# Old content")
         |> Igniter.compose_task(Config, ["--init", "--force"])
-      
-      # Should create new file (overwrite)
-      assert_creates(igniter, "priv/mishka_chelekom/config.exs")
       
       # Verify content changed by checking the actual file created
       assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
@@ -84,7 +86,8 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
         |> Igniter.compose_task(Config, ["--regenerate"])
       
       # Should create vendor CSS
-      assert_creates(igniter, "assets/vendor/mishka_chelekom.css")
+      assert igniter.rewrite.sources["assets/vendor/mishka_chelekom.css"]
+      assert igniter.rewrite.sources["assets/vendor/mishka_chelekom.css"].from == :string
       
       # Check the content
       source = igniter.rewrite.sources["assets/vendor/mishka_chelekom.css"]
@@ -181,7 +184,8 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
         test_project()
         |> Igniter.compose_task(Config, ["-i"])
       
-      assert_creates(igniter, "priv/mishka_chelekom/config.exs")
+      assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
+      assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"].from == :string
     end
   end
 

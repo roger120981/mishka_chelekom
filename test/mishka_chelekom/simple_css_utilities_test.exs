@@ -394,7 +394,6 @@ defmodule MishkaChelekom.SimpleCSSUtilitiesTest do
                  theme_content
                )
 
-      IO.puts(result)
       assert result =~ "@import \"../vendor/mishka.css\""
       assert result =~ "@theme { --color: red; }"
     end

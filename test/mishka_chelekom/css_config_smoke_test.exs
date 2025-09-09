@@ -77,7 +77,7 @@ defmodule MishkaChelekom.CSSConfigSmokeTest do
 
     test "CSS variable name transformation" do
       # Test that underscores are converted to dashes
-      igniter = test_project()
+      _igniter = test_project()
       
       # Create a minimal config in memory
       overrides = %{

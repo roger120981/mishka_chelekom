@@ -103,9 +103,13 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
     {igniter, config_path, content} = CSSConfig.create_sample_config(igniter)
     options = igniter.args.options
     force = Keyword.get(options, :force, false)
+    
+    # Check if file already exists in the igniter's sources
+    existing_source = igniter.rewrite.sources[config_path]
+    file_exists = existing_source != nil || File.exists?(config_path)
 
     cond do
-      File.exists?(config_path) && !force ->
+      file_exists && !force ->
         igniter
         |> Igniter.add_notice("""
         Configuration file already exists at:
@@ -115,13 +119,13 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
         To overwrite with a fresh sample, use: mix mishka.ui.css.config --init --force
         """)
 
-      File.exists?(config_path) && force ->
+      file_exists && force ->
         igniter
         |> Igniter.create_or_update_file(config_path, content, fn source ->
           Rewrite.Source.update(source, :content, content)
         end)
         |> Igniter.add_notice("""
-        Configuration file overwritten with fresh sample at:
+        Configuration file overwritten at:
         #{config_path}
 
         Previous configuration has been replaced.
@@ -196,7 +200,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
     # Validate merge strategy
     issues =
       if config.css_merge_strategy not in [:merge, :replace] do
-        ["Invalid css_merge_strategy. Must be :merge or :replace" | issues]
+        ["Invalid css_merge_strategy: #{inspect(config.css_merge_strategy)}. Must be :merge or :replace" | issues]
       else
         issues
       end
