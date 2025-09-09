@@ -23,6 +23,11 @@ jobs:
         with:
           elixir-version: ${{ matrix.elixir }}
           otp-version: ${{ matrix.otp }}
+      
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
 
       - name: Restore dependencies cache
         uses: actions/cache@v4.2.4
@@ -35,13 +40,22 @@ jobs:
             ${{ runner.os }}-mix-${{ matrix.elixir }}-${{ matrix.otp }}-
 
       - name: Install dependencies
-        run: mix deps.get
+        run: |
+          mix local.hex --force
+          mix local.rebar --force
+          mix deps.get
 
       - name: Check compilation errors
         run: mix compile
 
       - name: Check formatting
         run: mix format --check-formatted
+      
+      - name: Create formatter for tests
+        run: |
+          echo '[inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]' > /tmp/.formatter.exs
 
       - name: Run tests
-        run: mix test
+        run: |
+          export MIX_ENV=test
+          mix test
