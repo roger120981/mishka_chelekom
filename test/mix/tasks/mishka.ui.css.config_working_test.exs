@@ -6,25 +6,25 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
   setup do
     # Ensure Owl is started
     Application.ensure_all_started(:owl)
-    
+
     # DO NOT DELETE REAL LIBRARY FILES!
     # Tests should only clean up test-specific directories
     # The test_project() creates an isolated test environment
-    
+
     :ok
   end
 
   describe "mix mishka.ui.css.config --init" do
     test "creates config file when it doesn't exist" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.compose_task(Config, ["--init"])
-      
+
       # Should create the config file
       assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
       source = igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
       assert source.from == :string
-      
+
       # Check notices contain expected text
       notices_text = Enum.join(igniter.notices, " ")
       assert String.contains?(notices_text, "Created configuration file")
@@ -32,17 +32,17 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
 
     test "does not overwrite existing config without --force" do
       # Create existing config in the test project
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", "# Existing")
-      
+
       igniter_after = Igniter.compose_task(igniter, Config, ["--init"])
-      
+
       # Should NOT overwrite - content should remain the same
       source = igniter_after.rewrite.sources["priv/mishka_chelekom/config.exs"]
       content = Rewrite.Source.get(source, :content)
       assert String.trim(content) == "# Existing"
-      
+
       # Check notices
       notices_text = Enum.join(igniter_after.notices, " ")
       assert String.contains?(notices_text, "already exists")
@@ -50,19 +50,19 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
 
     test "overwrites with --force flag" do
       # Create existing config in test project
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", "# Old content")
         |> Igniter.compose_task(Config, ["--init", "--force"])
-      
+
       # Verify content changed by checking the actual file created
       assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
       source = igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
       content = Rewrite.Source.get(source, :content)
-      
+
       refute String.contains?(content, "# Old content")
       assert String.contains?(content, "# Mishka Chelekom CSS Configuration")
-      
+
       # Check notices
       notices_text = Enum.join(igniter.notices, " ")
       assert String.contains?(notices_text, "overwritten")
@@ -79,21 +79,21 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
           primary_light: "#ff0000"
         }
       """
-      
-      igniter = 
+
+      igniter =
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--regenerate"])
-      
+
       # Should create vendor CSS
       assert igniter.rewrite.sources["assets/vendor/mishka_chelekom.css"]
       assert igniter.rewrite.sources["assets/vendor/mishka_chelekom.css"].from == :string
-      
+
       # Check the content
       source = igniter.rewrite.sources["assets/vendor/mishka_chelekom.css"]
       content = Rewrite.Source.get(source, :content)
       assert String.contains?(content, "#ff0000")
-      
+
       # Check notices
       notices_text = Enum.join(igniter.notices, " ")
       assert String.contains?(notices_text, "regenerated")
@@ -111,16 +111,16 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
         },
         css_merge_strategy: :merge
       """
-      
-      igniter = 
+
+      igniter =
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
-      
+
       # Check notices
       notices_text = Enum.join(igniter.notices, " ")
       assert String.contains?(notices_text, "valid")
-      
+
       # Should not have issues
       assert igniter.issues == []
     end
@@ -132,12 +132,12 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
       config :mishka_chelekom,
         css_merge_strategy: :invalid
       """
-      
-      igniter = 
+
+      igniter =
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
-      
+
       # Check issues
       issues_text = Enum.join(igniter.issues, " ")
       assert String.contains?(issues_text, "Invalid css_merge_strategy")
@@ -154,12 +154,12 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
           primary_light: "#custom"
         }
       """
-      
-      igniter = 
+
+      igniter =
         test_project()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--show"])
-      
+
       # Check notices
       notices_text = Enum.join(igniter.notices, " ")
       assert String.contains?(notices_text, "Current Mishka CSS Configuration")
@@ -167,10 +167,10 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
     end
 
     test "shows default when no config" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.compose_task(Config, ["--show"])
-      
+
       # Check notices
       notices_text = Enum.join(igniter.notices, " ")
       assert String.contains?(notices_text, "Current Mishka CSS Configuration")
@@ -180,10 +180,10 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
 
   describe "option aliases" do
     test "supports -i for --init" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.compose_task(Config, ["-i"])
-      
+
       assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
       assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"].from == :string
     end
@@ -191,10 +191,10 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
 
   describe "help message" do
     test "shows help when no options provided" do
-      igniter = 
+      igniter =
         test_project()
         |> Igniter.compose_task(Config, [])
-      
+
       notices_text = Enum.join(igniter.notices, " ")
       assert String.contains?(notices_text, "Please specify an action")
       assert String.contains?(notices_text, "--init")

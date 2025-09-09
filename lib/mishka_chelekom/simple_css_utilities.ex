@@ -228,12 +228,12 @@ defmodule MishkaChelekom.SimpleCSSUtilities do
   """
   def ensure_theme_exists(css_content, theme_content) do
     # Ensure theme_content is properly trimmed
-    cleaned_theme = 
+    cleaned_theme =
       theme_content
       |> String.split("\n")
       |> Enum.map(&String.trim_trailing/1)
       |> Enum.join("\n")
-    
+
     if String.contains?(css_content, "@theme") do
       css_content
       |> String.replace(~r/@theme\s*\{[^}]*\}/s, cleaned_theme)

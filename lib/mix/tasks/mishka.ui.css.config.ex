@@ -103,7 +103,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
     {igniter, config_path, content} = CSSConfig.create_sample_config(igniter)
     options = igniter.args.options
     force = Keyword.get(options, :force, false)
-    
+
     # Check if file already exists in the igniter's sources
     existing_source = igniter.rewrite.sources[config_path]
     file_exists = existing_source != nil || File.exists?(config_path)
@@ -200,7 +200,10 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
     # Validate merge strategy
     issues =
       if config.css_merge_strategy not in [:merge, :replace] do
-        ["Invalid css_merge_strategy: #{inspect(config.css_merge_strategy)}. Must be :merge or :replace" | issues]
+        [
+          "Invalid css_merge_strategy: #{inspect(config.css_merge_strategy)}. Must be :merge or :replace"
+          | issues
+        ]
       else
         issues
       end

@@ -1,3 +1,36 @@
+# Changelog for MishkaChelekom 0.0.8
+
+### Refactors:
+
+- Update to Tailwind 4 phoenix 1.8 and new cli options for 0.0.8 [#439](https://github.com/mishka-group/mishka_chelekom/pull/439)
+- Update dependencies
+- Update IgniterJS source [#40](https://github.com/ash-project/igniter_js/pull/40)
+
+### Features:
+
+- Add `mix mishka.ui.css.config`
+- Add CSS file to have all components colors and another configs
+- Add Config file to override default configs (for example custom css)
+- Add simple CSS utilities helper and delete IgniterCss for this version
+
+### Tests:
+
+- Add unit tests for `mix mishka.assets.deps`
+- Add unit tests for `mix mishka.assets.install`
+- Add unit tests for `mix mishka.ui.add`
+- Add unit tests for `mix mishka.ui.css.config`
+- Add unit tests for `mix mishka.ui.export`
+- Add unit tests for `mix mishka.ui.gen.component`
+- Add unit tests for `mix mishka.ui.gen.components`
+
+### Bugs:
+
+- Fix some bugs of `mix mishka.ui.add` and `mix mishka.ui.export`
+- Fix some problems of new changes of Phoenix and LiveView
+- Fix typos
+
+---
+
 # Changelog for MishkaChelekom 0.0.7
 
 ### Refactors:

@@ -4,28 +4,28 @@ defmodule MishkaChelekom.CSSConfig do
   Allows users to override specific CSS variables or provide custom CSS files.
   """
 
-
   @doc """
   Loads user configuration from priv/mishka_chelekom/config.exs if it exists.
   Returns a map with configuration options or defaults.
   """
   def load_user_config(igniter) do
     config_path = user_config_path(igniter)
-    
+
     # Check if the config exists in igniter's sources (for tests) or on disk
     config_source = igniter.rewrite.sources[config_path]
-    
+
     cond do
       # Config exists in memory (during tests)
       config_source != nil ->
         content = Rewrite.Source.get(config_source, :content)
         load_config_from_string(content)
-      
+
       # Config exists on disk
       File.exists?(config_path) ->
         try do
           config = Config.Reader.read!(config_path)
           mishka_config = Keyword.get(config, :mishka_chelekom, [])
+
           %{
             css_overrides: Keyword.get(mishka_config, :css_overrides, %{}),
             custom_css_path: Keyword.get(mishka_config, :custom_css_path),
@@ -34,23 +34,23 @@ defmodule MishkaChelekom.CSSConfig do
         rescue
           _ -> default_config()
         end
-      
+
       # No config found
       true ->
         default_config()
     end
   end
-  
+
   # Parse config content from string (for test environments)
   defp load_config_from_string(content) do
     # Write to a temporary file and use Config.Reader
-    temp_path = Path.join(System.tmp_dir!(), "mishka_config_#{:rand.uniform(999999)}.exs")
-    
+    temp_path = Path.join(System.tmp_dir!(), "mishka_config_#{:rand.uniform(999_999)}.exs")
+
     try do
       File.write!(temp_path, content)
       config = Config.Reader.read!(temp_path)
       mishka_config = Keyword.get(config, :mishka_chelekom, [])
-      
+
       %{
         css_overrides: Keyword.get(mishka_config, :css_overrides, %{}),
         custom_css_path: Keyword.get(mishka_config, :custom_css_path),
@@ -126,12 +126,13 @@ defmodule MishkaChelekom.CSSConfig do
   defp read_default_css do
     # Get the path from the library's priv directory
     css_path = Path.join(:code.priv_dir(:mishka_chelekom), "assets/css/mishka_chelekom.css")
-    
+
     if File.exists?(css_path) do
       File.read!(css_path)
     else
       # Fallback to checking deps directory (for development)
       deps_path = "deps/mishka_chelekom/priv/assets/css/mishka_chelekom.css"
+
       if File.exists?(deps_path) do
         File.read!(deps_path)
       else
