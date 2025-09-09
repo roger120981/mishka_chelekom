@@ -1,0 +1,47 @@
+name: Test
+
+on:
+  push:
+    branches: [master, Tailwind-4-Phoenix-1.8]
+  pull_request:
+    branches: [master, Tailwind-4-Phoenix-1.8]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        elixir: ["1.18.4"]
+        otp: ["28"]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1.20.4
+        with:
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
+
+      - name: Restore dependencies cache
+        uses: actions/cache@v4.2.4
+        with:
+          path: |
+            deps
+            _build
+          key: ${{ runner.os }}-mix-${{ matrix.elixir }}-${{ matrix.otp }}-${{ hashFiles('**/mix.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-mix-${{ matrix.elixir }}-${{ matrix.otp }}-
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Check compilation errors
+        run: mix compile
+
+      - name: Check formatting
+        run: mix format --check-formatted
+
+      - name: Run tests
+        run: mix test
