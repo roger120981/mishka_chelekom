@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Mishka.Ui.Css.ConfigWorkingTest do
+defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
   use ExUnit.Case
   import Igniter.Test
   alias Mix.Tasks.Mishka.Ui.Css.Config
