@@ -703,7 +703,7 @@ defmodule <%= @module %> do
       "dark:bg-base-bg-dark dark:text-base-text-dark dark:border-base-border-dark dark:hover:bg-base-hover-dark",
       "disabled:bg-base-disabled-bg-light disabled:text-base-disabled-text-light dark:disabled:bg-base-disabled-bg-dark dark:disabled:text-base-disabled-text-dark",
       "disabled:border-base-disabled-border-light dark:disabled:border-base-disabled-border-dark",
-      "shadow-sm",
+      "shadow-xs",
       indicator && "[&>.indicator]:bg-base-border-light dark:[&>.indicator]:bg-base-border-dark",
     ]
   end
