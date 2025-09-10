@@ -100,7 +100,7 @@ defmodule <%= @module %> do
           rounded_size(@rounded),
           size_class(@size),
           padding_size(@padding),
-          @variant == "bordered" || (@variant == "base" && border_class(@border)),
+          border_class(@border, @variant),
           position_class(@position),
           text_position(@text_position),
           width_class(@width),
@@ -165,19 +165,15 @@ defmodule <%= @module %> do
     ]
   end
 
-  defp border_class("extra_small"), do: "border"
+  defp border_class(_, variant) when variant in ["default", "shadow", "gradient"],
+    do: nil
 
-  defp border_class("small"), do: "border-2"
-
-  defp border_class("medium"), do: "border-[3px]"
-
-  defp border_class("large"), do: "border-4"
-
-  defp border_class("extra_large"), do: "border-[5px]"
-
-  defp border_class("none"), do: nil
-
-  defp border_class(params) when is_binary(params), do: params
+  defp border_class("extra_small", _), do: "border"
+  defp border_class("small", _), do: "border-2"
+  defp border_class("medium", _), do: "border-[3px]"
+  defp border_class("large", _), do: "border-4"
+  defp border_class("extra_large", _), do: "border-[5px]"
+  defp border_class(params, _) when is_binary(params), do: params
 
   <%= if is_nil(@size) or "extra_small" in @size do %>
   defp size_class("extra_small"), do: "text-xs max-w-40"
