@@ -22,8 +22,7 @@
 - Add unit tests for `mix mishka.ui.add`
 - Add unit tests for `mix mishka.ui.css.config`
 - Add unit tests for `mix mishka.ui.export`
-- Add unit tests for `mix mishka.ui.gen.component`
-- Add unit tests for `mix mishka.ui.gen.components`
+- Add unit tests for `mix mishka.ui.gen.component/components`
 
 ### Bugs:
 
