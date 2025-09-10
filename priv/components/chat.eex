@@ -172,7 +172,7 @@ defmodule <%= @module %> do
       role="group"
       tabindex="0"
       class={[
-        "chat-section-bubble leading-1.5 overflow-hidden",
+        "chat-section-bubble overflow-hidden",
         @font_weight,
         @class
       ]}
