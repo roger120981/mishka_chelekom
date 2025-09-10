@@ -952,7 +952,7 @@ defmodule <%= @module %> do
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-base-border-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-base-border-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-base-border-dark",
-      "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-base-border-dark shadow-xs"
+      "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-base-border-dark"
     ]
   end
   <% end %>
