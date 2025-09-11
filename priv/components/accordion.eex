@@ -1174,7 +1174,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "natural") do
     [
       "border-natural-light dark:border-natural-dark text-natural-light dark:text-natural-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-natural-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-natural-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-natural-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-natural-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-natural-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-natural-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-natural-dark",
@@ -1187,7 +1187,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "primary") do
     [
       "border-primary-light dark:border-primary-dark text-primary-light dark:text-primary-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-primary-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-primary-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-primary-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-primary-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-primary-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-primary-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-primary-dark",
@@ -1200,7 +1200,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "secondary") do
     [
       "border-secondary-light dark:border-secondary-dark text-secondary-light dark:text-secondary-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-secondary-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-secondary-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-secondary-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-secondary-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-secondary-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-secondary-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-secondary-dark",
@@ -1213,7 +1213,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "success") do
     [
       "border-success-light dark:border-success-dark text-success-light dark:text-success-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-success-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-success-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-success-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-success-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-success-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-success-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-success-dark",
@@ -1226,7 +1226,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "warning") do
     [
       "border-warning-light dark:border-warning-dark text-warning-light dark:text-warning-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-warning-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-warning-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-warning-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-warning-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-warning-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-warning-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-warning-dark",
@@ -1239,7 +1239,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "danger") do
     [
       "border-danger-light dark:border-danger-dark text-danger-light dark:text-danger-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-danger-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-danger-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-danger-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-danger-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-danger-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-danger-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-danger-dark",
@@ -1252,7 +1252,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "info") do
     [
       "border-info-light dark:border-info-dark text-info-light dark:text-info-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-info-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-info-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-info-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-info-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-info-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-info-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-info-dark",
