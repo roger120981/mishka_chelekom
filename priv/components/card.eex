@@ -738,7 +738,7 @@ defmodule <%= @module %> do
   <%= if is_nil(@color) or "white" in @color do %>
   defp color_variant("bordered", "white") do
     [
-      "[&:not(:has(.overlay))]:bg-white  text-black border-bordered-white-border"
+      "[&:not(:has(.overlay))]:bg-white text-black border-bordered-white-border"
     ]
   end
   <% end %>
