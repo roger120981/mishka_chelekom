@@ -1,3 +1,4 @@
+
 @theme {
     --color-base-border-light: var(--base-border-light);
     --color-base-border-dark: var(--base-border-dark);
@@ -37,6 +38,8 @@
     --color-natural-bordered-bg-dark: var(--natural-bordered-bg-dark);
     --color-natural-disabled-light: var(--natural-disabled-light);
     --color-natural-disabled-dark: var(--natural-disabled-dark);
+    --color-natural-bordered-hover-light: var(--natural-bordered-hover-light);
+    --color-natural-bordered-hover-dark: var(--natural-bordered-hover-dark);
 
     --color-primary-light: var(--primary-light);
     --color-primary-dark: var(--primary-dark);
@@ -136,6 +139,8 @@
     --color-silver-dark: var(--silver-dark);
     --color-silver-hover-light: var(--silver-hover-light);
     --color-silver-hover-dark: var(--silver-hover-dark);
+    --color-silver-hover-bordered-light: var(--silver-hover-bordered-light);
+    --color-silver-hover-bordered-dark: var(--silver-hover-bordered-dark);
     --color-silver-bordered-text-light: var(--silver-bordered-text-light);
     --color-silver-bordered-text-dark: var(--silver-bordered-text-dark);
     --color-silver-bordered-bg-light: var(--silver-bordered-bg-light);
@@ -213,21 +218,11 @@
     --color-gradient-silver-from-dark: var(--gradient-silver-from-dark);
     --color-gradient-silver-to-dark: var(--gradient-silver-to-dark);
 
-    --color-primary-gradient-indicator-dark: var(
-        --primary-gradient-indicator-dark
-    );
-    --color-secondary-gradient-indicator-dark: var(
-        --secondary-gradient-indicator-dark
-    );
-    --color-success-gradient-indicator-dark: var(
-        --success-gradient-indicator-dark
-    );
-    --color-warning-gradient-indicator-dark: var(
-        --warning-gradient-indicator-dark
-    );
-    --color-danger-gradient-indicator-dark: var(
-        --danger-gradient-indicator-dark
-    );
+    --color-primary-gradient-indicator-dark: var(--primary-gradient-indicator-dark);
+    --color-secondary-gradient-indicator-dark: var(--secondary-gradient-indicator-dark);
+    --color-success-gradient-indicator-dark: var(--success-gradient-indicator-dark);
+    --color-warning-gradient-indicator-dark: var(--warning-gradient-indicator-dark);
+    --color-danger-gradient-indicator-dark: var(--danger-gradient-indicator-dark);
     --color-info-gradient-indicator-dark: var(--info-gradient-indicator-dark);
     --color-misc-gradient-indicator-dark: var(--misc-gradient-indicator-dark);
     --color-dawn-gradient-indicator-dark: var(--dawn-gradient-indicator-dark);

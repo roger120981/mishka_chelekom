@@ -126,7 +126,7 @@ defmodule <%= @module %> do
     >
       <div
         :for={{item, index} <- Enum.with_index(@item, 1)}
-        class={["group accordion-item-wrapper", item[:class]]}
+        class={["group accordion-item-wrapper cursor-pointer", item[:class]]}
       >
         <div
           id={"#{@id}-#{index}-role-button"}
@@ -1443,7 +1443,7 @@ defmodule <%= @module %> do
     [
       "text-silver-bordered-text-light border-silver-bordered-text-light bg-silver-bordered-bg-light",
       "dark:text-silver-bordered-text-dark dark:border-silver-bordered-text-dark dark:bg-silver-bordered-bg-dark",
-      "[&>.accordion-item-wrapper>.accordion-summary]:hover:bg-silver-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:bg-silver-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary:hover]:bg-silver-hover-bordered-light dark:[&>.accordion-item-wrapper>.accordion-summary:hover]:bg-silver-hover-bordered-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-silver-bordered-text-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-silver-bordered-text-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-silver-bordered-text-dark",
@@ -1460,7 +1460,7 @@ defmodule <%= @module %> do
       "[&>.accordion-item-wrapper]:bg-natural-bordered-bg-light",
       "dark:text-natural-bordered-text-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-natural-border-dark",
       "dark:[&>.accordion-item-wrapper]:bg-natural-bordered-bg-dark",
-      "[&>.accordion-item-wrapper>.accordion-summary]:hover:bg-natural-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:bg-natural-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:bg-natural-hover-bordered-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:bg-natural-bordered-hover-dark"
     ]
   end
   <% end %>

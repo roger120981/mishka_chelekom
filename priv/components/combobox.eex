@@ -168,7 +168,8 @@ defmodule <%= @module %> do
       rounded_size(@rounded),
       padding_size(@padding),
       size_class(@size),
-      space_class(@space)
+      space_class(@space),
+      @class
     ]}>
       <div
         :if={@label || @description}

@@ -30,6 +30,8 @@
     --natural-dark: #dddddd;
     --natural-hover-light: #282828;
     --natural-hover-dark: #e8e8e8;
+    --natural-bordered-hover-light: #E8E8E8;
+    --natural-bordered-hover-dark: #5E5E5E;
     --natural-bg-light: #f3f3f3;
     --natural-bg-dark: #4b4b4b;
     --natural-border-light: #282828;
@@ -139,6 +141,8 @@
     --silver-dark: #a6a6a6;
     --silver-hover-light: #727272;
     --silver-hover-dark: #bbbbbb;
+    --silver-hover-bordered-light: #E8E8E8;
+    --silver-hover-bordered-dark: #5E5E5E;
     --silver-bordered-text-light: #727272;
     --silver-bordered-text-dark: #bbbbbb;
     --silver-bordered-bg-light: #f3f3f3;
