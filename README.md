@@ -131,6 +131,8 @@ mix igniter.new my_app --with phx.new --install mishka_chelekom
 
   ## Options `mishka.ui.gen.component` task
 
+  Generates a single component with specified options like color, variant, and size.
+
   * `--variant` or `-v` - Specifies component variant
   * `--color` or `-c` - Specifies component color
   * `--size` or `-s` - Specifies component size
@@ -146,6 +148,8 @@ mix igniter.new my_app --with phx.new --install mishka_chelekom
 
   ## Options `mishka.ui.gen.components` task
 
+  Generates multiple components at once, optionally with an import file and helper functions.
+
   * `--import` - Generates import file
   * `--helpers` - Specifies helper functions of each component in import file
   * `--global` - Makes components accessible throughout the project without explicit imports
@@ -153,8 +157,38 @@ mix igniter.new my_app --with phx.new --install mishka_chelekom
 
   ## Options `mishka.ui.add` task
 
+  Imports components from external sources using JSON configuration files or URLs.
+
   * `--no-github` - Specifies a URL without github replacing
   * `--headers` - Specifies a repo url request headers
+
+  ## Options `mishka.ui.export` task
+
+  Generates a JSON file from a directory of components for sharing or use with `mishka.ui.add`.
+
+  * `--base64` or `-b` - Converts component content to Base64
+  * `--name` or `-n` - Defines a name for JSON file, if it is not set default is template.json
+  * `--org` or `-o` - It is only for structuring the file and has no effect on your export
+  * `--template` or `-t` - Creates a default JSON file for manual processing steps
+
+  ## Options `mishka.assets.install` task
+
+  This task runs package manager install or remove commands in assets directory. It supports npm, yarn, bun and mix package managers.
+
+  Examples:
+  * `mix mishka.assets.install npm` - Runs npm install in assets directory
+  * `mix mishka.assets.install npm pkg remove lodash` - Removes lodash package
+  * `mix mishka.assets.install yarn mix install` - Runs mix yarn install
+
+  ## Options `mishka.ui.css.config` task
+
+  Manages CSS configuration for customizing component styles and CSS variables.
+
+  * `--init` or `-i` - Creates a sample configuration file
+  * `--force` or `-f` - Force overwrite existing configuration file (use with --init)
+  * `--regenerate` or `-r` - Regenerates CSS files with current configuration
+  * `--validate` or `-v` - Validates the current configuration
+  * `--show` or `-s` - Shows the current configuration
 
   ---
 
@@ -236,52 +270,4 @@ We appreciate any contribution to MishkaChelekom. Just create a PR!! 🎉🥳
 
 # Donate
 
-You can support this project through the "[Sponsor](https://github.com/sponsors/mishka-group)" button on GitHub or via cryptocurrency donations. All our projects are **open-source** and **free**, and we rely on community contributions to enhance and improve them further.
-
-<table>
-  <thead>
-    <tr>
-      <th><strong>BTC</strong></th>
-      <th><strong>ETH</strong></th>
-      <th><strong>DOGE</strong></th>
-      <th><strong>TRX</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><img src="https://mishka.tools/images/donate/BTC.png" width="200" alt="BTC"></td>
-      <td><img src="https://mishka.tools/images/donate/ETH.png" width="200" alt="ETH"></td>
-      <td><img src="https://mishka.tools/images/donate/DOGE.png" width="200" alt="DOGE"></td>
-      <td><img src="https://mishka.tools/images/donate/TRX.png" width="200" alt="TRX"></td>
-    </tr>
-  </tbody>
-</table>
-
-<details>
-  <summary>Donate addresses</summary>
-
-**BTC**:‌
-
-```
-bc1q24pmrpn8v9dddgpg3vw9nld6hl9n5dkw5zkf2c
-```
-
-**ETH**:
-
-```
-0xD99feB9db83245dE8B9D23052aa8e62feedE764D
-```
-
-**DOGE**:
-
-```
-DGGT5PfoQsbz3H77sdJ1msfqzfV63Q3nyH
-```
-
-**TRX**:
-
-```
-TBamHas3wAxSEvtBcWKuT3zphckZo88puz
-```
-
-</details>
+You can support this project through the "[Sponsor](https://github.com/sponsors/mishka-group)" button on GitHub. All our projects are **open-source** and **free**, and we rely on community contributions to enhance and improve them further.
