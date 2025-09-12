@@ -809,10 +809,16 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       |> Igniter.add_notice("""
       Created a sample configuration file at #{path}
 
-      You can customize CSS variables by editing this file.
-      The configuration supports:
-      - Overriding specific CSS variables
-      - Using a completely custom CSS file
+      This configuration file allows you to customize Mishka Chelekom globally:
+
+      Component Control:
+      - exclude_components: Exclude specific components from generation
+      - component_colors: Limit which color variants are generated (reduces code size)
+
+      CSS Customization:
+      - css_overrides: Override specific CSS variables
+      - custom_css_path: Use a completely custom CSS file
+      - css_merge_strategy: Choose between merging or replacing CSS
 
       Your customizations will be applied when generating components.
       """)
