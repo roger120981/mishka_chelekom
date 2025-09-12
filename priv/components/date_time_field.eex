@@ -165,7 +165,7 @@ defmodule <%= @module %> do
       border_class(@border, @variant),
       size_class(@size),
       space_class(@space),
-      @ring && "[&_.date-time-field-wrapper]:focus-within:ring-[0.03rem]",
+      @ring && "[&_.date-time-field-wrapper]:focus-within:ring-[0.03rem] leading-6",
       @class
     ]}>
       <div :if={@description} class={@description_class}>
@@ -234,7 +234,7 @@ defmodule <%= @module %> do
       border_class(@border, @variant),
       size_class(@size),
       space_class(@space),
-      @ring && "[&_.date-time-field-wrapper]:focus-within:ring-[0.03rem]",
+      @ring && "[&_.date-time-field-wrapper]:focus-within:ring-[0.03rem] leading-6",
       @class
     ]}>
       <div
@@ -295,7 +295,7 @@ defmodule <%= @module %> do
 
   defp label(assigns) do
     ~H"""
-    <label for={@for} class={["leading-5 font-semibold", @class]}>
+    <label for={@for} class={["font-semibold", @class]}>
       {render_slot(@inner_block)}
     </label>
     """
@@ -306,7 +306,7 @@ defmodule <%= @module %> do
 
   defp error(assigns) do
     ~H"""
-    <p class="mt-3 flex items-center gap-3 text-sm leading-6 text-rose-700">
+    <p class="mt-3 flex items-center gap-3 text-sm text-rose-700">
       <.icon :if={!is_nil(@icon)} name={@icon} class="shrink-0" />
       {render_slot(@inner_block)}
     </p>
