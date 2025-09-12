@@ -4,6 +4,20 @@ defmodule MishkaChelekom.CSSConfig do
   Allows users to override specific CSS variables or provide custom CSS files.
   """
 
+  # Configuration keys and their default values
+  @config_mappings [
+    {:css_overrides, %{}},
+    {:custom_css_path, nil},
+    {:css_merge_strategy, :merge},
+    {:exclude_components, []},
+    {:component_colors, []},
+    {:component_variants, []},
+    {:component_sizes, []},
+    {:component_rounded, []},
+    {:component_padding, []},
+    {:component_space, []}
+  ]
+
   @doc """
   Loads user configuration from priv/mishka_chelekom/config.exs if it exists.
   Returns a map with configuration options or defaults.
@@ -22,24 +36,21 @@ defmodule MishkaChelekom.CSSConfig do
 
       # Config exists on disk
       File.exists?(config_path) ->
-        try do
-          config = Config.Reader.read!(config_path)
-          mishka_config = Keyword.get(config, :mishka_chelekom, [])
-
-          %{
-            css_overrides: Keyword.get(mishka_config, :css_overrides, %{}),
-            custom_css_path: Keyword.get(mishka_config, :custom_css_path),
-            css_merge_strategy: Keyword.get(mishka_config, :css_merge_strategy, :merge),
-            exclude_components: Keyword.get(mishka_config, :exclude_components, []),
-            component_colors: Keyword.get(mishka_config, :component_colors, [])
-          }
-        rescue
-          _ -> default_config()
-        end
+        load_config_from_file(config_path)
 
       # No config found
       true ->
         default_config()
+    end
+  end
+
+  # Load config from a file path
+  defp load_config_from_file(config_path) do
+    try do
+      config = Config.Reader.read!(config_path)
+      extract_mishka_config(config)
+    rescue
+      _ -> default_config()
     end
   end
 
@@ -51,20 +62,22 @@ defmodule MishkaChelekom.CSSConfig do
     try do
       File.write!(temp_path, content)
       config = Config.Reader.read!(temp_path)
-      mishka_config = Keyword.get(config, :mishka_chelekom, [])
-
-      %{
-        css_overrides: Keyword.get(mishka_config, :css_overrides, %{}),
-        custom_css_path: Keyword.get(mishka_config, :custom_css_path),
-        css_merge_strategy: Keyword.get(mishka_config, :css_merge_strategy, :merge),
-        exclude_components: Keyword.get(mishka_config, :exclude_components, []),
-        component_colors: Keyword.get(mishka_config, :component_colors, [])
-      }
+      extract_mishka_config(config)
     rescue
       _ -> default_config()
     after
       File.rm(temp_path)
     end
+  end
+
+  # Extract mishka configuration from the config
+  defp extract_mishka_config(config) do
+    mishka_config = Keyword.get(config, :mishka_chelekom, [])
+
+    # Build the config map by extracting each key with its default
+    Enum.reduce(@config_mappings, %{}, fn {key, default}, acc ->
+      Map.put(acc, key, Keyword.get(mishka_config, key, default))
+    end)
   end
 
   @doc """
@@ -87,13 +100,8 @@ defmodule MishkaChelekom.CSSConfig do
   # Private functions
 
   defp default_config do
-    %{
-      css_overrides: %{},
-      custom_css_path: nil,
-      css_merge_strategy: :merge,
-      exclude_components: [],
-      component_colors: []
-    }
+    # Use empty keyword list to get all defaults from extract_mishka_config
+    extract_mishka_config([])
   end
 
   defp user_config_path(_igniter) do
@@ -200,10 +208,32 @@ defmodule MishkaChelekom.CSSConfig do
       # Example: ["alert", "badge", "button"]
       exclude_components: [],
 
+      # Component attribute filters - limit which values are generated (reduces code size)
+      # If empty or not specified, all values will be included
+      
       # List of colors to include in component generation
-      # If empty or not specified, all colors will be included
-      # Example: ["base", "primary", "danger"]
+      # Example: ["base", "primary", "danger", "success"]
       component_colors: [],
+      
+      # List of variants to include in component generation  
+      # Example: ["default", "outline", "bordered"]
+      component_variants: [],
+      
+      # List of sizes to include in component generation
+      # Example: ["small", "medium", "large"]  
+      component_sizes: [],
+      
+      # List of rounded options to include in component generation
+      # Example: ["small", "medium", "full"]
+      component_rounded: [],
+      
+      # List of padding options to include in component generation
+      # Example: ["small", "medium", "large"]
+      component_padding: [],
+      
+      # List of space options to include in component generation
+      # Example: ["small", "medium", "large", "none"]
+      component_space: [],
 
       # Override specific CSS variables (uncomment and modify as needed)
       css_overrides: %{

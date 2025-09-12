@@ -89,10 +89,22 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
       )
     end
 
-    if user_config[:component_colors] && user_config[:component_colors] != [] do
-      IO.puts(
-        "#{IO.ANSI.cyan()}Using colors: #{inspect(user_config[:component_colors])}#{IO.ANSI.reset()}"
-      )
+    # Display all configured filters
+    filter_info =
+      []
+      |> maybe_add_filter("Colors", user_config[:component_colors])
+      |> maybe_add_filter("Variants", user_config[:component_variants])
+      |> maybe_add_filter("Sizes", user_config[:component_sizes])
+      |> maybe_add_filter("Rounded", user_config[:component_rounded])
+      |> maybe_add_filter("Padding", user_config[:component_padding])
+      |> maybe_add_filter("Space", user_config[:component_space])
+
+    if filter_info != [] do
+      IO.puts("#{IO.ANSI.cyan()}Component filters from config:#{IO.ANSI.reset()}")
+
+      Enum.each(filter_info, fn info ->
+        IO.puts("  #{IO.ANSI.cyan()}• #{info}#{IO.ANSI.reset()}")
+      end)
     end
 
     Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
@@ -304,6 +316,13 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     |> Enum.flat_map(&Path.wildcard(Path.join(&1, "*.eex")))
     |> Enum.map(&Path.basename(&1, ".eex"))
     |> Enum.uniq()
+  end
+
+  defp maybe_add_filter(list, _label, nil), do: list
+  defp maybe_add_filter(list, _label, []), do: list
+
+  defp maybe_add_filter(list, label, values) do
+    list ++ ["#{label}: #{inspect(values)}"]
   end
 
   defp filter_excluded_components(components, _user_config, _cli_exclude) when components == [],
