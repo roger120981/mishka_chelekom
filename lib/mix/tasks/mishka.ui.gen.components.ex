@@ -2,6 +2,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   alias Mix.Tasks.Mishka.Ui.Gen.Component
   use Igniter.Mix.Task
   alias Igniter.Project.Application, as: IAPP
+  alias MishkaChelekom.CSSConfig
 
   @example "mix mishka.ui.gen.components component1,component2"
   @shortdoc "A Mix Task for generating and configuring multi components of Phoenix"
@@ -78,8 +79,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
 
     list =
       if components == [] or Enum.member?(components, "all"),
-        do: get_all_components_names(igniter),
-        else: components
+        do: get_all_components_names(igniter) |> filter_excluded_components(igniter),
+        else: components |> filter_excluded_components(igniter)
 
     igniter =
       Enum.reduce(list, igniter, fn item, acc ->
@@ -277,5 +278,14 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     |> Enum.flat_map(&Path.wildcard(Path.join(&1, "*.eex")))
     |> Enum.map(&Path.basename(&1, ".eex"))
     |> Enum.uniq()
+  end
+
+  defp filter_excluded_components(components, _igniter) when components == [], do: components
+
+  defp filter_excluded_components(components, igniter) do
+    config = CSSConfig.load_user_config(igniter)
+    excluded = config[:exclude_components] || []
+    IO.puts("\nExcluding components from config: #{inspect(excluded)}")
+    Enum.reject(components, &Enum.member?(excluded, &1))
   end
 end
