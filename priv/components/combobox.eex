@@ -12,6 +12,8 @@ defmodule <%= @module %> do
   - Custom option rendering
   - Keyboard navigation
   - Accessibility support
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/combobox
   """
 
   use Phoenix.Component

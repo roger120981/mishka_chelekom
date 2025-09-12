@@ -20,6 +20,8 @@ defmodule <%= @module %> do
 
   This component integrates smoothly into Phoenix LiveView forms, providing a user-friendly interface
   for text input with extensive customization options.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/textarea-field
   """
 
   use Phoenix.Component

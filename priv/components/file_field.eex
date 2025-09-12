@@ -17,6 +17,8 @@ defmodule <%= @module %> do
 
   This component is designed to simplify file handling in forms and offers a visually
   appealing and user-friendly experience for uploading files in LiveView applications.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/file-field
   """
 
   use Phoenix.Component

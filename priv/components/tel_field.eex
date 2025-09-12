@@ -19,6 +19,8 @@ defmodule <%= @module %> do
 
   This component is designed to integrate seamlessly into your Phoenix LiveView forms and
   provides a wide range of customization options to suit different design needs.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/tel-field
   """
   use Phoenix.Component
   import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]

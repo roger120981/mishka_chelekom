@@ -12,6 +12,8 @@ defmodule <%= @module %> do
   - Support for form integration using `Phoenix.HTML.FormField`.
   - Customizable properties like color themes, border styles, sizes, and layout variations.
   - Error handling with customizable icons and messages.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/checkbox-field
   """
 
   use Phoenix.Component

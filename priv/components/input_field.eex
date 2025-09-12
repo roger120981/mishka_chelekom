@@ -21,6 +21,8 @@ defmodule <%= @module %> do
   - **Custom Styling:** Provides options for custom classes, labels, and other HTML attributes.
 
   This component is designed to simplify form handling and user input validation in Phoenix applications.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/input-field
   """
 
   use Phoenix.Component

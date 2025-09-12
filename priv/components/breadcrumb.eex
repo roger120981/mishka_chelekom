@@ -12,6 +12,8 @@ defmodule <%= @module %> do
   links, and custom separators.
   - **Global Attributes**: Utilize global attributes to customize and extend the component's
   behavior and appearance.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/breadcrumb
   """
   use Phoenix.Component
   import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]

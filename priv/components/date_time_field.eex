@@ -12,6 +12,8 @@ defmodule <%= @module %> do
   - Flexible error handling with the ability to display custom error messages and icons.
   - Optional floating label support, allowing labels to animate based on user interaction.
   - Integration with Phoenix form fields for seamless form data management.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/date-time-field
   """
 
   use Phoenix.Component

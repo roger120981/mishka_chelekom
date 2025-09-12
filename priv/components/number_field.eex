@@ -9,6 +9,8 @@ defmodule <%= @module %> do
   interactions and detailed input structures. The module also includes advanced features
   like floating labels, control visibility options, and error handling, making it an ideal
   solution for creating dynamic and user-friendly forms in web applications.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/number-field
   """
 
   use Phoenix.Component

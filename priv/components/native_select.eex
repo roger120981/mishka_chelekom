@@ -12,6 +12,8 @@ defmodule <%= @module %> do
   With built-in error handling and custom error messages, `<%= @module %>`
   enhances the user experience by providing clear feedback and interaction states,
   ensuring a polished and user-friendly interface for form-based applications.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/native-select
   """
 
   use Phoenix.Component

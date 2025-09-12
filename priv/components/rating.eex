@@ -12,6 +12,8 @@ defmodule <%= @module %> do
   This component is ideal for implementing user reviews, feedback forms, and any other scenario where
   a visual rating system is needed. Its flexibility and ease of integration make it a powerful
   tool for enhancing the user experience in Phoenix LiveView applications.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/rating
   """
   use Phoenix.Component
   alias Phoenix.LiveView.JS

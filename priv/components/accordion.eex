@@ -19,6 +19,8 @@ defmodule <%= @module %> do
   for showing and hiding content with smooth transitions.
   - **Icon and Media Support**: Allows the inclusion of icons and images within
   accordion items, enhancing the visual appeal and usability of the component.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/accordion
   """
 
   use Phoenix.Component

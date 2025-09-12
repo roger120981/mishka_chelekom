@@ -12,6 +12,8 @@ defmodule <%= @module %> do
 
   The `<%= @module %>` enhances user experience by providing a clear and concise representation
   of step-by-step workflows, ensuring users can easily track their position and progress within the application.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/stepper
   """
 
   use Phoenix.Component

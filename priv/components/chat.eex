@@ -6,6 +6,8 @@ defmodule <%= @module %> do
   sizes, and configurations. The main component, `chat/1`, acts as a container for chat
   messages, and `chat_section/1` is used to render individual chat messages with optional
   metadata and status information.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/chat
   """
   use Phoenix.Component
   use Gettext, backend: <%= inspect(@web_module) %>.Gettext

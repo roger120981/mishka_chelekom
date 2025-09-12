@@ -28,6 +28,8 @@ defmodule <%= @module %> do
 
   The component handles form integration automatically when used with Phoenix.HTML.Form fields
   and includes built-in error handling and validation display.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/checkbox-card
   """
   use Phoenix.Component
   alias Phoenix.HTML.Form

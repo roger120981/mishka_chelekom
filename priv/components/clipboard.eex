@@ -10,6 +10,8 @@ defmodule <%= @module %> do
   - Customizable styling for visual indicators
   - Accessibility enhancements through ARIA attributes
   - Flexible content rendering through slots
+
+  **Documentation:** https://mishka.tools/chelekom/docs/clipboard
   """
   use Phoenix.Component
   use Gettext, backend: <%= inspect(@web_module) %>.Gettext

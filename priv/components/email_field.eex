@@ -13,6 +13,8 @@ defmodule <%= @module %>  do
   This component is designed to simplify the creation of styled and functional email
   input fields in Phoenix LiveView applications, providing developers with the flexibility
   to customize appearance and behavior according to their application's needs.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/email-field
   """
 
   use Phoenix.Component

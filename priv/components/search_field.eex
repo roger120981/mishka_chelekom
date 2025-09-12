@@ -11,6 +11,8 @@ defmodule <%= @module %> do
   The `SearchField` component is ideal for implementing search forms, filters, or any other
   user interface elements where search functionality is needed. Its flexibility and ease of
   integration make it a powerful tool for enhancing user experiences in Phoenix LiveView applications.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/search-field
   """
   use Phoenix.Component
   import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]

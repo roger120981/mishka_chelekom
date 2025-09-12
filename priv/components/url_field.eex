@@ -12,6 +12,8 @@ defmodule <%= @module %> do
 
   Additionally, helper functions for rendering labels and error messages are provided
   to enhance usability and accessibility.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/url-field
   """
   use Phoenix.Component
   import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]

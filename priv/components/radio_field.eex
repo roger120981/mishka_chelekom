@@ -13,6 +13,8 @@ defmodule <%= @module %> do
   In addition, the module includes support for grouped radio buttons with the `group_radio`
   component, enabling the creation of sets of related radio inputs. This facilitates the
   development of dynamic and interactive form elements in a clean and organized manner.
+
+  **Documentation:** https://mishka.tools/chelekom/docs/forms/radio-field
   """
   use Phoenix.Component
   alias Phoenix.HTML.Form
