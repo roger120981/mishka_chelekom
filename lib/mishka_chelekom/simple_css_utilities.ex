@@ -227,18 +227,20 @@ defmodule MishkaChelekom.SimpleCSSUtilities do
       "@import 'tailwindcss';\n\n@theme { --color-primary: blue; }\n"
   """
   def ensure_theme_exists(css_content, theme_content) do
-    # Ensure theme_content is properly trimmed
     cleaned_theme =
       theme_content
       |> String.split("\n")
       |> Enum.map(&String.trim_trailing/1)
       |> Enum.join("\n")
+      |> String.trim()
 
     if String.contains?(css_content, "@theme") do
       css_content
-      |> String.replace(~r/@theme\s*\{[^}]*\}/s, cleaned_theme)
+      |> String.replace(~r/\n*@theme\s*\{[^}]*\}\n*/s, "\n\n" <> cleaned_theme <> "\n")
     else
-      css_content <> "\n\n" <> cleaned_theme <> "\n"
+      trimmed_content = String.trim_trailing(css_content)
+      spacing = if String.ends_with?(trimmed_content, "\n"), do: "\n", else: "\n\n"
+      trimmed_content <> spacing <> cleaned_theme <> "\n"
     end
   end
 

@@ -109,7 +109,10 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       IO.puts(IO.ANSI.green() <> String.trim_trailing(msg) <> IO.ANSI.reset())
     end
 
+    user_config = CSSConfig.load_user_config(igniter)
+
     igniter
+    |> Igniter.assign(%{mishka_user_config: user_config})
     |> check_dependencies_versions()
     |> get_component_template(component)
     |> converted_components_path(Keyword.get(options, :module))
@@ -695,34 +698,56 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end
   end
 
-  # Skip if color already specified in CLI
+  # Apply filters for all component attributes from config
   defp maybe_apply_color_filter(igniter, options, template_config) do
-    if Keyword.has_key?(options, :color),
-      do: options,
-      else: apply_color_filter(igniter, options, template_config)
+    apply_component_filters(igniter, options, template_config)
   end
 
-  defp apply_color_filter(igniter, options, template_config) do
-    config = CSSConfig.load_user_config(igniter)
-    configured_colors = config[:component_colors] || []
-    available_colors = template_config[:args][:color] || []
+  defp apply_component_filters(igniter, options, template_config) do
+    config = igniter.assigns.mishka_user_config
 
-    case {configured_colors, available_colors} do
-      {[], _} ->
-        options
+    # Define attribute mappings from config keys to option keys
+    filter_mappings = [
+      {:component_colors, :color},
+      {:component_variants, :variant},
+      {:component_sizes, :size},
+      {:component_rounded, :rounded},
+      {:component_padding, :padding},
+      {:component_space, :space}
+    ]
 
-      {_, []} ->
-        options
+    Enum.reduce(filter_mappings, options, fn {config_key, option_key}, acc_options ->
+      apply_single_filter(config, acc_options, template_config, config_key, option_key)
+    end)
+  end
 
-      {config_colors, component_colors} ->
-        valid_colors = Enum.filter(config_colors, &(&1 in component_colors))
+  defp apply_single_filter(config, options, template_config, config_key, option_key) do
+    # Skip if option already specified in CLI
+    if Keyword.get(options, option_key) != [] do
+      options
+    else
+      configured_values = config[config_key] || []
+      available_values = template_config[:args][option_key] || []
 
-        if valid_colors != [] do
-          IO.puts("\nUsing colors from config: #{inspect(valid_colors)}")
-          Keyword.put(options, :color, valid_colors)
-        else
+      case {configured_values, available_values} do
+        {[], _} ->
+          # No config values specified, use all
           options
-        end
+
+        {_, []} ->
+          # Component doesn't have this option
+          options
+
+        {config_values, component_values} ->
+          # Filter to valid values for this component
+          valid_values = Enum.filter(config_values, &(&1 in component_values))
+
+          if valid_values != [] do
+            Keyword.put(options, option_key, valid_values)
+          else
+            options
+          end
+      end
     end
   end
 
@@ -809,10 +834,21 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       |> Igniter.add_notice("""
       Created a sample configuration file at #{path}
 
-      You can customize CSS variables by editing this file.
-      The configuration supports:
-      - Overriding specific CSS variables
-      - Using a completely custom CSS file
+      This configuration file allows you to customize Mishka Chelekom globally:
+
+      Component Control:
+      - exclude_components: Exclude specific components from generation
+      - component_colors: Limit which color variants are generated
+      - component_variants: Limit which variant options are generated
+      - component_sizes: Limit which size options are generated  
+      - component_rounded: Limit which rounded options are generated
+      - component_padding: Limit which padding options are generated
+      - component_space: Limit which space options are generated
+
+      CSS Customization:
+      - css_overrides: Override specific CSS variables
+      - custom_css_path: Use a completely custom CSS file
+      - css_merge_strategy: Choose between merging or replacing CSS
 
       Your customizations will be applied when generating components.
       """)

@@ -154,6 +154,7 @@ mix igniter.new my_app --with phx.new --install mishka_chelekom
   * `--helpers` - Specifies helper functions of each component in import file
   * `--global` - Makes components accessible throughout the project without explicit imports
   * `--yes` - Makes directly without questions
+  * `--exclude` - Comma-separated list of components to exclude (e.g., `--exclude alert,badge`)
 
   ## Options `mishka.ui.add` task
 
