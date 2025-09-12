@@ -1570,7 +1570,7 @@ defmodule <%= @module %> do
     [
       "text-natural-light [&>.accordion-item-wrapper>.accordion-summary]:border-natural-light",
       "dark:text-natural-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-natural-dark",
-      "hover:text-natural-hover-light dark:hover:text-natural-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-natural-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-natural-hover-dark"
     ]
   end
   <% end %>
@@ -1579,7 +1579,7 @@ defmodule <%= @module %> do
     [
       "text-primary-light [&>.accordion-item-wrapper>.accordion-summary]:border-primary-light",
       "dark:text-primary-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-primary-dark",
-      "hover:text-primary-hover-light dark:hover:text-primary-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-primary-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-primary-hover-dark"
     ]
   end
   <% end %>
@@ -1588,7 +1588,7 @@ defmodule <%= @module %> do
     [
       "text-secondary-light [&>.accordion-item-wrapper>.accordion-summary]:border-secondary-light",
       "dark:text-secondary-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-secondary-dark",
-      "hover:text-secondary-hover-light dark:hover:text-secondary-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-secondary-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-secondary-hover-dark"
     ]
   end
   <% end %>
@@ -1597,7 +1597,7 @@ defmodule <%= @module %> do
     [
       "text-success-light [&>.accordion-item-wrapper>.accordion-summary]:border-success-light",
       "dark:text-success-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-success-dark",
-      "hover:text-success-hover-light dark:hover:text-success-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-success-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-success-hover-dark"
     ]
   end
   <% end %>
@@ -1606,7 +1606,7 @@ defmodule <%= @module %> do
     [
       "text-warning-light [&>.accordion-item-wrapper>.accordion-summary]:border-warning-light",
       "dark:text-warning-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-warning-dark",
-      "hover:text-warning-hover-light dark:hover:text-warning-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-warning-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-warning-hover-dark"
     ]
   end
   <% end %>
@@ -1615,7 +1615,7 @@ defmodule <%= @module %> do
     [
       "text-danger-light [&>.accordion-item-wrapper>.accordion-summary]:border-danger-light",
       "dark:text-danger-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-danger-dark",
-      "hover:text-danger-hover-light dark:hover:text-danger-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-danger-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-danger-hover-dark"
     ]
   end
   <% end %>
@@ -1624,7 +1624,7 @@ defmodule <%= @module %> do
     [
       "text-info-light [&>.accordion-item-wrapper>.accordion-summary]:border-info-light",
       "dark:text-info-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-info-dark",
-      "hover:text-info-hover-light dark:hover:text-info-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-info-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-info-hover-dark"
     ]
   end
   <% end %>
@@ -1633,7 +1633,7 @@ defmodule <%= @module %> do
     [
       "text-misc-light [&>.accordion-item-wrapper>.accordion-summary]:border-misc-light",
       "dark:text-misc-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-misc-dark",
-      "hover:text-misc-hover-light dark:hover:text-misc-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-misc-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-misc-hover-dark"
     ]
   end
   <% end %>
@@ -1642,7 +1642,7 @@ defmodule <%= @module %> do
     [
       "text-dawn-light [&>.accordion-item-wrapper>.accordion-summary]:border-dawn-light",
       "dark:text-dawn-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-dawn-dark",
-      "hover:text-dawn-hover-light dark:hover:text-dawn-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-dawn-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-dawn-hover-dark"
     ]
   end
   <% end %>
@@ -1651,7 +1651,7 @@ defmodule <%= @module %> do
     [
       "text-silver-light [&>.accordion-item-wrapper>.accordion-summary]:border-silver-light",
       "dark:text-silver-dark dark:[&>.accordion-item-wrapper>.accordion-summary]:border-silver-dark",
-      "hover:text-silver-hover-light dark:hover:text-silver-hover-dark"
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-silver-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-silver-hover-dark"
     ]
   end
   <% end %>
