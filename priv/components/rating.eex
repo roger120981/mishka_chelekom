@@ -85,7 +85,7 @@ defmodule <%= @module %> do
             tabindex={if item == @select, do: "0", else: "-1"}
             aria-label={"#{item} star#{if item > 1, do: "s", else: ""}"}
             class={[
-              "rating-button",
+              "rating-button cursor-pointer",
               "leading-5",
               "group",
               "[&:has(~.rating-button:hover)_.fraction-path]:opacity-0 [&:has(~.rating-button:hover)_.full-path]:opacity-100"
