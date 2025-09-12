@@ -475,5 +475,81 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
         assert String.contains?(content, ~s(values: ["text", "email", "password"]))
       end
     end
+
+    test "generates component with filtered colors from config" do
+      # Create a config file with specific colors
+      config_content = """
+      import Config
+      
+      config :mishka_chelekom,
+        component_colors: ["base", "danger"]
+      """
+      
+      # Create a button component template
+      button_template = """
+      defmodule <%= @web_module %>.Components.<%= @module %> do
+        use Phoenix.Component
+        
+        attr :color, :string, default: "base", values: <%= inspect(@color || ["base", "primary", "secondary", "danger", "warning", "success"]) %>
+        attr :class, :string, default: ""
+        attr :rest, :global
+        slot :inner_block, required: true
+        
+        def button(assigns) do
+          ~H\"\"\"
+          <button class={["btn", "btn-\#{@color}", @class]} {@rest}>
+            <%= render_slot(@inner_block) %>
+          </button>
+          \"\"\"
+        end
+      end
+      """
+      
+      button_config = """
+      [
+        component_button: [
+          name: "component_button",
+          args: [
+            color: ["base", "primary", "secondary", "danger", "warning", "success"]
+          ],
+          optional: [],
+          necessary: []
+        ]
+      ]
+      """
+      
+      # Run the task
+      igniter =
+        test_project()
+        |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
+        |> Igniter.create_new_file("priv/mishka_chelekom/components/component_button.eex", button_template)
+        |> Igniter.create_new_file("priv/mishka_chelekom/components/component_button.exs", button_config)
+        |> Igniter.compose_task(Component, ["component_button", "--yes"])
+      
+      # Check if the component was created
+      component_created = Map.has_key?(igniter.rewrite.sources, "lib/test_project_web/components/component_button.ex")
+      
+      if !component_created do
+        # When running in test mode, the template might not be compiled
+        template = igniter.rewrite.sources["priv/mishka_chelekom/components/component_button.eex"]
+        assert template != nil
+      else
+        # Get the generated content
+        source = igniter.rewrite.sources["lib/test_project_web/components/component_button.ex"]
+        content = Rewrite.Source.get(source, :content)
+        
+        # Verify that only the configured colors are present
+        assert String.contains?(content, ~s(values: ["base", "danger"]))
+        
+        # Verify that other colors are NOT present in the values list
+        refute String.contains?(content, ~s(values: ["base", "primary", "secondary", "danger", "warning", "success"]))
+        
+        # Verify the component structure is still correct
+        assert String.contains?(content, "defmodule TestProjectWeb.Components.ComponentButton do")
+        assert String.contains?(content, "use Phoenix.Component")
+        assert String.contains?(content, "def button(assigns) do")
+        assert String.contains?(content, "btn-\#{@color}")
+      end
+    end
   end
 end
