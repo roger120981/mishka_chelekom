@@ -245,23 +245,52 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
     overrides_display =
       if map_size(config.css_overrides) > 0 do
         config.css_overrides
-        |> Enum.map(fn {k, v} -> "    #{k}: #{inspect(v)}" end)
+        |> Enum.map(fn {k, v} -> "* #{k}: #{inspect(v)}" end)
         |> Enum.join("\n")
       else
-        "    (none)"
+        "* (none)"
       end
+
+    # Format component filters display
+    component_filters = [
+      {"Excluded components", config.exclude_components},
+      {"Component colors", config.component_colors},
+      {"Component variants", config.component_variants},
+      {"Component sizes", config.component_sizes},
+      {"Component rounded", config.component_rounded},
+      {"Component padding", config.component_padding},
+      {"Component space", config.component_space}
+    ]
+
+    filters_display =
+      component_filters
+      |> Enum.map(fn {label, values} ->
+        dif = if(label == "Excluded components", do: "(none)", else: "(all)")
+        value_str = if values == [], do: dif, else: inspect(values)
+        "* #{label}: #{value_str}"
+      end)
+      |> Enum.join("\n")
 
     igniter
     |> Igniter.add_notice("""
-    Current Mishka CSS Configuration:
+    Current Mishka CSS Configuration: #{if File.exists?(config_path), do: config_path, else: "(not created)"}
 
-    Configuration file: #{if File.exists?(config_path), do: config_path, else: "(not created)"}
+    ### CSS Configuration
 
     Strategy: #{config.css_merge_strategy}
     Custom CSS path: #{config.custom_css_path || "(not set)"}
 
-    CSS Variable Overrides:
+    ----------------------------------------
+    ### Component Filters
+
+    #{filters_display}
+
+    ----------------------------------------
+    ### CSS Variable Overrides
+
     #{overrides_display}
+
+    ----------------------------------------
 
     To modify, edit: #{config_path}
     Then run: mix mishka.ui.css.config --regenerate
