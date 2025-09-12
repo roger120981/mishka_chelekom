@@ -109,7 +109,10 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       IO.puts(IO.ANSI.green() <> String.trim_trailing(msg) <> IO.ANSI.reset())
     end
 
+    user_config = CSSConfig.load_user_config(igniter)
+
     igniter
+    |> Igniter.assign(%{mishka_user_config: user_config})
     |> check_dependencies_versions()
     |> get_component_template(component)
     |> converted_components_path(Keyword.get(options, :module))
@@ -697,13 +700,13 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   # Skip if color already specified in CLI
   defp maybe_apply_color_filter(igniter, options, template_config) do
-    if Keyword.has_key?(options, :color),
+    if Keyword.get(options, :color) != [],
       do: options,
       else: apply_color_filter(igniter, options, template_config)
   end
 
   defp apply_color_filter(igniter, options, template_config) do
-    config = CSSConfig.load_user_config(igniter)
+    config = igniter.assigns.mishka_user_config
     configured_colors = config[:component_colors] || []
     available_colors = template_config[:args][:color] || []
 
@@ -718,7 +721,6 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
         valid_colors = Enum.filter(config_colors, &(&1 in component_colors))
 
         if valid_colors != [] do
-          IO.puts("\nUsing colors from config: #{inspect(valid_colors)}")
           Keyword.put(options, :color, valid_colors)
         else
           options
