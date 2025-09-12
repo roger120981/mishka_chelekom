@@ -1265,7 +1265,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "misc") do
     [
       "border-misc-light dark:border-misc-dark text-misc-light dark:text-misc-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-misc-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-misc-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-misc-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-misc-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-misc-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-misc-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-misc-dark",
@@ -1278,7 +1278,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "dawn") do
     [
       "border-dawn-light dark:border-dawn-dark text-dawn-light dark:text-dawn-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-dawn-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-dawn-hover-light",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-dawn-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-dawn-hover-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-dawn-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-dawn-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-dawn-dark",
@@ -1291,7 +1291,7 @@ defmodule <%= @module %> do
   defp color_variant("outline", "silver") do
     [
       "border-silver-light dark:border-silver-dark text-silver-light dark:text-silver-dark",
-      "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-silver-hover-light dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:hover:text-silver-hover-dark",
+      "[&>.accordion-item-wrapper>.accordion-summary]:hover:text-silver-hover-light dark:[&>.accordion-item-wrapper>.accordion-summary]:hover:text-silver-hover-dark",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-silver-light",
       "[&>.accordion-item-wrapper:not(:last-child)>.accordion-content-wrapper.active]:border-silver-light",
       "dark:[&>.accordion-item-wrapper:not(:last-child)>.accordion-summary]:border-silver-dark",
