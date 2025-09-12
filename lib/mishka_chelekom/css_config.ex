@@ -30,7 +30,8 @@ defmodule MishkaChelekom.CSSConfig do
             css_overrides: Keyword.get(mishka_config, :css_overrides, %{}),
             custom_css_path: Keyword.get(mishka_config, :custom_css_path),
             css_merge_strategy: Keyword.get(mishka_config, :css_merge_strategy, :merge),
-            exclude_components: Keyword.get(mishka_config, :exclude_components, [])
+            exclude_components: Keyword.get(mishka_config, :exclude_components, []),
+            component_colors: Keyword.get(mishka_config, :component_colors, [])
           }
         rescue
           _ -> default_config()
@@ -56,7 +57,8 @@ defmodule MishkaChelekom.CSSConfig do
         css_overrides: Keyword.get(mishka_config, :css_overrides, %{}),
         custom_css_path: Keyword.get(mishka_config, :custom_css_path),
         css_merge_strategy: Keyword.get(mishka_config, :css_merge_strategy, :merge),
-        exclude_components: Keyword.get(mishka_config, :exclude_components, [])
+        exclude_components: Keyword.get(mishka_config, :exclude_components, []),
+        component_colors: Keyword.get(mishka_config, :component_colors, [])
       }
     rescue
       _ -> default_config()
@@ -89,7 +91,8 @@ defmodule MishkaChelekom.CSSConfig do
       css_overrides: %{},
       custom_css_path: nil,
       css_merge_strategy: :merge,
-      exclude_components: []
+      exclude_components: [],
+      component_colors: []
     }
   end
 
@@ -196,6 +199,11 @@ defmodule MishkaChelekom.CSSConfig do
       # List of components to exclude from generation when using mix mishka.ui.gen.components
       # Example: ["alert", "badge", "button"]
       exclude_components: [],
+
+      # List of colors to include in component generation
+      # If empty or not specified, all colors will be included
+      # Example: ["base", "primary", "danger"]
+      component_colors: [],
 
       # Override specific CSS variables (uncomment and modify as needed)
       css_overrides: %{

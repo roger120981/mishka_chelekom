@@ -317,6 +317,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
          {igniter, proper_location, assign, template_path, template_config},
          options
        ) do
+    # Get color filtering from config if not specified in CLI
+    options = maybe_apply_color_filter(igniter, options, template_config)
+
     {user_bad_args, new_assign} =
       options
       |> Keyword.take(Keyword.keys(template_config[:args]))
@@ -689,6 +692,37 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       end
     else
       igniter
+    end
+  end
+
+  # Skip if color already specified in CLI
+  defp maybe_apply_color_filter(igniter, options, template_config) do
+    if Keyword.has_key?(options, :color),
+      do: options,
+      else: apply_color_filter(igniter, options, template_config)
+  end
+
+  defp apply_color_filter(igniter, options, template_config) do
+    config = CSSConfig.load_user_config(igniter)
+    configured_colors = config[:component_colors] || []
+    available_colors = template_config[:args][:color] || []
+
+    case {configured_colors, available_colors} do
+      {[], _} ->
+        options
+
+      {_, []} ->
+        options
+
+      {config_colors, component_colors} ->
+        valid_colors = Enum.filter(config_colors, &(&1 in component_colors))
+
+        if valid_colors != [] do
+          IO.puts("\nUsing colors from config: #{inspect(valid_colors)}")
+          Keyword.put(options, :color, valid_colors)
+        else
+          options
+        end
     end
   end
 

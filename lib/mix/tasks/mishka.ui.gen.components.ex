@@ -49,7 +49,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
       # This ensures your option schema includes options from nested tasks
       composes: ["mishka.ui.gen.component"],
       # `OptionParser` schema
-      schema: [import: :boolean, helpers: :boolean, global: :boolean, exclude: :string],
+      schema: [import: :boolean, helpers: :boolean, global: :boolean, exclude: :csv],
       # CLI aliases
       aliases: [i: :import, h: :helpers, g: :global, e: :exclude]
     }
@@ -287,20 +287,8 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     do: components
 
   defp filter_excluded_components(components, igniter, cli_exclude) do
-    # Get exclusions from config
-    config = CSSConfig.load_user_config(igniter)
-    config_excluded = config[:exclude_components] || []
-
-    # Get exclusions from CLI
-    cli_excluded =
-      if cli_exclude do
-        String.split(cli_exclude, ",", trim: true)
-      else
-        []
-      end
-
-    # Combine both exclusion lists
-    all_excluded = Enum.uniq(config_excluded ++ cli_excluded)
+    config_excluded = CSSConfig.load_user_config(igniter)[:exclude_components] || []
+    all_excluded = Enum.uniq(config_excluded ++ (cli_exclude || []))
 
     if all_excluded != [] do
       IO.puts("\nExcluding components: #{inspect(all_excluded)}")
