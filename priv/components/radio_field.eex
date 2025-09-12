@@ -491,9 +491,10 @@ defmodule <%= @module %> do
   <% end %>
   <%= if is_nil(@color) or "dark" in @color do %>
   defp color_class("dark") do
-    [
+     [
       "[&_.radio-field-wrapper_.radio-input]:text-natural-hover-light text-natural-hover-light",
       "[&_.radio-field-wrapper_.radio-input]:border-silver-hover-light",
+      "[&_.radio-field-wrapper_.radio-input]:checked:accent-default-dark-bg",
       "focus-within:[&_.radio-field-wrapper_.radio-input]:ring-natural-hover-light"
     ]
   end
