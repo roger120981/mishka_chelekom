@@ -395,7 +395,7 @@ defmodule <%= @module %> do
       "focus-within:[&_.tel-field-wrapper]:ring-base-border-light dark:focus-within:[&_.tel-field-wrapper]:ring-base-border-light",
       "[&_.tel-field-wrapper]:shadow-sm",
       floating == "outer" &&
-        "[&_.tel-field-wrapper_.floating-label]:bg-white dark:[&_.tel-field-wrapper_.floating-label]:bg-base-border-dark"
+        "[&_.tel-field-wrapper_.floating-label]:bg-white dark:[&_.tel-field-wrapper_.floating-label]:bg-base-bg-dark"
     ]
   end
   <% end %>

@@ -382,7 +382,7 @@ defmodule <%= @module %> do
       "focus-within:[&_.url-field-wrapper]:ring-base-border-light dark:focus-within:[&_.url-field-wrapper]:ring-base-border-light",
       "[&_.url-field-wrapper]:shadow-sm",
       floating == "outer" &&
-        "[&_.url-field-wrapper_.floating-label]:bg-white dark:[&_.url-field-wrapper_.floating-label]:bg-base-border-dark"
+        "[&_.url-field-wrapper_.floating-label]:bg-white dark:[&_.url-field-wrapper_.floating-label]:bg-base-bg-dark"
     ]
   end
   <% end %>

@@ -402,7 +402,7 @@ defmodule <%= @module %> do
       "focus-within:[&_.search-field-wrapper]:ring-base-border-light dark:focus-within:[&_.search-field-wrapper]:ring-base-border-light",
       "[&_.search-field-wrapper]:shadow-sm",
       floating == "outer" &&
-        "[&_.search-field-wrapper_.floating-label]:bg-white dark:[&_.search-field-wrapper_.floating-label]:bg-base-border-dark"
+        "[&_.search-field-wrapper_.floating-label]:bg-white dark:[&_.search-field-wrapper_.floating-label]:bg-base-bg-dark"
     ]
   end
   <% end %>
