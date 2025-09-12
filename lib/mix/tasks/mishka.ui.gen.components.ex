@@ -27,6 +27,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   * `--helpers` - Specifies helper functions of each component in import file
   * `--global` - Makes components accessible throughout the project without explicit imports
   * `--yes` - Makes directly without questions
+  * `--exclude` - Comma-separated list of components to exclude (e.g., `--exclude alert,badge`)
   """
 
   def info(_argv, _composing_task) do
@@ -48,9 +49,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
       # This ensures your option schema includes options from nested tasks
       composes: ["mishka.ui.gen.component"],
       # `OptionParser` schema
-      schema: [import: :boolean, helpers: :boolean, global: :boolean],
+      schema: [import: :boolean, helpers: :boolean, global: :boolean, exclude: :string],
       # CLI aliases
-      aliases: [i: :import, h: :helpers, g: :global]
+      aliases: [i: :import, h: :helpers, g: :global, e: :exclude]
     }
   end
 
@@ -79,8 +80,10 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
 
     list =
       if components == [] or Enum.member?(components, "all"),
-        do: get_all_components_names(igniter) |> filter_excluded_components(igniter),
-        else: components |> filter_excluded_components(igniter)
+        do:
+          get_all_components_names(igniter)
+          |> filter_excluded_components(igniter, options[:exclude]),
+        else: components |> filter_excluded_components(igniter, options[:exclude])
 
     igniter =
       Enum.reduce(list, igniter, fn item, acc ->
@@ -280,12 +283,30 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     |> Enum.uniq()
   end
 
-  defp filter_excluded_components(components, _igniter) when components == [], do: components
+  defp filter_excluded_components(components, _igniter, _cli_exclude) when components == [],
+    do: components
 
-  defp filter_excluded_components(components, igniter) do
+  defp filter_excluded_components(components, igniter, cli_exclude) do
+    # Get exclusions from config
     config = CSSConfig.load_user_config(igniter)
-    excluded = config[:exclude_components] || []
-    IO.puts("\nExcluding components from config: #{inspect(excluded)}")
-    Enum.reject(components, &Enum.member?(excluded, &1))
+    config_excluded = config[:exclude_components] || []
+
+    # Get exclusions from CLI
+    cli_excluded =
+      if cli_exclude do
+        String.split(cli_exclude, ",", trim: true)
+      else
+        []
+      end
+
+    # Combine both exclusion lists
+    all_excluded = Enum.uniq(config_excluded ++ cli_excluded)
+
+    if all_excluded != [] do
+      IO.puts("\nExcluding components: #{inspect(all_excluded)}")
+      Enum.reject(components, &Enum.member?(all_excluded, &1))
+    else
+      components
+    end
   end
 end

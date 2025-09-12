@@ -85,7 +85,12 @@ defmodule MishkaChelekom.CSSConfig do
   # Private functions
 
   defp default_config do
-    %{css_overrides: %{}, custom_css_path: nil, css_merge_strategy: :merge, exclude_components: []}
+    %{
+      css_overrides: %{},
+      custom_css_path: nil,
+      css_merge_strategy: :merge,
+      exclude_components: []
+    }
   end
 
   defp user_config_path(_igniter) do
