@@ -408,8 +408,8 @@ defmodule <%= @module %> do
     [
       "[&_.checkbox-field-wrapper_.checkbox-input]:text-white text-natural-dark",
       "[&_.checkbox-field-wrapper_.checkbox-input]:border-natural-dark",
-      "[&_.checkbox-field-wrapper_.checkbox-input]:accent-white",
-      "[&_.checkboxchecked:-field-wrappe:focus-withinr_.checkbox-input]:ring-natural-dark"
+      "[&_.checkbox-field-wrapper_.checkbox-input]:checked:accent-white",
+      "[&_.checkbox-field-wrapper:focus-within_.checkbox-input]:ring-natural-dark"
     ]
   end
   <% end %>
@@ -537,6 +537,7 @@ defmodule <%= @module %> do
   defp color_class("dark") do
     [
       "[&_.checkbox-field-wrapper_.checkbox-input]:text-default-dark-bg text-default-dark-bg",
+      "[&_.checkbox-field-wrapper_.checkbox-input]:checked:accent-default-dark-bg",
       "[&_.checkbox-field-wrapper_.checkbox-input]:border-silver-hover-light",
       "[&_.checkbox-field-wrapper:focus-within_.checkbox-input]:ring-default-dark-bg"
     ]
