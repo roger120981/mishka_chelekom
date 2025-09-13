@@ -505,7 +505,24 @@ defmodule MishkaChelekom.CSSConfig do
         # checkbox_info_checked: "#0ea5e9",
         # checkbox_misc_checked: "#a964f7",
         # checkbox_dawn_checked: "#d27d46",
-        # checkbox_silver_checked: "#a6a6a6"
+        # checkbox_silver_checked: "#a6a6a6",
+
+        # === Stepper Colors ===
+        # stepper_loading_icon_fill: "#2563eb",
+        # stepper_current_step_text_light: "#2563eb",
+        # stepper_current_step_text_dark: "#1971c2",
+        # stepper_current_step_border_light: "#2563eb",
+        # stepper_current_step_border_dark: "#1971c2",
+        # stepper_completed_step_bg_light: "#14b8a6",
+        # stepper_completed_step_bg_dark: "#099268",
+        # stepper_completed_step_border_light: "#14b8a6",
+        # stepper_completed_step_border_dark: "#099268",
+        # stepper_canceled_step_bg_light: "#fa5252",
+        # stepper_canceled_step_bg_dark: "#e03131",
+        # stepper_canceled_step_border_light: "#fa5252",
+        # stepper_canceled_step_border_dark: "#e03131",
+        # stepper_separator_completed_border_light: "#14b8a6",
+        # stepper_separator_completed_border_dark: "#099268"
       },
 
     # Strategy for handling CSS
