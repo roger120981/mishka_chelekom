@@ -199,9 +199,9 @@ defmodule <%= @module %> do
 
   def stepper_section(%{vertical: true} = assigns) do
     ~H"""
-    <button
+    <div
       id={@id}
-      role="listitem"
+      role="button"
       aria-label={gettext("Step %{number}: %{title}", number: @step_number, title: @title)}
       aria-disabled={!@clickable}
       aria-current={@step == "current" && "step"}
@@ -268,15 +268,15 @@ defmodule <%= @module %> do
 
         {render_slot(@inner_block)}
       </span>
-    </button>
+    </div>
     """
   end
 
   def stepper_section(assigns) do
     ~H"""
-    <button
+    <div
       id={@id}
-      role="listitem"
+      role="button"
       aria-label={gettext("Step %{number}: %{title}", number: @step_number, title: @title)}
       aria-disabled={!@clickable}
       aria-current={@step == "current" && "step"}
@@ -345,7 +345,7 @@ defmodule <%= @module %> do
 
         {render_slot(@inner_block)}
       </span>
-    </button>
+    </div>
 
     <div class="stepper-separator w-full flex-1"></div>
     """
