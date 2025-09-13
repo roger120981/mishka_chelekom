@@ -267,4 +267,21 @@
     --checkbox-misc-checked: #a964f7;
     --checkbox-dawn-checked: #d27d46;
     --checkbox-silver-checked: #a6a6a6;
+
+    /* Stepper specific colors - only NEW colors not covered by existing system */
+    --stepper-loading-icon-fill: #2563eb;
+    --stepper-current-step-text-light: #2563eb;
+    --stepper-current-step-text-dark: #1971c2;
+    --stepper-current-step-border-light: #2563eb;
+    --stepper-current-step-border-dark: #1971c2;
+    --stepper-completed-step-bg-light: #14b8a6;
+    --stepper-completed-step-bg-dark: #099268;
+    --stepper-completed-step-border-light: #14b8a6;
+    --stepper-completed-step-border-dark: #099268;
+    --stepper-canceled-step-bg-light: #fa5252;
+    --stepper-canceled-step-bg-dark: #e03131;
+    --stepper-canceled-step-border-light: #fa5252;
+    --stepper-canceled-step-border-dark: #e03131;
+    --stepper-separator-completed-border-light: #14b8a6;
+    --stepper-separator-completed-border-dark: #099268;
 }
