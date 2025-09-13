@@ -99,7 +99,7 @@ defmodule <%= @module %> do
 
     ~H"""
     <div>
-      <label class="flex items-center gap-1 text-sm leading-6 text-zinc-600 dark:text-zinc-200">
+      <label class="flex items-center gap-2 text-sm leading-6 text-zinc-600 dark:text-zinc-200">
         <input type="hidden" name={@name} value="false" disabled={@rest[:disabled]} />
         <input
           type="checkbox"
