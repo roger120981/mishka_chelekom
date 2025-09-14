@@ -32,8 +32,8 @@
     --natural-dark: #dddddd;
     --natural-hover-light: #282828;
     --natural-hover-dark: #e8e8e8;
-    --natural-bordered-hover-light: #E8E8E8;
-    --natural-bordered-hover-dark: #5E5E5E;
+    --natural-bordered-hover-light: #e8e8e8;
+    --natural-bordered-hover-dark: #5e5e5e;
     --natural-bg-light: #f3f3f3;
     --natural-bg-dark: #4b4b4b;
     --natural-border-light: #282828;
@@ -143,8 +143,8 @@
     --silver-dark: #a6a6a6;
     --silver-hover-light: #727272;
     --silver-hover-dark: #bbbbbb;
-    --silver-hover-bordered-light: #E8E8E8;
-    --silver-hover-bordered-dark: #5E5E5E;
+    --silver-hover-bordered-light: #e8e8e8;
+    --silver-hover-bordered-dark: #5e5e5e;
     --silver-bordered-text-light: #727272;
     --silver-bordered-text-dark: #bbbbbb;
     --silver-bordered-bg-light: #f3f3f3;
@@ -288,13 +288,43 @@
     --stepper-separator-completed-border-dark: #099268;
 }
 
-[data-opacity="transparent"] { --overlay-opacity: calc(var(--opacity-base) * 1%); }  /* 10% */
-[data-opacity="translucent"] { --overlay-opacity: calc(var(--opacity-base) * 2%); }  /* 20% */
-[data-opacity="semi_transparent"] { --overlay-opacity: calc(var(--opacity-base) * 3%); }  /* 30% */
-[data-opacity="lightly_tinted"] { --overlay-opacity: calc(var(--opacity-base) * 4%); }  /* 40% */
-[data-opacity="tinted"] { --overlay-opacity: calc(var(--opacity-base) * 5%); }  /* 50% */
-[data-opacity="semi_opaque"] { --overlay-opacity: calc(var(--opacity-base) * 6%); }  /* 60% */
-[data-opacity="opaque"] { --overlay-opacity: calc(var(--opacity-base) * 7%); }  /* 70% */
-[data-opacity="heavily_tinted"] { --overlay-opacity: calc(var(--opacity-base) * 8%); }  /* 80% */
-[data-opacity="almost_solid"] { --overlay-opacity: calc(var(--opacity-base) * 9%); }  /* 90% */
-[data-opacity="solid"] { --overlay-opacity: calc(var(--opacity-base) * 10%); }  /* 100% */
+/* 10% */
+[data-opacity="transparent"] {
+    --overlay-opacity: calc(var(--opacity-base) * 1%);
+}
+/* 20% */
+[data-opacity="translucent"] {
+    --overlay-opacity: calc(var(--opacity-base) * 2%);
+}
+/* 30% */
+[data-opacity="semi_transparent"] {
+    --overlay-opacity: calc(var(--opacity-base) * 3%);
+}
+/* 40% */
+[data-opacity="lightly_tinted"] {
+    --overlay-opacity: calc(var(--opacity-base) * 4%);
+}
+/* 50% */
+[data-opacity="tinted"] {
+    --overlay-opacity: calc(var(--opacity-base) * 5%);
+}
+/* 60% */
+[data-opacity="semi_opaque"] {
+    --overlay-opacity: calc(var(--opacity-base) * 6%);
+}
+/* 70% */
+[data-opacity="opaque"] {
+    --overlay-opacity: calc(var(--opacity-base) * 7%);
+}
+/* 80% */
+[data-opacity="heavily_tinted"] {
+    --overlay-opacity: calc(var(--opacity-base) * 8%);
+}
+/* 90% */
+[data-opacity="almost_solid"] {
+    --overlay-opacity: calc(var(--opacity-base) * 9%);
+}
+/* 100% */
+[data-opacity="solid"] {
+    --overlay-opacity: calc(var(--opacity-base) * 10%);
+}

@@ -1,4 +1,3 @@
-
 @theme {
     --color-base-border-light: var(--base-border-light);
     --color-base-border-dark: var(--base-border-dark);
@@ -218,11 +217,21 @@
     --color-gradient-silver-from-dark: var(--gradient-silver-from-dark);
     --color-gradient-silver-to-dark: var(--gradient-silver-to-dark);
 
-    --color-primary-gradient-indicator-dark: var(--primary-gradient-indicator-dark);
-    --color-secondary-gradient-indicator-dark: var(--secondary-gradient-indicator-dark);
-    --color-success-gradient-indicator-dark: var(--success-gradient-indicator-dark);
-    --color-warning-gradient-indicator-dark: var(--warning-gradient-indicator-dark);
-    --color-danger-gradient-indicator-dark: var(--danger-gradient-indicator-dark);
+    --color-primary-gradient-indicator-dark: var(
+        --primary-gradient-indicator-dark
+    );
+    --color-secondary-gradient-indicator-dark: var(
+        --secondary-gradient-indicator-dark
+    );
+    --color-success-gradient-indicator-dark: var(
+        --success-gradient-indicator-dark
+    );
+    --color-warning-gradient-indicator-dark: var(
+        --warning-gradient-indicator-dark
+    );
+    --color-danger-gradient-indicator-dark: var(
+        --danger-gradient-indicator-dark
+    );
     --color-info-gradient-indicator-dark: var(--info-gradient-indicator-dark);
     --color-misc-gradient-indicator-dark: var(--misc-gradient-indicator-dark);
     --color-dawn-gradient-indicator-dark: var(--dawn-gradient-indicator-dark);
@@ -267,18 +276,44 @@
 
     /* Stepper specific colors - only NEW colors not covered by existing system */
     --color-stepper-loading-icon-fill: var(--stepper-loading-icon-fill);
-    --color-stepper-current-step-text-light: var(--stepper-current-step-text-light);
-    --color-stepper-current-step-text-dark: var(--stepper-current-step-text-dark);
-    --color-stepper-current-step-border-light: var(--stepper-current-step-border-light);
-    --color-stepper-current-step-border-dark: var(--stepper-current-step-border-dark);
-    --color-stepper-completed-step-bg-light: var(--stepper-completed-step-bg-light);
-    --color-stepper-completed-step-bg-dark: var(--stepper-completed-step-bg-dark);
-    --color-stepper-completed-step-border-light: var(--stepper-completed-step-border-light);
-    --color-stepper-completed-step-border-dark: var(--stepper-completed-step-border-dark);
-    --color-stepper-canceled-step-bg-light: var(--stepper-canceled-step-bg-light);
+    --color-stepper-current-step-text-light: var(
+        --stepper-current-step-text-light
+    );
+    --color-stepper-current-step-text-dark: var(
+        --stepper-current-step-text-dark
+    );
+    --color-stepper-current-step-border-light: var(
+        --stepper-current-step-border-light
+    );
+    --color-stepper-current-step-border-dark: var(
+        --stepper-current-step-border-dark
+    );
+    --color-stepper-completed-step-bg-light: var(
+        --stepper-completed-step-bg-light
+    );
+    --color-stepper-completed-step-bg-dark: var(
+        --stepper-completed-step-bg-dark
+    );
+    --color-stepper-completed-step-border-light: var(
+        --stepper-completed-step-border-light
+    );
+    --color-stepper-completed-step-border-dark: var(
+        --stepper-completed-step-border-dark
+    );
+    --color-stepper-canceled-step-bg-light: var(
+        --stepper-canceled-step-bg-light
+    );
     --color-stepper-canceled-step-bg-dark: var(--stepper-canceled-step-bg-dark);
-    --color-stepper-canceled-step-border-light: var(--stepper-canceled-step-border-light);
-    --color-stepper-canceled-step-border-dark: var(--stepper-canceled-step-border-dark);
-    --color-stepper-separator-completed-border-light: var(--stepper-separator-completed-border-light);
-    --color-stepper-separator-completed-border-dark: var(--stepper-separator-completed-border-dark);
+    --color-stepper-canceled-step-border-light: var(
+        --stepper-canceled-step-border-light
+    );
+    --color-stepper-canceled-step-border-dark: var(
+        --stepper-canceled-step-border-dark
+    );
+    --color-stepper-separator-completed-border-light: var(
+        --stepper-separator-completed-border-light
+    );
+    --color-stepper-separator-completed-border-dark: var(
+        --stepper-separator-completed-border-dark
+    );
 }
