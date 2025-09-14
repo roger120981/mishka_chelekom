@@ -2,6 +2,8 @@
 /* Do not change this file, if you want to override it, call :root inside your app.css */
 /* For more information, visit https://mishka.tools/chelekom/docs */
 :root {
+    --opacity-base: 10;
+    --overlay-opacity: 100%;
     --base-border-light: #e4e4e7;
     --base-border-dark: #27272a;
     --base-text-light: #09090b;
@@ -285,3 +287,14 @@
     --stepper-separator-completed-border-light: #14b8a6;
     --stepper-separator-completed-border-dark: #099268;
 }
+
+[data-opacity="transparent"] { --overlay-opacity: calc(var(--opacity-base) * 1%); }  /* 10% */
+[data-opacity="translucent"] { --overlay-opacity: calc(var(--opacity-base) * 2%); }  /* 20% */
+[data-opacity="semi_transparent"] { --overlay-opacity: calc(var(--opacity-base) * 3%); }  /* 30% */
+[data-opacity="lightly_tinted"] { --overlay-opacity: calc(var(--opacity-base) * 4%); }  /* 40% */
+[data-opacity="tinted"] { --overlay-opacity: calc(var(--opacity-base) * 5%); }  /* 50% */
+[data-opacity="semi_opaque"] { --overlay-opacity: calc(var(--opacity-base) * 6%); }  /* 60% */
+[data-opacity="opaque"] { --overlay-opacity: calc(var(--opacity-base) * 7%); }  /* 70% */
+[data-opacity="heavily_tinted"] { --overlay-opacity: calc(var(--opacity-base) * 8%); }  /* 80% */
+[data-opacity="almost_solid"] { --overlay-opacity: calc(var(--opacity-base) * 9%); }  /* 90% */
+[data-opacity="solid"] { --overlay-opacity: calc(var(--opacity-base) * 10%); }  /* 100% */
