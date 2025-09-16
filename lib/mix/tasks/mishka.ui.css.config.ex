@@ -195,47 +195,84 @@ defmodule Mix.Tasks.Mishka.Ui.Css.Config do
   end
 
   defp validate_configuration(config) do
-    issues = []
+    []
+    |> validate_merge_strategy(config)
+    |> validate_custom_css_path(config)
+    |> validate_css_overrides(config)
+    |> validate_component_lists(config)
+  end
 
-    # Validate merge strategy
-    issues =
-      if config.css_merge_strategy not in [:merge, :replace] do
-        [
-          "Invalid css_merge_strategy: #{inspect(config.css_merge_strategy)}. Must be :merge or :replace"
-          | issues
-        ]
-      else
-        issues
-      end
+  defp validate_merge_strategy(issues, %{css_merge_strategy: strategy})
+       when strategy in [:merge, :replace],
+       do: issues
 
-    # Validate custom CSS path if using replace strategy
-    issues =
-      if config.css_merge_strategy == :replace and is_nil(config.custom_css_path) do
-        ["When using :replace strategy, custom_css_path must be provided" | issues]
-      else
-        issues
-      end
+  defp validate_merge_strategy(issues, %{css_merge_strategy: strategy}) do
+    [
+      "Invalid css_merge_strategy: #{inspect(strategy)}. Must be :merge or :replace"
+      | issues
+    ]
+  end
 
-    # Validate custom CSS file exists if specified
-    issues =
-      if config.custom_css_path && !File.exists?(config.custom_css_path) do
-        ["Custom CSS file not found: #{config.custom_css_path}" | issues]
-      else
-        issues
-      end
+  defp validate_custom_css_path(issues, %{css_merge_strategy: :replace, custom_css_path: nil}) do
+    ["When using :replace strategy, custom_css_path must be provided" | issues]
+  end
 
-    # Validate override values are strings
-    issues =
-      config.css_overrides
-      |> Enum.reduce(issues, fn {key, value}, acc ->
-        if !is_binary(value) do
-          ["CSS override '#{key}' must be a string, got: #{inspect(value)}" | acc]
-        else
-          acc
-        end
-      end)
+  defp validate_custom_css_path(issues, %{custom_css_path: path}) when is_binary(path) do
+    if File.exists?(path) do
+      issues
+    else
+      ["Custom CSS file not found: #{path}" | issues]
+    end
+  end
 
-    issues
+  defp validate_custom_css_path(issues, _config), do: issues
+
+  defp validate_css_overrides(issues, %{css_overrides: overrides}) when is_map(overrides) do
+    Enum.reduce(overrides, issues, fn
+      {_key, value}, acc when is_binary(value) ->
+        acc
+
+      {key, value}, acc ->
+        ["CSS override '#{key}' must be a string, got: #{inspect(value)}" | acc]
+    end)
+  end
+
+  defp validate_css_overrides(issues, _config), do: issues
+
+  defp validate_component_lists(issues, config) do
+    component_fields = [
+      {:exclude_components, "Excluded components"},
+      {:component_colors, "Component colors"},
+      {:component_variants, "Component variants"},
+      {:component_sizes, "Component sizes"},
+      {:component_rounded, "Component rounded"},
+      {:component_padding, "Component padding"},
+      {:component_space, "Component space"}
+    ]
+
+    Enum.reduce(component_fields, issues, fn {field, label}, acc ->
+      validate_list_field(acc, Map.get(config, field), field, label)
+    end)
+  end
+
+  defp validate_list_field(issues, values, _field, label) when is_list(values) do
+    if Enum.all?(values, &is_binary/1) do
+      issues
+    else
+      invalid_values =
+        values
+        |> Enum.reject(&is_binary/1)
+        |> Enum.map(&inspect/1)
+        |> Enum.join(", ")
+
+      ["#{label} must contain only strings. Invalid values: #{invalid_values}" | issues]
+    end
+  end
+
+  defp validate_list_field(issues, nil, _field, _label), do: issues
+
+  defp validate_list_field(issues, value, _field, label) do
+    ["#{label} must be a list, got: #{inspect(value)}" | issues]
   end
 
   defp show_config(igniter) do

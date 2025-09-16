@@ -138,6 +138,83 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       issues_text = Enum.join(igniter.issues, " ")
       assert String.contains?(issues_text, "Invalid css_merge_strategy")
     end
+
+    test "reports missing custom_css_path when using replace strategy" do
+      config_content = """
+      import Config
+      config :mishka_chelekom,
+        css_merge_strategy: :replace
+      """
+
+      igniter =
+        test_project()
+        |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
+        |> Igniter.compose_task(Config, ["--validate"])
+
+      issues_text = Enum.join(igniter.issues, " ")
+      assert String.contains?(issues_text, "custom_css_path must be provided")
+    end
+
+    test "reports non-string values in css_overrides" do
+      config_content = """
+      import Config
+      config :mishka_chelekom,
+        css_overrides: %{
+          primary_light: "#007f8c",
+          invalid_value: 123
+        }
+      """
+
+      igniter =
+        test_project()
+        |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
+        |> Igniter.compose_task(Config, ["--validate"])
+
+      issues_text = Enum.join(igniter.issues, " ")
+      assert String.contains?(issues_text, "must be a string")
+    end
+
+    test "validates component lists are valid" do
+      config_content = """
+      import Config
+      config :mishka_chelekom,
+        exclude_components: ["alert", "badge"],
+        component_colors: ["primary", "danger"],
+        component_variants: ["default", "outline"],
+        component_sizes: ["small", "medium", "large"],
+        component_rounded: ["small", "full"],
+        component_padding: ["small", "medium"],
+        component_space: ["small", "none"]
+      """
+
+      igniter =
+        test_project()
+        |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
+        |> Igniter.compose_task(Config, ["--validate"])
+
+      # Should be valid
+      assert igniter.issues == []
+      notices_text = Enum.join(igniter.notices, " ")
+      assert String.contains?(notices_text, "valid")
+    end
+
+    test "reports invalid component list values" do
+      config_content = """
+      import Config
+      config :mishka_chelekom,
+        exclude_components: ["alert", 123],
+        component_colors: "not_a_list"
+      """
+
+      igniter =
+        test_project()
+        |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
+        |> Igniter.compose_task(Config, ["--validate"])
+
+      issues_text = Enum.join(igniter.issues, " ")
+      assert String.contains?(issues_text, "must contain only strings")
+      assert String.contains?(issues_text, "must be a list")
+    end
   end
 
   describe "mix mishka.ui.css.config --show" do
