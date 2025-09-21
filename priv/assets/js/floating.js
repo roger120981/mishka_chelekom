@@ -17,6 +17,14 @@ const Floating = {
     this.clickable = this.el.getAttribute("data-clickable") === "true";
     this.position = this.el.getAttribute("data-position") || "bottom";
 
+    // Get delay configurations
+    this.showDelay = parseInt(this.el.getAttribute("data-show-delay")) || 0;
+    this.hideDelay = parseInt(this.el.getAttribute("data-hide-delay")) || 400;
+
+    // Timeout management
+    this.showTimeout = null;
+    this.hideTimeout = null;
+
     this.floatingType = this.getFloatingType();
 
     this.isRTL = getComputedStyle(document.documentElement).direction === "rtl";
@@ -77,6 +85,16 @@ const Floating = {
   },
 
   beforeUpdate() {
+    // Clear any pending timeouts
+    if (this.showTimeout) {
+      clearTimeout(this.showTimeout);
+      this.showTimeout = null;
+    }
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+      this.hideTimeout = null;
+    }
+
     if (
       this.floatingContent &&
       this.movedToBody &&
@@ -259,11 +277,51 @@ const Floating = {
   },
 
   handleMouseEnter() {
-    this.show();
+    // Clear any pending hide timeout
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+      this.hideTimeout = null;
+    }
+
+    // Clear any pending show timeout to avoid duplicates
+    if (this.showTimeout) {
+      clearTimeout(this.showTimeout);
+      this.showTimeout = null;
+    }
+
+    // Show with delay
+    if (this.showDelay > 0) {
+      this.showTimeout = setTimeout(() => {
+        this.show();
+        this.showTimeout = null;
+      }, this.showDelay);
+    } else {
+      this.show();
+    }
   },
 
   handleMouseLeave() {
-    this.hide();
+    // Clear any pending show timeout
+    if (this.showTimeout) {
+      clearTimeout(this.showTimeout);
+      this.showTimeout = null;
+    }
+
+    // Clear any pending hide timeout to avoid duplicates
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+      this.hideTimeout = null;
+    }
+
+    // Hide with delay
+    if (this.hideDelay > 0) {
+      this.hideTimeout = setTimeout(() => {
+        this.hide();
+        this.hideTimeout = null;
+      }, this.hideDelay);
+    } else {
+      this.hide();
+    }
   },
 
   handleOutsideClick(e) {
@@ -446,6 +504,16 @@ const Floating = {
   },
 
   destroyed() {
+    // Clear any pending timeouts
+    if (this.showTimeout) {
+      clearTimeout(this.showTimeout);
+      this.showTimeout = null;
+    }
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+      this.hideTimeout = null;
+    }
+
     if (this.updatePositionDebounced) {
       this.updatePositionDebounced.cancel?.();
     }
