@@ -188,9 +188,9 @@ defmodule <%= @module %> do
         <select id={@id} name={@name} multiple class="combo-select hidden" {@rest}>
           <option value=""></option>
 
-          <%= if Enum.empty?(@option) do %>
+          <%%= if Enum.empty?(@option) do %>
             {Phoenix.HTML.Form.options_for_select(@options, @value)}
-          <% else %>
+          <%% else %>
             <optgroup
               :for={{group_label, grouped_options} <- Enum.group_by(@option, & &1[:group])}
               :if={!is_nil(group_label)}
@@ -207,7 +207,7 @@ defmodule <%= @module %> do
                 Enum.map(@option, fn %{value: v} -> {v, v} end),
                 @value
               )}
-          <% end %>
+          <%% end %>
         </select>
 
         <div phx-update="ignore" id={"#{@id}-combo-wrapper"} class="relative">
@@ -389,9 +389,9 @@ defmodule <%= @module %> do
         <select id={@id} name={@name} class="combo-select hidden" {@rest}>
           <option value=""></option>
 
-          <%= if Enum.empty?(@option) do %>
+          <%%= if Enum.empty?(@option) do %>
             {Phoenix.HTML.Form.options_for_select(@options, @value)}
-          <% else %>
+          <%% else %>
             <optgroup
               :for={{group_label, grouped_options} <- Enum.group_by(@option, & &1[:group])}
               :if={!is_nil(group_label)}
@@ -408,7 +408,7 @@ defmodule <%= @module %> do
                 Enum.map(@option, fn %{value: v} -> {v, v} end),
                 @value
               )}
-          <% end %>
+          <%% end %>
         </select>
 
         <div id={"#{@id}-combo-wrapper"} class="relative" phx-update="ignore">
