@@ -458,8 +458,11 @@ const Floating = {
     content.offsetHeight;
     content.style.transition = transition;
 
-    if (this.enableAria && this.trigger && this.floatingType === "dropdown") {
-      this.trigger.setAttribute("aria-expanded", "true");
+    if (this.enableAria) {
+      content.removeAttribute("aria-hidden");
+      if (this.trigger && this.floatingType === "dropdown") {
+        this.trigger.setAttribute("aria-expanded", "true");
+      }
     }
 
     if (this.floatingType === "dropdown") {
