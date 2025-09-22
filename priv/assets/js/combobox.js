@@ -323,7 +323,9 @@ let Combobox = {
       const valueAttr = option
         .getAttribute("data-combobox-value")
         .toLowerCase();
-      option.style.display = valueAttr.includes(query) ? "" : "none";
+      const displayText = option.textContent.trim().toLowerCase();
+      const matches = valueAttr.includes(query) || displayText.includes(query);
+      option.style.display = matches ? "" : "none";
     });
 
     const noResults = this.dropdown.querySelector(".no-results");
