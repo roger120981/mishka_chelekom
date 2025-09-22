@@ -992,7 +992,7 @@ defp border_class(_, variant) when variant in ["default"],
   <%= if is_nil(@variant) or "base" in @variant do %>
   defp dropdown_color_variant("base", _) do
       [
-        "bg-white border-base-border-light shadow",
+        "bg-white border-base-border-light shadow text-base-text-light dark:text-base-text-dark",
         "dark:bg-base-bg-dark dark:border-base-border-dark",
         "[&_.combobox-search-input]:border-base-border-light dark:[&_.combobox-search-input]:border-base-border-dark",
         "[&_.combobox-option[data-combobox-navigate]]:bg-blue-500 [&_.combobox-option[data-combobox-navigate]]:text-white",
