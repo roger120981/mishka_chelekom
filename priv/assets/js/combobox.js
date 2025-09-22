@@ -85,7 +85,7 @@ let Combobox = {
 
   createPortalIfNeeded() {
     if (!this.portalContainer) {
-      this.portalContainer = document.createElement('div');
+      this.portalContainer = document.createElement("div");
       this.portalContainer.id = `combobox-portal-${this.openButton.id}`;
       this.portalContainer.style.cssText = `
         position: fixed;
@@ -108,18 +108,21 @@ let Combobox = {
       const dropdownHeight = this.dropdown.offsetHeight || 200;
       const windowHeight = window.innerHeight;
       const spaceBelow = windowHeight - rect.bottom;
-      const shouldShowAbove = spaceBelow < dropdownHeight && rect.top > dropdownHeight;
+      const shouldShowAbove =
+        spaceBelow < dropdownHeight && rect.top > dropdownHeight;
 
       this.portalContainer.appendChild(this.dropdown);
-      this.portalContainer.style.pointerEvents = 'auto';
+      this.portalContainer.style.pointerEvents = "auto";
       this.isPortalActive = true;
 
       // Re-setup option listeners after moving to portal
       this.setupOptionListeners();
 
       // Update dropdown styles for portal positioning with correct initial position
-      this.dropdown.style.position = 'absolute';
-      this.dropdown.style.top = shouldShowAbove ? `${rect.top - dropdownHeight - 8}px` : `${rect.bottom + 8}px`;
+      this.dropdown.style.position = "absolute";
+      this.dropdown.style.top = shouldShowAbove
+        ? `${rect.top - dropdownHeight - 8}px`
+        : `${rect.bottom + 8}px`;
       this.dropdown.style.left = `${rect.left}px`;
       this.dropdown.style.width = `${rect.width}px`;
 
@@ -133,16 +136,16 @@ let Combobox = {
       this.originalParent.appendChild(this.dropdown);
       this.isPortalActive = false;
       if (this.portalContainer) {
-        this.portalContainer.style.pointerEvents = 'none';
+        this.portalContainer.style.pointerEvents = "none";
       }
 
       // Re-setup option listeners after moving back
       this.setupOptionListeners();
 
       // Reset dropdown styles
-      this.dropdown.style.position = '';
-      this.dropdown.style.top = '';
-      this.dropdown.style.left = '';
+      this.dropdown.style.position = "";
+      this.dropdown.style.top = "";
+      this.dropdown.style.left = "";
     }
   },
 
@@ -150,9 +153,11 @@ let Combobox = {
     let element = this.el.parentElement;
     while (element && element !== document.body) {
       const computedStyle = window.getComputedStyle(element);
-      if (computedStyle.overflow === 'hidden' ||
-          computedStyle.overflowX === 'hidden' ||
-          computedStyle.overflowY === 'hidden') {
+      if (
+        computedStyle.overflow === "hidden" ||
+        computedStyle.overflowX === "hidden" ||
+        computedStyle.overflowY === "hidden"
+      ) {
         return true;
       }
       element = element.parentElement;
@@ -182,26 +187,26 @@ let Combobox = {
 
     requestAnimationFrame(() => {
       this.updateDropdownPosition();
-      
+
       // Update dropdownOptions reference after potential portal move
       this.dropdownOptions = this.getDropdownOptions();
 
       let navigateTarget = null;
       if (this.lastNavigatedValue) {
         navigateTarget = Array.from(this.dropdownOptions).find(
-          opt => opt.dataset.comboboxValue === this.lastNavigatedValue
+          (opt) => opt.dataset.comboboxValue === this.lastNavigatedValue,
         );
       }
       if (!navigateTarget) {
-        navigateTarget = Array.from(this.dropdownOptions).find(
-          opt => opt.hasAttribute("data-combobox-selected")
+        navigateTarget = Array.from(this.dropdownOptions).find((opt) =>
+          opt.hasAttribute("data-combobox-selected"),
         );
       }
 
       // Always select first visible option if none found
       if (!navigateTarget) {
         const visibleOptions = Array.from(this.dropdownOptions).filter(
-          opt => opt.style.display !== "none"
+          (opt) => opt.style.display !== "none",
         );
         if (visibleOptions.length > 0) {
           navigateTarget = visibleOptions[0];
@@ -268,7 +273,7 @@ let Combobox = {
 
   resetNavigateToFirstOption() {
     const visibleOptions = Array.from(this.getDropdownOptions()).filter(
-      opt => opt.style.display !== "none"
+      (opt) => opt.style.display !== "none",
     );
 
     if (visibleOptions.length > 0) {
@@ -284,7 +289,8 @@ let Combobox = {
 
     if (this.isPortalActive) {
       // Position absolutely when in portal
-      const shouldShowAbove = spaceBelow < dropdownHeight && rect.top > dropdownHeight;
+      const shouldShowAbove =
+        spaceBelow < dropdownHeight && rect.top > dropdownHeight;
 
       if (shouldShowAbove) {
         this.dropdown.style.top = `${rect.top - dropdownHeight - 8}px`;
@@ -408,7 +414,7 @@ let Combobox = {
     if (selectedOption) {
       if (placeholder) placeholder.style.display = "none";
       const renderedOption = Array.from(this.getDropdownOptions()).find(
-        opt => opt.dataset.comboboxValue === selectedOption.value
+        (opt) => opt.dataset.comboboxValue === selectedOption.value,
       );
       this.selectedDisplay.innerHTML = renderedOption
         ? renderedOption.innerHTML
@@ -446,7 +452,7 @@ let Combobox = {
 
     selectedOptions.forEach((option) => {
       const optionEl = Array.from(this.getDropdownOptions()).find(
-        opt => opt.dataset.comboboxValue === option.value
+        (opt) => opt.dataset.comboboxValue === option.value,
       );
       if (optionEl) {
         optionEl.setAttribute("data-combobox-selected", "");
@@ -465,7 +471,7 @@ let Combobox = {
       );
 
       const renderedOption = Array.from(this.getDropdownOptions()).find(
-        opt => opt.dataset.comboboxValue === option.value
+        (opt) => opt.dataset.comboboxValue === option.value,
       );
       if (renderedOption) {
         pill.innerHTML = renderedOption.innerHTML;
@@ -482,7 +488,7 @@ let Combobox = {
         option.selected = false;
         option.removeAttribute("selected");
         const optionEl = Array.from(this.getDropdownOptions()).find(
-          opt => opt.dataset.comboboxValue === option.value
+          (opt) => opt.dataset.comboboxValue === option.value,
         );
         if (optionEl) {
           optionEl.removeAttribute("data-combobox-selected");
@@ -500,8 +506,10 @@ let Combobox = {
     const key = e.key;
 
     // Handle Space/Enter on trigger button when dropdown is closed
-    if (this.dropdown.hasAttribute("hidden") &&
-        document.activeElement === this.openButton) {
+    if (
+      this.dropdown.hasAttribute("hidden") &&
+      document.activeElement === this.openButton
+    ) {
       if (key === " " || key === "Enter") {
         e.preventDefault();
         this.openDropdown();
@@ -530,9 +538,9 @@ let Combobox = {
 
     // Get visible options from current dropdown location
     const visibleOptions = Array.from(this.getDropdownOptions()).filter(
-      (opt) => opt.style.display !== "none"
+      (opt) => opt.style.display !== "none",
     );
-    
+
     if (visibleOptions.length === 0) return;
 
     let currentIndex = visibleOptions.findIndex((opt) =>
@@ -542,15 +550,17 @@ let Combobox = {
     if (key === "ArrowDown") {
       e.preventDefault();
       e.stopPropagation();
-      currentIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % visibleOptions.length;
+      currentIndex =
+        currentIndex < 0 ? 0 : (currentIndex + 1) % visibleOptions.length;
       this.navigateToOption(visibleOptions[currentIndex]);
       return;
     } else if (key === "ArrowUp") {
       e.preventDefault();
       e.stopPropagation();
-      currentIndex = currentIndex < 0 ?
-        visibleOptions.length - 1 :
-        (currentIndex - 1 + visibleOptions.length) % visibleOptions.length;
+      currentIndex =
+        currentIndex < 0
+          ? visibleOptions.length - 1
+          : (currentIndex - 1 + visibleOptions.length) % visibleOptions.length;
       this.navigateToOption(visibleOptions[currentIndex]);
       return;
     } else if (key === "Enter") {
@@ -615,9 +625,15 @@ let Combobox = {
   },
 
   handleDocumentClick(e) {
-    if (!this.el.contains(e.target) && 
-        !(this.isPortalActive && this.portalContainer && this.portalContainer.contains(e.target)) &&
-        !this.isClickOnScrollbar(e)) {
+    if (
+      !this.el.contains(e.target) &&
+      !(
+        this.isPortalActive &&
+        this.portalContainer &&
+        this.portalContainer.contains(e.target)
+      ) &&
+      !this.isClickOnScrollbar(e)
+    ) {
       this.closeDropdown();
     }
   },
