@@ -9,6 +9,6 @@
       module: ""
     ],
     optional: [],
-    necessary: ["accordion", "button"]
+    necessary: ["collapse", "button"]
   ]
 ]
