@@ -33,18 +33,21 @@
       size: ["extra_small", "small", "medium", "large", "extra_large"],
       padding: ["extra_small", "small", "medium", "large", "extra_large"],
       space: ["extra_small", "small", "medium", "large", "extra_large", "none"],
-      type: ["accordion", "native_accordion"],
+      type: ["accordion"],
       rounded: ["extra_small", "small", "medium", "large", "extra_large", "full"],
-      only: ["accordion", "native_accordion"],
-      helpers: [
-        show_accordion_content: 1,
-        show_accordion_content: 2,
-        hide_accordion_content: 1,
-        hide_accordion_content: 2
-      ],
+      only: ["accordion"],
+      helpers: [],
       module: ""
     ],
     optional: [],
-    necessary: ["icon"]
+    necessary: ["icon"],
+    scripts: [
+      %{
+        type: "file",
+        file: "collapsible.js",
+        module: "Collapsible",
+        imports: "import Collapsible from \"./collapsible.js\";"
+      }
+    ]
   ]
 ]
