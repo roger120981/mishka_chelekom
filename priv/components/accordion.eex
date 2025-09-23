@@ -24,12 +24,8 @@ defmodule <%= @module %> do
   """
 
   use Phoenix.Component
-  <%= if is_nil(@type) or "accordion" in @type do %>
-  alias Phoenix.LiveView.JS
-  <% end %>
   import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]
 
-  <%= if is_nil(@type) or "accordion" in @type do %>
   @doc """
   The `accordion` component provides a collapsible structure with various styling options,
   ideal for organizing content into expandable panels. It supports customizable attributes such
@@ -216,7 +212,7 @@ defmodule <%= @module %> do
     </div>
     """
   end
-<% end %>
+
   def handle_event("collapsible_open", %{"item_id" => item_id, "open_ids" => open_ids}, socket) do
     socket = assign(socket, :open_collapsible_items, open_ids)
     {:noreply, socket}
