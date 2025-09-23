@@ -6,7 +6,8 @@ const Collapsible = {
     this.state = {
       openItems: new Set(),
       animating: new Set(),
-      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)")
+        .matches,
     };
 
     this.setupAccessibility();
@@ -14,14 +15,16 @@ const Collapsible = {
   },
 
   initElements() {
-    this.triggers = this.el.querySelectorAll('[data-collapsible-trigger]');
-    this.panels = this.el.querySelectorAll('[data-collapsible-panel]');
+    this.triggers = this.el.querySelectorAll("[data-collapsible-trigger]");
+    this.panels = this.el.querySelectorAll("[data-collapsible-panel]");
 
     // Create mapping for easy lookup
     this.itemMap = new Map();
-    this.triggers.forEach(trigger => {
-      const itemId = trigger.getAttribute('data-collapsible-trigger');
-      const panel = this.el.querySelector(`[data-collapsible-panel="${itemId}"]`);
+    this.triggers.forEach((trigger) => {
+      const itemId = trigger.getAttribute("data-collapsible-trigger");
+      const panel = this.el.querySelector(
+        `[data-collapsible-panel="${itemId}"]`,
+      );
       if (panel) {
         this.itemMap.set(itemId, { trigger, panel });
       }
@@ -30,17 +33,18 @@ const Collapsible = {
 
   getConfig() {
     return {
-      multiple: this.el.getAttribute('data-multiple') === 'true',
-      collapsible: this.el.getAttribute('data-collapsible') !== 'false',
-      duration: parseInt(this.el.getAttribute('data-duration')) || 200,
-      keepMounted: this.el.getAttribute('data-keep-mounted') === 'true',
-      serverEvents: this.el.getAttribute('data-server-events') === 'true',
-      target: this.el.getAttribute('data-target')
+      multiple: this.el.getAttribute("data-multiple") === "true",
+      collapsible: this.el.getAttribute("data-collapsible") !== "false",
+      duration: parseInt(this.el.getAttribute("data-duration")) || 200,
+      keepMounted: this.el.getAttribute("data-keep-mounted") === "true",
+      serverEvents: this.el.getAttribute("data-server-events") === "true",
+      target: this.el.getAttribute("data-target"),
     };
   },
 
   setupAccessibility() {
-    const collapsibleId = this.el.id || `collapsible-${Math.random().toString(36).substring(2, 9)}`;
+    const collapsibleId =
+      this.el.id || `collapsible-${Math.random().toString(36).substring(2, 9)}`;
     this.el.id = collapsibleId;
 
     this.itemMap.forEach((elements, itemId) => {
@@ -48,15 +52,15 @@ const Collapsible = {
       const headerId = `${collapsibleId}-header-${itemId}`;
       const panelId = `${collapsibleId}-panel-${itemId}`;
 
-      trigger.setAttribute('role', 'button');
-      trigger.setAttribute('aria-controls', panelId);
-      trigger.setAttribute('aria-expanded', 'false');
-      trigger.setAttribute('id', headerId);
-      trigger.setAttribute('tabindex', '0');
+      trigger.setAttribute("role", "button");
+      trigger.setAttribute("aria-controls", panelId);
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.setAttribute("id", headerId);
+      trigger.setAttribute("tabindex", "0");
 
-      panel.setAttribute('role', 'region');
-      panel.setAttribute('aria-labelledby', headerId);
-      panel.setAttribute('id', panelId);
+      panel.setAttribute("role", "region");
+      panel.setAttribute("aria-labelledby", headerId);
+      panel.setAttribute("id", panelId);
     });
   },
 
@@ -64,67 +68,70 @@ const Collapsible = {
     this.boundHandleClick = this.handleClick.bind(this);
     this.boundHandleKeydown = this.handleKeydown.bind(this);
 
-    this.el.addEventListener('click', this.boundHandleClick);
-    this.el.addEventListener('keydown', this.boundHandleKeydown);
+    this.el.addEventListener("click", this.boundHandleClick);
+    this.el.addEventListener("keydown", this.boundHandleKeydown);
   },
 
   processInitialState() {
-    const initialOpen = this.el.getAttribute('data-initial-open');
-    
+    const initialOpen = this.el.getAttribute("data-initial-open");
+
     // Clear all items first
     this.state.openItems.clear();
-    
+
     // Only process if we have a non-empty initial-open value
-    if (initialOpen && initialOpen.trim() !== '') {
-      const openIds = initialOpen.split(',').map(id => id.trim()).filter(Boolean);
-      openIds.forEach(id => {
+    if (initialOpen && initialOpen.trim() !== "") {
+      const openIds = initialOpen
+        .split(",")
+        .map((id) => id.trim())
+        .filter(Boolean);
+      openIds.forEach((id) => {
         // Verify the item actually exists before adding it
         if (this.itemMap.has(id)) {
           this.state.openItems.add(id);
         }
       });
     }
-    
+
     // Always sync UI to ensure consistent state
     this.syncUI();
   },
 
   handleClick(e) {
-    const trigger = e.target.closest('[data-collapsible-trigger]');
+    const trigger = e.target.closest("[data-collapsible-trigger]");
     if (!trigger || !this.el.contains(trigger)) return;
 
     e.preventDefault();
-    const itemId = trigger.getAttribute('data-collapsible-trigger');
+    const itemId = trigger.getAttribute("data-collapsible-trigger");
     this.toggle(itemId);
   },
 
   handleKeydown(e) {
-    const trigger = e.target.closest('[data-collapsible-trigger]');
+    const trigger = e.target.closest("[data-collapsible-trigger]");
     if (!trigger || !this.el.contains(trigger)) return;
 
-    const itemId = trigger.getAttribute('data-collapsible-trigger');
+    const itemId = trigger.getAttribute("data-collapsible-trigger");
     const triggers = Array.from(this.triggers);
     const currentIndex = triggers.indexOf(trigger);
 
     switch (e.key) {
-      case ' ':
-      case 'Enter':
+      case " ":
+      case "Enter":
         e.preventDefault();
         this.toggle(itemId);
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
         this.focusNextTrigger(currentIndex, triggers);
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         this.focusPrevTrigger(currentIndex, triggers);
         break;
-      case 'Home':
+      case "Home":
         e.preventDefault();
         triggers[0]?.focus();
         break;
-      case 'End':
+      case "End":
         e.preventDefault();
         triggers[triggers.length - 1]?.focus();
         break;
@@ -155,13 +162,13 @@ const Collapsible = {
     if (this.state.openItems.has(itemId)) return;
 
     if (!this.config.multiple) {
-      Array.from(this.state.openItems).forEach(id => this.close(id));
+      Array.from(this.state.openItems).forEach((id) => this.close(id));
     }
 
     this.state.openItems.add(itemId);
     this.animatePanel(itemId, true);
     this.updateAria(itemId, true);
-    this.pushServerEvent('collapsible_open', itemId);
+    this.pushServerEvent("collapsible_open", itemId);
   },
 
   close(itemId) {
@@ -171,7 +178,7 @@ const Collapsible = {
     this.state.openItems.delete(itemId);
     this.animatePanel(itemId, false);
     this.updateAria(itemId, false);
-    this.pushServerEvent('collapsible_close', itemId);
+    this.pushServerEvent("collapsible_close", itemId);
   },
 
   animatePanel(itemId, opening) {
@@ -179,19 +186,19 @@ const Collapsible = {
     if (!elements) return;
 
     const { panel } = elements;
-    const content = panel.querySelector('[data-collapsible-content]') || panel;
+    const content = panel.querySelector("[data-collapsible-content]") || panel;
 
     if (this.state.reducedMotion) {
-      content.style.maxHeight = opening ? 'none' : '0';
-      content.style.overflow = opening ? 'visible' : 'hidden';
+      content.style.maxHeight = opening ? "none" : "0";
+      content.style.overflow = opening ? "visible" : "hidden";
       return;
     }
 
     this.state.animating.add(itemId);
 
     if (opening) {
-      content.style.overflow = 'hidden';
-      content.style.maxHeight = '0';
+      content.style.overflow = "hidden";
+      content.style.maxHeight = "0";
 
       requestAnimationFrame(() => {
         const height = content.scrollHeight;
@@ -199,19 +206,19 @@ const Collapsible = {
 
         setTimeout(() => {
           if (this.state.openItems.has(itemId)) {
-            content.style.maxHeight = 'none';
-            content.style.overflow = 'visible';
+            content.style.maxHeight = "none";
+            content.style.overflow = "visible";
           }
           this.state.animating.delete(itemId);
         }, this.config.duration);
       });
     } else {
       const height = content.scrollHeight;
-      content.style.overflow = 'hidden';
+      content.style.overflow = "hidden";
       content.style.maxHeight = `${height}px`;
 
       requestAnimationFrame(() => {
-        content.style.maxHeight = '0';
+        content.style.maxHeight = "0";
 
         setTimeout(() => {
           this.state.animating.delete(itemId);
@@ -224,23 +231,24 @@ const Collapsible = {
     const elements = this.itemMap.get(itemId);
     if (!elements) return;
 
-    elements.trigger.setAttribute('aria-expanded', expanded.toString());
+    elements.trigger.setAttribute("aria-expanded", expanded.toString());
   },
 
   syncUI() {
     this.itemMap.forEach((elements, itemId) => {
       const isOpen = this.state.openItems.has(itemId);
       const { trigger, panel } = elements;
-      const content = panel.querySelector('[data-collapsible-content]') || panel;
+      const content =
+        panel.querySelector("[data-collapsible-content]") || panel;
 
       this.updateAria(itemId, isOpen);
 
       if (isOpen) {
-        content.style.maxHeight = 'none';
-        content.style.overflow = 'visible';
+        content.style.maxHeight = "none";
+        content.style.overflow = "visible";
       } else {
-        content.style.maxHeight = '0';
-        content.style.overflow = 'hidden';
+        content.style.maxHeight = "0";
+        content.style.overflow = "hidden";
       }
     });
   },
@@ -251,8 +259,8 @@ const Collapsible = {
     const payload = {
       component_id: this.el.id,
       item_id: itemId,
-      action: event === 'collapsible_open' ? 'open' : 'close',
-      open_ids: Array.from(this.state.openItems)
+      action: event === "collapsible_open" ? "open" : "close",
+      open_ids: Array.from(this.state.openItems),
     };
 
     if (this.config.target) {
@@ -288,12 +296,12 @@ const Collapsible = {
 
   destroyed() {
     if (this.el && this.boundHandleClick) {
-      this.el.removeEventListener('click', this.boundHandleClick);
-      this.el.removeEventListener('keydown', this.boundHandleKeydown);
+      this.el.removeEventListener("click", this.boundHandleClick);
+      this.el.removeEventListener("keydown", this.boundHandleKeydown);
     }
     this.boundHandleClick = null;
     this.boundHandleKeydown = null;
-  }
+  },
 };
 
 export default Collapsible;
