@@ -81,19 +81,20 @@ defmodule MishkaWeb.Components.Collapse do
   """
 
   @doc type: :component
-  attr :id, :string,
+  attr(:id, :string,
     required: true,
     doc: "A unique identifier for the collapse"
+  )
 
-  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :duration, :integer, default: 200, doc: "Animation duration in milliseconds"
-  attr :keep_mounted, :boolean, default: false, doc: "Keep content mounted after first open"
-  attr :server_events, :boolean, default: false, doc: "Send open/close events to LiveView"
-  attr :target, :string, default: nil, doc: "Target component for server events"
-  attr :open, :boolean, default: false, doc: "Whether the collapse is initially open"
+  attr(:class, :string, default: nil, doc: "Custom CSS class for additional styling")
+  attr(:duration, :integer, default: 200, doc: "Animation duration in milliseconds")
+  attr(:keep_mounted, :boolean, default: false, doc: "Keep content mounted after first open")
+  attr(:server_events, :boolean, default: false, doc: "Send open/close events to LiveView")
+  attr(:target, :string, default: nil, doc: "Target component for server events")
+  attr(:open, :boolean, default: false, doc: "Whether the collapse is initially open")
 
-  slot :trigger, required: true, doc: "The clickable trigger element"
-  slot :inner_block, required: true, doc: "The collapsible content"
+  slot(:trigger, required: true, doc: "The clickable trigger element")
+  slot(:inner_block, required: true, doc: "The collapsible content")
 
   def collapse(assigns) do
     assigns =
