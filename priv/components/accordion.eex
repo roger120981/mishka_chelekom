@@ -9,6 +9,7 @@ defmodule <%= @module %> do
   **Documentation:** https://mishka.tools/chelekom/docs/accordion
   """
   use Phoenix.Component
+  import Phoenix.LiveView.Utils, only: [random_id: 0]
 
   import MishkaWeb.Components.Icon, only: [icon: 1]
   @doc type: :component
@@ -59,7 +60,9 @@ defmodule <%= @module %> do
   end
 
   def accordion(assigns) do
-    assigns = assign_new(assigns, :id, fn -> "accordion-#{assigns.variant}-#{assigns.kind}" end)
+    assigns =
+      assigns
+      |> assign_new(:id, fn -> "collapse-#{random_id()}" end)
 
     ~H"""
     <div
