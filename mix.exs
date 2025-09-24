@@ -41,7 +41,7 @@ defmodule MishkaChelekom.MixProject do
       {:guarded_struct, "~> 0.0.4"},
       {:igniter_js, "~> 0.4.10"},
       {:owl, "~> 0.13"},
-      {:ex_doc, "~> 0.38.3", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.38.4", only: :dev, runtime: false},
       {:plug, "~> 1.18", only: :test}
     ]
   end
