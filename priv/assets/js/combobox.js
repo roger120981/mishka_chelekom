@@ -9,9 +9,9 @@ let Combobox = {
     this.boundOptionClickHandlers = [];
     this.boundClearButtonClick = this.handleClearButtonClick.bind(this);
 
-    this.lastNavigatedValue = null; // last chosen option
-    this.originalParent = null; // store original parent for restoration
-    this.isPortalActive = false; // track if dropdown is in portal
+    this.lastNavigatedValue = null;
+    this.originalParent = null;
+    this.isPortalActive = false;
 
     if (!this.openButton.id) {
       this.openButton.id = `combobox-trigger-${Math.random()
@@ -21,6 +21,7 @@ let Combobox = {
 
     this.openButton.addEventListener("click", this.boundOpenButtonClick);
     this.openButton.addEventListener("keydown", this.boundHandleKeyDown);
+    document.addEventListener("keydown", this.boundHandleKeyDown);
 
     this.setupOptionListeners();
 
@@ -60,7 +61,6 @@ let Combobox = {
     this.dropdownOptions = this.getDropdownOptions();
   },
 
-  // Helper method to get dropdown options from current location
   getDropdownOptions() {
     if (this.isPortalActive && this.portalContainer) {
       return this.portalContainer.querySelectorAll(".combobox-option");
@@ -69,13 +69,11 @@ let Combobox = {
   },
 
   setupOptionListeners() {
-    // Clear existing listeners
     this.boundOptionClickHandlers.forEach(({ btn, handler }) => {
       btn.removeEventListener("click", handler);
     });
     this.boundOptionClickHandlers = [];
 
-    // Setup new listeners
     this.getDropdownOptions().forEach((btn) => {
       const handler = this.handleOptionClick.bind(this);
       btn.addEventListener("click", handler);
@@ -103,7 +101,6 @@ let Combobox = {
       this.createPortalIfNeeded();
       this.originalParent = this.dropdown.parentNode;
 
-      // Calculate position BEFORE moving to portal
       const rect = this.openButton.getBoundingClientRect();
       const dropdownHeight = this.dropdown.offsetHeight || 200;
       const windowHeight = window.innerHeight;
@@ -115,10 +112,8 @@ let Combobox = {
       this.portalContainer.style.pointerEvents = "auto";
       this.isPortalActive = true;
 
-      // Re-setup option listeners after moving to portal
       this.setupOptionListeners();
 
-      // Update dropdown styles for portal positioning with correct initial position
       this.dropdown.style.position = "absolute";
       this.dropdown.style.top = shouldShowAbove
         ? `${rect.top - dropdownHeight - 8}px`
@@ -126,7 +121,6 @@ let Combobox = {
       this.dropdown.style.left = `${rect.left}px`;
       this.dropdown.style.width = `${rect.width}px`;
 
-      // Remove relative positioning classes immediately
       this.dropdown.classList.remove("top-full", "mt-2", "bottom-full", "mb-2");
     }
   },
@@ -139,10 +133,8 @@ let Combobox = {
         this.portalContainer.style.pointerEvents = "none";
       }
 
-      // Re-setup option listeners after moving back
       this.setupOptionListeners();
 
-      // Reset dropdown styles
       this.dropdown.style.position = "";
       this.dropdown.style.top = "";
       this.dropdown.style.left = "";
@@ -176,7 +168,6 @@ let Combobox = {
   },
 
   openDropdown() {
-    // Check if parent has overflow hidden and move to portal if needed
     const hasOverflowHidden = this.checkForOverflowHidden();
     if (hasOverflowHidden) {
       this.moveDropdownToPortal();
@@ -188,7 +179,6 @@ let Combobox = {
     requestAnimationFrame(() => {
       this.updateDropdownPosition();
 
-      // Update dropdownOptions reference after potential portal move
       this.dropdownOptions = this.getDropdownOptions();
 
       let navigateTarget = null;
@@ -203,7 +193,6 @@ let Combobox = {
         );
       }
 
-      // Always select first visible option if none found
       if (!navigateTarget) {
         const visibleOptions = Array.from(this.dropdownOptions).filter(
           (opt) => opt.style.display !== "none",
@@ -226,7 +215,6 @@ let Combobox = {
       if (this.searchInput) {
         this.searchInput.focus();
       } else {
-        // Keep focus on trigger button if there's no search input
         this.openButton.focus();
       }
     });
@@ -234,7 +222,6 @@ let Combobox = {
     window.addEventListener("scroll", this.boundHandleScroll, {
       passive: true,
     });
-    document.addEventListener("keydown", this.boundHandleKeyDown);
   },
 
   closeDropdown() {
@@ -246,24 +233,20 @@ let Combobox = {
     window.removeEventListener("scroll", this.boundHandleScroll);
     document.removeEventListener("keydown", this.boundHandleKeyDown);
 
-    // Move dropdown back from portal
     this.moveDropdownBack();
   },
 
   navigateToOption(option) {
     if (!option) return;
 
-    // Clear all navigation states from current dropdown options
     Array.from(this.getDropdownOptions()).forEach((opt) => {
       opt.removeAttribute("data-combobox-navigate");
     });
 
-    // Set navigation on target option
     option.setAttribute("data-combobox-navigate", "");
     option.scrollIntoView({ block: "nearest" });
     this.lastNavigatedValue = option.dataset.comboboxValue;
 
-    // Update aria-activedescendant
     if (option.id) {
       this.openButton.setAttribute("aria-activedescendant", option.id);
     } else {
@@ -288,7 +271,6 @@ let Combobox = {
     const spaceBelow = windowHeight - rect.bottom;
 
     if (this.isPortalActive) {
-      // Position absolutely when in portal
       const shouldShowAbove =
         spaceBelow < dropdownHeight && rect.top > dropdownHeight;
 
@@ -301,10 +283,8 @@ let Combobox = {
       this.dropdown.style.left = `${rect.left}px`;
       this.dropdown.style.width = `${rect.width}px`;
 
-      // Remove relative positioning classes
       this.dropdown.classList.remove("top-full", "mt-2", "bottom-full", "mb-2");
     } else {
-      // Use relative positioning when not in portal
       if (spaceBelow < dropdownHeight) {
         this.dropdown.classList.remove("top-full", "mt-2");
         this.dropdown.classList.add("bottom-full", "mb-2");
@@ -338,7 +318,6 @@ let Combobox = {
       if (noResults) noResults.classList.add("hidden");
     }
 
-    // Handle option groups
     const optionGroups = this.dropdown.querySelectorAll(".option-group");
     optionGroups.forEach((group) => {
       const visibleInGroup = group.querySelectorAll(
@@ -347,7 +326,6 @@ let Combobox = {
       group.style.display = visibleInGroup.length === 0 ? "none" : "";
     });
 
-    // Reset navigation to first visible option after search
     this.resetNavigateToFirstOption();
   },
 
@@ -356,6 +334,9 @@ let Combobox = {
     const optionEl = e.target.closest(".combobox-option");
     const value = optionEl.dataset.comboboxValue;
     const isMultiple = this.select.multiple;
+    
+    this.lastNavigatedValue = value;
+    
     if (isMultiple) {
       this.toggleOption(value, optionEl);
       this.updateMultipleSelectedDisplay();
@@ -507,7 +488,6 @@ let Combobox = {
   handleKeyDown(e) {
     const key = e.key;
 
-    // Handle Space/Enter on trigger button when dropdown is closed
     if (
       this.dropdown.hasAttribute("hidden") &&
       document.activeElement === this.openButton
@@ -517,10 +497,9 @@ let Combobox = {
         this.openDropdown();
         return;
       }
-      return; // Don't process other keys when dropdown is closed
+      return;
     }
 
-    // If dropdown is closed, don't process any other keys
     if (this.dropdown.hasAttribute("hidden")) return;
 
     if (key === "Escape") {
@@ -529,7 +508,6 @@ let Combobox = {
       return;
     }
 
-    // Only restrict typing if search input exists AND has focus
     if (
       this.searchInput &&
       document.activeElement === this.searchInput &&
@@ -538,7 +516,6 @@ let Combobox = {
       return;
     }
 
-    // Get visible options from current dropdown location
     const visibleOptions = Array.from(this.getDropdownOptions()).filter(
       (opt) => opt.style.display !== "none",
     );
@@ -568,11 +545,25 @@ let Combobox = {
     } else if (key === "Enter") {
       e.preventDefault();
       if (currentIndex >= 0) {
-        visibleOptions[currentIndex].click();
-      }
-      if (!this.select.multiple) {
-        this.closeDropdown();
-        this.openButton.focus();
+        const targetOption = visibleOptions[currentIndex];
+        const value = targetOption.dataset.comboboxValue;
+        this.lastNavigatedValue = value;
+        
+        if (this.select.multiple) {
+          this.toggleOption(value, targetOption);
+          this.updateMultipleSelectedDisplay();
+          this.dispatchChangeEvent();
+        } else {
+          Array.from(this.getDropdownOptions()).forEach((opt) => {
+            opt.removeAttribute("data-combobox-selected");
+            opt.setAttribute("aria-selected", "false");
+          });
+          this.selectSingleOption(value);
+          targetOption.setAttribute("data-combobox-selected", "");
+          targetOption.setAttribute("aria-selected", "true");
+          this.closeDropdown();
+          this.openButton.focus();
+        }
       }
       return;
     } else if (key === "Tab") {
@@ -608,7 +599,6 @@ let Combobox = {
   syncDisplayFromSelect() {
     Array.from(this.getDropdownOptions()).forEach((opt) => {
       opt.removeAttribute("data-combobox-selected");
-      opt.removeAttribute("data-combobox-navigate");
       opt.setAttribute("aria-selected", "false");
     });
 
@@ -616,13 +606,6 @@ let Combobox = {
       this.updateMultipleSelectedDisplay();
     } else {
       this.updateSingleSelectedDisplay();
-    }
-
-    const isAnySelected = Array.from(this.select.options).some(
-      (opt) => opt.selected,
-    );
-    if (!isAnySelected) {
-      this.resetNavigateToFirstOption();
     }
   },
 
@@ -672,7 +655,6 @@ let Combobox = {
   destroyed() {
     this.closeDropdown();
 
-    // Clean up portal
     if (this.portalContainer && this.portalContainer.parentNode) {
       this.portalContainer.parentNode.removeChild(this.portalContainer);
     }
