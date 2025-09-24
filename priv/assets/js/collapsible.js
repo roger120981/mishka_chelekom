@@ -38,7 +38,7 @@ const Collapsible = {
       duration: parseInt(this.el.getAttribute("data-duration")) || 200,
       keepMounted: this.el.getAttribute("data-keep-mounted") === "true",
       serverEvents: this.el.getAttribute("data-server-events") === "true",
-      target: this.el.getAttribute("data-target"),
+      eventHandler: this.el.getAttribute("data-event-handler"),
     };
   },
 
@@ -263,8 +263,8 @@ const Collapsible = {
       open_ids: Array.from(this.state.openItems),
     };
 
-    if (this.config.target) {
-      this.pushEventTo(this.config.target, event, payload);
+    if (this.config.eventHandler) {
+      this.pushEvent(this.config.eventHandler, payload);
     } else {
       this.pushEvent(event, payload);
     }

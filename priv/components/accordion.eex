@@ -22,7 +22,7 @@ defmodule <%= @module %> do
   attr :duration, :integer, default: 200, doc: "Animation duration in milliseconds"
   attr :keep_mounted, :boolean, default: false, doc: "Keep content mounted after first open"
   attr :server_events, :boolean, default: false, doc: "Send open/close events to LiveView"
-  attr :target, :string, default: nil, doc: "Target component for server events"
+  attr :event_handler, :string, default: nil, doc: "Specify event handler for accordion events"
   attr :initial_open, :list, default: [], doc: "List of initially open item IDs"
 
   attr :variant, :string, default: "base", doc: "Visual style variant"
@@ -70,7 +70,7 @@ defmodule <%= @module %> do
       data-duration={@duration}
       data-keep-mounted={to_string(@keep_mounted)}
       data-server-events={to_string(@server_events)}
-      data-target={@target}
+      data-event-handler={@event_handler}
       data-initial-open={format_initial_open(@initial_open, @item)}
       class={[
         "overflow-hidden w-full h-fit",
