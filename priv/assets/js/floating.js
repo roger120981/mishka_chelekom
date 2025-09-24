@@ -48,8 +48,7 @@ const Floating = {
         ) {
           try {
             document.body.removeChild(duplicate);
-          } catch (e) {
-          }
+          } catch (e) {}
         }
       });
     }
@@ -369,10 +368,10 @@ const Floating = {
     if (!this.trigger || !this.floatingContent) return;
 
     const originalDisplay = this.trigger.style.display;
-    const isSpan = this.trigger.tagName.toLowerCase() === 'span';
+    const isSpan = this.trigger.tagName.toLowerCase() === "span";
 
-    if (isSpan && (!originalDisplay || originalDisplay === 'inline')) {
-      this.trigger.style.display = 'inline-block';
+    if (isSpan && (!originalDisplay || originalDisplay === "inline")) {
+      this.trigger.style.display = "inline-block";
     }
 
     const rect = this.trigger.getBoundingClientRect();
@@ -412,13 +411,15 @@ const Floating = {
       left = (rect.left + rect.right) / 2 + window.scrollX;
       content.style.transform = "translateX(-50%)";
     } else if (pos === "left") {
-      top = rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
+      top =
+        rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
       left = this.isRTL
         ? rect.right + window.scrollX + gap
         : rect.left + window.scrollX - content.offsetWidth - gap;
       content.style.transform = "none";
     } else if (pos === "right") {
-      top = rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
+      top =
+        rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
       left = this.isRTL
         ? rect.left + window.scrollX - content.offsetWidth - gap
         : rect.right + window.scrollX + gap;
@@ -429,8 +430,8 @@ const Floating = {
     content.style.top = `${top}px`;
     content.style.left = `${left}px`;
 
-    if (isSpan && originalDisplay !== 'inline-block') {
-      this.trigger.style.display = originalDisplay || '';
+    if (isSpan && originalDisplay !== "inline-block") {
+      this.trigger.style.display = originalDisplay || "";
     }
   },
 
