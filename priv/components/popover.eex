@@ -252,19 +252,13 @@ defmodule <%= @module %> do
   defp border_class(_, variant) when variant in ["default", "shadow", "gradient"],
     do: nil
 
-  defp border_class("extra_small"), do: "border"
-
-  defp border_class("small"), do: "border-2"
-
-  defp border_class("medium"), do: "border-[3px]"
-
-  defp border_class("large"), do: "border-4"
-
-  defp border_class("extra_large"), do: "border-[5px]"
-
-  defp border_class("none"), do: nil
-
-  defp border_class(params) when is_binary(params), do: params
+  defp border_class("extra_small",_), do: "border"
+  defp border_class("small",_), do: "border-2"
+  defp border_class("medium",_), do: "border-[3px]"
+  defp border_class("large",_), do: "border-4"
+  defp border_class("extra_large",_), do: "border-[5px]"
+  defp border_class("none",_), do: nil
+  defp border_class(params,_) when is_binary(params), do: params
 
   <%= if is_nil(@rounded) or "extra_small" in @rounded do %>
   defp rounded_size("extra_small"), do: "rounded-sm"
@@ -284,19 +278,19 @@ defmodule <%= @module %> do
   defp rounded_size(params) when is_binary(params), do: params
 
   <%= if is_nil(@size) or "extra_small" in @size do %>
-  defp size_class("extra_small"), do: "text-xs max-w-60 [&_.popover-title-icon]:size-3"
+  defp size_class("extra_small"), do: "text-xs max-w-60"
   <% end %>
   <%= if is_nil(@size) or "small" in @size do %>
-  defp size_class("small"), do: "text-sm max-w-64 [&_.popover-title-icon]:size-3.5"
+  defp size_class("small"), do: "text-sm max-w-64.5"
   <% end %>
   <%= if is_nil(@size) or "medium" in @size do %>
-  defp size_class("medium"), do: "text-base max-w-72 [&_.popover-title-icon]:size-4"
+  defp size_class("medium"), do: "text-base max-w-72"
   <% end %>
   <%= if is_nil(@size) or "large" in @size do %>
-  defp size_class("large"), do: "text-lg max-w-80 [&_.popover-title-icon]:size-5"
+  defp size_class("large"), do: "text-lg max-w-80"
   <% end %>
   <%= if is_nil(@size) or "extra_large" in @size do %>
-  defp size_class("extra_large"), do: "text-xl max-w-96 [&_.popover-title-icon]:size-6"
+  defp size_class("extra_large"), do: "text-xl max-w-96"
   <% end %>
   defp size_class(params) when is_binary(params), do: params
 
@@ -319,29 +313,19 @@ defmodule <%= @module %> do
   defp width_class(params) when is_binary(params), do: params
 
   <%= if is_nil(@padding) or "extra_small" in @padding do %>
-  defp wrapper_padding("extra_small") do
-    "[&:has(.popover-section)>.popover-section]:p-1 [&:not(:has(.popover-section))]:p-1"
-  end
+  defp wrapper_padding("extra_small"), do: "p-1"
   <% end %>
   <%= if is_nil(@padding) or "small" in @padding do %>
-  defp wrapper_padding("small") do
-    "[&:has(.popover-section)>.popover-section]:p-2 [&:not(:has(.popover-section))]:p-2"
-  end
+  defp wrapper_padding("small"), do: "p-2"
   <% end %>
   <%= if is_nil(@padding) or "medium" in @padding do %>
-  defp wrapper_padding("medium") do
-    "[&:has(.popover-section)>.popover-section]:p-3 [&:not(:has(.popover-section))]:p-3"
-  end
+  defp wrapper_padding("medium"), do: "p-3"
   <% end %>
   <%= if is_nil(@padding) or "large" in @padding do %>
-  defp wrapper_padding("large") do
-    "[&:has(.popover-section)>.popover-section]:p-4 [&:not(:has(.popover-section))]:p-4"
-  end
+  defp wrapper_padding("large"), do: "p-4"
   <% end %>
   <%= if is_nil(@padding) or "extra_large" in @padding do %>
-  defp wrapper_padding("extra_large") do
-    "[&:has(.popover-section)>.popover-section]:p-5 [&:not(:has(.popover-section))]:p-5"
-  end
+  defp wrapper_padding("extra_large"), do: "p-5"
   <% end %>
   defp wrapper_padding(params) when is_binary(params), do: params
 
