@@ -1,6 +1,6 @@
 defmodule <%= @module %> do
   @moduledoc """
-  The `<%= @module %>`  module provides a flexible and customizable accordion
+  The `<%= @module %>` module provides a flexible and customizable accordion
   component for Phoenix LiveView applications.
 
   It supports a variety of configuration options including size, variant, color, padding,
@@ -1078,25 +1078,26 @@ defmodule <%= @module %> do
        when variant not in ["base_separated", "outline_separated", "bordered_separated"],
        do: nil
 
- <%= if is_nil(@space) or "extra_small" in @space do %>
-  defp space_class("extra_small", _), do: "space-y-1"
-<% end %>
+  <%= if is_nil(@space) or "extra_small" in @space do %>
+    defp space_class("extra_small", _), do: "space-y-1"
+  <% end %>
 
-<%= if is_nil(@space) or "small" in @space do %>
-  defp space_class("small", _), do: "space-y-2"
-<% end %>
+  <%= if is_nil(@space) or "small" in @space do %>
+    defp space_class("small", _), do: "space-y-2"
+  <% end %>
 
-<%= if is_nil(@space) or "medium" in @space do %>
-  defp space_class("medium", _), do: "space-y-3"
-<% end %>
+  <%= if is_nil(@space) or "medium" in @space do %>
+    defp space_class("medium", _), do: "space-y-3"
+  <% end %>
 
-<%= if is_nil(@space) or "large" in @space do %>
-  defp space_class("large", _), do: "space-y-4"
-<% end %>
+  <%= if is_nil(@space) or "large" in @space do %>
+    defp space_class("large", _), do: "space-y-4"
+  <% end %>
 
-<%= if is_nil(@space) or "extra_large" in @space do %>
-  defp space_class("extra_large", _), do: "space-y-6"
-<% end %>
+  <%= if is_nil(@space) or "extra_large" in @space do %>
+    defp space_class("extra_large", _), do: "space-y-6"
+  <% end %>
+  defp space_class(params, _) when is_binary(params), do: params
 
 
   defp border_class("none", _), do: nil
