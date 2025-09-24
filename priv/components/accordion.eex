@@ -1,68 +1,22 @@
 defmodule <%= @module %> do
   @moduledoc """
-  The `<%= @module %>` module provides a flexible and customizable accordion
+  The `<%= @module %>`  module provides a flexible and customizable accordion
   component for Phoenix LiveView applications.
 
   It supports a variety of configuration options including size, variant, color, padding,
   and border styles.
 
-  ### Features
-
-  - **Customizable Design**: Supports multiple variants such as `"default"`, `"outline"`,
-  `"bordered"`, `"outline_separated"`, `"bordered_separated"`, `"transparent"`, and `"menu"`.
-  - **Size and Spacing**: Provides control over the size and spacing of accordion items
-  using predefined values such as `"extra_small"`, `"small"`, `"medium"`,
-  `"large"`, and `"extra_large"`.
-  - **Color Themes**: Offers a range of color options including `"primary"`,
-  `"secondary"`, `"success"`, `"warning"`, `"danger"`, `"info"`, `"silver"`, `"dark"`, and more.
-  - **Interactive Animations**: Includes interactive JavaScript-based animations
-  for showing and hiding content with smooth transitions.
-  - **Icon and Media Support**: Allows the inclusion of icons and images within
-  accordion items, enhancing the visual appeal and usability of the component.
-
   **Documentation:** https://mishka.tools/chelekom/docs/accordion
   """
-
   use Phoenix.Component
-  import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]
 
-  @doc """
-  The `accordion` component provides a collapsible structure with various styling options,
-  ideal for organizing content into expandable panels. It supports customizable attributes such
-  as `variant`, `color`, and `media_size`.
-
-  ## Examples
-
-  ```elixir
-  <.accordion id="test-108" media_size="medium" color="secondary">
-    <:item
-      title="Accordion Version native"
-      description="Need to be something like this yeehh!?"
-      image="https://img.icons8.com/clouds/256/000000/futurama-bender.png"
-    >
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis fugit, voluptas nam quia,
-      sunt sapiente itaque velit illo sed nesciunt molestias commodi, veniam adipisci quo
-      laboriosam in ipsa illum tenetur.
-    </:item>
-    <:item
-      title="Accordion Version native"
-      description="Need to be something like this yeehh!?"
-      image="https://img.icons8.com/clouds/256/000000/futurama-bender.png"
-    >
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis fugit, voluptas nam quia,
-      sunt sapiente itaque velit illo sed nesciunt molestias commodi, veniam adipisci quo
-      laboriosam in ipsa illum tenetur.
-    </:item>
-  </.accordion>
-  ```
-  """
-    @doc type: :component
+  import MishkaWeb.Components.Icon, only: [icon: 1]
+  @doc type: :component
   attr :id, :string,
     required: true,
     doc: "A unique identifier for the accordion"
 
   attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :items, :list, default: [], doc: "List of accordion items"
   attr :multiple, :boolean, default: false, doc: "Allow multiple panels open simultaneously"
   attr :collapsible, :boolean, default: true, doc: "Allow all panels to be closed"
   attr :duration, :integer, default: 200, doc: "Animation duration in milliseconds"
@@ -71,7 +25,6 @@ defmodule <%= @module %> do
   attr :target, :string, default: nil, doc: "Target component for server events"
   attr :initial_open, :list, default: [], doc: "List of initially open item IDs"
 
-  # Styling options
   attr :variant, :string, default: "base", doc: "Visual style variant"
   attr :color, :string, default: "natural", doc: "Color theme"
   attr :size, :string, default: "medium", doc: "Overall size"
@@ -81,7 +34,6 @@ defmodule <%= @module %> do
   attr :media_size, :string, default: "small", doc: "Size of media elements like icons and images"
   attr :padding, :string, default: "small", doc: "Padding for accordion items"
 
-  # Icon options
   attr :chevron_icon, :string, default: "hero-chevron-down", doc: "Chevron icon"
   attr :chevron_position, :string, default: "right", doc: "Chevron position (left/right)"
   attr :left_chevron, :boolean, default: false, doc: "Position chevron on the left"
@@ -89,7 +41,6 @@ defmodule <%= @module %> do
   attr :hide_chevron, :boolean, default: false, doc: "Hide the chevron icon"
   attr :chevron_class, :string, default: nil, doc: "Additional CSS classes for the chevron"
 
-  # Slot support
   slot :item, required: false, doc: "Accordion items as slots" do
     attr :id, :string,
       required: false,
@@ -108,22 +59,19 @@ defmodule <%= @module %> do
   end
 
   def accordion(assigns) do
-    assigns =
-      assigns
-      |> assign_defaults()
-      |> merge_slot_items()
+    assigns = assign_new(assigns, :id, fn -> "accordion-#{assigns.variant}-#{assigns.kind}" end)
 
     ~H"""
     <div
       id={@id}
       phx-hook="Collapsible"
       data-multiple={@multiple}
-      data-collapsible={@collapsible}
+      data-collapsible={to_string(@collapsible)}
       data-duration={@duration}
-      data-keep-mounted={@keep_mounted}
-      data-server-events={@server_events}
+      data-keep-mounted={to_string(@keep_mounted)}
+      data-server-events={to_string(@server_events)}
       data-target={@target}
-      data-initial-open={format_initial_open(@initial_open, @items)}
+      data-initial-open={format_initial_open(@initial_open, @item)}
       class={[
         "overflow-hidden w-full h-fit",
         color_variant(@variant, @color),
@@ -137,13 +85,11 @@ defmodule <%= @module %> do
       ]}
     >
       <div
-        :for={item <- @items}
-        class={[
-          "accordion-item overflow-hidden"
-        ]}
+        :for={{item, index} <- Enum.with_index(@item, 1)}
+        class={["accordion-item overflow-hidden"]}
       >
         <button
-          data-collapsible-trigger={item.id}
+          data-collapsible-trigger={item[:id] || "#{@id}-item-#{index + 1}"}
           class={[
             "accordion-trigger cursor-pointer w-full text-left flex items-center justify-between",
             "transition-colors duration-200 focus:outline-none overflow-hidden",
@@ -156,14 +102,8 @@ defmodule <%= @module %> do
             class={chevron_classes(assigns)}
           />
           <div class="flex items-center space-x-3">
-            <div
-              :if={item[:icon]}
-              class={["shrink-0", item[:icon_wrapper_class]]}
-            >
-              <.icon
-                name={item.icon}
-                class={item[:icon_class] || "accordion-icon"}
-              />
+            <div :if={item[:icon]} class={["shrink-0", item[:icon_wrapper_class]]}>
+              <.icon name={item[:icon]} class={item[:icon_class] || "accordion-icon"} />
             </div>
 
             <img
@@ -173,11 +113,9 @@ defmodule <%= @module %> do
             />
 
             <div class="flex-1">
-              <div class="accordion-title">
-                {item.title}
-              </div>
+              <div class="accordion-title">{item[:title]}</div>
               <div :if={item[:description]} class="accordion-description">
-                {item.description}
+                {item[:description]}
               </div>
             </div>
           </div>
@@ -189,22 +127,13 @@ defmodule <%= @module %> do
           />
         </button>
 
-        <div
-          data-collapsible-panel={item.id}
-          class="overflow-hidden"
-        >
+        <div data-collapsible-panel={item[:id] || "#{@id}-item-#{index + 1}"} class="overflow-hidden">
           <div
             data-collapsible-content
-            class={[
-              "transition-[max-height] max-h-0",
-              "duration-#{@duration}"
-            ]}
+            class={["transition-[max-height] max-h-0", "duration-#{@duration}"]}
           >
-            <div class={[
-              "accordion-panel-content",
-              item[:content_class]
-            ]}>
-              {render_content(item)}
+            <div class={["accordion-panel-content", item[:content_class]]}>
+              {render_slot(item)}
             </div>
           </div>
         </div>
@@ -213,102 +142,15 @@ defmodule <%= @module %> do
     """
   end
 
-  def handle_event("collapsible_open", %{"item_id" => item_id, "open_ids" => open_ids}, socket) do
-    socket = assign(socket, :open_collapsible_items, open_ids)
-    {:noreply, socket}
-  end
-
-  def handle_event("collapsible_close", %{"item_id" => item_id, "open_ids" => open_ids}, socket) do
-    socket = assign(socket, :open_collapsible_items, open_ids)
-    {:noreply, socket}
-  end
-
-  defp merge_slot_items(assigns) do
-    slot_items =
-      assigns
-      |> Map.get(:item, [])
-      |> Enum.with_index()
-      |> Enum.map(fn {slot, index} ->
-        # Generate ID if not provided using parent ID + index
-        item_id = Map.get(slot, :id) || "#{assigns.id}-item-#{index + 1}"
-
-        %{
-          id: item_id,
-          title: slot.title,
-          description: slot[:description],
-          icon: slot[:icon],
-          icon_class: slot[:icon_class],
-          icon_wrapper_class: slot[:icon_wrapper_class],
-          image: slot[:image],
-          image_class: slot[:image_class],
-          trigger_class: slot[:trigger_class],
-          content_class: slot[:content_class],
-          open: slot[:open] || false,
-          inner_block: slot.inner_block
-        }
-      end)
-
-    existing_items = Map.get(assigns, :items, [])
-    all_items = existing_items ++ slot_items
-
-    Map.put(assigns, :items, all_items)
-  end
-
-  defp assign_defaults(assigns) do
-    assigns
-    |> assign_new(:items, fn -> [] end)
-    |> assign_new(:multiple, fn -> false end)
-    |> assign_new(:collapsible, fn -> true end)
-    |> assign_new(:duration, fn -> 200 end)
-    |> assign_new(:keep_mounted, fn -> false end)
-    |> assign_new(:server_events, fn -> false end)
-    |> assign_new(:target, fn -> nil end)
-    |> assign_new(:initial_open, fn -> [] end)
-    |> assign_new(:variant, fn -> "base" end)
-    |> assign_new(:color, fn -> "natural" end)
-    |> assign_new(:size, fn -> "medium" end)
-    |> assign_new(:rounded, fn -> "medium" end)
-    |> assign_new(:border, fn -> "small" end)
-    |> assign_new(:space, fn -> "small" end)
-    |> assign_new(:media_size, fn -> "small" end)
-    |> assign_new(:padding, fn -> "small" end)
-    |> assign_new(:chevron_icon, fn -> "hero-chevron-down" end)
-    |> assign_new(:chevron_position, fn -> "right" end)
-    |> assign_new(:left_chevron, fn -> false end)
-    |> assign_new(:right_chevron, fn -> false end)
-    |> assign_new(:hide_chevron, fn -> false end)
-    |> assign_new(:chevron_class, fn -> nil end)
-  end
-
-  defp render_content(%{content: content}) when is_binary(content) do
-    Phoenix.HTML.raw(content)
-  end
-
-  defp render_content(%{content: content}) when is_function(content) do
-    content.()
-  end
-
-  defp render_content(%{inner_block: inner_block}) when is_function(inner_block) do
-    inner_block.(%{}, [])
-  end
-
-  defp render_content(item) do
-    item[:inner_block] || item[:content] || ""
-  end
-
   defp format_initial_open(initial_open, items) do
-    # Collect items marked as open at the slot level
     slot_open_items =
       items
       |> Enum.filter(&(&1[:open] == true))
       |> Enum.map(& &1.id)
 
     cond do
-      # Priority 1: Explicit initial_open list
       length(initial_open) > 0 -> Enum.join(initial_open, ",")
-      # Priority 2: Items marked as open in slots
       length(slot_open_items) > 0 -> Enum.join(slot_open_items, ",")
-      # Default: no items open
       true -> ""
     end
   end
