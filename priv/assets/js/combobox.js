@@ -334,9 +334,9 @@ let Combobox = {
     const optionEl = e.target.closest(".combobox-option");
     const value = optionEl.dataset.comboboxValue;
     const isMultiple = this.select.multiple;
-    
+
     this.lastNavigatedValue = value;
-    
+
     if (isMultiple) {
       this.toggleOption(value, optionEl);
       this.updateMultipleSelectedDisplay();
@@ -548,7 +548,7 @@ let Combobox = {
         const targetOption = visibleOptions[currentIndex];
         const value = targetOption.dataset.comboboxValue;
         this.lastNavigatedValue = value;
-        
+
         if (this.select.multiple) {
           this.toggleOption(value, targetOption);
           this.updateMultipleSelectedDisplay();
