@@ -60,7 +60,7 @@ defmodule <%= @module %> do
   end
 
   def accordion(assigns) do
-    assigns = assigns |> assign_new(:id, fn -> "collapse-#{random_id()}" end)
+    assigns = assigns |> assign_new(:id, fn -> "accordion-#{random_id()}" end)
 
     ~H"""
     <div
