@@ -377,11 +377,20 @@ const Floating = {
   updatePosition() {
     if (!this.trigger || !this.floatingContent) return;
 
+    // Ensure trigger has proper layout for positioning calculations
+    const originalDisplay = this.trigger.style.display;
+    const isSpan = this.trigger.tagName.toLowerCase() === 'span';
+
+    if (isSpan && (!originalDisplay || originalDisplay === 'inline')) {
+      this.trigger.style.display = 'inline-block';
+    }
+
     const rect = this.trigger.getBoundingClientRect();
     const content = this.floatingContent;
-    const gap = 4;
+    const gap = 5;
     let pos = this.position;
 
+    // Rest of your positioning logic remains the same...
     if (this.smartPositioning && content.offsetHeight) {
       const { top, bottom, left, right } = rect;
       const { innerHeight, innerWidth } = window;
@@ -414,15 +423,13 @@ const Floating = {
       left = (rect.left + rect.right) / 2 + window.scrollX;
       content.style.transform = "translateX(-50%)";
     } else if (pos === "left") {
-      top =
-        rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
+      top = rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
       left = this.isRTL
         ? rect.right + window.scrollX + gap
         : rect.left + window.scrollX - content.offsetWidth - gap;
       content.style.transform = "none";
     } else if (pos === "right") {
-      top =
-        rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
+      top = rect.top + window.scrollY + (rect.height - content.offsetHeight) / 2;
       left = this.isRTL
         ? rect.left + window.scrollX - content.offsetWidth - gap
         : rect.right + window.scrollX + gap;
@@ -432,6 +439,11 @@ const Floating = {
     content.style.position = "absolute";
     content.style.top = `${top}px`;
     content.style.left = `${left}px`;
+
+    // Restore original display if we changed it
+    if (isSpan && originalDisplay !== 'inline-block') {
+      this.trigger.style.display = originalDisplay || '';
+    }
   },
 
   show() {
