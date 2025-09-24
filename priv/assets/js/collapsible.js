@@ -237,7 +237,7 @@ const Collapsible = {
   syncUI() {
     this.itemMap.forEach((elements, itemId) => {
       const isOpen = this.state.openItems.has(itemId);
-      const { trigger, panel } = elements;
+      const { panel } = elements;
       const content =
         panel.querySelector("[data-collapsible-content]") || panel;
 
