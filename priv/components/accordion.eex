@@ -10,7 +10,7 @@ defmodule <%= @module %> do
   """
   use Phoenix.Component
   import Phoenix.LiveView.Utils, only: [random_id: 0]
-  import MishkaWeb.Components.Icon, only: [icon: 1]
+  import <%= inspect(@web_module) %>.Components.Icon, only: [icon: 1]
 
   @doc type: :component
   attr :id, :string,
