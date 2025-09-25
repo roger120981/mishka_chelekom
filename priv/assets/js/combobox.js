@@ -341,6 +341,11 @@ let Combobox = {
       this.toggleOption(value, optionEl);
       this.updateMultipleSelectedDisplay();
       this.dispatchChangeEvent();
+      if (this.searchInput) {
+        setTimeout(() => {
+          this.searchInput.focus();
+        }, 0);
+      }
     } else {
       Array.from(this.getDropdownOptions()).forEach((opt) => {
         opt.removeAttribute("data-combobox-selected");
@@ -508,10 +513,13 @@ let Combobox = {
       return;
     }
 
+    const isNavigationKey = ["ArrowDown", "ArrowUp", "Enter", "Tab", "Escape"].includes(key);
+    
     if (
       this.searchInput &&
       document.activeElement === this.searchInput &&
-      !["ArrowDown", "ArrowUp", "Enter", "Tab", "Escape"].includes(key)
+      !isNavigationKey &&
+      key.length === 1
     ) {
       return;
     }
@@ -544,6 +552,7 @@ let Combobox = {
       return;
     } else if (key === "Enter") {
       e.preventDefault();
+      e.stopPropagation();
       if (currentIndex >= 0) {
         const targetOption = visibleOptions[currentIndex];
         const value = targetOption.dataset.comboboxValue;
@@ -553,6 +562,7 @@ let Combobox = {
           this.toggleOption(value, targetOption);
           this.updateMultipleSelectedDisplay();
           this.dispatchChangeEvent();
+          this.navigateToOption(targetOption);
         } else {
           Array.from(this.getDropdownOptions()).forEach((opt) => {
             opt.removeAttribute("data-combobox-selected");
