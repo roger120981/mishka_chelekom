@@ -513,8 +513,14 @@ let Combobox = {
       return;
     }
 
-    const isNavigationKey = ["ArrowDown", "ArrowUp", "Enter", "Tab", "Escape"].includes(key);
-    
+    const isNavigationKey = [
+      "ArrowDown",
+      "ArrowUp",
+      "Enter",
+      "Tab",
+      "Escape",
+    ].includes(key);
+
     if (
       this.searchInput &&
       document.activeElement === this.searchInput &&
