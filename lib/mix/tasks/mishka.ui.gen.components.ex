@@ -2,6 +2,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   alias Mix.Tasks.Mishka.Ui.Gen.Component
   use Igniter.Mix.Task
   alias Igniter.Project.Application, as: IAPP
+  alias MishkaChelekom.CSSConfig
 
   @example "mix mishka.ui.gen.components component1,component2"
   @shortdoc "A Mix Task for generating and configuring multi components of Phoenix"
@@ -26,6 +27,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
   * `--helpers` - Specifies helper functions of each component in import file
   * `--global` - Makes components accessible throughout the project without explicit imports
   * `--yes` - Makes directly without questions
+  * `--exclude` - Comma-separated list of components to exclude (e.g., `--exclude alert,badge`)
   """
 
   def info(_argv, _composing_task) do
@@ -47,9 +49,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
       # This ensures your option schema includes options from nested tasks
       composes: ["mishka.ui.gen.component"],
       # `OptionParser` schema
-      schema: [import: :boolean, helpers: :boolean, global: :boolean],
+      schema: [import: :boolean, helpers: :boolean, global: :boolean, exclude: :csv],
       # CLI aliases
-      aliases: [i: :import, h: :helpers, g: :global]
+      aliases: [i: :import, h: :helpers, g: :global, e: :exclude]
     }
   end
 
@@ -57,9 +59,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     # Based on https://github.com/fuelen/owl/issues/27
     Application.ensure_all_started(:owl)
     # extract positional arguments according to `positional` above
-    %Igniter.Mix.Task.Args{positional: %{components: components}, argv: argv} = igniter.args
+    %Igniter.Mix.Task.Args{positional: %{components: components}} = igniter.args
 
-    options = options!(argv)
+    options = igniter.args.options
 
     msg =
       """
@@ -74,19 +76,57 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
 
     components = String.split(components || "", ",", trim: true)
 
+    user_config = CSSConfig.load_user_config(igniter)
+
+    # Display exclusions and color filtering info before starting spinner
+    config_excluded = user_config[:exclude_components] || []
+    cli_excluded = options[:exclude] || []
+    all_excluded = Enum.uniq(config_excluded ++ cli_excluded)
+
+    if all_excluded != [] do
+      IO.puts(
+        "\n#{IO.ANSI.yellow()}Excluding components: #{inspect(all_excluded)}#{IO.ANSI.reset()}"
+      )
+    end
+
+    # Display all configured filters
+    filter_info =
+      []
+      |> maybe_add_filter("Colors", user_config[:component_colors])
+      |> maybe_add_filter("Variants", user_config[:component_variants])
+      |> maybe_add_filter("Sizes", user_config[:component_sizes])
+      |> maybe_add_filter("Rounded", user_config[:component_rounded])
+      |> maybe_add_filter("Padding", user_config[:component_padding])
+      |> maybe_add_filter("Space", user_config[:component_space])
+
+    if filter_info != [] do
+      IO.puts("#{IO.ANSI.cyan()}Component filters from config:#{IO.ANSI.reset()}")
+
+      Enum.each(filter_info, fn info ->
+        IO.puts("  #{IO.ANSI.cyan()}• #{info}#{IO.ANSI.reset()}")
+      end)
+    end
+
     Owl.Spinner.start(id: :my_spinner, labels: [processing: "Please wait..."])
 
     list =
       if components == [] or Enum.member?(components, "all"),
-        do: get_all_components_names(igniter),
-        else: components
+        do:
+          get_all_components_names(igniter)
+          |> filter_excluded_components(user_config, options[:exclude]),
+        else: components |> filter_excluded_components(user_config, options[:exclude])
 
     igniter =
-      Enum.reduce(list, igniter, fn item, acc ->
-        acc
-        |> Igniter.compose_task("mishka.ui.gen.component", [item, "--no-deps", "--sub", "--yes"])
+      igniter
+      |> Igniter.assign(%{mishka_user_config: user_config})
+      |> then(fn ig ->
+        Enum.reduce(list, ig, fn item, acc ->
+          acc
+          |> Igniter.compose_task("mishka.ui.gen.component", [item, "--no-deps", "--sub", "--yes"])
+        end)
       end)
       |> create_import_macro(list, options[:import] || false, options[:helpers], options[:global])
+      |> Component.setup_css_files([])
 
     if Map.get(igniter, :issues, []) == [],
       do: Owl.Spinner.stop(id: :my_spinner, resolution: :ok, label: "Done"),
@@ -276,5 +316,26 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Components do
     |> Enum.flat_map(&Path.wildcard(Path.join(&1, "*.eex")))
     |> Enum.map(&Path.basename(&1, ".eex"))
     |> Enum.uniq()
+  end
+
+  defp maybe_add_filter(list, _label, nil), do: list
+  defp maybe_add_filter(list, _label, []), do: list
+
+  defp maybe_add_filter(list, label, values) do
+    list ++ ["#{label}: #{inspect(values)}"]
+  end
+
+  defp filter_excluded_components(components, _user_config, _cli_exclude) when components == [],
+    do: components
+
+  defp filter_excluded_components(components, user_config, cli_exclude) do
+    config_excluded = user_config[:exclude_components] || []
+    all_excluded = Enum.uniq(config_excluded ++ (cli_exclude || []))
+
+    if all_excluded != [] do
+      Enum.reject(components, &Enum.member?(all_excluded, &1))
+    else
+      components
+    end
   end
 end

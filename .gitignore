@@ -31,3 +31,5 @@ mishka_chelekom-*.tar
 .iex.exs
 /assets
 /config
+.elixir-tools
+.elixir_ls

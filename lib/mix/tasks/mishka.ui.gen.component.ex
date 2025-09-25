@@ -1,7 +1,10 @@
 defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
   use Igniter.Mix.Task
   alias Igniter.Project.Application, as: IAPP
-  alias IgniterJs.Parsers.Javascript.{Parser, Formatter}
+  alias IgniterJs.Parsers.Javascript.Parser, as: JsParser
+  alias IgniterJs.Parsers.Javascript.Formatter, as: JsFormatter
+  alias MishkaChelekom.SimpleCSSUtilities
+  alias MishkaChelekom.CSSConfig
 
   @example "mix mishka.ui.gen.component component --example arg"
   @shortdoc "A Mix Task for generating and configuring Phoenix components"
@@ -89,11 +92,11 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
   def igniter(igniter) do
     # extract positional arguments according to `positional` above
-    %Igniter.Mix.Task.Args{positional: %{component: component}, argv: argv} = igniter.args
+    %Igniter.Mix.Task.Args{positional: %{component: component}} = igniter.args
 
-    options = options!(argv)
+    options = igniter.args.options
 
-    if !options[:sub] do
+    if !options[:sub] and Mix.env() != :test do
       msg =
         """
               .-.
@@ -106,15 +109,129 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
       IO.puts(IO.ANSI.green() <> String.trim_trailing(msg) <> IO.ANSI.reset())
     end
 
+    user_config = CSSConfig.load_user_config(igniter)
+
     igniter
+    |> Igniter.assign(%{mishka_user_config: user_config})
+    |> check_dependencies_versions()
     |> get_component_template(component)
     |> converted_components_path(Keyword.get(options, :module))
     |> update_eex_assign(options)
     |> create_or_update_component()
     |> create_or_update_scripts()
+    |> setup_css_files(options)
   end
 
   def supports_umbrella?(), do: false
+
+  @doc false
+  def check_dependencies_versions(igniter) do
+    case Igniter.Project.Deps.get_dep(igniter, :phoenix) do
+      {:ok, nil} ->
+        igniter
+        |> Igniter.add_issue("""
+        Phoenix is not installed in your project.
+        Mishka Chelekom requires Phoenix 1.8.0 or higher.
+        Please add {:phoenix, "~> 1.8"} to your dependencies.
+        """)
+
+      {:ok, dep} ->
+        version_req =
+          case {is_binary(dep), Regex.run(~r/"([^"]+)"/, dep)} do
+            {true, [_, version]} -> version
+            _ -> nil
+          end
+
+        if version_req && !valid_phoenix_version?(version_req) do
+          igniter
+          |> Igniter.add_issue("""
+          Phoenix version requirement #{inspect(version_req)} is not compatible.
+          Mishka Chelekom requires Phoenix 1.8.0 or higher.
+          Please update your Phoenix dependency to "~> 1.8" or higher.
+          """)
+        else
+          igniter
+        end
+
+      {:error, _} ->
+        igniter
+    end
+    |> check_tailwind_version()
+  end
+
+  defp check_tailwind_version(igniter) do
+    cond do
+      !Igniter.Project.Config.configures_key?(igniter, "config.exs", :tailwind, :version) ->
+        igniter
+        |> Igniter.add_issue("""
+        Tailwind version is not specified in your configuration.
+        Mishka Chelekom requires Tailwind CSS 4.0 or higher.
+        Please add version to your Tailwind configuration:
+
+        config :tailwind, version: "4.0.0"
+        """)
+
+      true ->
+        version =
+          igniter
+          |> Igniter.Project.Application.config_path()
+          |> then(&Path.join(Path.dirname(&1), "config.exs"))
+          |> then(&Config.Reader.read!(&1, env: :dev)[:tailwind])
+          |> Keyword.get(:version)
+
+        if version && !valid_tailwind_version?(version) do
+          igniter
+          |> Igniter.add_issue("""
+          Tailwind version #{inspect(version)} is not compatible.
+          Mishka Chelekom requires Tailwind CSS 4.0 or higher.
+          Please update your Tailwind configuration to use version "4.0.0" or higher.
+          """)
+        else
+          igniter
+        end
+    end
+  end
+
+  defp valid_phoenix_version?(requirement) when is_binary(requirement) do
+    base_version =
+      requirement
+      |> String.replace(~r/^[~>>=<= ]+/, "")
+      |> String.trim()
+
+    case Version.parse(base_version) do
+      {:ok, version} ->
+        case Version.compare(version, Version.parse!("1.8.0")) do
+          :lt -> false
+          _ -> true
+        end
+
+      :error ->
+        # If we can't parse, assume it's okay (could be git dependency, etc)
+        true
+    end
+  end
+
+  defp valid_phoenix_version?(_), do: true
+
+  defp valid_tailwind_version?(version) when is_binary(version) do
+    # Remove any alpha/beta/rc suffixes for comparison
+    base_version = version |> String.split("-") |> List.first() |> String.trim()
+
+    case Version.parse(base_version) do
+      {:ok, version} ->
+        # Check if the version is >= 4.0.0
+        case Version.compare(version, Version.parse!("4.0.0")) do
+          :lt -> false
+          _ -> true
+        end
+
+      :error ->
+        # If we can't parse, check if it starts with 4 or higher
+        String.starts_with?(version, ["4.", "5.", "6.", "7.", "8.", "9."])
+    end
+  end
+
+  defp valid_tailwind_version?(_), do: false
 
   @doc false
   def get_component_template(igniter, component) do
@@ -203,6 +320,9 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
          {igniter, proper_location, assign, template_path, template_config},
          options
        ) do
+    # Get color filtering from config if not specified in CLI
+    options = maybe_apply_color_filter(igniter, options, template_config)
+
     {user_bad_args, new_assign} =
       options
       |> Keyword.take(Keyword.keys(template_config[:args]))
@@ -320,7 +440,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     igniter =
       if Keyword.get(template_config, :necessary, []) != [] and Igniter.changed?(igniter) do
         if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
-             !options[:no_sub_config] do
+             !options[:no_sub_config] and Mix.env() != :test do
           IO.puts("#{IO.ANSI.bright() <> "Note:\n" <> IO.ANSI.reset()}")
 
           msg = """
@@ -333,26 +453,31 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
           Components: #{Enum.join(template_config[:necessary], " - ")}
           """
 
-          Mix.Shell.IO.info(IO.ANSI.cyan() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+          if Mix.env() != :test do
+            Mix.Shell.IO.info(IO.ANSI.cyan() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+          end
 
           msg =
             "\nNote: \nIf approved, dependent components will be created without restrictions and you can change them manually."
 
-          IO.puts("#{IO.ANSI.blue() <> msg <> IO.ANSI.reset()}")
+          if Mix.env() != :test do
+            IO.puts("#{IO.ANSI.blue() <> msg <> IO.ANSI.reset()}")
 
-          IO.puts(
-            "#{IO.ANSI.cyan() <> "\nYou can run before generating this component:" <> IO.ANSI.reset()}"
-          )
+            IO.puts(
+              "#{IO.ANSI.cyan() <> "\nYou can run before generating this component:" <> IO.ANSI.reset()}"
+            )
+          end
         end
 
-        if template_config[:necessary] != [] and !options[:yes] and !options[:no_sub_config] do
+        if template_config[:necessary] != [] and !options[:yes] and !options[:no_sub_config] and
+             Mix.env() != :test do
           IO.puts(
             "#{IO.ANSI.yellow() <> "#{Enum.map(template_config[:necessary], &"\n   * mix mishka.ui.gen.component #{&1}\n")}" <> IO.ANSI.reset()}"
           )
         end
 
         if template_config[:necessary] != [] and !options[:sub] and !options[:yes] and
-             !options[:no_sub_config] do
+             !options[:no_sub_config] and Mix.env() != :test do
           Mix.Shell.IO.error("""
 
           In this section you can set your custom args for each dependent component.
@@ -362,7 +487,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
 
         Enum.reduce(template_config[:necessary], {[], igniter}, fn item, {module_coms, acc} ->
           commands =
-            if !options[:yes] and !options[:no_sub_config] do
+            if !options[:yes] and !options[:no_sub_config] and Mix.env() != :test do
               Mix.Shell.IO.prompt("* Component #{String.capitalize(item)}: Enter your args:")
               |> String.trim()
               |> String.split(" ", trim: true)
@@ -385,7 +510,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
                 [item, "--sub"] ++ commands
             end
 
-          templ_options = options!(args)
+          templ_options = igniter.args.options
 
           component_acc =
             if !is_nil(templ_options[:module]) do
@@ -510,14 +635,14 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
               fn source ->
                 with original_content <- Rewrite.Source.get(source, :content),
                      {:ok, _, imported} <-
-                       Parser.insert_imports(original_content, "#{item.imports}"),
+                       JsParser.insert_imports(original_content, "#{item.imports}"),
                      {:ok, _, extended} <-
-                       Parser.extend_var_object_by_object_names(
+                       JsParser.extend_var_object_by_object_names(
                          imported,
                          "Components",
                          "#{item.module}"
                        ),
-                     {:ok, _, formatted} <- Formatter.format(extended) do
+                     {:ok, _, formatted} <- JsFormatter.format(extended) do
                   Rewrite.Source.update(source, :content, formatted)
                 else
                   {:error, _, error} ->
@@ -549,11 +674,10 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
             import MishkaComponents from "../vendor/mishka_components.js";
             """
 
-
             with original_content <- Rewrite.Source.get(source, :content),
-                 {:ok, _, imported} <- Parser.insert_imports(original_content, imports),
-                 {:ok, _, output} <- Parser.extend_hook_object(imported, "...MishkaComponents"),
-                 {:ok, _, formatted} <- Formatter.format(output) do
+                 {:ok, _, imported} <- JsParser.insert_imports(original_content, imports),
+                 {:ok, _, output} <- JsParser.extend_hook_object(imported, "...MishkaComponents"),
+                 {:ok, _, formatted} <- JsFormatter.format(output) do
               Rewrite.Source.update(source, :content, formatted)
             else
               {:error, _, error} ->
@@ -574,10 +698,162 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.Component do
     end
   end
 
+  # Apply filters for all component attributes from config
+  defp maybe_apply_color_filter(igniter, options, template_config) do
+    apply_component_filters(igniter, options, template_config)
+  end
+
+  defp apply_component_filters(igniter, options, template_config) do
+    config = igniter.assigns.mishka_user_config
+
+    # Define attribute mappings from config keys to option keys
+    filter_mappings = [
+      {:component_colors, :color},
+      {:component_variants, :variant},
+      {:component_sizes, :size},
+      {:component_rounded, :rounded},
+      {:component_padding, :padding},
+      {:component_space, :space}
+    ]
+
+    Enum.reduce(filter_mappings, options, fn {config_key, option_key}, acc_options ->
+      apply_single_filter(config, acc_options, template_config, config_key, option_key)
+    end)
+  end
+
+  defp apply_single_filter(config, options, template_config, config_key, option_key) do
+    # Skip if option already specified in CLI
+    if Keyword.get(options, option_key) != [] do
+      options
+    else
+      configured_values = config[config_key] || []
+      available_values = template_config[:args][option_key] || []
+
+      case {configured_values, available_values} do
+        {[], _} ->
+          # No config values specified, use all
+          options
+
+        {_, []} ->
+          # Component doesn't have this option
+          options
+
+        {config_values, component_values} ->
+          # Filter to valid values for this component
+          valid_values = Enum.filter(config_values, &(&1 in component_values))
+
+          if valid_values != [] do
+            Keyword.put(options, option_key, valid_values)
+          else
+            options
+          end
+      end
+    end
+  end
+
   def convert_options(nil), do: nil
 
   def convert_options(value) when is_binary(value),
     do: String.trim(value) |> String.split(",") |> Enum.map(&String.trim/1)
 
   def convert_options(value), do: Enum.map(value, &String.trim/1)
+
+  @doc """
+  Sets up CSS files for Mishka components.
+  Can be called externally when generating multiple components.
+  """
+  def setup_css_files(igniter, options \\ []) do
+    if !options[:sub] do
+      vendor_css_path = "assets/vendor/mishka_chelekom.css"
+      app_css_path = "assets/css/app.css"
+
+      igniter
+      |> create_mishka_css(vendor_css_path)
+      |> import_and_setup_theme(app_css_path)
+    else
+      igniter
+    end
+  end
+
+  @doc false
+  def create_mishka_css(igniter, vendor_css_path) do
+    # Generate CSS content with user overrides if they exist
+    mishka_css_content = CSSConfig.generate_css_content(igniter)
+
+    igniter
+    |> Igniter.create_or_update_file(vendor_css_path, mishka_css_content, fn source ->
+      Rewrite.Source.update(source, :content, mishka_css_content)
+    end)
+    |> maybe_create_sample_config()
+  end
+
+  @doc false
+  def import_and_setup_theme(igniter, app_css_path) do
+    # Always use the original theme.css without modifications
+    theme_path = "deps/mishka_chelekom/priv/assets/css/theme.css"
+
+    with {:ok, css_content} <- File.read(app_css_path),
+         {:ok, theme_content} <- SimpleCSSUtilities.read_theme_content(theme_path),
+         {:ok, updated_content} <-
+           SimpleCSSUtilities.add_import_and_theme(
+             css_content,
+             "../vendor/mishka_chelekom.css",
+             theme_content
+           ) do
+      igniter
+      |> Igniter.create_or_update_file(app_css_path, updated_content, fn source ->
+        Rewrite.Source.update(source, :content, updated_content)
+      end)
+    else
+      {:error, :enoent} ->
+        msg = """
+        The app.css file does not exist at #{app_css_path}.
+        Please ensure your Phoenix application has been properly set up with assets.
+        """
+
+        igniter
+        |> Igniter.add_issue(msg)
+
+      {:error, reason} ->
+        igniter
+        |> Igniter.add_issue("Error processing CSS file: #{inspect(reason)}")
+    end
+  end
+
+  defp maybe_create_sample_config(igniter) do
+    # Use the actual project's priv directory, not the build directory
+    config_path = Path.join(["priv", "mishka_chelekom", "config.exs"])
+
+    if !File.exists?(config_path) do
+      {igniter, path, content} = CSSConfig.create_sample_config(igniter)
+
+      igniter
+      |> Igniter.create_or_update_file(path, content, fn source ->
+        Rewrite.Source.update(source, :content, content)
+      end)
+      |> Igniter.add_notice("""
+      Created a sample configuration file at #{path}
+
+      This configuration file allows you to customize Mishka Chelekom globally:
+
+      Component Control:
+      - exclude_components: Exclude specific components from generation
+      - component_colors: Limit which color variants are generated
+      - component_variants: Limit which variant options are generated
+      - component_sizes: Limit which size options are generated  
+      - component_rounded: Limit which rounded options are generated
+      - component_padding: Limit which padding options are generated
+      - component_space: Limit which space options are generated
+
+      CSS Customization:
+      - css_overrides: Override specific CSS variables
+      - custom_css_path: Use a completely custom CSS file
+      - css_merge_strategy: Choose between merging or replacing CSS
+
+      Your customizations will be applied when generating components.
+      """)
+    else
+      igniter
+    end
+  end
 end

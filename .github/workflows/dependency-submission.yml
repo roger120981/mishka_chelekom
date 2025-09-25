@@ -1,0 +1,26 @@
+name: Mix Dependency Submission
+
+on:
+  push:
+    branches: [master]
+
+permissions:
+  contents: write
+
+jobs:
+  submit-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1.20.4
+        with:
+          elixir-version: "1.18.4"
+          otp-version: "28"
+
+      - name: Submit Mix dependencies
+        uses: erlef/mix-dependency-submission@v1.2.1
+        with:
+          install-deps: true

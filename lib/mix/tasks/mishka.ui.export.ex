@@ -98,7 +98,7 @@ defmodule Mix.Tasks.Mishka.Ui.Export do
       # This ensures your option schema includes options from nested tasks
       composes: [],
       # `OptionParser` schema
-      schema: [base64: :boolean, template: :boolean, name: :string, org: :string],
+      schema: [base64: :boolean, template: :boolean, name: :string, org: :string, test: :boolean],
       # Default values for the options in the `schema`
       defaults: [],
       # CLI aliases
@@ -139,20 +139,22 @@ defmodule Mix.Tasks.Mishka.Ui.Export do
   @impl Igniter.Mix.Task
   def igniter(igniter) do
     # extract positional arguments according to `positional` above
-    %Igniter.Mix.Task.Args{positional: %{dir: dir}, argv: argv} = igniter.args
+    %Igniter.Mix.Task.Args{positional: %{dir: dir}} = igniter.args
 
-    options = options!(argv)
+    options = igniter.args.options
 
-    msg =
-      """
-            .-.
-           /'v'\\
-          (/   \\)
-          =="="==
-        Mishka.tools
-      """
+    if !options[:test] do
+      msg =
+        """
+              .-.
+             /'v'\\
+            (/   \\)
+            =="="==
+          Mishka.tools
+        """
 
-    IO.puts(IO.ANSI.yellow() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+      IO.puts(IO.ANSI.yellow() <> String.trim_trailing(msg) <> IO.ANSI.reset())
+    end
 
     name = Keyword.get(options, :name, "template")
     org = Keyword.get(options, :org, "component")
