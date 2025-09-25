@@ -15,6 +15,8 @@
 - Add Config file to override default configs (for example custom css)
 - Add simple CSS utilities helper and delete IgniterCss for this version
 - Add exclude components option for `mix mishka.ui.gen.components`
+- Add Collapse component
+- Add Collapsible JS Hook
 
 ### Tests:
 
