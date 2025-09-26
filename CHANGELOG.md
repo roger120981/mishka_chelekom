@@ -7,6 +7,8 @@
 - Update IgniterJS source [#40](https://github.com/ash-project/igniter_js/pull/40)
 - Update IgniterCss (but not using in this version, still we have some problems) [#14](https://github.com/ash-project/igniter_css/pull/14)
 - Improve `floating.js` to accept update request and better UX
+- Refactor Tooltip and Popover components
+- Refactor Combobox component
 
 ### Features:
 
@@ -17,6 +19,7 @@
 - Add exclude components option for `mix mishka.ui.gen.components`
 - Add Collapse component
 - Add Collapsible JS Hook
+- Add Github action for testing
 
 ### Tests:
 
@@ -34,6 +37,7 @@
 - Fix typos
 - Fix Owl error conflict version with Ash generator [Discord](https://discord.com/channels/711271361523351632/1414489258667802674)
 - Fix duplicated IDs in `dropdown` component
+- Fix installation issues of Ash Igniter
 
 ---
 
