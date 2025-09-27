@@ -14,6 +14,9 @@ jobs:
       matrix:
         elixir: ["1.18.4"]
         otp: ["28"]
+        include:
+          - elixir: "1.18.1"
+            otp: "27.2"
 
     steps:
       - uses: actions/checkout@v5
