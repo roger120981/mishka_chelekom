@@ -12,9 +12,10 @@ defmodule MishkaChelekom.ComponentTestHelper do
   def test_project_with_formatter(opts \\ []) do
     files = Keyword.get(opts, :files, %{})
 
-    files_with_formatter = Map.put_new(files, ".formatter.exs", """
-    [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
-    """)
+    files_with_formatter =
+      Map.put_new(files, ".formatter.exs", """
+      [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
+      """)
 
     opts_with_formatter = Keyword.put(opts, :files, files_with_formatter)
     Igniter.Test.test_project(opts_with_formatter)
