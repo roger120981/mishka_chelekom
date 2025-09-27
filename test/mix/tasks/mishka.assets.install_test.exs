@@ -1,7 +1,6 @@
 defmodule Mix.Tasks.Mishka.Assets.InstallTest do
   use ExUnit.Case
   import ExUnit.CaptureIO
-  @moduletag :igniter
 
   setup do
     # Create a temporary assets directory for testing

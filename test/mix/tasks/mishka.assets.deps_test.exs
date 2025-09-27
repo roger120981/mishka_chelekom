@@ -1,7 +1,6 @@
 defmodule Mix.Tasks.Mishka.Assets.DepsTest do
   use ExUnit.Case
   import Igniter.Test
-  @moduletag :igniter
 
   describe "ensure_package_json_exists/1" do
     test "creates package.json if it doesn't exist" do
