@@ -1,18 +1,17 @@
 defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
   use ExUnit.Case
-  import Igniter.Test
+  import MishkaChelekom.ComponentTestHelper
   alias Mix.Tasks.Mishka.Ui.Gen.Component
-  alias MishkaChelekom.ComponentTestHelper
   @moduletag :igniter
 
   setup do
     # Ensure Owl is started
     Application.ensure_all_started(:owl)
     # Setup test config
-    ComponentTestHelper.setup_config()
+    MishkaChelekom.ComponentTestHelper.setup_config()
 
     on_exit(fn ->
-      ComponentTestHelper.cleanup_config()
+      MishkaChelekom.ComponentTestHelper.cleanup_config()
     end)
 
     :ok
@@ -55,7 +54,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -187,7 +186,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -295,7 +294,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -411,7 +410,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -521,7 +520,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
 
       # Run the task
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.create_new_file(
           "priv/mishka_chelekom/components/component_button.eex",

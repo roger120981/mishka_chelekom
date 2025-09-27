@@ -1,18 +1,17 @@
 defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
   use ExUnit.Case
-  import Igniter.Test
+  import MishkaChelekom.ComponentTestHelper
   alias Mix.Tasks.Mishka.Ui.Gen.Component
-  alias MishkaChelekom.ComponentTestHelper
   @moduletag :igniter
 
   setup do
     # Ensure Owl is started
     Application.ensure_all_started(:owl)
     # Setup test config
-    ComponentTestHelper.setup_config()
+    MishkaChelekom.ComponentTestHelper.setup_config()
 
     on_exit(fn ->
-      ComponentTestHelper.cleanup_config()
+      MishkaChelekom.ComponentTestHelper.cleanup_config()
     end)
 
     :ok
@@ -21,7 +20,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
   describe "validation" do
     test "validates missing Phoenix dependency" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -39,7 +38,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
       """)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -52,7 +51,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
 
     test "handles missing component template" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -66,7 +65,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
       # This test validates that invalid argument values are caught
       # The component is not found because we're using deps path instead of priv path
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -86,7 +85,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
 
     test "handles missing components directory" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -133,7 +132,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
   describe "CSS configuration" do
     test "creates mishka CSS file with user config" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file(".formatter.exs", """
         [inputs: ["*.{ex,exs}", "{config,lib,test}/**/*.{ex,exs}"]]
         """)
@@ -182,7 +181,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
 
     test "skips CSS creation with --sub flag" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("assets/css/app.css", """
         @import "tailwindcss";
         """)
@@ -195,7 +194,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
 
     test "creates sample config if not exists" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("assets/css/app.css", """
         @import "tailwindcss";
         """)
@@ -219,7 +218,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
   describe "component template detection" do
     test "detects component type from name prefix" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/components/component_button.eex", "test")
         |> Igniter.create_new_file("priv/mishka_chelekom/components/component_button.exs", """
         [component_button: [args: [], necessary: [], optional: [], scripts: []]]
@@ -240,7 +239,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
 
     test "detects preset type from name prefix" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/presets/preset_form.eex", "test")
         |> Igniter.create_new_file("priv/mishka_chelekom/presets/preset_form.exs", """
         [preset_form: [args: [], necessary: [], optional: [], scripts: []]]
@@ -261,7 +260,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
 
     test "detects template type from name prefix" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/templates/template_layout.eex", "test")
         |> Igniter.create_new_file("priv/mishka_chelekom/templates/template_layout.exs", """
         [template_layout: [args: [], necessary: [], optional: [], scripts: []]]
@@ -281,7 +280,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentTest do
     end
 
     test "returns error for non-existent component" do
-      igniter = test_project()
+      igniter = test_project_with_formatter()
       result = Component.get_component_template(igniter, "non_existent")
 
       assert {:error, :no_component, msg, _igniter} = result

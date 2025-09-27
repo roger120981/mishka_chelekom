@@ -1,6 +1,7 @@
 defmodule Mix.Tasks.Mishka.Ui.AddTest do
   use ExUnit.Case
   import Igniter.Test
+  import MishkaChelekom.ComponentTestHelper
   alias Mix.Tasks.Mishka.Ui.Add
   import Plug.Conn
   @moduletag :igniter
@@ -58,7 +59,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       on_exit(fn -> File.rm!(json_path) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       # Verify component files were created
@@ -107,7 +108,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       on_exit(fn -> File.rm!(json_path) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert_creates(igniter, "priv/mishka_chelekom/presets/button_preset.eex")
@@ -142,7 +143,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       on_exit(fn -> File.rm!(json_path) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert_creates(igniter, "priv/mishka_chelekom/templates/form_template.eex")
@@ -168,7 +169,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       on_exit(fn -> File.rm!(json_path) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       # JavaScript files create only .js files
@@ -212,7 +213,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       on_exit(fn -> File.rm!(json_path) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert_creates(igniter, "priv/mishka_chelekom/components/component_one.eex")
@@ -228,7 +229,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       on_exit(fn -> File.rm!(json_path) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", [json_path, "--test", "--yes"])
 
       assert Enum.any?(igniter.issues, fn issue ->
@@ -238,7 +239,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
 
     test "handles non-existent file" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", [
           "/path/that/does/not/exist.json",
           "--test",
@@ -275,7 +276,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.add", ["component_alert_001", "--test"])
 
       # If this passes, it means we successfully downloaded and processed the component
@@ -314,7 +315,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
       # Use capture_io with input to automatically answer "y" to security prompt
       ExUnit.CaptureIO.capture_io("y\n", fn ->
         igniter =
-          test_project()
+          test_project_with_formatter()
           |> Igniter.compose_task("mishka.ui.add", [
             "https://raw.githubusercontent.com/mishka-group/mishka_chelekom_community/refs/heads/master/components/component_alert_001.json",
             # This flag ensures the test adapter is used

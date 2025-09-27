@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.Mishka.Ui.ExportTest do
   use ExUnit.Case
-  import Igniter.Test
+  import MishkaChelekom.ComponentTestHelper
   @moduletag :igniter
 
   describe "template creation" do
@@ -10,7 +10,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       on_exit(fn -> File.rm_rf!(test_dir) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--template", "--test"])
 
       # Find the template file - it might have a relative path key
@@ -43,7 +43,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       on_exit(fn -> File.rm_rf!(test_dir) end)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [
           test_dir,
           "--template",
@@ -72,7 +72,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       non_existent_dir = "/path/that/does/not/exist"
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [non_existent_dir, "--test"])
 
       # Issues in igniter are strings
@@ -101,7 +101,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       File.write!(Path.join(test_dir, "button_script.js"), js_content)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--test"])
 
       template_file_key =
@@ -140,7 +140,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       File.write!(Path.join(test_dir, "special.js"), js_content)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--base64", "--test"])
 
       template_file_key =
@@ -172,7 +172,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       File.write!(Path.join(test_dir, "component_test.eex"), "<div>Test</div>")
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--test"])
 
       # Should have validation error about missing .exs file
@@ -200,7 +200,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       )
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--test"])
 
       # Should create JSON file successfully
@@ -239,7 +239,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       File.write!(Path.join(test_dir, "test.js"), "// test content")
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--name", "my_export", "--test"])
 
       my_export_file_key =
@@ -271,7 +271,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       File.write!(Path.join(test_dir, "test.js"), "// test content")
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--org", "preset", "--test"])
 
       template_file_key =
@@ -303,7 +303,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       File.write!(Path.join(test_dir, "test.js"), "// test content")
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--org", "invalid_type", "--test"])
 
       template_file_key =
@@ -363,7 +363,7 @@ defmodule Mix.Tasks.Mishka.Ui.ExportTest do
       File.write!(Path.join(test_dir, "component_alert_001.exs"), component_exs_content)
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task("mishka.ui.export", [test_dir, "--base64", "--test"])
 
       template_file_key =

@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
   use ExUnit.Case
-  import Igniter.Test
+  import MishkaChelekom.ComponentTestHelper
   alias Mix.Tasks.Mishka.Ui.Css.Config
   @moduletag :igniter
 
@@ -14,7 +14,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
   describe "mix mishka.ui.css.config --init" do
     test "creates config file when it doesn't exist" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task(Config, ["--init"])
 
       # Should create the config file
@@ -30,7 +30,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
     test "does not overwrite existing config without --force" do
       # Create existing config in the test project
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", "# Existing")
 
       igniter_after = Igniter.compose_task(igniter, Config, ["--init"])
@@ -48,7 +48,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
     test "overwrites with --force flag" do
       # Create existing config in test project
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", "# Old content")
         |> Igniter.compose_task(Config, ["--init", "--force"])
 
@@ -78,7 +78,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--regenerate"])
 
@@ -110,7 +110,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
 
@@ -131,7 +131,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
 
@@ -148,7 +148,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
 
@@ -167,7 +167,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
 
@@ -189,7 +189,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
 
@@ -208,7 +208,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--validate"])
 
@@ -230,7 +230,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
       """
 
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.create_new_file("priv/mishka_chelekom/config.exs", config_content)
         |> Igniter.compose_task(Config, ["--show"])
 
@@ -242,7 +242,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
 
     test "shows default when no config" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task(Config, ["--show"])
 
       # Check notices
@@ -255,7 +255,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
   describe "option aliases" do
     test "supports -i for --init" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task(Config, ["-i"])
 
       assert igniter.rewrite.sources["priv/mishka_chelekom/config.exs"]
@@ -266,7 +266,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
   describe "help message" do
     test "shows help when no options provided" do
       igniter =
-        test_project()
+        test_project_with_formatter()
         |> Igniter.compose_task(Config, [])
 
       warnings_text = Enum.join(igniter.warnings, " ")

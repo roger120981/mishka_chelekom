@@ -1,12 +1,12 @@
 defmodule MishkaChelekom.CSSConfigSmokeTest do
   use ExUnit.Case
   alias MishkaChelekom.CSSConfig
-  import Igniter.Test
+  import MishkaChelekom.ComponentTestHelper
   @moduletag :igniter
 
   describe "CSSConfig.create_sample_config/1" do
     test "creates sample config with proper structure" do
-      igniter = test_project()
+      igniter = test_project_with_formatter()
       {_igniter, path, content} = CSSConfig.create_sample_config(igniter)
 
       # Verify path
@@ -48,7 +48,7 @@ defmodule MishkaChelekom.CSSConfigSmokeTest do
     end
 
     test "sample config is valid Elixir syntax" do
-      igniter = test_project()
+      igniter = test_project_with_formatter()
       {_igniter, _path, content} = CSSConfig.create_sample_config(igniter)
 
       # Create a temporary file to test syntax
@@ -68,7 +68,7 @@ defmodule MishkaChelekom.CSSConfigSmokeTest do
 
   describe "CSSConfig basic functionality" do
     test "load_user_config returns defaults when no config exists" do
-      igniter = test_project()
+      igniter = test_project_with_formatter()
       config = CSSConfig.load_user_config(igniter)
 
       assert config.css_overrides == %{}
