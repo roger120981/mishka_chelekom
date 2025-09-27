@@ -3,6 +3,7 @@ defmodule Mix.Tasks.Mishka.Ui.Gen.ComponentIntegrationTest do
   import Igniter.Test
   alias Mix.Tasks.Mishka.Ui.Gen.Component
   alias MishkaChelekom.ComponentTestHelper
+  @moduletag :igniter
 
   setup do
     # Ensure Owl is started

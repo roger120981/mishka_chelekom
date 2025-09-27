@@ -2,6 +2,7 @@ defmodule Mix.Tasks.Mishka.Ui.Css.ConfigTest do
   use ExUnit.Case
   import Igniter.Test
   alias Mix.Tasks.Mishka.Ui.Css.Config
+  @moduletag :igniter
 
   setup do
     # Ensure Owl is started

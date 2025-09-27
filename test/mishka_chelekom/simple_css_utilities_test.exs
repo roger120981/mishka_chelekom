@@ -1,6 +1,7 @@
 defmodule MishkaChelekom.SimpleCSSUtilitiesTest do
   use ExUnit.Case
   alias MishkaChelekom.SimpleCSSUtilities
+  @moduletag :igniter
 
   describe "add_import/3" do
     test "adds import to empty CSS" do

@@ -2,6 +2,7 @@ defmodule MishkaChelekom.CSSConfigSmokeTest do
   use ExUnit.Case
   alias MishkaChelekom.CSSConfig
   import Igniter.Test
+  @moduletag :igniter
 
   describe "CSSConfig.create_sample_config/1" do
     test "creates sample config with proper structure" do

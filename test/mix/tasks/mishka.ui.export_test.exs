@@ -1,6 +1,7 @@
 defmodule Mix.Tasks.Mishka.Ui.ExportTest do
   use ExUnit.Case
   import Igniter.Test
+  @moduletag :igniter
 
   describe "template creation" do
     test "creates default JSON template when --template flag is used" do

@@ -3,6 +3,7 @@ defmodule Mix.Tasks.Mishka.Ui.AddTest do
   import Igniter.Test
   alias Mix.Tasks.Mishka.Ui.Add
   import Plug.Conn
+  @moduletag :igniter
 
   setup do
     # Ensure Owl application is started
