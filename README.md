@@ -272,3 +272,11 @@ We appreciate any contribution to MishkaChelekom. Just create a PR!! 🎉🥳
 # Donate
 
 You can support this project through the "[Sponsor](https://github.com/sponsors/mishka-group)" button on GitHub. All our projects are **open-source** and **free**, and we rely on community contributions to enhance and improve them further.
+
+---
+
+#### 🏆 Logo Tier Sponsors
+
+<a href="https://www.mftlabs.io/" target="_blank" rel="noopener noreferrer">
+  <img width="100" height="100" alt="mft labs logo for web" src="https://github.com/user-attachments/assets/92f558c1-062d-4ccf-8412-a259fbf33914" />
+</a>
