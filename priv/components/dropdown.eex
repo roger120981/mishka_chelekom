@@ -162,7 +162,7 @@ defmodule <%= @module %> do
           border_class(@border, @variant),
           padding_size(@padding),
           @font_weight,
-          @class
+          content[:class]
         ]}
         {@rest}
       >
