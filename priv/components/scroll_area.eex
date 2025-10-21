@@ -28,15 +28,18 @@ defmodule <%= @module %> do
     doc: "A unique identifier is used to manage state and interaction"
 
   attr :type, :string, default: "auto", doc: "hover, auto, never"
-  attr :horizontal, :boolean, default: false, doc: "Determines height of wrapper"
-  attr :vertical, :boolean, default: true, doc: "Determines height of wrapper"
+  attr :horizontal, :boolean, default: false, doc: "Enables horizontal scrollbar visibility"
+  attr :vertical, :boolean, default: true, doc: "Enables vertical scrollbar visibility"
   attr :height, :string, default: "h-96", doc: "Determines height of wrapper"
   attr :width, :string, default: "w-full", doc: "Determines width of wrapper"
   attr :padding, :string, default: "extra_small", doc: "Add paddings to content"
-  attr :class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :content_class, :string, default: nil, doc: "Custom CSS class for additional styling"
-  attr :scrollbar_width, :string, default: "w-2", doc: "Custom CSS class for width of scrollbar y"
-  attr :scrollbar_height, :string, default: "h-2", doc: "Custom CSS class for height of scrollbar x"
+  attr :class, :string, default: nil, doc: "Custom CSS class for the scroll area wrapper"
+  attr :content_class, :string, default: nil, doc: "Custom CSS class for the inner content area"
+  attr :scrollbar_width, :string, default: "w-2", doc: "Custom CSS class for vertical scrollbar width"
+
+  attr :scrollbar_height, :string,
+    default: "h-2",
+    doc: "Custom CSS class for horizontal scrollbar height"
 
   attr :rest, :global,
     doc:
